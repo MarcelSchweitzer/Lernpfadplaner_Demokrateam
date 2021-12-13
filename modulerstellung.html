@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>ILernpfadPlaner - Modulerstellung</title>
+        <script src="modulerstllung.js"></script>
+    </head>
+
+    <body>
+        <!--Modulname und Beschreibung-->
+        <h1>Modulerstellung</h1>
+        <hr>
+        <form action="" method="get">
+            <label for="modulname"> Modulname:</label>
+            <input type="text" id="modulname" name="modulname" placeholder="Name des Moduls">
+            <lable for="discription"> Beschreibung:</lable>
+            <textarea id="discription" name="discription" rows=4 cols=30 maxlength=120 placeholder="Beschreibung des Moduls"></textarea>
+        </form>
+
+        <!--Interaktions Kategorien-->
+        <h2></span>Kategorien</h2>
+        <br>
+        <div id="categories">
+            <div id="global-t" onclick="toggleCategoies('global-i')">Global</div>
+            <div id="h5p-t" onclick="toggleCategoies('h5p-i')">H5P</div>
+            <div id="moodle-t" onclick="toggleCategoies('moodle-i')">Moodle</div>
+            <div id="ilias-t" onclick="toggleCategoies('ilias-i')">ILIAS</div>
+            <div id="adobeCaptivate-t" onclick="toggleCategoies('adobeCaptivate-i')">Adobe Captivate</div>
+            <div id="3DVista-t" onclick="toggleCategoies('3DVista-i')">3DVista</div>
+        </div>
+
+        <!--Interaktionstypen Checkboxen-->
+        <div id="interactionTypes">
+            
+            <!--Global Interaktionstypen-->
+            <ul id="global-i">
+                <li>
+                    <lable for="freieAuswahl">Freie Auswahl</lable>
+                    <input type="checkbox" id="freieAuswahl" name="global-cb">
+                </li>
+                <li>
+                    <lable for="freieZeichnfeld">Freie Zeichenfeld</lable>
+                    <input type="checkbox" id="freieZeichenfeld" name="global-cb">
+                </li>
+                <li>
+                    <lable for="enbedded">Enbedded</lable>
+                    <input type="checkbox" id="enbedded" name="global-cb">
+                </li>
+                <li>
+                    <lable for="feedback">Feedback</lable>
+                    <input type="checkbox" id="feedback" name="global-cb">
+                </li>
+                <li>
+                    <lable for="chat">Chat</lable>
+                    <input type="checkbox" id="chat" name="global-cb">
+                </li>
+                <li>
+                    <lable for="videokonferenz">Videokonferenz</lable>
+                    <input type="checkbox" id="videokonferenz" name="global-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("global-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("global-cb")' value="Alle abwählen"/>
+                    <!--Toggle oder einzelne Button?-->
+                    <input type="button" onclick='toggleSelect("global-cb")' value="toggle"/>
+                </p>
+            </ul>
+            
+            <!--H5p Interaktionstypen-->
+            <ul id="h5p-i">
+                <li>
+                    <lable for="interactivBook">Interactiv Book</lable>
+                    <input type="checkbox" id="interactivBook" name="h5p-cb">
+                </li>
+                <li>
+                    <lable for="twitterUserFeed">Twitter User Feed</lable>
+                    <input type="checkbox" id="twitterUserFeed" name="h5p-cb">
+                </li>
+                <li>
+                    <lable for="greetingCard">Greeting Card</lable>
+                    <input type="checkbox" id="greetingCard" name="h5p-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("h5p-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("h5p-cb")' value="Alle abwählen"/>
+                </p>
+            </ul>
+        
+            <!--Moodle Interaktionstypen-->
+            <ul id="moodle-i">
+                <li>
+                    <lable for="multipleChoiceFragen">Multiple-Choice-Fragen</lable>
+                    <input type="checkbox" id="multipleChoiceFragen" name="moodle-cb">
+                </li>
+                <li>
+                    <lable for="wahrFalschFragen">Wahr/Falsch-Fragen</lable>
+                    <input type="checkbox" id="wahrFalschFragen" name="moodle-cb">
+                </li>
+                <li>
+                    <lable for="kurzantwortFragen">Kurzantwort-Fragen</lable>
+                    <input type="checkbox" id="kurzantwortFragen" name="moodle-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("moodle-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("moodle-cb")' value="Alle abwählen"/>
+                </p>
+            </ul>
+
+            <!--ILIAS Interaktionstypen-->
+            <ul id="ilias-i">
+                <li>
+                    <lable for="begriffeBenennen">Begriffe benennen</lable>
+                    <input type="checkbox" id="begriffeBenennen" name="ilias-cb">
+                </li>
+                <li>
+                    <lable for="mutipleChoiceFragen">Mutiple-Choice-Fragen</lable>
+                    <input type="checkbox" id="mutipleChoiceFragen" name="ilias-cb">
+                </li>
+                <li>
+                    <lable for="singleChoice">Single Choice</lable>
+                    <input type="checkbox" id="singleChoice" name="ilias-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("ilias-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("ilias-cb")' value="Alle abwählen"/>
+                </p>
+            </ul>
+            
+            <!--Adobe Captivate Interaktionstypen-->
+            <ul id="adobeCaptivate-i">
+                <li>
+                    <lable for="accordion">Accordion</lable>
+                    <input type="checkbox" id="accordion" name="adobeCaptivate-cb">
+                </li>
+                <li>
+                    <lable for="tabs">Tabs</lable>
+                    <input type="checkbox" id="tabs" name="adobeCaptivate-cb">
+                </li>
+                <li>
+                    <lable for="prosessCircle">Prosess Circle</lable>
+                    <input type="checkbox" id="prosessCircle" name="adobeCaptivate-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("adobeCaptivate-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("adobeCaptivate-cb")' value="Alle abwählen"/>
+                </p>
+            </ul>
+            
+            <!--3D Vista Interaktionstypen-->
+            <ul id="3DVista-i">
+                <li>
+                    <lable for="albumOeffen">Album öffen</lable>
+                    <input type="checkbox" id="albumOeffen" name="3DVista-cb">
+                </li>
+                <li>
+                    <lable for="video">Video</lable>
+                    <input type="checkbox" id="video" name="3DVista-cb">
+                </li>
+                <li>
+                    <lable for="360Video">360° Video</lable>
+                    <input type="checkbox" id="360Video" name="3DVista-cb">
+                </li>
+                <!--Hier weiter führen-->
+                <p>
+                    <input type="button" onclick='selectAll("3DVista-cb")' value="Alle auswählen"/>
+                    <input type="button" onclick='UnSelectAll("3DVista-cb")' value="Alle abwählen"/>
+                </p>
+            </ul>
+            
+        </div>
+        <!--Modul erstellen Button-->
+        <a href="./modulauswahl.html">Erstellen</a>
+    </body>
+</html>
