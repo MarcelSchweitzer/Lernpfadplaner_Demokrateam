@@ -1,11 +1,14 @@
 // import LearningPath from LearningPath
-import toolkit from toolkit
+import {rmByIndex, rmByValue, mvByIndex} from "/src/modules/array_toolkit.mjs"
 
 // lp = new LearningPath("test")
 
 
 // test array_toolkit
-test_arr = ["max", "wassim", "hannah", "malcolm"]
+var test_arr = ["max", "wassim", "hannah", "malcolm", "hadis", "behnaz", "daniel", "adrian"]
 
-array = rmByIndex(test_arr, 1)
+test_arr = rmByValue(test_arr, "max")
+test_arr = rmByIndex(test_arr, 2)
+console.log(test_arr);
+test_arr = mvByIndex(test_arr, 2, 6)
 console.log(test_arr);
