@@ -1,10 +1,10 @@
 // remove by index
-function rmByIndex(arr, index) {
+export function rmByIndex(arr, index) {
   return arr.splice(index, 1)
 }
 
 // move one elem from one index to another
-function mvByIndex(arr, index, newIndex) {
+export function mvByIndex(arr, index, newIndex) {
   if (newIndex != index) {
     arr = arr.splice(newIndex, 0, arr[index])
 
