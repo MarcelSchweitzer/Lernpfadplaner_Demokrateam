@@ -1,5 +1,5 @@
 class LearningPath{
- constructor(name){ //TODO: getNextFreeName method for name
+ constructor(name){ //TODO: getNextFreeName function for name
   this.module = new Module(name);
   this.learningGoal = new LearningGoal();
  }
@@ -29,32 +29,60 @@ class LearningGoal{
 
 class Module{
  constructor(name, description = "", notes =""){
-  this.name = name;
-  this.description = description;
-  this.notes = notes;
+  this.name = name; //String
+  this.description = description; //String
+  this.notes = notes; //String
 
-  this.scenarioIDs = [];
+  this.scenarios = []; //Scenario-Array
+
+  this.categoryIDs = []; //Int-Array
+  this.interactionTypeIDs = []; //Int-Array
+
  }
 
-setName(){}
-getName(){}
+ setName(name){this.name = name;}
+ getName(){return this.name;}
 
-setDescripton(){}
-getDescription(){}
+ setDescripton(description){this.description = description;}
+ getDescription(){return this.description;}
 
-setNotes(){}
-getNotes(){}
+ setNotes(notes){this.notes = notes;}
+ getNotes(){return this.notes;}
 
-createScenario(){}
-deleteScenario(){}
+ createScenario(index){
+  //Objekt muss passend eingefügt werden
+  //bei Einfügen in der Mitte müssen Objekte passend nach hinten verschoben werden
+  this.scenarios[index] = new Scenario();
+ }
+ moveScenario(indexOld, indexNew){
+  //Objekt muss passend neu eingefügt werden
+  //altes Objekt muss passend rausgelöscht werden -> siehe deleteScenario
+  this.scenarios.splice(indexNew, 0, this.scenarios[indexOld]);
+ }
+ deleteScenario(index){
+  //objekt muss entfernt werden
+  //bei objekt in der mitte muss zusätzlich die restlichen nachrücken -> nicht undefined hinterlassen
+  //liste muss passend verkürzt werden
+  delete this.scenarios[index];
+ }
 
-setCategories(){}
-getCategories(){}
+ setCategories(categories){this.categoryIDs = categories}
+ getCategories(){return this.categoryIDs}
 
-setInteractionTypes(){}
-getInteractionTypes(){}
+ setInteractionTypes(interactionTypes){this.interactionTypeIDs = interactionTypes}
+ getInteractionTypes(){return this.interactionTypeIDs}
 
-getExTaxonomy(){}
-getUsedLicense(){}
-getEvaluations(){}
+ getExTaxonomy(){
+  //soll die höchste Taxonomy-Stufe unter allen Szenarien herausfinden
+ }
+ getUsedLicense(){
+  //soll eine Liste aller benutzter Lizenzen zusammenstellen
+ }
+ getEvaluations(){
+  //soll alle vorhandenen Evaluations zusammenzählen
+ }
+}
+
+class Scenario{
+ constructor(){}
 }
