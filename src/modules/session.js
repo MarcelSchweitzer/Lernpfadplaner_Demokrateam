@@ -1,8 +1,8 @@
-import * as learningPath from '/src/modules/learningpath.mjs'
-import * as arrTk from '/src/modules/arrayToolkit.mjs'
-import * as unique from '/src/modules/uniqueIdentifiers.mjs'
+import LearningPath from '/src/modules/learningpath.js'
+import * as arrTk from '/src/modules/arrayToolkit.js'
+import * as unique from '/src/modules/uniqueIdentifiers.js'
 
-class Session{
+export default class Session{
     constructor(){
         this.learningPaths = [];
         this.currentLearningPathId = null;
@@ -46,10 +46,10 @@ class Session{
         return names
     }    
 
-    // create learning path meaning (add + open)
+    // create learningpath meaning (add + open)
     createLearningPath(id=null, name=null){ 
-        var newId = this.addLearningPath();
-        this.openLearningPath(newId)
+        var newLP = this.addLearningPath();
+        this.openLearningPath(newLP)
     }
 
     // add learning path to list and return id
@@ -64,11 +64,21 @@ class Session{
             // get unique unused name if not passed 
             name = unique.uniqueName('lernpfad', this.getLearningPathNames())
 
-        var lp = new learningPath.LearningPath(id, name);
+        var lp = new LearningPath(id, name);
         this.learningPaths = arrTk.insertAt(this.learningPaths, lp);
 
         // return id
         return lp.getId()
+    }
+
+    // remove Learning Path from list
+    removeLearningPath(id){
+
+        // if deleted path is opened -> close
+        if(this.currentLearningPathId == id)
+            this.closeLearningPath();
+        
+        this.learningPaths = arrTk.rmById(this.learningPaths, id);
     }
 
     // open a learning path by id
@@ -103,25 +113,3 @@ class Session{
 
     }
 }
-
-
-// test session
-var sess = new Session();
-
-// creat test learning path
-sess.createLearningPath();
-
-sess.addLearningPath();
-sess.addLearningPath();
-sess.addLearningPath();
-sess.addLearningPath();
-sess.addLearningPath();
-sess.addLearningPath();
-
-console.log(sess.getLearningPathIds())
-
-console.log(sess.readCurrentLearningPath().getName())
-console.log(sess.readCurrentLearningPath().getId())
-sess.openLearningPath(sess.getLearningPathIds()[2])
-console.log(sess.readCurrentLearningPath().getId())
-console.log(sess.readCurrentLearningPath().getName())

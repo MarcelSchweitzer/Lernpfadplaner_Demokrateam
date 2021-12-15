@@ -1,6 +1,6 @@
-import * as arrTk from '/src/modules/arrayToolkit.mjs'
+import * as arrTk from '/src/modules/arrayToolkit.js'
 
-export class LearningPath {
+export default class LearningPath {
   constructor(id, name) {
     this.id = id; 
     this.module = new Module(name);
@@ -55,6 +55,7 @@ class Module {
   setNotes(notes) { this.notes = notes; }
   getNotes() { return this.notes; }
 
+  // create scanario at any position
   createScenario(index=null, title=null) {
     sc = new Scenario(title)
     this.scenarios = arrTk.insertAt(this.scenarios, sc, index)
