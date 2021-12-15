@@ -1,5 +1,5 @@
 // return a unique id
-export function uniqueId(listOfIds){
+function uniqueId(listOfIds){
     while(true){
         var randomId = Math.floor(100000 + Math.random() * 9000000000);
         if(!listOfIds.includes(randomId))
@@ -8,7 +8,7 @@ export function uniqueId(listOfIds){
 }
 
 // return a standard name with incrementing numbers
-export function uniqueName(schema, listOfNames){
+function uniqueName(schema, listOfNames){
     var name = schema;
     var num = 1;
 
@@ -20,3 +20,6 @@ export function uniqueName(schema, listOfNames){
         num++;
     }
 }
+
+module.exports.uniqueId = uniqueId;
+module.exports.uniqueName = uniqueName;

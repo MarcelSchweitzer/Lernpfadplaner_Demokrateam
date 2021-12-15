@@ -1,6 +1,6 @@
-import * as arrTk from '/src/js/arrayToolkit.js'
+const arrTk = require('./arrayToolkit.js') 
 
-export default class LearningPath {
+class LearningPath {
   constructor(id, name) {
     this.id = id; 
     this.module = new Module(name);
@@ -108,3 +108,5 @@ class Scenario {
 
   // TODO 
 }
+
+module.exports.LearningPath = LearningPath;

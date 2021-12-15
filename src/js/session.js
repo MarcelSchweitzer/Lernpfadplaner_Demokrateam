@@ -1,8 +1,8 @@
-import LearningPath from '/src/js/learningpath.js'
-import * as arrTk from '/src/js/arrayToolkit.js'
-import * as unique from '/src/js/uniqueIdentifiers.js'
+const learningPath = require('./learningpath.js')
+const arrTk = require('./arrayToolkit.js') 
+const uniq = require('./uniqueIdentifiers.js') 
 
-export default class Session{
+class Session{
     constructor(){
         this.learningPaths = [];
         this.currentLearningPathId = null;
@@ -57,14 +57,14 @@ export default class Session{
         if(id === null)
 
             // get unique unused id if not passed
-            id = unique.uniqueId(this.getLearningPathIds());
+            id = uniq.uniqueId(this.getLearningPathIds());
 
         if(name === null)
 
             // get unique unused name if not passed 
-            name = unique.uniqueName('lernpfad', this.getLearningPathNames())
+            name = uniq.uniqueName('lernpfad', this.getLearningPathNames())
 
-        var lp = new LearningPath(id, name);
+        var lp = new learningPath.LearningPath(id, name);
         this.learningPaths = arrTk.insertAt(this.learningPaths, lp);
 
         // return id
@@ -113,3 +113,5 @@ export default class Session{
 
     }
 }
+
+module.exports.Session = Session;

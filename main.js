@@ -1,5 +1,5 @@
-import Session from '/src/js/session.js'
-import * as arrTK from '/src/js/arrayToolkit.js'
+const session = require('./src/js/session.js') 
+const arrTK = require('./src/js/arrayToolkit.js') 
 
 // test array_toolkit
 var test_arr = []
@@ -34,7 +34,7 @@ test_arr = arrTK.mvByIndex(test_arr, 0, 4)
 console.log(test_arr);
 
 // test session
-var sess = new Session();
+var sess = new session.Session();
 
 // create test learning path
 sess.createLearningPath();

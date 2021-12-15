@@ -1,5 +1,5 @@
 // remove by index
-export function rmByIndex(arr, ind){
+function rmByIndex(arr, ind){
   if(ind >= arr.length || ind < 0)
     throw 'Index Out of Bound!'
   else
@@ -9,14 +9,14 @@ export function rmByIndex(arr, ind){
 }
 
 // remove by id
-export function rmById(arr, id){
+function rmById(arr, id){
   return arr.filter(function(value){ 
     return value.getId() != id
   });
 }
 
 // move one elem from one index to another
-export function mvByIndex(arr, index, newIndex) {
+function mvByIndex(arr, index, newIndex) {
   if(index >= arr.length || newIndex >= arr.length
     || index < 0 || newIndex < 0 || arr.length < 1){
     throw 'Index Out of Bound!'
@@ -39,7 +39,7 @@ export function mvByIndex(arr, index, newIndex) {
   return arr
 }
 
-export function insertAt(arr, element, index=null){
+function insertAt(arr, element, index=null){
   if(index > arr.length || index < 0)
     throw 'Index Out of Bound!'
 
@@ -51,3 +51,8 @@ export function insertAt(arr, element, index=null){
 
   return arr
 }
+
+module.exports.rmByIndex = rmByIndex;
+module.exports.rmById = rmById;
+module.exports.mvByIndex = mvByIndex;
+module.exports.insertAt = insertAt;
