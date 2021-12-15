@@ -6,10 +6,22 @@
     </head>
 
     <body>
-        <button type="button" id="testBtn">Modul Bearbeiten</button>
+        <button type="button" id="settings">Einstellungen</button>
+        <h1>
+            Lernpfadplaner 
+        </h1>
         <p>
-            Lernpfadplaner Inhalt
+            verfuegbare Module
         </p>
+        <ul>
+            <% data.learningPathNames.forEach(lp=>{ %>
+                <li> 
+                    <button type="button" id="open<%= lp %>"><%= lp %></button> 
+                    <button type="button" id="delete<%= lp %>">x</button> 
+                </li>
+            <% }); %>
+        </ul>
+        <button type="button" id="createLp">Lernpfad erstellen</button>
     </body>
 
 </html>
