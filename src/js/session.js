@@ -1,6 +1,6 @@
-import LearningPath from '/src/modules/learningpath.js'
-import * as arrTk from '/src/modules/arrayToolkit.js'
-import * as unique from '/src/modules/uniqueIdentifiers.js'
+import LearningPath from '/src/js/learningpath.js'
+import * as arrTk from '/src/js/arrayToolkit.js'
+import * as unique from '/src/js/uniqueIdentifiers.js'
 
 export default class Session{
     constructor(){

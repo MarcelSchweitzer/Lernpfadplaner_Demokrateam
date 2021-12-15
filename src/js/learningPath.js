@@ -1,4 +1,4 @@
-import * as arrTk from '/src/modules/arrayToolkit.js'
+import * as arrTk from '/src/js/arrayToolkit.js'
 
 export default class LearningPath {
   constructor(id, name) {
