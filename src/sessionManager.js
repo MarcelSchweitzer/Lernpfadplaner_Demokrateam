@@ -16,21 +16,24 @@ class Session{
 
     // get a read only object representation of current lp 
     readCurrentLearningPath(){ 
-        return this.getLearningPathById(this.currentLearningPathId);
+        if(this.currentLearningPathId === null)
+            return null
+        return this.readLearningPathById(this.currentLearningPathId);
     }
 
-    // get learningpath object by index
-    getLearningPathById(id){
+    // get a read only object representation by id 
+    readLearningPathById(id){
         for (var lp in this.learningPaths){
             if(this.learningPaths[lp].getId() == id)
                 return this.learningPaths[lp]
         }
+        return null
     }
 
     // return list of all available learning path ids 
     getLearningPathIds(){ 
         var ids = [];
-        for (lp in this.learningPaths)
+        for (var lp in this.learningPaths)
             ids.push(this.learningPaths[lp].getId())
         return ids
     }
@@ -38,7 +41,7 @@ class Session{
     // return list of all available learning path names 
     getLearningPathNames(){ 
         var names = [];
-        for (lp in this.learningPaths)
+        for (var lp in this.learningPaths)
             names.push(this.learningPaths[lp].getName())
         return names
     }    
@@ -75,7 +78,7 @@ class Session{
 
     // close the current learning path
     closeLearningPath(){
-        this.CurrentLearningPathId = null;
+        this.currentLearningPathId = null;
     }
 
     // load learning paths from disk (json)
@@ -105,9 +108,20 @@ class Session{
 // test session
 var sess = new Session();
 
-// add test learning path
+// creat test learning path
 sess.createLearningPath();
 
+sess.addLearningPath();
+sess.addLearningPath();
+sess.addLearningPath();
+sess.addLearningPath();
+sess.addLearningPath();
+sess.addLearningPath();
 
-// print name
+console.log(sess.getLearningPathIds())
+
+console.log(sess.readCurrentLearningPath().getName())
+console.log(sess.readCurrentLearningPath().getId())
+sess.openLearningPath(sess.getLearningPathIds()[2])
+console.log(sess.readCurrentLearningPath().getId())
 console.log(sess.readCurrentLearningPath().getName())
