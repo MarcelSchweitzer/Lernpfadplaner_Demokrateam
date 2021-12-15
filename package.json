@@ -1,11 +1,8 @@
 {
   "name": "lernpfadplaner_demokrateam",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "main": "main.js",
-  "directories": {
-    "test": "tests"
-  },
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,8 +11,8 @@
     "url": "git+https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Demokrateam",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/issues"
   },
