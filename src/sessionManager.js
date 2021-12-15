@@ -1,5 +1,5 @@
 import * as learningPath from '/src/modules/learningpath.mjs'
-import * as arrTk from '/src/modules/array_toolkit.mjs'
+import * as arrTk from '/src/modules/arrayToolkit.mjs'
 import * as unique from '/src/modules/uniqueIdentifiers.mjs'
 
 class Session{

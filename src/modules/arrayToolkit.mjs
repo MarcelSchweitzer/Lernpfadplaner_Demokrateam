@@ -47,11 +47,10 @@ export function insertAt(arr, element, index=null){
   if(index === null)
     index = arr.length
   
-  if(arr.length > 0){
+  if(arr.length > 0)
     arr.splice(index, 0, element)
-  }else{
+  else
     arr.push(element)
-  }
 
   return arr
 }

@@ -1,5 +1,5 @@
 import * as learningPath from '/src/modules/learningpath.mjs'
-import {rmByIndex, mvByIndex, insertAt} from '/src/modules/array_toolkit.mjs'
+import {rmByIndex, mvByIndex, insertAt} from '/src/modules/arrayToolkit.mjs'
 
 // test learningPath
 
