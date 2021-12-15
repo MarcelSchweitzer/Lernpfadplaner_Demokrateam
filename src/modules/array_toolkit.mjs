@@ -4,14 +4,14 @@ export function rmByIndex(arr, ind){
     throw 'Index Out of Bound!'
   else
     return arr.filter(function(value, index){ 
-      return index != ind;
+      return index != ind
     });
 }
 
-// remove by value
-export function rmByValue(arr, val){
+// remove by id
+export function rmById(arr, id){
   return arr.filter(function(value){ 
-    return value != val;
+    return value.getId() != id
   });
 }
 
@@ -47,5 +47,11 @@ export function insertAt(arr, element, index=null){
   if(index === null)
     index = arr.length
   
-  return arr.splice(index, 0, element)  
+  if(arr.length > 0){
+    arr.splice(index, 0, element)
+  }else{
+    arr.push(element)
+  }
+
+  return arr
 }
