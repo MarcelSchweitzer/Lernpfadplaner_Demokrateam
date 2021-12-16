@@ -1,9 +1,13 @@
 const express = require('express');
 const path = require('path');
 const session = require('./backend/src/js/session.cjs');
+const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
 
 const sess = new session.Session();
 const app = express();
+const scriptPacks = fst.readJsonSync('./views/scriptPacks.json');
+
+const port = 8082;
 
 // use ejs as view engine 
 app.set('view engine', 'ejs');
@@ -25,6 +29,7 @@ app.get('/', function (req, res) {
 
   // return ejs rendered page for home screen
   res.render('index', {data: {
+    jsCode : scriptPacks['index'],
     learningPathNames: sess.getLearningPathNames()
   }});
 })
@@ -57,4 +62,10 @@ app.post('/', (req, res)=>{
 
 */
 
-app.listen(8082);
+
+
+app.listen(port, function(err){
+  if (err)
+    console.log("Error in server setup");
+  console.log("Server listening on Port", port);
+});
