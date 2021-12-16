@@ -6,10 +6,20 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                 $(document).ready(()=>{
-                    $('.button').click(function() {
-                        $.post( url="", data=$( this ).attr('id'), function( data ) {
-                            alert( "data recieved from server: " + data );
-                        });
+                    $('.button').click(function(){
+
+                        // handle open buttons
+                        if(this.type = 'open'){
+                            $.get('/learningPathEditor', { id : this.id } ).done(function(data, status){
+                                var newDoc = document.open("text/html", "replace");
+                                newDoc.write(data);
+                                newDoc.close();
+                            });
+
+                        // handle delete buttons
+                        }else if(this.type= 'delete'){
+
+                        }
                     });
                 });
             </script>    
@@ -17,7 +27,7 @@
     </head>
 
     <body>
-        <button type="button" id="settings">Einstellungen</button>
+        <button class="button" id="settings">Einstellungen</button>
         <h1>
             Lernpfadplaner 
         </h1>
@@ -27,12 +37,12 @@
         <ul>
             <% data.learningPathNames.forEach(lp=>{ %>
                 <li> 
-                    <button class="button" id="open<%= lp %>"><%= lp %></button>
-                    <button class="button" id="delete<%= lp %>">x</button>  
+                    <button class="button" type="open", id="<%= lp %>"><%= lp %></button>
+                    <button class="button" type="delete", id="<%= lp %>">x</button>  
                 </li>
             <% }); %>
         </ul>
-        <button type="create" id="createLp">Lernpfad erstellen</button>
+        <button class="button" id="createLp">Lernpfad erstellen</button>
     </body>
 
 </html>

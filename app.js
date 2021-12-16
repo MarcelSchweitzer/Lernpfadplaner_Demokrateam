@@ -29,13 +29,32 @@ app.get('/', function (req, res) {
   }});
 })
 
+// render index.ejs
+app.get('/learningPathEditor', function (req, res) {
+
+  // make requested learningPath current learningPath
+  console.log(req.query.id);
+
+  // return ejs rendered page for home screen
+  res.render('learningPathEditor', {data: {
+    learningPathIds: sess.getLearningPathIds(),
+    learningPathNames: sess.getLearningPathNames()
+  }});
+})
+
+
+/*** 
 // react to posts
 app.post('/', (req, res)=>{
+
+  // console.log(req);
   
   // return ejs rendered html for editor page
-  res.render('learningPathEditor', {data: {
+  res.render('/learningPathEditor', {data: {
     currentModuleName: sess.readCurrentLearningPath().getName()
   }});
 });
+
+*/
 
 app.listen(8082);
