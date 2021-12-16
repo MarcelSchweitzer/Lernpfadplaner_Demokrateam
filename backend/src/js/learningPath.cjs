@@ -7,7 +7,7 @@ class LearningPath {
     this.learningGoal = new LearningGoal();
   }
 
-  // id is immutable!
+  // id is immutable
   getId(){ return this.id }
 
   getName(){ return this.module.getName() }

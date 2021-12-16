@@ -6,8 +6,9 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                 $(document).ready(()=>{
-                    $('#button').click(function() {
-
+                    $('.button').click(function() {
+                        alert( $( this ).attr('id') );	
+                        $.post( "/",  $( this ).attr('id') );
                     });
                 });
             </script>    
@@ -25,8 +26,8 @@
         <ul>
             <% data.learningPathNames.forEach(lp=>{ %>
                 <li> 
-                    <button type="edit" id="open<%= lp %>" method="POST"><%= lp %></button> 
-                    <button type="edit" id="delete<%= lp %>">x</button> 
+                    <button class="button" id="open<%= lp %>"><%= lp %></button>
+                    <button class="button" id="delete<%= lp %>">x</button>  
                 </li>
             <% }); %>
         </ul>
