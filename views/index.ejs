@@ -7,8 +7,9 @@
             <script>
                 $(document).ready(()=>{
                     $('.button').click(function() {
-                        alert( $( this ).attr('id') );	
-                        $.post( "/",  $( this ).attr('id') );
+                        $.post( url="", data=$( this ).attr('id'), function( data ) {
+                            alert( "data recieved from server: " + data );
+                        });
                     });
                 });
             </script>    
