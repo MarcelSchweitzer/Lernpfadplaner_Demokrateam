@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/issues"
   },
-  "homepage": "https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam#readme"
+  "homepage": "https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
 }

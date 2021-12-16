@@ -3,9 +3,7 @@ const path = require('path');
 const session = require('./backend/src/js/session.cjs')
 
 const app = express();
-
-// create user session
-var sess = new session.Session();
+const sess = new session.Session();
 
 // create test learning path
 sess.createLearningPath();
@@ -29,10 +27,16 @@ app.get('/', function (req, res) {
   }});
 })
 
+// render module edit view
 app.get('/editModule', function (req, res) {
   res.render('learningPathEditor', {data: {
     currentModuleName: sess.readCurrentLearningPath().getName()
   }});
 })
+
+app.post('/', (req, res)=>{
+  console.log(req.body);
+  res.send('posted data!')
+});
 
 app.listen(8082)
