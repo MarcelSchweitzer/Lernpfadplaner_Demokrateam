@@ -8,8 +8,8 @@ installation:
 4) set up a server named "user_cookies" running at localhost:5432
 5) navigate to the query editor and run the code contained in user_sessions.sql
 6) run "git clone https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam.git"
-7) run "git checkout backend"
-8) run "cd Lernpfadplaner_Demokrateam"
+7) run "cd Lernpfadplaner_Demokrateam"
+8) run "git checkout backend"
 9) run "npm install" to install dependencies
 10) run "npm start" to start the server
 11) navigate to localhost:8082 with your browser
