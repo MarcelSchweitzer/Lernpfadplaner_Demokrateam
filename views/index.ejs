@@ -18,12 +18,12 @@
         <ul>
             <% data.learningPaths.forEach(lp=>{ %>
                 <li> 
-                    <button class="button" type="open", id="edit<%= lp['id'] %>"><%= lp['module']['name'] %></button>
-                    <button class="button" type="delete", id="del<%= lp['id'] %>">x</button>  
+                    <button class="button" type="open" id="edit<%= lp['id'] %>"><%= lp['module']['name'] %></button>
+                    <button class="button" type="delete" id="del<%= lp['id'] %>">x</button>  
                 </li>
             <% }); %>
         </ul>
-        <button class="button" id="createLp">Lernpfad erstellen</button>
+        <button class="button" type="create" id="createLp">Lernpfad erstellen</button>
     </body>
 
 </html>

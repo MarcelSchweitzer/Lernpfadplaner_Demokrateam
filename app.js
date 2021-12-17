@@ -1,18 +1,24 @@
 const express = require('express');
-const expressSession = require('express-Session');
+// const expressSession = require('express-Session');
 const cookieParser = require('cookie-parser');
 //const pgSession = require('connect-pg-simple')(expressSession);
 //const pg = require('pg');
 const pgp = require("pg-promise")(/*options*/);
 const path = require('path');
+// const editorRoutes = require('./routes/editorRoutes');
 var lpSession = require('./backend/src/js/Session.cjs');
 const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
+const sptk = require('./backend/src/js/helpers/scriptPackToolkit.cjs');
+
+const scriptPacks = fst.readJson('./views/scriptPacks.json');S
+const stylePacks = fst.readJson('./views/stylePacks.json');
+
+const scrPack = new sptk.scriptPacker(scriptPacks, stylePacks);
 
 const lpSess = new lpSession.Session();
 const db = pgp("postgres://postgres:demokrateam123@localhost:5432/user_cookies");
 const app = express();
-const scriptPacks = fst.readJson('./views/scriptPacks.json');
-const stylePacks = fst.readJson('./views/stylePacks.json');
+
 
 const port = 8082;
 
@@ -20,6 +26,8 @@ const port = 8082;
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
+
+// app.use('/editor', editorRoutes);
 
 // TODO function for cookie validation
 
@@ -65,16 +73,6 @@ lpSess.removeLearningPath(lpSess.getCurrentLearningPathId())
 lpSess.createLearningPath();
 
 
-// pack all script files
-function packScripts(view){
-  return fst.readFile(scriptPacks[view]);
-}
-
-// pack all css files
-function packStyle(view){
-  return fst.readFile(stylePacks[view]);
-}
-
 
 // render index.ejs
 app.get('/', function (req, res) {
@@ -101,24 +99,24 @@ app.get('/', function (req, res) {
 
   // return ejs rendered page for home screen to client
   res.render('index', {data: {
-    js : packScripts('index'),
-    style : packStyle('index'),
+    js : scrPack.packScripts('index'),
+    style : scrPack.packStyle('index'),
     learningPaths: lpSess.getLearningPaths()
   }});
 })
 
-// render index.ejs
-app.get('/learningPathEditor', function (req, res) {
+app.get('/editor', function (req, res) {
 
   lpSess.openLearningPath(req.query.id);
 
   // return ejs rendered page for home screen
-  res.render('learningPathEditor', {data: {
-    js : packScripts('learningPathEditor'),
+  res.render('editor', {data: {
+    js : scrPack.packScripts('editor'),
     currentLearningPath: lpSess.getCurrentLearningPath()
   }});
 
 })
+
 
 app.listen(port, function(err){
   if (err)
