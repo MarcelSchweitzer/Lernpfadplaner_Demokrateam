@@ -33,7 +33,7 @@ const pgPool = new pg.Pool({
   max: 20, // set pool max size to 20
   idleTimeoutMillis: 1000, // close idle clients after 1 second
   connectionTimeoutMillis: 1000, // return an error after 1 second if connection could not be established
-  maxUses: 7500, // close (and replace) a connection after it has been used 7500 times (see below for discussion)
+  maxUses: 7500, // close (and replace) a connection after it has been used 7500 times
 });
 
 // create cookie for user session 
@@ -68,9 +68,9 @@ lpSess.createLearningPath();
 app.get('/', function (req, res) {
 
   // TODO catch sql injection
-
+  let sId = Math.floor(100000 + Math.random() * 9000000000);
   let user_cookie = {
-    'sid':'12345667',
+    'sid':sId,
     'sess':{"info1":"123",
             "info2":"456"},
      'expire':'2023-01-01 00:00:00' 
