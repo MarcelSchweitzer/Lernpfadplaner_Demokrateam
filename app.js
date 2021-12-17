@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
-const session = require('./backend/src/js/session.cjs');
+const lpSession = require('./backend/src/js/session.cjs');
+//const userSession = require('express-session');
 const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
 
-const sess = new session.Session();
+const sess = new lpSession.Session();
 const app = express();
-const scriptPacks = fst.readJsonSync('./views/scriptPacks.json');
+const scriptPacks = fst.readJson('./views/scriptPacks.json');
+const stylePacks = fst.readJson('./views/stylePacks.json');
 
 const port = 8082;
 
@@ -27,9 +29,20 @@ sess.createLearningPath();
 // render index.ejs
 app.get('/', function (req, res) {
 
-  // return ejs rendered page for home screen
+  // pack all script files
+  function packScripts(view){
+    return fst.readFile(scriptPacks[view]);
+  }
+
+    // pack all css files
+    function packStyle(view){
+      return fst.readFile(stylePacks[view]);
+    }
+
+  // return ejs rendered page for home screen to client
   res.render('index', {data: {
-    jsCode : scriptPacks['index'],
+    js : packScripts('index'),
+    style : packStyle('index'),
     learningPathNames: sess.getLearningPathNames()
   }});
 })
@@ -38,7 +51,7 @@ app.get('/', function (req, res) {
 app.get('/learningPathEditor', function (req, res) {
 
   // make requested learningPath current learningPath
-  console.log(req.query.id);
+  // console.log(req.query.id);
 
   // return ejs rendered page for home screen
   res.render('learningPathEditor', {data: {

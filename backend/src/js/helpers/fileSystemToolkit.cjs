@@ -1,18 +1,14 @@
 const fs = require('fs');
-const path = require('path'); 
 
+// read json file synchronously
 function readJson(dataPath){
-  JSON.parse(readFile(dataPath));
+  return JSON.parse(readFile(dataPath));
 }
 
+// read file synchronously
 function readFile(dataPath){
   dataPath = replaceSep(dataPath);
-  fs.readFile('test.txt', 'utf8', function(err, data) {
-    console.log("TEXT.TXT:");
-    if(err)       
-      throw err;
-    return data;
-  });
+  return fs.readFileSync(dataPath, {encoding: 'utf8'});
 }
 
 function replaceSep(str_in){
