@@ -18,10 +18,10 @@
             verfuegbare Module
         </p>
         <ul>
-            <% data.learningPathNames.forEach(lp=>{ %>
+            <% data.learningPaths.forEach(lp=>{ %>
                 <li> 
-                    <button class="button" type="open", id="<%= lp %>"><%= lp %></button>
-                    <button class="button" type="delete", id="<%= lp %>">x</button>  
+                    <button class="button" type="open", id="edit<%= lp['id'] %>"><%= lp['module']['name'] %></button>
+                    <button class="button" type="delete", id="del<%= lp['id'] %>">x</button>  
                 </li>
             <% }); %>
         </ul>

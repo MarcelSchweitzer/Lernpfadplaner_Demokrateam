@@ -68,6 +68,7 @@ lpSess.createLearningPath();
 app.get('/', function (req, res) {
 
   // TODO catch sql injection
+  // TODO unique session id
   let sId = Math.floor(100000 + Math.random() * 9000000000);
   let user_cookie = {
     'sid':sId,
@@ -100,20 +101,18 @@ app.get('/', function (req, res) {
   res.render('index', {data: {
     js : packScripts('index'),
     style : packStyle('index'),
-    learningPathNames: lpSess.getLearningPathNames()
+    learningPaths: lpSess.getLearningPaths()
   }});
 })
 
 // render index.ejs
 app.get('/learningPathEditor', function (req, res) {
 
-  // make requested learningPath current learningPath
-  // console.log(req.query.id);
+  lpSess.openLearningPath(req.query.id);
 
   // return ejs rendered page for home screen
   res.render('learningPathEditor', {data: {
-    learningPathIds: lpSess.getLearningPathIds(),
-    learningPathNames: lpSess.getLearningPathNames()
+    currentLearningPath: lpSess.getCurrentLearningPath()
   }});
 })
 

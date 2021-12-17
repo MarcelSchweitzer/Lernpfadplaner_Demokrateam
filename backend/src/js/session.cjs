@@ -15,19 +15,24 @@ class Session{
     getCurrentLearningPathId(){ return this.currentLearningPathId; }
 
     // get a read only object representation of current lp 
-    readCurrentLearningPath(){ 
+    getCurrentLearningPath(){ 
         if(this.currentLearningPathId === null)
             return null
         return this.readLearningPathById(this.currentLearningPathId);
     }
 
     // get a read only object representation by id 
-    readLearningPathById(id){
+      readLearningPathById(id){
         for (var lp in this.learningPaths){
             if(this.learningPaths[lp].getId() == id)
                 return this.learningPaths[lp]
         }
         return null
+    }
+    
+    // return learning paths
+    getLearningPaths(){ 
+        return this.learningPaths; 
     }
 
     // return list of all available learning path ids 
@@ -89,28 +94,6 @@ class Session{
     // close the current learning path
     closeLearningPath(){
         this.currentLearningPathId = null;
-    }
-
-    // load learning paths from disk (json)
-    loadLearningPaths(){
-        var lp = []
-        try{
-
-            // TODO load JSON file
-
-        }catch(err){
-
-            // learningPaths.json not found! -> empty array
-
-        }
-        return lp
-    }
-
-    // load user settings from disk (json)
-    loadUserSettings(){
-
-        // TODO load JSON file
-
     }
 }
 
