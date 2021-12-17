@@ -10,7 +10,7 @@ var lpSession = require('./backend/src/js/Session.cjs');
 const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
 const sptk = require('./backend/src/js/helpers/scriptPackToolkit.cjs');
 
-const scriptPacks = fst.readJson('./views/scriptPacks.json');S
+const scriptPacks = fst.readJson('./views/scriptPacks.json');
 const stylePacks = fst.readJson('./views/stylePacks.json');
 
 const scrPack = new sptk.scriptPacker(scriptPacks, stylePacks);
@@ -112,6 +112,7 @@ app.get('/editor', function (req, res) {
   // return ejs rendered page for home screen
   res.render('editor', {data: {
     js : scrPack.packScripts('editor'),
+    style : scrPack.packStyle('editor'),
     currentLearningPath: lpSess.getCurrentLearningPath()
   }});
 

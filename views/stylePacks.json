@@ -1,3 +1,4 @@
 {
-    "index" : "./views/style/example.css"
+    "index" : "./views/style/example.css",
+    "editor" : "./views/style/editorExample.css"
 }
