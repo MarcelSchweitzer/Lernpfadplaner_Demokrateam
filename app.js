@@ -106,8 +106,13 @@ app.get('/', function (req, res) {
 })
 
 app.get('/editor', function (req, res) {
-
-  lpSess.openLearningPath(req.query.id);
+  openId = req.query.id;
+  if(openId == 'null'){
+    lpSess.createLearningPath();
+    openId = lpSess.getCurrentLearningPathId();
+  }else{
+    lpSess.openLearningPath(openId);
+  }
 
   // return ejs rendered page for home screen
   res.render('editor', {data: {
