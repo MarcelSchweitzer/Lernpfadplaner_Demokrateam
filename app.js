@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 //const pg = require('pg');
 const pgp = require("pg-promise")(/*options*/);
 const path = require('path');
-const lpSession = require('./backend/src/js/Session.cjs');
+var lpSession = require('./backend/src/js/Session.cjs');
 const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
 
 const lpSess = new lpSession.Session();
@@ -64,6 +64,18 @@ lpSess.openLearningPath(lpSess.getLearningPathIds()[2])
 lpSess.removeLearningPath(lpSess.getCurrentLearningPathId())
 lpSess.createLearningPath();
 
+
+// pack all script files
+function packScripts(view){
+  return fst.readFile(scriptPacks[view]);
+}
+
+// pack all css files
+function packStyle(view){
+  return fst.readFile(stylePacks[view]);
+}
+
+
 // render index.ejs
 app.get('/', function (req, res) {
 
@@ -87,16 +99,6 @@ app.get('/', function (req, res) {
 
   // req.session.isAuth = true;
 
-  // pack all script files
-  function packScripts(view){
-    return fst.readFile(scriptPacks[view]);
-  }
-
-  // pack all css files
-  function packStyle(view){
-    return fst.readFile(stylePacks[view]);
-  }
-
   // return ejs rendered page for home screen to client
   res.render('index', {data: {
     js : packScripts('index'),
@@ -112,8 +114,10 @@ app.get('/learningPathEditor', function (req, res) {
 
   // return ejs rendered page for home screen
   res.render('learningPathEditor', {data: {
+    js : packScripts('learningPathEditor'),
     currentLearningPath: lpSess.getCurrentLearningPath()
   }});
+
 })
 
 app.listen(port, function(err){

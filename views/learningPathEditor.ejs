@@ -2,11 +2,13 @@
 <html>
 
     <head>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script><%-data.js%></script>
+        <style><%-data.style%></style>
     </head>
 
     <body>
-        <button type="button" id="testBtn">Home</button>
+        <button class="button" type="close" id="homeBtn">Home</button>
         <h1>
             <%= data.currentLearningPath['module']['name'] %>
         </h1>

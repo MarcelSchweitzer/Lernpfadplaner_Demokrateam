@@ -7,8 +7,6 @@ class Session{
         this.learningPaths = [];
         this.currentLearningPathId = null;
 
-        // TODO settingsMangager class?
-
     }
 
     // get Id of current (opened) learningPath
@@ -16,20 +14,18 @@ class Session{
 
     // get a read only object representation of current lp 
     getCurrentLearningPath(){ 
-        if(this.currentLearningPathId === null)
-            return null
         return this.readLearningPathById(this.currentLearningPathId);
     }
 
     // get a read only object representation by id 
       readLearningPathById(id){
-        for (var lp in this.learningPaths){
+        for (let lp in this.learningPaths){
             if(this.learningPaths[lp].getId() == id)
                 return this.learningPaths[lp]
         }
         return null
     }
-    
+
     // return learning paths
     getLearningPaths(){ 
         return this.learningPaths; 
@@ -37,7 +33,7 @@ class Session{
 
     // return list of all available learning path ids 
     getLearningPathIds(){ 
-        var ids = [];
+        let ids = [];
         for (var lp in this.learningPaths)
             ids.push(this.learningPaths[lp].getId())
         return ids
@@ -45,7 +41,7 @@ class Session{
 
     // return list of all available learning path names 
     getLearningPathNames(){ 
-        var names = [];
+        let names = [];
         for (var lp in this.learningPaths)
             names.push(this.learningPaths[lp].getName())
         return names
@@ -53,7 +49,7 @@ class Session{
 
     // create learningpath meaning (add + open)
     createLearningPath(id=null, name=null){ 
-        var newLP = this.addLearningPath();
+        let newLP = this.addLearningPath();
         this.openLearningPath(newLP)
     }
 

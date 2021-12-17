@@ -1,3 +1,4 @@
 {
-    "index" : "./views/js/main.js"
+    "index" : "./views/js/main.js",
+    "learningPathEditor" : "./views/js/learningPathEditor.js"
 }
