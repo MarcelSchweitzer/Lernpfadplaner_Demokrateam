@@ -5,7 +5,7 @@ $(document).ready(()=>{
 
         // close current LearningPath (open landing page)
         if(inputType == 'close'){
-            $.get('/', { initialReq : "false" } ).done(function(data, status){
+            $.get('/', {getScripts : false}).done(function(data, status){
 
                 // replace current html with view recieved by server
                 let recievedView = document.open("text/html", "replace");

@@ -3,10 +3,11 @@ $(document).ready(()=>{
 
     $('.button').click(function(){
         let inputType = $(this).attr('type');
+        let inpuId = $(this).attr('id');
         
         // handle open buttons
         if(inputType == 'open'){
-            let lpId = $(this).attr('type').replace('edit', '');
+            let lpId = inpuId.replace('edit', '');
             session.openLearningPath(lpId);
             getEditPage(lpId);
         }

@@ -53,12 +53,8 @@ app.use(expressSession({
 
 */ 
 
-// render index.ejs
+// render index.ejs initally
 app.get('/', function (req, res) {
-
-  if(typeof req.inialReq !== 'undefined' && req.inialReq !== 'true'){
-    console.log('first req');
-  }
 
   // TODO unique session id
   let sId = Math.floor(100000 + Math.random() * 9000000000);
@@ -78,22 +74,35 @@ app.get('/', function (req, res) {
   }
 
   // insert into db
-  user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')');
-  user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
+  user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')').then(function (data){
+    user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
+  });
 
   // req.session.isAuth = true;
 
-  // return ejs rendered page for home screen to client
-  res.render('index/index', {data: {
-    js : scrPack.packScripts('index'),
-    style : scrPack.packStyle('index'),
-    learningPaths: [
-      {id:12341234324, name:"lernpfad1"},
-      {id:3434234, name:"lernpfad2"},
-      {id:34234234324, name:"lernpfad3"},
-      {id:2343432423, name:"lernpfad4"}
-    ]
-  }});
+  // only return html without scripts
+  if (req.query.getScripts == 'false'){
+    render('', 'false');
+  }
+  else{
+    render(scrPack.packScripts('index'), 'true');
+  }
+
+  function render(scriptPack, includeScripts){
+    res.render('index/index', {data: {
+      js : scriptPack,
+      includeScripts : includeScripts,
+      style : scrPack.packStyle('index'),
+      learningPaths: [
+        {id:12341234324, name:"lernpfad1"},
+        {id:3434234, name:"lernpfad2"},
+        {id:34234234324, name:"lernpfad3"},
+        {id:2343432423, name:"lernpfad4"}
+      ]
+    }});
+  }
+
+
 })
 
 app.get('/editor', function (req, res) {
