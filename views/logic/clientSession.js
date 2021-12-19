@@ -46,7 +46,7 @@ class Session{
         return names
     }    
 
-    // create learningpath meaning (add + open)
+    // create meaning add + open
     createLearningPath(id=null, name=null){ 
         let newLP = this.addLearningPath();
         this.openLearningPath(newLP)
@@ -61,15 +61,15 @@ class Session{
         if(id === null)
 
             // get unique unused id if not passed
-            id = uniq.uniqueId(this.getLearningPathIds());
+            id = uniqueId(this.getLearningPathIds());
 
         if(name === null)
 
             // get unique unused name if not passed 
-            name = uniq.uniqueName('lernpfad', this.getLearningPathNames())
+            name = uniqueName('lernpfad', this.getLearningPathNames())
 
-        let lp = new learningPath.LearningPath(id, name);
-        this.learningPaths = arrTk.insertAt(this.learningPaths, lp);
+        let lp = new LearningPath(id, name);
+        this.learningPaths = insertAt(this.learningPaths, lp);
 
         // return id
         return lp.getId()
@@ -82,7 +82,7 @@ class Session{
         if(this.currentLearningPathId == id)
             this.closeLearningPath();
         
-        this.learningPaths = arrTk.rmById(this.learningPaths, id);
+        this.learningPaths = rmById(this.learningPaths, id);
     }
 
     // open a learning path by id

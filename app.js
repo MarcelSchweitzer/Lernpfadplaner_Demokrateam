@@ -1,22 +1,15 @@
 const express = require('express');
-// const expressSession = require('express-Session');
 const cookieParser = require('cookie-parser');
-//const pgSession = require('connect-pg-simple')(expressSession);
-//const pg = require('pg');
 const pgp = require("pg-promise")(/*options*/);
-const path = require('path');
 // const editorRoutes = require('./routes/editorRoutes');
-var lpSession = require('./backend/src/js/session.js');
-const fst = require('./backend/src/js/helpers/fileSystemToolkit.js');
-const sptk = require('./backend/src/js/helpers/scriptPackToolkit.js');
-
+const fst = require('./src/fileSystemToolkit.js');
+const sptk = require('./src/scriptPackToolkit.js');
 const scriptPacks = fst.readJson('./views/scriptPacks.json');
 const stylePacks = fst.readJson('./views/stylePacks.json');
-
 const scrPack = new sptk.scriptPacker(scriptPacks, stylePacks);
 
-const lpSess = new lpSession.Session();
-const db = pgp("postgres://postgres:demokrateam123@localhost:5432/user_cookies");
+const cookie_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
+const learningPath_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
 const app = express();
 
 
@@ -59,25 +52,9 @@ app.use(expressSession({
 
 */ 
 
-
-// create test learningpaths
-lpSess.createLearningPath();
-lpSess.addLearningPath();
-lpSess.addLearningPath();
-lpSess.addLearningPath();
-lpSess.addLearningPath();
-lpSess.addLearningPath();
-lpSess.addLearningPath();
-lpSess.openLearningPath(lpSess.getLearningPathIds()[2])
-lpSess.removeLearningPath(lpSess.getCurrentLearningPathId())
-lpSess.createLearningPath();
-
-
-
 // render index.ejs
 app.get('/', function (req, res) {
 
-  // TODO catch sql injection
   // TODO unique session id
   let sId = Math.floor(100000 + Math.random() * 9000000000);
   let user_cookie = {
@@ -93,32 +70,39 @@ app.get('/', function (req, res) {
   }
 
   // insert into pg db
-  db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
+  cookie_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
 
   // req.session.isAuth = true;
 
   // return ejs rendered page for home screen to client
-  res.render('index', {data: {
+  res.render('index/index', {data: {
     js : scrPack.packScripts('index'),
     style : scrPack.packStyle('index'),
-    learningPaths: lpSess.getLearningPaths()
+    learningPaths: [
+      {id:12341234324, name:"lernpfad1"},
+      {id:3434234, name:"lernpfad2"},
+      {id:34234234324, name:"lernpfad3"},
+      {id:2343432423, name:"lernpfad4"}
+    ]
   }});
 })
 
 app.get('/editor', function (req, res) {
   openId = req.query.id;
   if(openId == 'null'){
-    lpSess.createLearningPath();
-    openId = lpSess.getCurrentLearningPathId();
+
+    // add learningPath to db
+    let lp = {'id':req.id, 'owner':234593454053}
+    learningPath_db.query('INSERT INTO user_learningpath(${this:name}) VALUES(${this:csv})', lp);
   }else{
-    lpSess.openLearningPath(openId);
+    // TODO
   }
 
   // return ejs rendered page for home screen
-  res.render('editor', {data: {
+  res.render('editor/editor', {data: {
     js : scrPack.packScripts('editor'),
     style : scrPack.packStyle('editor'),
-    currentLearningPath: lpSess.getCurrentLearningPath()
+    id: req.id
   }});
 
 })

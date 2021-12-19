@@ -1,12 +1,18 @@
 {
     "index" : [
-        "./backend/src/js/helpers/arrayToolkit.js",
-        "./backend/src/js/helpers/uniqueIdentifiers.js",
-        "./views/js/logic/learningPath.js",
-        "./views/js/clientSession.js",
-        "./views/js/main.js"
+        "./views/dependencies/jquery-3.1.1.min.js",
+        "./views/logic/helpers/arrayToolkit.js",
+        "./views/logic/helpers/uniqueIdentifiers.js",
+        "./views/logic/learningPath.js",
+        "./views/logic/clientSession.js",
+        "./views/index/indexHttpHandler.js",
+        "./views/index/indexEventHandler.js"
     ],
     "editor" : [
-        "./views/js/editor.js"
+        "./views/dependencies/jquery-3.1.1.min.js",
+        "./views/logic/helpers/arrayToolkit.js",
+        "./views/logic/helpers/uniqueIdentifiers.js",
+        "./views/logic/learningPath.js",
+        "./views/editor/editorEventHandler.js"
     ]
 }

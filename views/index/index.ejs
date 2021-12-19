@@ -2,7 +2,6 @@
 <html>
 
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script><%-data.js%></script>
         <style><%-data.style%></style>
     </head>
@@ -18,8 +17,8 @@
         <ul>
             <% data.learningPaths.forEach(lp=>{ %>
                 <li> 
-                    <button class="button" type="open" id="edit<%= lp.getId() %>"><%= lp.getName() %></button>
-                    <button class="button" type="delete" id="del<%= lp.getId() %>">x</button>  
+                    <button class="button" type="open" id="edit<%= lp['id'] %>"><%= lp['name'] %></button>
+                    <button class="button" type="delete" id="del<%= lp['id']%>">x</button>  
                 </li>
             <% }); %>
         </ul>
