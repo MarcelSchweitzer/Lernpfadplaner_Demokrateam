@@ -8,9 +8,10 @@ const scriptPacks = fst.readJson('./views/scriptPacks.json');
 const stylePacks = fst.readJson('./views/stylePacks.json');
 const scrPack = new sptk.scriptPacker(scriptPacks, stylePacks);
 
-const cookie_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
-const learningPath_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
+const user_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
 const app = express();
+
+var uId = 0;
 
 
 const port = 8082;
@@ -55,10 +56,17 @@ app.use(expressSession({
 // render index.ejs
 app.get('/', function (req, res) {
 
+  if(typeof req.inialReq !== 'undefined' && req.inialReq !== 'true'){
+    console.log('first req');
+  }
+
   // TODO unique session id
   let sId = Math.floor(100000 + Math.random() * 9000000000);
+  let uId = Math.floor(100000 + Math.random() * 9000000000);
+
   let user_cookie = {
     'sid':sId,
+    'uid':uId,
     'sess':{"info1":"123",
             "info2":"456"},
      'expire':'2023-01-01 00:00:00' 
@@ -69,8 +77,9 @@ app.get('/', function (req, res) {
     res.cookie(key, value);
   }
 
-  // insert into pg db
-  cookie_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
+  // insert into db
+  user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')');
+  user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
 
   // req.session.isAuth = true;
 
@@ -93,7 +102,7 @@ app.get('/editor', function (req, res) {
 
     // add learningPath to db
     let lp = {'id':req.id, 'owner':234593454053}
-    learningPath_db.query('INSERT INTO user_learningpath(${this:name}) VALUES(${this:csv})', lp);
+    user_db.query('INSERT INTO user_learningpath(${this:name}) VALUES(${this:csv})', lp);
   }else{
     // TODO
   }
