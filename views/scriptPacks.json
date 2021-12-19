@@ -1,4 +1,4 @@
 {
-    "index" : "./views/js/main.js",
-    "editor" : "./views/js/editor.js"
+    "index" : ["./views/js/main.js"],
+    "editor" : ["./views/js/editor.js"]
 }

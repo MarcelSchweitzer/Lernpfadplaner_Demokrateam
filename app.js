@@ -123,6 +123,13 @@ app.get('/editor', function (req, res) {
 
 })
 
+app.post('/editor', function (req, res) {
+  console.log(req.data);
+
+  // TODO only send 200 if everything worked out fine!
+  res.send('200')
+})
+
 
 app.listen(port, function(err){
   if (err)

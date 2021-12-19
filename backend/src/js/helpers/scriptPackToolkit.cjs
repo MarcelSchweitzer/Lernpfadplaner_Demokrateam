@@ -5,15 +5,24 @@ class scriptPacker{
         this.scriptPack = scriptPack;
         this.stylePack = stylePack;
     }
-        // pack all script files
+
+    // pack all script files
     packScripts(view){
-        return fst.readFile(this.scriptPack[view]);
+        return packFiles(view, this.scriptPack);
     }
     
     // pack all css files
     packStyle(view){
-        return fst.readFile(this.stylePack[view]);
-  }
+        return packFiles(view, this.stylePack);
+    }
+
+    packFiles(view, filePack){
+        let packed = "";
+        for(let pack of this.scriptPack[view]){
+            packed += fst.readFile(filePack);
+        }
+        return packed;
+    }
 
 }
 

@@ -14,15 +14,18 @@ class Session{
 
     // get a read only object representation of current lp 
     getCurrentLearningPath(){ 
-        return this.readLearningPathById(this.currentLearningPathId);
+        return this.getLearningPathById(this.currentLearningPathId);
     }
 
     // get a read only object representation by id 
-      readLearningPathById(id){
-        for (let lp in this.learningPaths){
-            if(this.learningPaths[lp].getId() == id)
-                return this.learningPaths[lp]
-        }
+      getLearningPathById(id){
+        return this.learningPaths[this.getLpIndexById(id)]
+    }
+
+    getLpIndexById(id){
+        for(let i=0; i < this.learningPaths.length; i++)
+            if(this.learningPaths[i].getId() == id)
+                return i
         return null
     }
 
@@ -42,7 +45,7 @@ class Session{
     // return list of all available learning path names 
     getLearningPathNames(){ 
         let names = [];
-        for (var lp in this.learningPaths)
+        for (let lp in this.learningPaths)
             names.push(this.learningPaths[lp].getName())
         return names
     }    
@@ -51,6 +54,10 @@ class Session{
     createLearningPath(id=null, name=null){ 
         let newLP = this.addLearningPath();
         this.openLearningPath(newLP)
+    }
+
+    updateLearningPath(id, newLP){ 
+        this.learningPaths[this.getLpIndexById(id)] = newLP;
     }
 
     // add learning path to list and return id
@@ -65,7 +72,7 @@ class Session{
             // get unique unused name if not passed 
             name = uniq.uniqueName('lernpfad', this.getLearningPathNames())
 
-        var lp = new learningPath.LearningPath(id, name);
+        let lp = new learningPath.LearningPath(id, name);
         this.learningPaths = arrTk.insertAt(this.learningPaths, lp);
 
         // return id

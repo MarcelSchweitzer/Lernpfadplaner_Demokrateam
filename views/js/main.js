@@ -4,6 +4,7 @@ $(document).ready(()=>{
         
         // handle open buttons
         if(inputType == 'open'){
+            
             // send get request to server 
             lpId = this.id.replace('edit', '');
             $.get('/editor', { id : lpId } ).done(function(data, status){
@@ -14,8 +15,10 @@ $(document).ready(()=>{
                 recievedView.close();
             });
 
+        }
+    
         // handle create button
-        }else if(inputType == 'create'){
+        else if(inputType == 'create'){
             $.get('/editor', { id : "null" } ).done(function(data, status){
 
                 // replace current html with view recieved by server
@@ -25,8 +28,11 @@ $(document).ready(()=>{
             });
 
 
-        // handle delete buttons
-        }else if(this.type = 'delete'){
+
+        }
+
+        // handle delete buttons        
+        else if(this.type = 'delete'){
 
         }
     });

@@ -3,18 +3,25 @@
 
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script><%-data.js%></script>
+        <script>
+            //var learningPath = 
+            console.log("HI!"+<%-data.currentLearningPath%>);
+            <%-data.js%>
+        </script>
         <style><%-data.style%></style>
     </head>
 
     <body>
         <button class="button" type="close" id="homeBtn">Home</button>
         <h1>
-            <%= data.currentLearningPath['module']['name'] %>
+            <%= data.currentLearningPath.getName()%>
         </h1>
         <p>
-            <%= data.currentLearningPath['module']['name'] %> wird bearbeitet! WOW, EIN TOLLER SERVICE!
+            <%= data.currentLearningPath.getName()%> wird bearbeitet! WOW, EIN TOLLER SERVICE!
         </p>
+        <label for="lpName">Name</label>
+        <input type="text" id="lpName" value="<%= data.currentLearningPath.getName()%>" maxlength="30" size="20">
+        <button class="button" type="save" id="saveChanges">Lernpfad speichern</button>
     </body>
 
 </html>

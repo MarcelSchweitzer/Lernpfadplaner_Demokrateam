@@ -21,13 +21,13 @@ class LearningPath {
 
 class LearningGoal {
   constructor(goalTaxonomyLevel = 0, goalEvaluation = 0, evaluationModeID = 0) {
-    this.goalTaxonomyLevel = goalTaxonomyLevel; //int
-    this.goalEvaluation = goalEvaluation; //int
-    this.evaluationModeID = evaluationModeID; //int
+    this.goalTaxonomyLevel = goalTaxonomyLevel; // int
+    this.goalEvaluation = goalEvaluation; // int
+    this.evaluationModeID = evaluationModeID; // int
   }
 
-  setGoalTxonomyLevel() { }
-  getGoalTxonomyLevel() { }
+  setGoalTaxonomyLevel() { }
+  getGoalTaxonomyLevel() { }
 
   setGoalEvaluation() { }
   getGoalEvaluation() { }
@@ -38,12 +38,12 @@ class LearningGoal {
 
 class Module {
   constructor(name, description = "", notes = "") {
-    this.name = name; //String
-    this.description = description; //String
-    this.notes = notes; //String
-    this.scenarios = []; //Scenario-Array
-    this.categoryIDs = []; //Int-Array
-    this.interactionTypeIDs = []; //Int-Array
+    this.name = name; // string
+    this.description = description; // string
+    this.notes = notes; // string
+    this.scenarios = [];
+    this.categoryIDs = [];
+    this.interactionTypeIDs = [];
   }
 
   setName(name) { this.name = name; }
@@ -93,7 +93,7 @@ class Module {
   }
 }
 
-// TODO Title instead of name?
+// TODO title instead of name?
 
 class Scenario {
   constructor(title) {
