@@ -1,4 +1,12 @@
 {
-    "index" : ["./views/js/main.js"],
-    "editor" : ["./views/js/editor.js"]
+    "index" : [
+        "./backend/src/js/helpers/arrayToolkit.js",
+        "./backend/src/js/helpers/uniqueIdentifiers.js",
+        "./views/js/logic/learningPath.js",
+        "./views/js/clientSession.js",
+        "./views/js/main.js"
+    ],
+    "editor" : [
+        "./views/js/editor.js"
+    ]
 }

@@ -1,4 +1,4 @@
-const arrTk = require('./helpers/arrayToolkit.cjs') 
+const arrTk = require('../../../views/js/logic/helpers/arrayToolkit.js') 
 
 class LearningPath {
   constructor(id, name) {

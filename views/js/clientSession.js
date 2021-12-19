@@ -1,7 +1,3 @@
-const learningPath = require('./learningPath.cjs')
-const arrTk = require('./helpers/arrayToolkit.cjs') 
-const uniq = require('./helpers/uniqueIdentifiers.cjs') 
-
 class Session{
     constructor(){
         this.learningPaths = [];
@@ -99,5 +95,3 @@ class Session{
         this.currentLearningPathId = null;
     }
 }
-
-module.exports.Session = Session;

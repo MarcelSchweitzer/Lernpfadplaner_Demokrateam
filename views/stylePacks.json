@@ -1,4 +1,8 @@
 {
-    "index" : "./views/style/example.css",
-    "editor" : "./views/style/editorExample.css"
+    "index" : [
+        "./views/style/example.css"
+    ],
+    "editor" : [
+        "./views/style/editorExample.css"
+    ]
 }

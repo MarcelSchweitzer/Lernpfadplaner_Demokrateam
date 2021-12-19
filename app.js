@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 const pgp = require("pg-promise")(/*options*/);
 const path = require('path');
 // const editorRoutes = require('./routes/editorRoutes');
-var lpSession = require('./backend/src/js/Session.cjs');
-const fst = require('./backend/src/js/helpers/fileSystemToolkit.cjs');
-const sptk = require('./backend/src/js/helpers/scriptPackToolkit.cjs');
+var lpSession = require('./backend/src/js/session.js');
+const fst = require('./backend/src/js/helpers/fileSystemToolkit.js');
+const sptk = require('./backend/src/js/helpers/scriptPackToolkit.js');
 
 const scriptPacks = fst.readJson('./views/scriptPacks.json');
 const stylePacks = fst.readJson('./views/stylePacks.json');

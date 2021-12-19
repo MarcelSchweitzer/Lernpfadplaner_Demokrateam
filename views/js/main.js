@@ -1,4 +1,6 @@
 $(document).ready(()=>{
+    session = new Session();
+
     $('.button').click(function(){
         let inputType = $( this ).attr('type');
         

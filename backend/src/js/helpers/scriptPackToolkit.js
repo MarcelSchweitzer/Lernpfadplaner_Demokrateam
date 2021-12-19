@@ -1,4 +1,4 @@
-const fst = require('./fileSystemToolkit.cjs');
+const fst = require('./fileSystemToolkit.js');
 
 class scriptPacker{
     constructor(scriptPack, stylePack){
@@ -8,18 +8,18 @@ class scriptPacker{
 
     // pack all script files
     packScripts(view){
-        return packFiles(view, this.scriptPack);
+        return this.packFiles(view, this.scriptPack);
     }
     
     // pack all css files
     packStyle(view){
-        return packFiles(view, this.stylePack);
+        return this.packFiles(view, this.stylePack);
     }
 
     packFiles(view, filePack){
         let packed = "";
-        for(let pack of this.scriptPack[view]){
-            packed += fst.readFile(filePack);
+        for(let pack of filePack[view]){
+            packed += fst.readFile(pack);
         }
         return packed;
     }
