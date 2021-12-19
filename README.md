@@ -4,7 +4,7 @@ installation:
 
 1) navigate to https://nodejs.org/ and install the latest LTS version of node.js on your machine
 2) navigate to https://www.postgresql.org/download/ an install PostgreSQL on your machine
-3) use username: postgres, pw: demokrateam123 as admin credentials
+3) use username: postgres, pw: demokrateam123 as login credentials
 4) set up a server running at localhost:5432
 5) navigate to the query editor and run the code contained in setup_db_inline.sql
 6) run "git clone https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam.git"
