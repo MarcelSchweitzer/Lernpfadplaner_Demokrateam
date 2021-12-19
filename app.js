@@ -1,4 +1,5 @@
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
 const pgp = require("pg-promise")(/*options*/);
 // const editorRoutes = require('./routes/editorRoutes');
@@ -11,15 +12,21 @@ const scrPack = new sptk.scriptPacker(scriptPacks, stylePacks);
 const user_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
 const app = express();
 
-var uId = 0;
-
-
 const port = 8082;
+
+// host public static folder for files
+app.use(express.static('public'));
+app.use('img', express.static(__dirname + 'public/img'));
+app.use('html', express.static(__dirname + 'public/html'));
+app.use('css', express.static(__dirname + 'public/css'));
+app.use('js', express.static(__dirname + 'public/js'));
+
+app.use(cookieParser());
+app.use(expressLayouts)
+app.set('layout', './layouts/fullWidth')
 
 // use ejs as view engine 
 app.set('view engine', 'ejs');
-
-app.use(cookieParser());
 
 // app.use('/editor', editorRoutes);
 
@@ -80,29 +87,17 @@ app.get('/', function (req, res) {
 
   // req.session.isAuth = true;
 
-  // only return html without scripts
-  if (req.query.getScripts == 'false'){
-    render('', 'false');
-  }
-  else{
-    render(scrPack.packScripts('index'), 'true');
-  }
-
-  function render(scriptPack, includeScripts){
-    res.render('index/index', {data: {
-      js : scriptPack,
-      includeScripts : includeScripts,
-      style : scrPack.packStyle('index'),
-      learningPaths: [
-        {id:12341234324, name:"lernpfad1"},
-        {id:3434234, name:"lernpfad2"},
-        {id:34234234324, name:"lernpfad3"},
-        {id:2343432423, name:"lernpfad4"}
-      ]
-    }});
-  }
-
-
+  res.render('index/index', {data: {
+    js : scrPack.packScripts('index'),
+    style : scrPack.packStyle('index'),
+    learningPaths: [
+      {id:12341234324, name:"lernpfad1"},
+      {id:3434234, name:"lernpfad2"},
+      {id:34234234324, name:"lernpfad3"},
+      {id:2343432423, name:"lernpfad4"}
+    ]
+  }});
+  
 })
 
 app.get('/editor', function (req, res) {

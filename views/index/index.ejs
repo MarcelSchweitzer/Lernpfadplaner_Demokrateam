@@ -1,28 +1,12 @@
-<!DOCTYPE html>
-<html>
-
-    <head>
-        <script><%-data.js%></script>
-        <style><%-data.style%></style>
-    </head>
-
-    <body>
-        <button class="button" id="settings">Einstellungen</button>
-        <h1>
-            Lernpfadplaner 
-        </h1>
-        <p>
-            verfuegbare Module
-        </p>
-        <ul>
-            <% data.learningPaths.forEach(lp=>{ %>
-                <li> 
-                    <button class="button" type="open" id="edit<%= lp['id'] %>"><%= lp['name'] %></button>
-                    <button class="button" type="delete" id="del<%= lp['id']%>">x</button>  
-                </li>
-            <% }); %>
-        </ul>
-        <button class="button" type="create" id="createLp">Lernpfad erstellen</button>
-    </body>
-
-</html>
+<p>
+    verfuegbare Module
+</p>
+<ul>
+    <% data.learningPaths.forEach(lp=>{ %>
+        <li> 
+            <button class="button" type="open" id="edit<%= lp['id'] %>"><%= lp['name'] %></button>
+            <button class="button" type="delete" id="del<%= lp['id']%>">x</button>  
+        </li>
+    <% }); %>
+</ul>
+<button class="button" type="create" id="createLp">Lernpfad erstellen</button>

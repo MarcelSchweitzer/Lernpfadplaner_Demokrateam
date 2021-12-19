@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html>
-
-    <head>
-        <script><%-data.js%></script>
-        <style><%-data.style%></style>
-    </head>
-
-    <body>
-        <button class="button" type="close" id="homeBtn">Home</button>
-        <h1>
-            <%= data.id%>
-        </h1>
-        <p>
-            <%= data.id%> wird bearbeitet! WOW, EIN TOLLER SERVICE!
-        </p>
-        <label for="lpName">Name</label>
-        <input type="text" id="lpName" value="<%=data.id%>" maxlength="30" size="20">
-        <button class="button" type="save" id="saveChanges">Lernpfad speichern</button>
-    </body>
-
-</html>
+<button class="button" type="close" id="homeBtn">Home</button>
+<h1>
+    <%= data.id%>
+</h1>
+<p>
+    <%= data.id%> wird bearbeitet! WOW, EIN TOLLER SERVICE!
+</p>
+<label for="lpName">Name</label>
+<input type="text" id="lpName" value="<%=data.id%>" maxlength="30" size="20">
+<button class="button" type="save" id="saveChanges">Lernpfad speichern</button>
