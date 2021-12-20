@@ -1,0 +1,45 @@
+<script>
+
+    sources = [
+        "js/dependencies/jquery-3.1.1.min.js",
+        "js/helpers/arrayToolkit.js",
+        "js/helpers/uniqueIdentifiers.js",
+        "js/clientSession.js",
+        "js/learningPath.js",
+        "js/eventHandlers/eventHandler.js",
+        "js/eventHandlers/httpHandler.js"
+    ]
+
+    try{
+
+        // check if source code is available
+        _ = new Session();
+    }catch(e){
+
+        // maximum amount of loading attempts
+        const maxAtempts = 10;
+
+        function loadResource(source){
+            let script = document.createElement('script');
+            script.setAttribute('src', source);
+            document.head.appendChild(script);
+        }
+
+        // load source code
+        for(source of sources){
+            let noSuccess = true;
+            let count = 0;
+            while(noSuccess && count < maxAtempts){
+                try{
+                    loadResource(source)
+                    noSuccess = false;
+                }catch(e){
+                    count++;
+                }
+            }
+        }
+    }
+</script>
+
+<link rel="stylesheet" href="css/main.css">
+

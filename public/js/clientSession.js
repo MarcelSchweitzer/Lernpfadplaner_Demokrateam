@@ -95,3 +95,5 @@ class Session{
         this.currentLearningPathId = null;
     }
 }
+
+const session = new Session();

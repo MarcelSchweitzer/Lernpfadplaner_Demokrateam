@@ -4,16 +4,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lernpfadplaner</title>
-        <script><%- data.js %></script>
-        <link rel="stylesheet" href="css/main.css"
+        <%- include('./partials/imports') %>
     </head>
     <body>
         <div class="Wrapper">
-            <%- include('../partials/header') %>
-            <main>
-                <%- body %>
+            <%- include('./partials/header') %>
+            <main id="main">
+                <%- include('./partials/home') %>
             </main>
-            <%- include('../partials/footer') %>
+            <%- include('./partials/footer') %>
         </div>
     </body>
 </html>

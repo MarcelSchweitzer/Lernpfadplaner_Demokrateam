@@ -1,8 +1,0 @@
-{
-    "index" : [
-        "./views/index/index.css"
-    ],
-    "editor" : [
-        "./views/editor/editor.css"
-    ]
-}
