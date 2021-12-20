@@ -10,6 +10,7 @@ CREATE DATABASE users
 CREATE TABLE IF NOT EXISTS public.users
 (
     uid bigint NOT NULL,
+    nickname text,
     CONSTRAINT users_pkey PRIMARY KEY (uid)
 )
 
@@ -39,7 +40,6 @@ CREATE INDEX IF NOT EXISTS "IDX_session_expire"
     ON public.user_session USING btree
     (expire ASC NULLS LAST)
     TABLESPACE pg_default;
-CREATE INDEX "IDX_session_expire" ON "user_session" ("expire");
 CREATE TABLE IF NOT EXISTS public.user_learningpath
 (
     id bigint NOT NULL,

@@ -1,9 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const pgp = require("pg-promise")(/*options*/);
+const dbMan = require('./src/dbManager.js');
 
 const port = 8082;
-const user_db = pgp("postgres://postgres:demokrateam123@localhost:5432/users");
 const app = express();
 
 app.use(cookieParser());
@@ -16,35 +15,7 @@ app.use('html', express.static(__dirname + 'public/html'));
 app.use('css', express.static(__dirname + 'public/css'));
 app.use('js', express.static(__dirname + 'public/js'));
 
-// TODO function for cookie validation
-
-/*** 
-
-const pgPool = new pg.Pool({
-  database: 'user_cookies',
-  user: 'postgres',
-  password: 'demokrateam123',
-  port: 5432,
-  max: 20, // set pool max size to 20
-  idleTimeoutMillis: 1000, // close idle clients after 1 second
-  connectionTimeoutMillis: 1000, // return an error after 1 second if connection could not be established
-  maxUses: 7500, // close (and replace) a connection after it has been used 7500 times
-});
-
-// create cookie for user session 
-app.use(expressSession({
-  store: new pgSession({
-    pool : pgPool,                
-    tableName : 'user_session'  
-  }),
-  secret: process.env.SESSION_SECRET,
-  saveUninitialized: false,
-  resave: false,
-  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 } // 1 year
-}));
-
-
-*/ 
+dbMan.select('users');
 
 // user loading site initialy
 app.get('/', function (req, res) {
@@ -67,9 +38,9 @@ app.get('/', function (req, res) {
   }
 
   // insert into db
-  user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')').then(function (data){
-    user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
-  });
+  //user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')').then(function (data){
+  //  user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
+  //});
 
   // req.session.isAuth = true;
 
@@ -88,7 +59,7 @@ app.get('/', function (req, res) {
 app.get('/editor', function (req, res) {
   openId = req.query.id;
   userId = 2554774756; // TODO get from cookie
-  // console.log(user_db.query('SELECT * FROM users'));
+  dbMan.select('user_session')
   if(true){
 
   }else{
