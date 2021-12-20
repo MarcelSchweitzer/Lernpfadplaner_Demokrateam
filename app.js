@@ -23,34 +23,11 @@ app.get('/', function (req, res) {
 
   var userSess = new userSession.userSession();
 
-  // TODO unique session id
-  let sId = Math.floor(100000 + Math.random() * 9000000000);
-  let uId = Math.floor(100000 + Math.random() * 9000000000);
-
-  let user={
-    'uId':uId,
-    'nickname':"Anonymer User"
-  }
-
-  info = "noInfo";
-  expire = "2023-01-01 00:00:00";
-
-  let user_cookie = {
-    'sid':sId,
-    'uid':uId,
-    'information':info,
-     'expire':expire 
-  }
-
-  // cookie for every key
-  for (const [key, value] of Object.entries(user_cookie)) {
+  // attatch session cookie to response
+  userCookie = userSess.getSessionCookie();
+  for (const [key, value] of Object.entries(userCookie)) {
     res.cookie(key, value);
   }
-
-  dbMan.insert('users', user);
-  dbMan.insert('user_session', user_cookie);
-
-  // req.session.isAuth = true;
 
   res.render('index', {data: {
     learningPaths: [

@@ -1,6 +1,7 @@
 const pgp = require('pg-promise')(/*options*/);
 const { Client } = require('pg');
 
+// TODO move to .env!
 const credentials = {
   user: 'postgres',
   host: 'localhost',
@@ -26,14 +27,12 @@ function select(from='', select='*', where=''){
         console.error(err);
         return false
     }
-    console.log(res.rows);
     dbClient.end();
     return(res.rows)
   });
 }
 
-// TODO add callback option
-function insert(table, dict) {
+function insert(table, dict, callback=function(){return}) {
   let dbClient = createClient();
   let query = 'INSERT INTO '+table+' ('
   for(let [key, value] of Object.entries(dict))
@@ -53,8 +52,10 @@ function insert(table, dict) {
           return false
       }
       dbClient.end()
+      callback();
       return true
   });
+
 }
 
 module.exports.select = select;
