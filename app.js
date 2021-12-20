@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dbMan = require('./src/dbManager.js');
+const userSession = require('./src/userSession.js');
 
 const port = 8082;
 const app = express();
@@ -20,21 +21,25 @@ dbMan.select('users');
 // user loading site initialy
 app.get('/', function (req, res) {
 
+  var userSess = new userSession.userSession();
+
   // TODO unique session id
   let sId = Math.floor(100000 + Math.random() * 9000000000);
   let uId = Math.floor(100000 + Math.random() * 9000000000);
 
   let user={
     'uId':uId,
-    'nickname':'Max'
+    'nickname':"Anonymer User"
   }
+
+  info = "noInfo";
+  expire = "2023-01-01 00:00:00";
 
   let user_cookie = {
     'sid':sId,
     'uid':uId,
-    'sess':{"info1":"123",
-            "info2":"456"},
-     'expire':'2023-01-01 00:00:00' 
+    'information':info,
+     'expire':expire 
   }
 
   // cookie for every key
@@ -44,11 +49,6 @@ app.get('/', function (req, res) {
 
   dbMan.insert('users', user);
   dbMan.insert('user_session', user_cookie);
-
-  // insert into db
-  //user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')').then(function (data){
-  //  user_db.query('INSERT INTO user_session(${this:name}) VALUES(${this:csv})', user_cookie);
-  //});
 
   // req.session.isAuth = true;
 

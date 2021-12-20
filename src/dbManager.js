@@ -32,17 +32,20 @@ function select(from='', select='*', where=''){
   });
 }
 
-function insert(table, dict){
+// TODO add callback option
+function insert(table, dict) {
   let dbClient = createClient();
-
   let query = 'INSERT INTO '+table+' ('
   for(let [key, value] of Object.entries(dict))
     query += key+','
   query = query.slice(0, -1)
   query += ') VALUES ('
-  query += JSON.stringify(dict)
+  for(let [key, value] of Object.entries(dict)){
+    var quotes = ((typeof value != 'number') ? "'" : "");
+    query += quotes + value + quotes + ','
+  }
   query = query.slice(0, -1)
-  query += '});'
+  query += ');'
   console.log(query)
   dbClient.query(query, (err, res) => {
       if (err) {

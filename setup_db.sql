@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.user_session
 (
     sid bigint NOT NULL,
     uid bigint NOT NULL,
-    info text NOT NULL,
+    information text NOT NULL,
     expire timestamp(6) without time zone NOT NULL,
     CONSTRAINT user_session_pkey PRIMARY KEY (sid),
     CONSTRAINT user_session_uid_fkey FOREIGN KEY (uid)

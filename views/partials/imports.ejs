@@ -26,18 +26,18 @@
         }
 
         // load source code
-        for(source of sources){
+
+        for(let i=0; i < sources.length; i++){
             let noSuccess = true;
             let count = 0;
+
+            // TODO CALLBACK INSTEAD OF WAITING
             while(noSuccess && count < maxAtempts){
-                try{
-                    loadResource(source)
-                    noSuccess = false;
-                }catch(e){
-                    count++;
-                }
+                setTimeout(loadResource(sources[i]), i*50);
+                noSuccess = false;
             }
         }
+        
     }
 </script>
 
