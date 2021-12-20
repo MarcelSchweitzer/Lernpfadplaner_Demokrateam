@@ -1,0 +1,83 @@
+
+.left-side{
+    width: 100%;
+    height: auto;
+    margin: 40px auto;
+   background-color:#f7f7f7;
+   border-radius: 5px
+}
+.material-group{
+    margin-top: 40px;
+}
+.innen-material{
+    width:100%;
+    height: 400px;
+    border: 1px solid #f7f7f7;
+}
+.note{
+    padding-top:10px;
+}
+.note p{
+   psdding-top:20px;
+    text-align: center;
+}
+.note img{
+    width: 40%;
+    display: block;
+    margin: 10px auto;
+    opacity: 0.7;
+}
+.note img:hover{
+    opacity:1;
+    }
+.btn-link{
+    color:#000 !important;
+    text-decoration:none !important;
+}
+.script{
+    width:30px;
+    padding-right:10px;
+}
+.rate-part {
+    text-align: center;
+
+}
+  .rate{
+    display: flex;
+    justify-content: center;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+.activity p{
+    text-align:center;
+}

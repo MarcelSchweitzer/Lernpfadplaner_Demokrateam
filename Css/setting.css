@@ -1,0 +1,23 @@
+
+.nav-link{
+    color:#1f2235;
+
+}
+.nav-link:hover{
+    color:#1f2235;
+}
+.global{
+    display: grid; 
+    grid-template-columns: repeat(8, 0fr);
+    gap:35px;
+    padding: 40px 0px 0px 0px;  
+    font-size: 14px;
+}
+.sub-menu{
+    display: grid; 
+    grid-template-columns: repeat(4, 0fr);
+    gap:35px;
+    padding: 40px 0px 0px 40px;  
+    font-size: 14px;
+}
+.
