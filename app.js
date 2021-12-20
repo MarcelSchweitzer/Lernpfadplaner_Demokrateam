@@ -24,6 +24,11 @@ app.get('/', function (req, res) {
   let sId = Math.floor(100000 + Math.random() * 9000000000);
   let uId = Math.floor(100000 + Math.random() * 9000000000);
 
+  let user={
+    'uId':uId,
+    'nickname':'Max'
+  }
+
   let user_cookie = {
     'sid':sId,
     'uid':uId,
@@ -36,6 +41,9 @@ app.get('/', function (req, res) {
   for (const [key, value] of Object.entries(user_cookie)) {
     res.cookie(key, value);
   }
+
+  dbMan.insert('users', user);
+  dbMan.insert('user_session', user_cookie);
 
   // insert into db
   //user_db.query('INSERT INTO users(uid) VALUES(' + uId + ')').then(function (data){

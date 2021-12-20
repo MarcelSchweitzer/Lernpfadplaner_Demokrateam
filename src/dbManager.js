@@ -1,4 +1,4 @@
-const pgp = require("pg-promise")(/*options*/);
+const pgp = require('pg-promise')(/*options*/);
 const { Client } = require('pg');
 
 const credentials = {
@@ -15,16 +15,16 @@ function createClient(){
   return dbClient;
 }
 
-function select(from="", select="*", where=""){
+function select(from='', select='*', where=''){
   let dbClient = createClient();
   const query = 'SELECT '+select+' FROM '+from;
-  if(where != "")
+  if(where != '')
     query += ' WHERE '+where;
   console.log(query);
   dbClient.query(query, (err, res) => {
     if (err) {
         console.error(err);
-        return -1
+        return false
     }
     console.log(res.rows);
     dbClient.end();
@@ -32,4 +32,27 @@ function select(from="", select="*", where=""){
   });
 }
 
+function insert(table, dict){
+  let dbClient = createClient();
+
+  let query = 'INSERT INTO '+table+' ('
+  for(let [key, value] of Object.entries(dict))
+    query += key+','
+  query = query.slice(0, -1)
+  query += ') VALUES ('
+  query += JSON.stringify(dict)
+  query = query.slice(0, -1)
+  query += '});'
+  console.log(query)
+  dbClient.query(query, (err, res) => {
+      if (err) {
+          console.error(err);
+          return false
+      }
+      dbClient.end()
+      return true
+  });
+}
+
 module.exports.select = select;
+module.exports.insert = insert;
