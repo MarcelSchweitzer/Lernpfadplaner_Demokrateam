@@ -6,36 +6,36 @@ function mountEventHandlers(){
     
     $('.button').click(function(){
 
-        let inputType = $(this).attr('type');
+        let inputClass = $(this).attr('class');
         let inputId = $(this).attr('id');
 
-        console.log("clicked: "+inputType+" - id: "+inputId);
+        console.log("clicked: "+inputClass+" - id: "+inputId);
         
         // handle open buttons
-        if(inputType == 'open'){
+        if(inputClass.includes('open')){
             let lpId = inputId.replace('edit', '');
             session.openLearningPath(lpId);
             getEditPage(lpId);
         }
     
         // handle create button
-        else if(inputType == 'create'){
+        else if(inputClass.includes('create')){
             session.createLearningPath();
             let lpId = session.getCurrentLearningPathId();
-            getEditPage(lpId);
+            getCreatePage(lpId);
         }
 
         // handle delete buttons        
-        else if(inputType = 'delete'){
+        else if(inputClass.includes('delete')){
 
         }
 
         // close current LearningPath (open landing page)
-        if(inputId == 'homeBtn'){
+        if(inputClass.includes('homeBtn')){
             getHomePage();
         }
 
-        else if(inputType == 'save'){
+        else if(inputClass.includes('save')){
             console.log(currentLearningPath.getId());
             console.log("stfy"+JSON.stringify(currentLearningPath))
             //$.post('/editor', { id : "id" , lp : JSON.stringify(currentLearningPath)});

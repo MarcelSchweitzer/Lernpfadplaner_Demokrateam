@@ -61,6 +61,17 @@ app.get('/editor', function (req, res) {
 
 })
 
+// user wants to create a learningPath
+app.get('/create', function (req, res) {
+  openId = req.query.id;
+  userId = 2554774756; // TODO get from cookie
+  dbMan.select('user_session')
+
+  // return ejs rendered page for editor screen
+  res.render('partials/settings');
+
+})
+
 // user wants to navigate back to landing page
 app.get('/home', function (req, res) {
   // return ejs rendered page for home screen

@@ -9,6 +9,16 @@ function getEditPage(editId){
     });
 }
 
+function getCreatePage(){
+    // send get request to server 
+    $.get('/create').done(function(data, status){
+
+        const main = document.getElementById('main');
+        main.innerHTML = data;
+        mountEventHandlers();
+    });
+}
+
 // request index patch from server
 function getHomePage(){
     $.get('/home' ).done(function(data, status){

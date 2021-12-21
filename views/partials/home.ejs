@@ -1,12 +1,28 @@
-<p>
-    verfuegbare Module
-</p>
-<ul>
-    <% data.learningPaths.forEach(lp=>{ %>
-        <li> 
-            <button class="button" type="open" id="edit<%= lp['id'] %>"><%= lp['name'] %></button>
-            <button class="button" type="delete" id="del<%= lp['id']%>">x</button>  
-        </li>
-    <% }); %>
-</ul>
-<button class="button" type="create" id="createLp">Lernpfad erstellen</button>
+<div class="container">
+    <div class="start-btn">
+        <button class="button btn btn-primary create" type="create" id="createLp">Neues Modul erstellen +</button>
+    </div>
+    <hr>
+    <section>
+        <div class="history">
+           <div class="card">
+               <div class="card-header">
+                 Letzte Module
+               </div>
+               <div class="card-body">
+                <ul>
+                    <% data.learningPaths.forEach(lp=>{ %>
+                        <li> 
+                            <button class="button btn btn-primary open" type="open" id="edit<%= lp['id'] %>"><%= lp['name'] %></button>
+                            <button class="button btn btn-primary delete" type="delete" id="del<%= lp['id']%>">x</button>  
+                        </li>
+                    <% }); %>
+                </ul>
+               </div>
+             </div>
+        </div>
+    </section>
+</div>
+
+
+
