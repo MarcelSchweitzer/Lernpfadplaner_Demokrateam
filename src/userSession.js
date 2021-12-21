@@ -2,60 +2,60 @@ const dbMan = require('./dbManager.js');
 const fstk = require('./fileSystemToolkit.js');
 const animalNameList = fstk.textToArray('./res/animalNames.txt');
 
-function createId(existingIds){
+function createId(existingIds) {
     //TODO unique
     return Math.floor(100000 + Math.random() * 9000000000);
 }
 
-function createUserName(){
+function createUserName() {
     let randIndex = Math.floor(Math.random() * (animalNameList.length));
     let animal = animalNameList[randIndex];
-    animal = 'Anonyme '+animal;
+    animal = 'Anonyme ' + animal;
     return animal
 }
 
 // return sessionCookie
-class userSession{
-    constructor(userId = null){
+class userSession {
+    constructor(userId = null) {
         this.sessionId = createId();
-        if(userId === null){
+        if (userId === null) {
             this.userId = createId();
             this.userName = createUserName();
-        }else{
+        } else {
             this.userId = userId
             // TODO get username from DATABASE
         }
 
-        
-        console.log('User session: user: '+this.userId+' nickname: '+this.userName);  
 
-        this.user={
-            'uId':this.userId,
-            'nickname':this.userName
-          }
+        console.log('User session: user: ' + this.userId + ' nickname: ' + this.userName);
+
+        this.user = {
+            'uId': this.userId,
+            'nickname': this.userName
+        }
         let info = "noInfo";
         let expire = "2023-01-01 00:00:00";
-    
+
         this.sessionCookie = {
-        'sid':this.sessionId,
-        'uid':this.userId,
-        'information':info,
-            'expire':expire 
+            'sid': this.sessionId,
+            'uid': this.userId,
+            'information': info,
+            'expire': expire
         }
 
-        dbMan.insert('users', this.user, ()=>{
+        dbMan.insert('users', this.user, () => {
             dbMan.insert('user_session', this.sessionCookie);
         });
-        
+
     }
 
-    getSessionCookie(){
+    getSessionCookie() {
         return this.sessionCookie;
     }
 
-    getUserInfo(){
+    getUserInfo() {
         return this.user;
     }
-} 
+}
 
 module.exports.userSession = userSession;

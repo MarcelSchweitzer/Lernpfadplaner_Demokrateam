@@ -16,10 +16,12 @@ app.use('html', express.static(__dirname + 'public/html'));
 app.use('css', express.static(__dirname + 'public/css'));
 app.use('js', express.static(__dirname + 'public/js'));
 
-dbMan.select('users');
+// dbMan.select('users');
 
 // user loading site initialy
 app.get('/', function (req, res) {
+
+  // TODO authenticate user by cookie
 
   var userSess = new userSession.userSession();
 
@@ -47,13 +49,13 @@ app.get('/get_started', function (req, res) {
 
 // user wants to edit a learningPath
 app.get('/editor/lp=:lpId', function (req, res) {
-  openId = lpId;
-  userId = uId; // TODO get from cookie
-  dbMan.select('user_session')
+  openId = req.params.lpId;
+  userId = req.uId; // TODO get from cookie
+  // dbMan.select('user_session')
 
   // return ejs rendered page for editor screen
   res.render('partials/editor', {data: {
-    id: lpId
+    id: req.params.lpId
   }});
 
 })
@@ -61,7 +63,7 @@ app.get('/editor/lp=:lpId', function (req, res) {
 // user wants to create a learningPath
 app.get('/create', function (req, res) {
   userId = 2554774756; // TODO get from cookie
-  dbMan.select('user_session')
+  // dbMan.select('user_session')
 
   // return ejs rendered page for editor screen
   res.render('partials/settings');
@@ -79,8 +81,6 @@ app.get('/settings', function (req, res) {
 // user wants to navigate back to landing page
 app.get('/home/user=:user', function (req, res) {
 
-  console.log('User '+req.params.user+' requested his home screen!');
-
   // return ejs rendered page for dashboard screen
   res.render('partials/dashboard', {data: {
     learningPaths: [
@@ -93,8 +93,7 @@ app.get('/home/user=:user', function (req, res) {
 
 app.get('/learningPaths/user=:user', function (req, res) {
 
-  console.log('User '+req.params.user+' requested his data!');
-
+  // return list of users learningpaths
   res.send({data: {
     learningPaths: [
       {id:12341234324, name:"lernpfad1"},
@@ -109,7 +108,7 @@ app.get('/learningPaths/user=:user', function (req, res) {
 
 // user wants to push his updates to the server
 app.post('/editor', function (req, res) {
-  console.log(req.data);
+  // console.log(req.data);
 
   // TODO only send 200 if everything worked out fine!
   res.send('200')
