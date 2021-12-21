@@ -37,7 +37,10 @@ app.get('/', function (req, res) {
       {id:2343432423, name:"lernpfad4"}
     ]
   }});
-  
+})
+
+app.get('/get_started', function (req, res) {
+  res.render('landing');
 })
 
 // user wants to edit a learningPath
