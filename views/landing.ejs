@@ -27,9 +27,9 @@
                         <button class='btn primary-btn' onCLick="startClick()">Get Started</button>
                         <script>
                             function startClick(){
-                                $.get('/').done(function(data, status){
-                                    document.write(data);
-                                });
+                                var pageURL = $(location).attr("href");
+                                dashboardUrl = pageURL.toString().replace("get_started", "");
+                                window.location.replace(dashboardUrl);
                             }
                         </script>
                     </div>

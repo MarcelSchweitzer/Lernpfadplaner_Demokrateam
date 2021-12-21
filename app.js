@@ -77,8 +77,8 @@ app.get('/create', function (req, res) {
 
 // user wants to navigate back to landing page
 app.get('/home', function (req, res) {
-  // return ejs rendered page for home screen
-  res.render('partials/home', {data: {
+  // return ejs rendered page for dashboard screen
+  res.render('partials/dashboard', {data: {
     learningPaths: [
       {id:12341234324, name:"lernpfad1"},
       {id:3434234, name:"lernpfad2"},
