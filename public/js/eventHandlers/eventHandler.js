@@ -25,13 +25,17 @@ function mountEventHandlers(){
             getCreatePage(lpId);
         }
 
+        else if(inputClass.includes('lpSettings')){
+            getSettingsPage();
+        }
+
         // handle delete buttons        
         else if(inputClass.includes('delete')){
 
         }
 
         // close current LearningPath (open landing page)
-        if(inputClass.includes('homeBtn')){
+        if(inputClass.includes('home')){
             getHomePage();
         }
 

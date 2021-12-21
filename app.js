@@ -35,7 +35,9 @@ app.get('/', function (req, res) {
       {id:3434234, name:"lernpfad2"},
       {id:34234234324, name:"lernpfad3"},
       {id:2343432423, name:"lernpfad4"}
-    ]
+    ],
+    uId: userSess.getUserInfo()['uId'],
+    nickname: userSess.getUserInfo()['nickname']
   }});
 })
 
@@ -48,14 +50,6 @@ app.get('/editor', function (req, res) {
   openId = req.query.id;
   userId = 2554774756; // TODO get from cookie
   dbMan.select('user_session')
-  if(true){
-
-  }else{
-
-      // add learningPath to db
-      console.log('INSERT INTO user_learningpath VALUES(' + openId + ', ' + userId +')');
-      user_db.query('INSERT INTO user_learningpath VALUES(' + openId + ', ' + userId +')');
-  }
 
   // return ejs rendered page for editor screen
   res.render('partials/editor', {data: {
@@ -75,6 +69,14 @@ app.get('/create', function (req, res) {
 
 })
 
+// user wants to edit the settings of a learningPath
+app.get('/settings', function (req, res) {
+
+  // return ejs rendered page for editor screen
+  res.render('partials/settings');
+
+})
+
 // user wants to navigate back to landing page
 app.get('/home', function (req, res) {
   // return ejs rendered page for dashboard screen
@@ -84,7 +86,7 @@ app.get('/home', function (req, res) {
       {id:3434234, name:"lernpfad2"},
       {id:34234234324, name:"lernpfad3"},
       {id:2343432423, name:"lernpfad4"}
-    ]
+    ],
   }});
 
 })
