@@ -46,21 +46,20 @@ app.get('/get_started', function (req, res) {
 })
 
 // user wants to edit a learningPath
-app.get('/editor', function (req, res) {
-  openId = req.query.id;
-  userId = 2554774756; // TODO get from cookie
+app.get('/editor/lp=:lpId', function (req, res) {
+  openId = lpId;
+  userId = uId; // TODO get from cookie
   dbMan.select('user_session')
 
   // return ejs rendered page for editor screen
   res.render('partials/editor', {data: {
-    id: req.id
+    id: lpId
   }});
 
 })
 
 // user wants to create a learningPath
 app.get('/create', function (req, res) {
-  openId = req.query.id;
   userId = 2554774756; // TODO get from cookie
   dbMan.select('user_session')
 
@@ -78,7 +77,10 @@ app.get('/settings', function (req, res) {
 })
 
 // user wants to navigate back to landing page
-app.get('/home', function (req, res) {
+app.get('/home/user=:user', function (req, res) {
+
+  console.log('User '+req.params.user+' requested his home screen!');
+
   // return ejs rendered page for dashboard screen
   res.render('partials/dashboard', {data: {
     learningPaths: [
@@ -88,6 +90,20 @@ app.get('/home', function (req, res) {
       {id:2343432423, name:"lernpfad4"}
     ],
   }});
+
+app.get('/learningPaths/user=:user', function (req, res) {
+
+  console.log('User '+req.params.user+' requested his data!');
+
+  res.send({data: {
+    learningPaths: [
+      {id:12341234324, name:"lernpfad1"},
+      {id:3434234, name:"lernpfad2"},
+      {id:34234234324, name:"lernpfad3"},
+      {id:2343432423, name:"lernpfad4"}
+    ],
+  }});
+})
 
 })
 

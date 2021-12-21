@@ -1,48 +1,64 @@
 $(document).ready(()=>{
-    mountEventHandlers();
+    mountHeaderEventHandlers();
+    mountIndexEventHandlers();
 });
 
-function mountEventHandlers(){
+function mountEventHandler(handler, fun){
+    elem = document.getElementById(handler);
+    elem.removeEventListener('click', fun, true);
+    elem.addEventListener('click', fun, true);
+}
+
+function mountHeaderEventHandlers(){
+    mountEventHandler('settingsBtn', settingsHandler);
+    mountEventHandler('homeBtn', homeHandler);
+}
+
+function mountIndexEventHandlers(){
+    mountHeaderEventHandlers();
+    for(lp in session.getLearningPaths()){
+        console.log(lp);
+    }
+    //mountEventHandler('editLpBtn', openHandler);
+    mountEventHandler('createLpBtn', createHandler);
+}
+
+function mountSettingsEventHandlers(){
+    mountEventHandler('saveSettingsBtn', saveSettingsHandler);
+}
+
+function mountEditorEventHandlers(){
     
-    $('.button').click(function(){
+}
 
-        let inputClass = $(this).attr('class');
-        let inputId = $(this).attr('id');
 
-        console.log("clicked: "+inputClass+" - id: "+inputId);
-        
-        // handle open buttons
-        if(inputClass.includes('open')){
-            let lpId = inputId.replace('edit', '');
-            session.openLearningPath(lpId);
-            getEditPage(lpId);
-        }
-    
-        // handle create button
-        else if(inputClass.includes('create')){
-            session.createLearningPath();
-            let lpId = session.getCurrentLearningPathId();
-            getCreatePage(lpId);
-        }
+function openHandler(id){
+    session.openLearningPath(id);
+    getEditPage(id);
+}
 
-        else if(inputClass.includes('lpSettings')){
-            getSettingsPage();
-        }
+function createHandler(){
+    session.createLearningPath();
+    let lpId = session.getCurrentLearningPathId();
+    getCreatePage(lpId);
+}
 
-        // handle delete buttons        
-        else if(inputClass.includes('delete')){
+function deleteHandler(){
 
-        }
+}
 
-        // close current LearningPath (open landing page)
-        if(inputClass.includes('home')){
-            getHomePage();
-        }
+function settingsHandler(){
+    getSettingsPage();
+}
 
-        else if(inputClass.includes('save')){
-            console.log(currentLearningPath.getId());
-            console.log("stfy"+JSON.stringify(currentLearningPath))
-            //$.post('/editor', { id : "id" , lp : JSON.stringify(currentLearningPath)});
-        }
-    });
+function homeHandler(){
+    getHomePage();
+}
+
+function saveSettingsHandler(){
+
+}
+
+function exportHandler(){
+    getEditPage();
 }

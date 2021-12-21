@@ -1,7 +1,7 @@
 // request edit patch from server
 function getEditPage(editId){
     // send get request to server 
-    $.get('/editor', { id : editId }).done(function(data, status){ replaceBody(data) });
+    $.get('/editor/', { uId : session.getUserId() }).done(function(data, status){ replaceBody(data) });
 }
 
 function getCreatePage(){
@@ -11,7 +11,14 @@ function getCreatePage(){
 
 // request index patch from server
 function getHomePage(){
-    $.get('/home' ).done(function(data, status){ replaceBody(data) });
+    $.get('/home/user='+session.getUserId()).done(function(data, status){ 
+        replaceBody(data);
+        mountIndexEventHandlers();
+    });
+    $.get('/learningPaths/user='+session.getUserId()).done(function(data, status){
+        console.log(data.learningPaths);
+    });
+
 }
 
 function getSettingsPage(){
@@ -21,5 +28,4 @@ function getSettingsPage(){
 function replaceBody(data){
     const main = document.getElementById('main');
     main.innerHTML = data;
-    mountEventHandlers();
 }

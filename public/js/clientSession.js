@@ -2,7 +2,11 @@ class Session{
     constructor(){
         this.learningPaths = [];
         this.currentLearningPathId = null;
+        this.userId = 0;
+    }
 
+    getUserId(){
+        return this.userId;
     }
 
     // get Id of current (opened) learningPath
