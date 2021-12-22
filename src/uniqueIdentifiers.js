@@ -14,11 +14,8 @@ function uniqueId(listOfIds) {
 
 // return a standard name with incrementing numbers
 function uniqueName(schema, listOfNames) {
-    console.log(listOfNames);
     if (listOfNames == null || listOfNames.length == 0 || !listOfNames.includes(schema))
         return schema;
-    console.log("scheme:" + schema);
-    console.log("listOfNames:" + listOfNames);
     let name = schema;
     let num = 1;
 
