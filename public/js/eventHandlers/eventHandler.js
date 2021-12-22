@@ -55,12 +55,16 @@ function createHandler() {
 }
 
 function deleteHandler(id) {
-    var attribute = this.getAttribute("id");
-    alert(attribute);
+    let deleteID = this.getAttribute('id');
+    editID = deleteID.replaceAll('delete', '_delete');
+    let deleteButton = document.getElementById(deleteID);
+    deleteButton.remove();
+
+    editID = deleteID.replaceAll('delete', '_edit');
+    let editButton = document.getElementById(editID);
+    editButton.remove();
 
     // TODO send HTTP request for deletion of
-
-    // TODO removo HTML elem from doc
 }
 
 function settingsHandler() {

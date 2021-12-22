@@ -118,22 +118,22 @@ app.get('/create', function(req, res) {
 
 // user wants to edit the settings of a learningPath
 app.get('/settings', function(req, res) {
+
     // TODO
-    if (req.query.lpid == null) {
-        res.render('partials/settings', {
-            data: {
-                'learningpathTitle': ''
-            }
-        });
-    } else {
-        dbMan.selectMatch('public.learningpath', 'title', 'lpid', req.query.lpid, (title) => {
-            res.render('partials/settings', {
-                data: {
-                    'learningpathTitle': title[0]['title']
-                }
-            });
-        })
-    }
+
+    //dbMan.selectMatch('public.learningpath', 'title', 'lpid', req.query.lpid, (title) => {
+    //    res.render('partials/settings', {
+    //        data: {
+    //            'learningpathTitle': title[0]['title']
+    //        }
+    //    });
+    //})
+    res.render('partials/settings', {
+        data: {
+            'learningpathTitle': 'Lernpfad'
+        }
+    });
+
 })
 
 

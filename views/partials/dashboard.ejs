@@ -10,18 +10,21 @@
                     Letzte Module
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <% data.learningPaths.forEach(lp=>{ %>
-                            <li>
+                    <% data.learningPaths.forEach(lp=>{ %>
+                        <div class="row">
+                            <div id="_edit<%= lp['lpid'] %>">
                                 <button class="button btn btn-primary open" type="edit" id="edit<%= lp['lpid'] %>">
-                                    <%= lp['title'] %>
-                                </button>
-                                <button class="button btn btn-primary delete" type="delete" id="delete<%= lp['lpid']%>">x</button>
-                            </li>
-                            <% }); %>
-                    </ul>
+                                <%= lp['title'] %>
+                            </button>
+                            </div>
+                            <div id="_del<%= lp['lpid'] %>">
+                                <button class="button btn btn-primary btn-warning delete" type="delete" id="delete<%= lp['lpid']%>">x</button>
+                            </div>
+                        </div>
+                        <% }); %>
                 </div>
             </div>
         </div>
-    </section>
+</div>
+</section>
 </div>
