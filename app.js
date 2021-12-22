@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const { render } = require('express/lib/response');
 const PsqlStore = require('./src/psqlStore.js')(session);
 const dbMan = require('./src/dbManager.js');
 // const userSession = require('./src/userSession.js');
@@ -15,7 +16,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        uid: 234334234,
         maxAge: 365 * 24 * 60 * 60 * 1000
     }
 }));
@@ -31,38 +31,38 @@ app.use('html', express.static(__dirname + 'public/html'));
 app.use('css', express.static(__dirname + 'public/css'));
 app.use('js', express.static(__dirname + 'public/js'));
 
-// dbMan.select('session', '*', '', cb = (x) => {
-//     console.log(x)
-// });
-
 // user loading site initialy
 app.get('/', function(req, res) {
+    console.log()
+    let userId
 
-    req.session.isAuth = true;
-    console.log("User is authicated " + req.session.id);
+    if (req.session.isAuth == true) {
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, renderIndex)
+    } else {
+        req.session.isAuth = true;
+        app.redirect('/');
+        //renderIndex([{ 'uid': '0', 'nickname': '' }])
+    }
+
+
 
     // TODO authenticate user by cookie
 
-    // var userSess = new userSession.userSession();
-
-    // attatch session cookie to response
-    // userCookie = userSess.getSessionCookie();
-    //for (const [key, value] of Object.entries(userCookie)) {
-    //    res.cookie(key, value);
-    //}
-
-    res.render('index', {
-        data: {
-            learningPaths: [
-                { id: 12341234324, name: "lernpfad1" },
-                { id: 3434234, name: "lernpfad2" },
-                { id: 34234234324, name: "lernpfad3" },
-                { id: 2343432423, name: "lernpfad4" }
-            ],
-            uId: 23545234545,
-            nickname: "KEIN NUTZERNAME verfügbar"
-        }
-    });
+    function renderIndex(data) {
+        console.log("USER :" + data[0]['uid'] + " logged on!");
+        res.render('index', {
+            data: {
+                learningPaths: [
+                    { id: 12341234324, name: "lernpfad1" },
+                    { id: 3434234, name: "lernpfad2" },
+                    { id: 34234234324, name: "lernpfad3" },
+                    { id: 2343432423, name: "lernpfad4" }
+                ],
+                uId: data[0]['uid'],
+                nickname: data[0]['nickname']
+            }
+        });
+    }
 })
 
 app.get('/get_started', function(req, res) {

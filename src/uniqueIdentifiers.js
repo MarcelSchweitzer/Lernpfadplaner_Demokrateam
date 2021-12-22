@@ -12,6 +12,9 @@ function uniqueId(listOfIds) {
 
 // return a standard name with incrementing numbers
 function uniqueName(schema, listOfNames) {
+
+    console.log("scheme:" + schema);
+    console.log("listOfNames:" + listOfNames);
     let name = schema;
     let num = 1;
 
@@ -31,6 +34,11 @@ function createUserName() {
     return animal
 }
 
+function createUniqueUserName(listOfNames) {
+    return module.exports.uniqueName(module.exports.createUserName(), listOfNames);
+}
+
 module.exports.uniqueId = uniqueId;
 module.exports.uniqueName = uniqueName;
 module.exports.createUserName = createUserName;
+module.exports.createUniqueUserName = createUniqueUserName;
