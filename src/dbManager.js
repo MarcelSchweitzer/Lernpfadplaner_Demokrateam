@@ -1,9 +1,9 @@
-const pgp = require('pg-promise')( /*options*/ );
+const pgp = require('pg-promise')( /*options*/);
 const { Client } = require('pg');
 
 require('dotenv').config();
 
-function noop() {}
+function noop() { }
 
 const credentials = {
     database: process.env.DB_Name,
@@ -53,7 +53,7 @@ function insert(table, dict, cb = noop) {
     }
     query = query.slice(0, -1)
     query += ');'
-        //console.log(query)
+    //console.log(query)
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);
@@ -65,6 +65,32 @@ function insert(table, dict, cb = noop) {
 
 }
 
+function _delete(table, attrib, equals, cb = noop) {
+    let dbClient = createClient();
+    let query = 'DELETE FROM ' + table + ' WHERE ' + attrib + '=';
+    let quotes = ((typeof equals != 'number') ? "'" : "");
+    query += quotes + equals + quotes + ','
+    query = query.slice(0, -1)
+    console.log(query)
+    dbClient.query(query, (err, res) => {
+        if (err) {
+            console.error(err);
+            return false
+        }
+        dbClient.end()
+        return cb()
+    });
+}
+
+function _update(table, dict, cb = noop){
+
+    // TODO
+}
+
+
+
 module.exports.select = select;
 module.exports.selectMatch = selectMatch;
 module.exports.insert = insert;
+module.exports._delete = _delete;
+module.exports._update = _update;

@@ -35,3 +35,10 @@ CREATE TABLE IF NOT EXISTS public.learningpath
     created timestamp(6),
     CONSTRAINT learningpath_pkey PRIMARY KEY (lpid)
 )
+
+CREATE TABLE IF NOT EXISTS public.settings
+(
+    uid bigint NOT NULL,
+    settings json,
+    CONSTRAINT settings_pkey PRIMARY KEY (uid)
+)
