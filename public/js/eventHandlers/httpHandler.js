@@ -1,41 +1,46 @@
 // request edit patch from server
-function getEditPage(editId = 0) {
-  // send get request to server 
-  $.get('/editor/lp=' + editId, { uId: session.getUserId() }).done(function (data, status) { replaceBody(data) });
+function getEditPage(lpid) {
+    $.get('/editor', { 'lpid': lpid }).done(function(data, status) { replaceBody(data) });
 }
 
 function getCreatePage() {
-  // send get request to server 
-  $.get('/create').done(function (data, status) {
-    replaceBody(data),
-      mountSettingsEventHandlers();
-  });
+    $.get('/create').done(function(data, status) {
+        replaceBody(data);
+        mountSettingsEventHandlers();
+    });
 }
 
 function getHomePage() {
 
-  // request index patch from server
-  $.get('/home/user=' + session.getUserId()).done(function (data, status) {
-    replaceBody(data);
-    mountIndexEventHandlers();
-  });
+    // request index patch from server
+    $.get('/home').done(function(data, status) {
+        replaceBody(data);
+        mountIndexEventHandlers();
+    });
 
-  // fetch users learning paths from server
-  $.get('/learningPaths/user=' + session.getUserId()).done(function (data, status) {
-    for (lp of data.data.learningPaths)
-      session.addLearningPath(lp.id, lp.name);
-  });
+    // fetch users learning paths from server
+    $.get('/learningPaths').done(function(data) {
+        lps = JSON.parse(data)
+        for (let i = 0; i < lps.length; i++)
+            session.addLearningPath(lps[i]['lpid'], lps[i]['title'])
+    });
 
 }
 
-function getSettingsPage() {
-  $.get('/settings').done(function (data, status) {
-    replaceBody(data);
-    mountSettingsEventHandlers;
-  });
+function getSettingsPage(currentLp) {
+    $.get('/settings', { lpid: currentLp }).done(function(data, status) {
+        replaceBody(data);
+        mountSettingsEventHandlers();
+    });
+}
+
+function LearningPathToServer() {
+
+    // TODO
+
 }
 
 function replaceBody(data) {
-  const main = document.getElementById('main');
-  main.innerHTML = data;
+    const main = document.getElementById('main');
+    main.innerHTML = data;
 }

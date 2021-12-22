@@ -4,9 +4,13 @@ $(document).ready(() => {
 });
 
 function mountEventHandler(handler, fun) {
-    elem = document.getElementById(handler);
-    elem.removeEventListener('click', fun, true);
-    elem.addEventListener('click', fun, true);
+    let elem = document.getElementById(handler);
+    try {
+        elem.removeEventListener('click', fun, false);
+        elem.addEventListener('click', fun, false);
+    } catch (e) {
+        console.log('unable to mount evenlistener: ' + e)
+    }
 }
 
 function mountHeaderEventHandlers() {
@@ -16,14 +20,19 @@ function mountHeaderEventHandlers() {
 
 function mountIndexEventHandlers() {
     mountHeaderEventHandlers();
-    /** 
-    for(lp of session.getLearningPaths()){
-        mountEventHandler('edit'+lp.getId(), openHandler(lp.getId()));
-        mountEventHandler('delete'+lp.getId(), deleteHandler(lp.getId()));
+    mountEventHandler('createLpBtn', createHandler);
+
+    var openButtons = document.getElementsByClassName('open');
+    var deleteButtons = document.getElementsByClassName('delete');
+    for (let i = 0; i < openButtons.length; i++) {
+        openButtons[i].removeEventListener('click', editHandler, false);
+        openButtons[i].addEventListener('click', editHandler, false);
+    }
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].removeEventListener('click', deleteHandler, false);
+        deleteButtons[i].addEventListener('click', deleteHandler, false);
     }
 
-    */
-    mountEventHandler('createLpBtn', createHandler);
 }
 
 function mountSettingsEventHandlers() {
@@ -36,7 +45,7 @@ function mountEditorEventHandlers() {
 
 function openHandler(id) {
     session.openLearningPath(id);
-    getEditPage(id);
+    getEditPage();
 }
 
 function createHandler() {
@@ -46,11 +55,16 @@ function createHandler() {
 }
 
 function deleteHandler(id) {
+    var attribute = this.getAttribute("id");
+    alert(attribute);
 
+    // TODO send HTTP request for deletion of
+
+    // TODO removo HTML elem from doc
 }
 
 function settingsHandler() {
-    getSettingsPage();
+    getSettingsPage(session.getCurrentLearningPathId());
 }
 
 function homeHandler() {
@@ -63,4 +77,11 @@ function saveSettingsHandler() {
 
 function exportHandler() {
     getEditPage();
+}
+
+function editHandler() {
+    let editID = this.getAttribute("id");
+    editID = editID.replaceAll("edit", "");
+    getEditPage(editID);
+    session.openLearningPath(editID);
 }

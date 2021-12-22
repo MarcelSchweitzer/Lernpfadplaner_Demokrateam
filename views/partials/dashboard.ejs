@@ -13,10 +13,10 @@
                     <ul>
                         <% data.learningPaths.forEach(lp=>{ %>
                             <li>
-                                <button class="button btn btn-primary" type="edit" id="edit<%= lp['lpid'] %>">
+                                <button class="button btn btn-primary open" type="edit" id="edit<%= lp['lpid'] %>">
                                     <%= lp['title'] %>
                                 </button>
-                                <button class="button btn btn-primary" type="delete" id="delete<%= lp['lpid']%>">x</button>
+                                <button class="button btn btn-primary delete" type="delete" id="delete<%= lp['lpid']%>">x</button>
                             </li>
                             <% }); %>
                     </ul>

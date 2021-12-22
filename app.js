@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
     }
 
     function renderIndex(data) {
-        console.log("USER :" + data[0]['uid'] + " logged on!");
+        console.log("User :" + data[0]['uid'] + " connected");
         dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', data[0]['uid'], (_data) => {
             res.render('index', {
                 data: {
@@ -65,7 +65,7 @@ app.get('/get_started', function(req, res) {
 
 
 // user wants to edit a learningPath
-app.get('/editor/lp=:lpId', function(req, res) {
+app.get('/editor', function(req, res) {
     openId = req.params.lpId;
     if (req.session.isAuth == true) {
 
@@ -117,16 +117,28 @@ app.get('/create', function(req, res) {
 
 
 // user wants to edit the settings of a learningPath
-app.get('/settings/', function(req, res) {
-
-    // return ejs rendered page for editor screen
-    res.render('partials/settings');
-
+app.get('/settings', function(req, res) {
+    // TODO
+    if (req.query.lpid == null) {
+        res.render('partials/settings', {
+            data: {
+                'learningpathTitle': ''
+            }
+        });
+    } else {
+        dbMan.selectMatch('public.learningpath', 'title', 'lpid', req.query.lpid, (title) => {
+            res.render('partials/settings', {
+                data: {
+                    'learningpathTitle': title[0]['title']
+                }
+            });
+        })
+    }
 })
 
 
 // user wants to navigate back to landing page
-app.get('/home/user=:user', function(req, res) {
+app.get('/home', function(req, res) {
     getCurrentUser(req.sessionID, (uid) => {
         dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', uid, (data) => {
             res.render('partials/dashboard', {
@@ -139,17 +151,13 @@ app.get('/home/user=:user', function(req, res) {
 })
 
 // user wants a list of his learningPaths
-//app.get('/learningPaths/user=:user', function(req, res) {
-//    getCurrentUser(req.sessionID, (uid) => {
-//        dbMan.selectMatch('learningpath', 'lpid, title', 'owner', uid, (data) => {
-//            res.status().send('partials/dashboard', {
-//                data: {
-//                    learningPaths: data
-//                }
-//            });
-//        })
-//    });
-//})
+app.get('/learningPaths', function(req, res) {
+    getCurrentUser(req.sessionID, (uid) => {
+        dbMan.selectMatch('learningpath', 'lpid, title', 'owner', uid, (data) => {
+            res.send(JSON.stringify(data));
+        })
+    });
+})
 
 
 // user wants to push his updates to the server
