@@ -4,26 +4,22 @@
     <div class="cover-background">
         <img class="img-background" src="img/settings.png">
         <div class="setting-section">
+            <input type="text" class="form-control" id="formGroupExampleInput" value="<%=data.learningpathTitle%>">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="global-tab" data-toggle="tab" href="#global" role="tab"
-                        aria-controls="global" aria-selected="true">Globale</a>
+                    <a class="nav-link active" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="true">Globale</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="h5p-tab" data-toggle="tab" href="#h5p" role="tab" aria-controls="h5p"
-                        aria-selected="false">H5P</a>
+                    <a class="nav-link" id="h5p-tab" data-toggle="tab" href="#h5p" role="tab" aria-controls="h5p" aria-selected="false">H5P</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="moodle-tab" data-toggle="tab" href="#moodle" role="tab"
-                        aria-controls="moodle" aria-selected="false">Moodle</a>
+                    <a class="nav-link" id="moodle-tab" data-toggle="tab" href="#moodle" role="tab" aria-controls="moodle" aria-selected="false">Moodle</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="cap-tab" data-toggle="tab" href="#cap" role="tab" aria-controls="cap"
-                        aria-selected="false">Captivate</a>
+                    <a class="nav-link" id="cap-tab" data-toggle="tab" href="#cap" role="tab" aria-controls="cap" aria-selected="false">Captivate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="add-tab" data-toggle="tab" href="#add" role="tab" aria-controls="add"
-                        aria-selected="false">Hinzufügen</a>
+                    <a class="nav-link" id="add-tab" data-toggle="tab" href="#add" role="tab" aria-controls="add" aria-selected="false">Hinzufügen</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -103,7 +99,7 @@
 </div>
 
 <script>
-    $('#myTab a').on('click', function (e) {
+    $('#myTab a').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })

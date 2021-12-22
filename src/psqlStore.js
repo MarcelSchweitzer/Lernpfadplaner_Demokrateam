@@ -12,7 +12,7 @@ module.exports = function(session) {
         }
 
         get(sid, cb = noop, showTombs = false) {
-            dbMan.selectMatch('session', 'sess', 'sid', sid, (data) => {
+            dbMan.selectMatch('public.session', 'sess', 'sid', sid, (data) => {
                 if (data.length == 0) return cb()
                 return cb(null, data[0]['sess'])
             });
@@ -41,7 +41,7 @@ module.exports = function(session) {
                 'expire': exp_format
             }
 
-            dbMan.insert('session', _sess, () => {
+            dbMan.insert('public.session', _sess, () => {
                 dbMan.select('public.user', 'uid, nickname', '', (result) => {
                     let uids = [];
                     let names = [];

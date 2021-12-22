@@ -5,7 +5,6 @@ require('dotenv').config();
 
 function noop() {}
 
-// TODO move to .env!
 const credentials = {
     database: process.env.DB_Name,
     user: process.env.DB_USER,
