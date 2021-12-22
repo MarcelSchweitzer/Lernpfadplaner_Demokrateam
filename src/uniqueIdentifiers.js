@@ -1,3 +1,6 @@
+const fstk = require('./fileSystemToolkit.js');
+const animalNameList = fstk.textToArray('./res/animalNames.txt');
+
 // return a unique id
 function uniqueId(listOfIds) {
     while (true) {
@@ -21,5 +24,13 @@ function uniqueName(schema, listOfNames) {
     }
 }
 
+function createUserName() {
+    let randIndex = Math.floor(Math.random() * (animalNameList.length));
+    let animal = animalNameList[randIndex];
+    animal = 'Anonyme ' + animal;
+    return animal
+}
+
 module.exports.uniqueId = uniqueId;
 module.exports.uniqueName = uniqueName;
+module.exports.createUserName = createUserName;

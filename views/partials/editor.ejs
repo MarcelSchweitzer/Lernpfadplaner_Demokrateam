@@ -1,197 +1,192 @@
 <link rel="stylesheet" href="/css/editor.css" type="text/css">
 </link>
 <div class="container">
-  <div class="cover-background">
-    <img class="img-background" src="img/settings.png">
-    <div class="row">
-      <div class="col-md-3">
-        <section class="left">
-          <div class="left-side">
-            <div class="note">
-              <p>Notitzen</p>
-              <img type="button" data-toggle="modal" data-target="#exampleModal" src="img/post-it.png" alt="Notitzen">
+    <div class="cover-background">
+        <img class="img-background" src="img/settings.png">
+        <div class="row">
+            <div class="col-md-3">
+                <section class="left">
+                    <div class="left-side">
+                        <div class="note">
+                            <p>Notitzen</p>
+                            <img type="button" data-toggle="modal" data-target="#exampleModal" src="img/post-it.png" alt="Notitzen">
 
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Notitzen</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="exampleFormControlTextarea1">Notitzen</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Notitzen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Notitzen</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </form>
+                        <hr>
+                        <div class="rate-part">
+                            <p>Bewertungsmodus </p>
+                            <form>
+                                <div class="form-group col-12">
+                                    <select class="form-control" id="FormControlSelect1">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </form>
 
+
+
+                        </div>
+                        <hr>
+                        <div class="activity">
+                            <p>Interaktivitäten</p>
+
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Speichern</button>
+                </section>
+            </div>
+            <div class="col-md-9">
+                <div class="material-group" id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <img src="./img/script.png" alt="script" class="script"> Scenario 1
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Beschreibung</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Lernziel</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
+                                    </div>
+                                </form>
+                                <div>
+                                    <label>Material</label>
+                                    <div class="innen-material">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <img src="./img/script.png" alt="script" class="script"> Scenario 2
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Beschreibung</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Lernziel</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
+                                    </div>
+                                </form>
+                                <div>
+                                    <label>Material</label>
+                                    <div class="innen-material">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <img src="./img/script.png" alt="script" class="script"> Scenario 3
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Beschreibung</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Lernziel</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
+                                    </div>
+                                </form>
+                                <div>
+                                    <label>Material</label>
+                                    <div class="innen-material">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingfour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
+                                    <img src="./img/script.png" alt="script" class="script"> Scenario 4
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Beschreibung</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Lernziel</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
+                                    </div>
+                                </form>
+                                <div>
+                                    <label>Material</label>
+                                    <div class="innen-material">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <hr>
-            <div class="rate-part">
-              <p>Bewertungsmodus </p>
-              <form>
-                <div class="form-group col-12">
-                  <select class="form-control" id="FormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-              </form>
-
-
-
-            </div>
-            <hr>
-            <div class="activity">
-              <p>Interaktivitäten</p>
-
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="col-md-9">
-        <div class="material-group" id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne">
-                  <img src="./img/script.png" alt="script" class="script"> Scenario 1
-                </button>
-              </h5>
-            </div>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Beschreibung</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput2">Lernziel</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
-                  </div>
-                </form>
-                <div>
-                  <label>Material</label>
-                  <div class="innen-material">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                  aria-expanded="false" aria-controls="collapseTwo">
-                  <img src="./img/script.png" alt="script" class="script"> Scenario 2
-                </button>
-              </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Beschreibung</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput2">Lernziel</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
-                  </div>
-                </form>
-                <div>
-                  <label>Material</label>
-                  <div class="innen-material">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                  aria-expanded="false" aria-controls="collapseThree">
-                  <img src="./img/script.png" alt="script" class="script"> Scenario 3
-                </button>
-              </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Beschreibung</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput2">Lernziel</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
-                  </div>
-                </form>
-                <div>
-                  <label>Material</label>
-                  <div class="innen-material">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingfour">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour"
-                  aria-expanded="false" aria-controls="collapseThree">
-                  <img src="./img/script.png" alt="script" class="script"> Scenario 4
-                </button>
-              </h5>
-            </div>
-            <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordion">
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Beschreibung</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Beschreibung">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput2">Lernziel</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Lernziel">
-                  </div>
-                </form>
-                <div>
-                  <label>Material</label>
-                  <div class="innen-material">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>

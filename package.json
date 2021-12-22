@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam#readme",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "connect-pg-simple": "^7.0.0",
+    "connect-session-store": "^0.0.1",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
+    "moment": "^2.29.1",
     "pg-promise": "^10.11.1",
     "serve-static": "^1.14.2"
   }
