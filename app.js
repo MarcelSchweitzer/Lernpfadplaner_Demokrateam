@@ -33,7 +33,7 @@ app.use('css', express.static(__dirname + 'public/css'));
 app.use('js', express.static(__dirname + 'public/js'));
 
 // user loading site initialy
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
 
     if (req.session.isAuth == true) {
 
@@ -60,12 +60,12 @@ app.get('/', function(req, res) {
     }
 })
 
-app.get('/get_started', function(req, res) {
+app.get('/get_started', (req, res) => {
     res.render('landing');
 })
 
 // user wants to edit a learningPath
-app.get('/editor', function(req, res) {
+app.get('/editor', (req, res) => {
     openId = req.params.lpId;
     if (req.session.isAuth == true) {
 
@@ -84,7 +84,7 @@ app.get('/editor', function(req, res) {
 })
 
 // user wants to create a learningPath
-app.get('/create', function(req, res) {
+app.get('/create', (req, res) => {
     if (req.session.isAuth == true) {
 
         // get name for new learningPath
@@ -115,7 +115,7 @@ app.get('/create', function(req, res) {
 })
 
 // user wants to edit the settings of a learningPath
-app.get('/settings', function(req, res) {
+app.get('/settings', (req, res) => {
 
     // TODO
 
@@ -135,7 +135,7 @@ app.get('/settings', function(req, res) {
 })
 
 // user wants to navigate back to landing page
-app.get('/home', function(req, res) {
+app.get('/home', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
         dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', uid, (data) => {
             res.render('partials/dashboard', {
@@ -148,7 +148,7 @@ app.get('/home', function(req, res) {
 })
 
 // user wants a list of his learningPaths
-app.get('/learningPaths', function(req, res) {
+app.get('/learningPaths', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
         dbMan.selectMatch('learningpath', 'lpid, title', 'owner', uid, (data) => {
             res.send(JSON.stringify(data));
@@ -157,24 +157,24 @@ app.get('/learningPaths', function(req, res) {
 })
 
 // user wants to push his updates to the server
-app.post('/updateLp', function(req, res) {
+app.post('/updateLp', (req, res) => {
 
     res.send('200')
 })
 
-app.post('/updateSettings', function(req, res) {
+app.post('/updateSettings', (req, res) => {
 
     res.send('200')
 })
 
 // TODO increase performance by only updating props instaed of full lp
-app.post('updateLpProp', function(req, res) {
+app.post('updateLpProp', (req, res) => {
 
     res.send('200')
 })
 
 // user wants to delete a learningPath
-app.post('/deletelp', function(req, res) {
+app.post('/deletelp', (req, res) => {
     let lpid = req.body.lpid;
 
     if (req.session.isAuth == true) {

@@ -4,7 +4,7 @@ function getEditPage(lpid) {
 }
 
 function getCreatePage() {
-    $.get('/create').done(function(data, status) {
+    $.get('/create').done((data, status) => {
         replaceBody(data);
         mountSettingsEventHandlers();
     });
@@ -13,13 +13,13 @@ function getCreatePage() {
 function getHomePage() {
 
     // request index patch from server
-    $.get('/home').done(function(data, status) {
+    $.get('/home').done((data, status) => {
         replaceBody(data);
         mountIndexEventHandlers();
     });
 
     // fetch users learning paths from server
-    $.get('/learningPaths').done(function(data) {
+    $.get('/learningPaths').done((data) => {
         lps = JSON.parse(data)
         for (let i = 0; i < lps.length; i++)
             session.addLearningPath(lps[i]['lpid'], lps[i]['title'])
@@ -28,7 +28,7 @@ function getHomePage() {
 }
 
 function getSettingsPage(currentLp) {
-    $.get('/settings', { lpid: currentLp }).done(function(data, status) {
+    $.get('/settings', { lpid: currentLp }).done((data, status) => {
         replaceBody(data);
         mountSettingsEventHandlers();
     });
@@ -41,7 +41,7 @@ function LearningPathToServer() {
 }
 
 function deleteLearningPath(lpid) {
-    $.post('/deletelp', { 'lpid': lpid }).done(function(data, status) {
+    $.post('/deletelp', { 'lpid': lpid }).done((data, status) => {
         console.log("sent delete request to server! Status: " + status);
     });
 }
