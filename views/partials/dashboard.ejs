@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="start-btn">
+        <button class="button btn btn-primary" type="create" id="createLpBtn">Neues Modul erstellen +</button>
+    </div>
+    <hr>
+    <section>
+        <div class="history">
+            <div class="card">
+                <div class="card-header">
+                    Letzte Module
+                </div>
+                <div class="card-body">
+                    <% data.learningPaths.forEach(lp=>{ %>
+                        <div class="row">
+                            <div id="_edit<%= lp['lpid'] %>">
+                                <button class="button btn btn-primary open" type="edit" id="edit<%= lp['lpid'] %>">
+                                <%= lp['title'] %>
+                            </button>
+                            </div>
+                            <div id="_del<%= lp['lpid'] %>">
+                                <button class="button btn btn-primary btn-warning delete" type="delete" id="delete<%= lp['lpid']%>">x</button>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </div>
+</div>
+</section>
+</div>
