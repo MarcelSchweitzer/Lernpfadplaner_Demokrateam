@@ -101,10 +101,9 @@ app.get('/create', (req, res) => {
                 let id = unique.uniqueId(lpids);
                 let name = unique.uniqueName('Lernpfad', names);
                 dbMan.insert('public.learningpath', { 'lpid': id, 'title': name, 'owner': currentUserID }, () => {
-                    res.render('partials/settings', {
-                        data: {
-                            'learningpathTitle': name
-                        }
+                    res.status(200).send({
+                        'learningpathID': id,
+                        'learningpathTitle': name
                     });
                 })
             });
@@ -118,21 +117,29 @@ app.get('/create', (req, res) => {
 
 // user wants to edit the settings of a learningPath
 app.get('/settings', (req, res) => {
+    let lpid = req.query.lpid;
 
-    // TODO
+    if (req.session.isAuth == true) {
 
-    //dbMan.selectMatch('public.learningpath', 'title', 'lpid', req.query.lpid, (title) => {
-    //    res.render('partials/settings', {
-    //        data: {
-    //            'learningpathTitle': title[0]['title']
-    //        }
-    //    });
-    //})
-    res.render('partials/settings', {
-        data: {
-            'learningpathTitle': 'Lernpfad'
-        }
-    });
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (data) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == data[0]['owner']) {
+                    res.render('partials/settings', {
+                        data: {
+                            'learningpathTitle': data[0]['title']
+                        }
+                    });
+                } else {
+                    res.render('landing');
+                }
+            });
+        });
+    }
 
 })
 
@@ -160,9 +167,30 @@ app.get('/learningPaths', (req, res) => {
 
 // user wants to push his updates to the server
 app.post('/updateLp', (req, res) => {
+    let lpid = req.body.lpid;
 
-    res.send('200')
-})
+    if (req.session.isAuth == true) {
+
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner', 'lpid', lpid, (owner) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == owner[0]['owner']) {
+                    dbMan._update('learningpath', 'lpid', lpid, {
+                        'content': req.body.learningPath
+                    }, () => {
+
+                        // respond OK to client
+                        res.send('200')
+                    })
+                }
+            });
+        });
+    }
+});
 
 app.post('/updateSettings', (req, res) => {
 

@@ -3,10 +3,10 @@ function getEditPage(lpid) {
     $.get('/editor', { 'lpid': lpid }).done(function(data, status) { replaceBody(data) });
 }
 
-function getCreatePage(cb = noop) {
+function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        replaceBody(data);
-        mountSettingsEventHandlers();
+        session.addLearningPath(data['learningpathID'], data['learningpathTitle']);
+        session.openLearningPath(data['learningpathID'])
         return cb()
     });
 }
@@ -23,17 +23,20 @@ function getHomePage() {
 
 }
 
-function getSettingsPage(currentLp) {
-    $.get('/settings', { lpid: currentLp }).done((data, status) => {
+function getSettingsPage(lp = session.getCurrentLearningPathId()) {
+    $.get('/settings', { 'lpid': lp }).done((data, status) => {
         replaceBody(data);
         mountSettingsEventHandlers();
     });
 }
 
-function LearningPathToServer() {
-
-    // TODO
-
+function LearningPathToServer(lpid, learningPath, cb = noop) {
+    $.post('/updateLp', { 'lpid': lpid, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
+        if (status === 'success')
+            return cb()
+        else
+            alert('Änderungen konnten nicht gespeichert werden!');
+    });
 }
 
 function deleteLearningPath(lpid, cb = noop) {

@@ -89,9 +89,6 @@ function _update(table, key, equals, dict, cb = noop) {
     if (listOfKeys.length != listOfValues.length)
         return
 
-    console.log(listOfKeys);
-    console.log(listOfValues);
-
     let dbClient = createClient();
     let query = 'UPDATE ' + table + ' SET '
 

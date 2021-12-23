@@ -12,14 +12,14 @@ class Session {
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentLearningPathId; }
 
-    // get a read only object representation of current lp 
-    getCurrentLearningPath() {
-        return this.getLearningPathById(this.currentLearningPathId);
-    }
-
     // get a read only object representation by id 
     getLearningPathById(id) {
         return this.learningPaths[this.getLpIndexById(id)]
+    }
+
+    // get a read only object representation of current lp 
+    getCurrentLearningPath() {
+        return this.getLearningPathById(this.currentLearningPathId);
     }
 
     getLpIndexById(id) {
@@ -74,7 +74,7 @@ class Session {
         let lp = new LearningPath(id, name);
         this.learningPaths = insertAt(this.learningPaths, lp);
 
-        // return id
+        // return 
         return lp.getId()
     }
 

@@ -50,13 +50,9 @@ function openHandler(id) {
 }
 
 function createHandler() {
-    getCreatePage(() => {
-
-        // update learning paths
+    createLpOnServer(() => {
         session.updateLearningPaths();
-
-        // TODO get newly created id from HTTP response
-        session.openLearningPath(session.getLearningPaths[0]);
+        getSettingsPage();
     });
 }
 
@@ -84,7 +80,15 @@ function settingsHandler() {
 }
 
 function homeHandler() {
-    getHomePage();
+    saveLpHandler(() => {
+        getHomePage();
+    });
+}
+
+function saveLpHandler(cb = noop) {
+    LearningPathToServer(session.getCurrentLearningPathId(), session.getCurrentLearningPath(), () => {
+        return cb()
+    });
 }
 
 function saveSettingsHandler() {
