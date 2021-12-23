@@ -50,9 +50,14 @@ function openHandler(id) {
 }
 
 function createHandler() {
-    session.createLearningPath();
-    let lpId = session.getCurrentLearningPathId();
-    getCreatePage(lpId);
+    getCreatePage(() => {
+
+        // update learning paths
+        session.updateLearningPaths();
+
+        // TODO get newly created id from HTTP response
+        session.openLearningPath(session.getLearningPaths[0]);
+    });
 }
 
 function deleteHandler() {

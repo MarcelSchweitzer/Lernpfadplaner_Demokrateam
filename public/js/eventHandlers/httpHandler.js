@@ -3,10 +3,11 @@ function getEditPage(lpid) {
     $.get('/editor', { 'lpid': lpid }).done(function(data, status) { replaceBody(data) });
 }
 
-function getCreatePage() {
+function getCreatePage(cb = noop) {
     $.get('/create').done((data, status) => {
         replaceBody(data);
         mountSettingsEventHandlers();
+        return cb()
     });
 }
 

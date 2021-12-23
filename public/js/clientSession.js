@@ -64,22 +64,13 @@ class Session {
         this.learningPaths = []
 
         // TODO 
-        for (let i = 0; i < learningPaths.length; i++)
-            session.addLearningPath(learningPaths[i]['lpid'], learningPaths[i]['title'])
+        if (learningPaths)
+            for (let i = 0; i < learningPaths.length; i++)
+                session.addLearningPath(learningPaths[i]['lpid'], learningPaths[i]['title'])
     }
 
     // add learning path to list and return id
-    addLearningPath(id = null, name = null) {
-        if (id === null)
-
-        // get unique unused id if not passed
-            id = uniqueId(this.getLearningPathIds());
-
-        if (name === null)
-
-        // get unique unused name if not passed 
-            name = uniqueName('lernpfad', this.getLearningPathNames())
-
+    addLearningPath(id, name) {
         let lp = new LearningPath(id, name);
         this.learningPaths = insertAt(this.learningPaths, lp);
 
@@ -94,9 +85,7 @@ class Session {
         if (this.currentLearningPathId == id)
             this.closeLearningPath();
 
-        console.log("before delete operation: " + this.learningPaths);
         this.learningPaths = rmById(this.learningPaths, id);
-        console.log("after delete operation: " + this.learningPaths);
     }
 
     // open a learning path by id
