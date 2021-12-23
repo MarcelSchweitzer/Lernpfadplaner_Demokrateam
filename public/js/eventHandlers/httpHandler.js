@@ -18,12 +18,7 @@ function getHomePage() {
         mountIndexEventHandlers();
     });
 
-    // fetch users learning paths from server
-    $.get('/learningPaths').done((data) => {
-        lps = JSON.parse(data)
-        for (let i = 0; i < lps.length; i++)
-            session.addLearningPath(lps[i]['lpid'], lps[i]['title'])
-    });
+    fetchLearningPaths();
 
 }
 
@@ -40,9 +35,21 @@ function LearningPathToServer() {
 
 }
 
-function deleteLearningPath(lpid) {
+function deleteLearningPath(lpid, cb = noop) {
     $.post('/deletelp', { 'lpid': lpid }).done((data, status) => {
-        console.log("sent delete request to server! Status: " + status);
+        if (status === 'success')
+            return cb()
+        else
+            alert('Lernpfad konnte nicht gelöscht werden!');
+    });
+}
+
+function fetchLearningPaths(cb = noop) {
+    // fetch users learning paths from server
+    $.get('/learningPaths').done((data) => {
+        lps = JSON.parse(data)
+        session.updateLearningPaths(lps);
+        return cb()
     });
 }
 

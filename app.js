@@ -9,6 +9,8 @@ require('dotenv').config();
 
 const app = express();
 
+function noop() { return }
+
 app.use(session({
     store: new PsqlStore(),
     secret: process.env.SESSION_SECRET,
@@ -47,7 +49,7 @@ app.get('/', (req, res) => {
     }
 
     function renderIndex(data) {
-        console.log("User :" + data[0]['uid'] + " connected");
+        console.log("user " + data[0]['uid'] + " connected!");
         dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', data[0]['uid'], (_data) => {
             res.render('index', {
                 data: {

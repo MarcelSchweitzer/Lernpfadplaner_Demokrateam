@@ -1,103 +1,113 @@
 class Session {
-  constructor() {
-    this.learningPaths = [];
-    this.currentLearningPathId = null;
-    this.userId = 0;
-  }
+    constructor() {
+        this.learningPaths = [];
+        this.currentLearningPathId = null;
+        this.userId = 0;
+    }
 
-  getUserId() {
-    return this.userId;
-  }
+    getUserId() {
+        return this.userId;
+    }
 
-  // get Id of current (opened) learningPath
-  getCurrentLearningPathId() { return this.currentLearningPathId; }
+    // get Id of current (opened) learningPath
+    getCurrentLearningPathId() { return this.currentLearningPathId; }
 
-  // get a read only object representation of current lp 
-  getCurrentLearningPath() {
-    return this.getLearningPathById(this.currentLearningPathId);
-  }
+    // get a read only object representation of current lp 
+    getCurrentLearningPath() {
+        return this.getLearningPathById(this.currentLearningPathId);
+    }
 
-  // get a read only object representation by id 
-  getLearningPathById(id) {
-    return this.learningPaths[this.getLpIndexById(id)]
-  }
+    // get a read only object representation by id 
+    getLearningPathById(id) {
+        return this.learningPaths[this.getLpIndexById(id)]
+    }
 
-  getLpIndexById(id) {
-    for (let i = 0; i < this.learningPaths.length; i++)
-      if (this.learningPaths[i].getId() == id)
-        return i
-    return null
-  }
+    getLpIndexById(id) {
+        for (let i = 0; i < this.learningPaths.length; i++)
+            if (this.learningPaths[i].getId() == id)
+                return i
+        return null
+    }
 
-  // return learning paths
-  getLearningPaths() {
-    return this.learningPaths;
-  }
+    // return learning paths
+    getLearningPaths() {
+        return this.learningPaths;
+    }
 
-  // return list of all available learning path ids 
-  getLearningPathIds() {
-    let ids = [];
-    for (var lp in this.learningPaths)
-      ids.push(this.learningPaths[lp].getId())
-    return ids
-  }
+    // return list of all available learning path ids 
+    getLearningPathIds() {
+        let ids = [];
+        for (var lp in this.learningPaths)
+            ids.push(this.learningPaths[lp].getId())
+        return ids
+    }
 
-  // return list of all available learning path names 
-  getLearningPathNames() {
-    let names = [];
-    for (let lp in this.learningPaths)
-      names.push(this.learningPaths[lp].getName())
-    return names
-  }
+    // return list of all available learning path names 
+    getLearningPathNames() {
+        let names = [];
+        for (let lp in this.learningPaths)
+            names.push(this.learningPaths[lp].getName())
+        return names
+    }
 
-  // create meaning add + open
-  createLearningPath(id = null, name = null) {
-    let newLP = this.addLearningPath();
-    this.openLearningPath(newLP)
-  }
+    // create meaning add + open
+    createLearningPath(id = null, name = null) {
+        let newLP = this.addLearningPath();
+        this.openLearningPath(newLP)
+    }
 
-  updateLearningPath(id, newLP) {
-    this.learningPaths[this.getLpIndexById(id)] = newLP;
-  }
+    updateLearningPath(id, newLP) {
+        this.learningPaths[this.getLpIndexById(id)] = newLP;
+    }
 
-  // add learning path to list and return id
-  addLearningPath(id = null, name = null) {
-    if (id === null)
+    updateLearningPaths(learningPaths) {
+        this.learningPaths = []
 
-      // get unique unused id if not passed
-      id = uniqueId(this.getLearningPathIds());
+        // TODO 
+        for (let i = 0; i < learningPaths.length; i++)
+            session.addLearningPath(learningPaths[i]['lpid'], learningPaths[i]['title'])
+    }
 
-    if (name === null)
+    // add learning path to list and return id
+    addLearningPath(id = null, name = null) {
+        if (id === null)
 
-      // get unique unused name if not passed 
-      name = uniqueName('lernpfad', this.getLearningPathNames())
+        // get unique unused id if not passed
+            id = uniqueId(this.getLearningPathIds());
 
-    let lp = new LearningPath(id, name);
-    this.learningPaths = insertAt(this.learningPaths, lp);
+        if (name === null)
 
-    // return id
-    return lp.getId()
-  }
+        // get unique unused name if not passed 
+            name = uniqueName('lernpfad', this.getLearningPathNames())
 
-  // remove Learning Path from list
-  removeLearningPath(id) {
+        let lp = new LearningPath(id, name);
+        this.learningPaths = insertAt(this.learningPaths, lp);
 
-    // if deleted path is opened -> close
-    if (this.currentLearningPathId == id)
-      this.closeLearningPath();
+        // return id
+        return lp.getId()
+    }
 
-    this.learningPaths = rmById(this.learningPaths, id);
-  }
+    // remove Learning Path from list
+    removeLearningPath(id) {
 
-  // open a learning path by id
-  openLearningPath(id) {
-    this.currentLearningPathId = id;
-  }
+        // if deleted path is opened -> close
+        if (this.currentLearningPathId == id)
+            this.closeLearningPath();
 
-  // close the current learning path
-  closeLearningPath() {
-    this.currentLearningPathId = null;
-  }
+        console.log("before delete operation: " + this.learningPaths);
+        this.learningPaths = rmById(this.learningPaths, id);
+        console.log("after delete operation: " + this.learningPaths);
+    }
+
+    // open a learning path by id
+    openLearningPath(id) {
+        this.currentLearningPathId = id;
+    }
+
+    // close the current learning path
+    closeLearningPath() {
+        this.currentLearningPathId = null;
+    }
 }
 
 const session = new Session();

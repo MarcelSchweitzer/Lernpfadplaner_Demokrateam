@@ -1,6 +1,7 @@
 $(document).ready(() => {
     mountHeaderEventHandlers();
     mountIndexEventHandlers();
+    fetchLearningPaths();
 });
 
 function mountEventHandler(handler, fun) {
@@ -66,7 +67,11 @@ function deleteHandler() {
     let editButton = document.getElementById(editID);
     editButton.remove();
 
-    deleteLearningPath(lpID)
+    deleteLearningPath(lpID, () => {
+        if (session.getCurrentLearningPathId() == lpID)
+            session.closeLearningPath()
+        session.removeLearningPath(lpID)
+    })
 }
 
 function settingsHandler() {
