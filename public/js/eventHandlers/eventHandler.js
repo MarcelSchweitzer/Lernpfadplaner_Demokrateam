@@ -54,17 +54,19 @@ function createHandler() {
     getCreatePage(lpId);
 }
 
-function deleteHandler(id) {
-    let deleteID = this.getAttribute('id');
-    editID = deleteID.replaceAll('delete', '_delete');
+function deleteHandler() {
+    let _id = this.getAttribute('id');
+    lpID = _id.replaceAll('delete', '');
+    deleteID = '_del' + lpID
+    editID = '_edit' + lpID
+
     let deleteButton = document.getElementById(deleteID);
     deleteButton.remove();
 
-    editID = deleteID.replaceAll('delete', '_edit');
     let editButton = document.getElementById(editID);
     editButton.remove();
 
-    // TODO send HTTP request for deletion of
+    deleteLearningPath(lpID)
 }
 
 function settingsHandler() {

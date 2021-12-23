@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS public.learningpath
     lastEdit timestamp(6),
     created timestamp(6),
     CONSTRAINT learningpath_pkey PRIMARY KEY (lpid)
-)
+);
 
 CREATE TABLE IF NOT EXISTS public.settings
 (

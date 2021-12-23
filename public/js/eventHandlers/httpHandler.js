@@ -40,6 +40,12 @@ function LearningPathToServer() {
 
 }
 
+function deleteLearningPath(lpid) {
+    $.post('/deletelp', { 'lpid': lpid }).done(function(data, status) {
+        console.log("sent delete request to server! Status: " + status);
+    });
+}
+
 function replaceBody(data) {
     const main = document.getElementById('main');
     main.innerHTML = data;

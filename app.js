@@ -19,6 +19,9 @@ app.use(session({
     }
 }));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // app.use(cookieParser());
 app.set('view engine', 'ejs');
 
@@ -28,7 +31,6 @@ app.use('img', express.static(__dirname + 'public/img'));
 app.use('html', express.static(__dirname + 'public/html'));
 app.use('css', express.static(__dirname + 'public/css'));
 app.use('js', express.static(__dirname + 'public/js'));
-
 
 // user loading site initialy
 app.get('/', function(req, res) {
@@ -58,11 +60,9 @@ app.get('/', function(req, res) {
     }
 })
 
-
 app.get('/get_started', function(req, res) {
     res.render('landing');
 })
-
 
 // user wants to edit a learningPath
 app.get('/editor', function(req, res) {
@@ -82,7 +82,6 @@ app.get('/editor', function(req, res) {
         }
     });
 })
-
 
 // user wants to create a learningPath
 app.get('/create', function(req, res) {
@@ -115,7 +114,6 @@ app.get('/create', function(req, res) {
     }
 })
 
-
 // user wants to edit the settings of a learningPath
 app.get('/settings', function(req, res) {
 
@@ -135,7 +133,6 @@ app.get('/settings', function(req, res) {
     });
 
 })
-
 
 // user wants to navigate back to landing page
 app.get('/home', function(req, res) {
@@ -159,15 +156,47 @@ app.get('/learningPaths', function(req, res) {
     });
 })
 
-
 // user wants to push his updates to the server
-app.post('/editor', function(req, res) {
-    // console.log(req.data);
+app.post('/updateLp', function(req, res) {
 
-    // TODO only send 200 if everything worked out fine!
     res.send('200')
 })
 
+app.post('/updateSettings', function(req, res) {
+
+    res.send('200')
+})
+
+// TODO increase performance by only updating props instaed of full lp
+app.post('updateLpProp', function(req, res) {
+
+    res.send('200')
+})
+
+// user wants to delete a learningPath
+app.post('/deletelp', function(req, res) {
+    let lpid = req.body.lpid;
+
+    if (req.session.isAuth == true) {
+
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner', 'lpid', lpid, (owner) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == owner[0]['owner']) {
+                    dbMan._delete('learningpath', 'lpid', lpid, () => {
+
+                        // respond OK to client
+                        res.send('200')
+                    })
+                }
+            });
+        });
+    }
+})
 
 // start server
 app.listen(process.env.HTTP_PORT, function(err) {
