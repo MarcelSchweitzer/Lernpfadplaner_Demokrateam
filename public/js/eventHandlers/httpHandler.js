@@ -1,6 +1,9 @@
 // request edit patch from server
 function getEditPage(lpid) {
-    $.get('/editor', { 'lpid': lpid }).done(function(data, status) { replaceBody(data) });
+    $.get('/editor', { 'lpid': lpid }).done((data, status) => {
+        replaceBody(data);
+        mountEditorEventHandlers();
+    });
 }
 
 function createLpOnServer(cb = noop) {
@@ -30,13 +33,15 @@ function getSettingsPage(lp = session.getCurrentLearningPathId()) {
     });
 }
 
-function LearningPathToServer(lpid, learningPath, cb = noop) {
-    $.post('/updateLp', { 'lpid': lpid, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
-        if (status === 'success')
-            return cb()
-        else
-            alert('Änderungen konnten nicht gespeichert werden!');
-    });
+function LearningPathToServer(learningPath, cb = noop) {
+    if (JSON.stringify(learningPath) != 'undefined') {
+        $.post('/updateLp', { 'lpid': learningPath.getProp('id'), 'title': learningPath.getProp('title'), 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
+            if (status === 'success')
+                return cb()
+            else
+                alertToUser("Lernpfad konnte nicht gespeichert werden!", 10, 'red');
+        });
+    }
 }
 
 function deleteLearningPath(lpid, cb = noop) {
@@ -44,7 +49,7 @@ function deleteLearningPath(lpid, cb = noop) {
         if (status === 'success')
             return cb()
         else
-            alert('Lernpfad konnte nicht gelöscht werden!');
+            alertToUser('Lernpfad konnte nicht gelöscht werden!');
     });
 }
 

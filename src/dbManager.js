@@ -71,7 +71,7 @@ function _delete(table, attrib, equals, cb = noop) {
     let quotes = ((typeof equals != 'number') ? "'" : "");
     query += quotes + equals + quotes + ','
     query = query.slice(0, -1)
-        // console.log(query)
+        //console.log(query)
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);
@@ -101,7 +101,7 @@ function _update(table, key, equals, dict, cb = noop) {
     let _quotes = ((typeof equals != 'number') ? "'" : "");
     query += _quotes + equals + _quotes
 
-    // console.log(query)
+    //console.log(query)
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);

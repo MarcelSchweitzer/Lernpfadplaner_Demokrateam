@@ -180,6 +180,7 @@ app.post('/updateLp', (req, res) => {
                 // check if user is owner of lp that is to be deleted
                 if (uid == owner[0]['owner']) {
                     dbMan._update('learningpath', 'lpid', lpid, {
+                        'title': req.body.title,
                         'content': req.body.learningPath
                     }, () => {
 

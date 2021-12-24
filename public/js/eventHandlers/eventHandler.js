@@ -4,24 +4,37 @@ $(document).ready(() => {
     fetchLearningPaths();
 });
 
-function mountEventHandler(handler, fun) {
-    let elem = document.getElementById(handler);
+function mountButtonHandler(element, fun) {
+    let elem = document.getElementById(element);
     try {
-        elem.removeEventListener('click', fun, false);
         elem.addEventListener('click', fun, false);
     } catch (e) {
-        console.log('unable to mount evenlistener: ' + e)
+        elem.removeEventListener('click', fun, false);
+        elem.addEventListener('click', fun, false);
     }
 }
 
+function propertyConnection(input, lpProp) {
+    let inp = document.getElementById(input);
+    inp.addEventListener('input', () => {
+        session.setCurrentLearningPathProp(lpProp, inp.value)
+    }, false);
+}
+
 function mountHeaderEventHandlers() {
-    mountEventHandler('settingsBtn', settingsHandler);
-    mountEventHandler('homeBtn', homeHandler);
+    mountButtonHandler('settingsBtn', () => {
+        getSettingsPage(session.getCurrentLearningPathId());
+    });
+    mountButtonHandler('homeBtn', () => {
+        LearningPathToServer(session.getCurrentLearningPath(), () => {
+            getHomePage();
+        });
+    });
 }
 
 function mountIndexEventHandlers() {
     mountHeaderEventHandlers();
-    mountEventHandler('createLpBtn', createHandler);
+    mountButtonHandler('createLpBtn', createHandler);
 
     var openButtons = document.getElementsByClassName('open');
     var deleteButtons = document.getElementsByClassName('delete');
@@ -33,25 +46,23 @@ function mountIndexEventHandlers() {
         deleteButtons[i].removeEventListener('click', deleteHandler, false);
         deleteButtons[i].addEventListener('click', deleteHandler, false);
     }
-
 }
 
 function mountSettingsEventHandlers() {
-    mountEventHandler('saveSettingsBtn', saveSettingsHandler);
+    mountButtonHandler('saveSettingsBtn', () => {
+        saveLpSettings();
+        getEditPage(session.getCurrentLearningPathId());
+    });
 }
 
 function mountEditorEventHandlers() {
-
-}
-
-function openHandler(id) {
-    session.openLearningPath(id);
-    getEditPage();
+    propertyConnection('lpNotes', 'notes');
+    propertyConnection('lpEvaluationMode', 'evaluationModeID');
 }
 
 function createHandler() {
     createLpOnServer(() => {
-        session.updateLearningPaths();
+        fetchLearningPaths();
         getSettingsPage();
     });
 }
@@ -75,33 +86,20 @@ function deleteHandler() {
     })
 }
 
-function settingsHandler() {
-    getSettingsPage(session.getCurrentLearningPathId());
-}
-
-function homeHandler() {
-    saveLpHandler(() => {
-        getHomePage();
-    });
-}
-
-function saveLpHandler(cb = noop) {
-    LearningPathToServer(session.getCurrentLearningPathId(), session.getCurrentLearningPath(), () => {
-        return cb()
-    });
-}
-
-function saveSettingsHandler() {
-    getEditPage();
-}
-
-function exportHandler() {
-    getEditPage();
-}
-
 function editHandler() {
     let editID = this.getAttribute("id");
     editID = editID.replaceAll("edit", "");
     getEditPage(editID);
     session.openLearningPath(editID);
+}
+
+function saveLpSettings() {
+    session.setLearningPathPropById(session.getCurrentLearningPathId(), 'title', document.getElementById('lpTitleInput').value);
+    LearningPathToServer(session.getCurrentLearningPath(), () => {
+        alertToUser('Änderungen gespeichert!')
+    });
+}
+
+function exportHandler() {
+
 }
