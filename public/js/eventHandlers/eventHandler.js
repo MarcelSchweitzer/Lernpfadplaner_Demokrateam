@@ -29,9 +29,14 @@ function mountHeaderEventHandlers() {
         getSettingsPage();
     });
     mountButtonHandler('homeBtn', () => {
-        LearningPathToServer(session.getCurrentLearningPath(), () => {
+        if (session.getCurrentLearningPathId() != null) {
+            LearningPathToServer(session.getCurrentLearningPath(), () => {
+                session.closeLearningPath();
+                getHomePage();
+            });
+        } else {
             getHomePage();
-        });
+        }
     });
 }
 
@@ -52,7 +57,10 @@ function mountIndexEventHandlers() {
 
 function mountSettingsEventHandlers() {
     mountButtonHandler('saveSettingsBtn', () => {
-        getEditPage(session.getCurrentLearningPathId());
+        if (session.getCurrentLearningPathId() != null)
+            getEditPage();
+        else
+            getHomePage();
     });
 }
 
@@ -65,7 +73,7 @@ function mountEditorEventHandlers() {
 function createHandler() {
     createLpOnServer(() => {
         fetchLearningPaths();
-        getSettingsPage();
+        getSettingsPage(mode = 'lpSettingsOnly');
     });
 }
 

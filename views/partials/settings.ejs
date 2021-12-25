@@ -1,0 +1,27 @@
+<script src="js/viewScrispts/settings.js" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="/css/settings.css" type="text/css">
+</link>
+<div class="container">
+    <div class="cover-background">
+        <img class="img-background" src="img/settings.png">
+        <% if(data.lpSet == true){ %>
+            <div>
+                <%- include('./lpSettings') %>
+            </div>
+            <% } %>
+                <% if(data.userSet == true){ %>
+                    <div>
+                        <%- include('./userSettings') %>
+                    </div>
+                    <% } %>
+                        <div class="profile-options">
+                            <button class="button btn btn-success" id="saveSettingsBtn"> Speichern </button>
+                        </div>
+    </div>
+</div>
+<script>
+    $('#myTab a').on('click', function(e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>

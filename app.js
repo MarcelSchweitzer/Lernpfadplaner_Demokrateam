@@ -69,7 +69,6 @@ app.get('/get_started', (req, res) => {
 // user wants to edit a learningPath
 app.get('/editor', (req, res) => {
     let lpid = req.query.lpid;
-    console.log(lpid)
 
     if (req.session.isAuth == true) {
 
@@ -126,20 +125,42 @@ app.get('/create', (req, res) => {
 
 // user wants to edit the settings of a learningPath
 app.get('/settings', (req, res) => {
+    let sid = req.sessionID;
     let lpid = req.query.lpid;
+    let mode = req.query.mode;
 
     if (req.session.isAuth == true) {
 
+        if (mode == 'userSettingsOnly') {
+            dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
+                res.render('partials/settings', {
+                    data: {
+                        'lpSet': false,
+                        'userSet': true,
+                        'nickname': data[0]['nickname']
+                    }
+                });
+            });
+        } else if (mode == 'lpSettingsOnly') {
+            lpSet(false);
+        } else if (mode == 'allSettings') {
+            lpSet(true);
+        }
+    }
+
+    function lpSet(getUserSettings) {
         // resolve uid
-        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, (data) => {
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
 
             // find owner of lp
             dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (_data) => {
 
                 // check if user is owner of lp that is to be deleted
                 if (data[0]['uid'] == _data[0]['owner']) {
-                    res.render('partials/lpSettings', {
+                    res.render('partials/settings', {
                         data: {
+                            'lpSet': true,
+                            'userSet': getUserSettings,
                             'nickname': data[0]['nickname']
                         }
                     });
@@ -150,20 +171,6 @@ app.get('/settings', (req, res) => {
         });
     }
 })
-
-
-app.get('/userSettings', (req, res) => {
-    if (req.session.isAuth == true) {
-        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, (data) => {
-            res.render('partials/userSettings', {
-                data: {
-                    'nickname': data[0]['nickname']
-                }
-            });
-
-        });
-    }
-});
 
 // user wants to navigate back to landing page
 app.get('/home', (req, res) => {

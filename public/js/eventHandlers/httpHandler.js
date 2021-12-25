@@ -1,5 +1,5 @@
 // request edit patch from server
-function getEditPage(lpid) {
+function getEditPage(lpid = session.getCurrentLearningPathId()) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
         mountEditorEventHandlers();
@@ -10,7 +10,6 @@ function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
         session.addLearningPath(data['learningpathID'], data['learningpathTitle']);
         session.openLearningPath(data['learningpathID'])
-        console.log(session.getCurrentLearningPathId());
         return cb()
     });
 }
@@ -27,18 +26,16 @@ function getHomePage() {
 
 }
 
-function getSettingsPage() {
-    if (session.getCurrentLearningPathId() != null) {
-        $.get('/settings', { 'lpid': session.getCurrentLearningPathId() }).done((data, status) => {
-            replaceBody(data);
-            mountSettingsEventHandlers();
-        });
-    } else {
-        $.get('/userSettings').done((data, status) => {
-            replaceBody(data);
-            mountSettingsEventHandlers();
-        });
-    }
+function getSettingsPage(mode = null) {
+    if (mode == null && session.getCurrentLearningPathId() == null)
+        mode = 'userSettingsOnly';
+    else if (mode == null)
+        mode = 'allSettings';
+    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
+        replaceBody(data);
+        mountSettingsEventHandlers();
+    });
+
 
 }
 
