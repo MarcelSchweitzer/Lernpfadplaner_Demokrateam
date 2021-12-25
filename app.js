@@ -68,21 +68,29 @@ app.get('/get_started', (req, res) => {
 
 // user wants to edit a learningPath
 app.get('/editor', (req, res) => {
-    openId = req.params.lpId;
+    let lpid = req.query.lpid;
+
     if (req.session.isAuth == true) {
 
-        // get name for new learningPath
-        getCurrentUser(req.sessionID, (currentUserID) => {
-            dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', currentUserID, (data) => {});
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner, content', 'lpid', lpid, (data) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == data[0]['owner']) {
+                    res.render('partials/editor', {
+                        data: {
+                            'learningpath': data[0]['content']
+                        }
+                    });
+                } else {
+                    res.render('landing');
+                }
+            });
         });
     }
-
-    // return ejs rendered page for editor screen
-    res.render('partials/editor', {
-        data: {
-            id: req.params.lpId
-        }
-    });
 })
 
 // user wants to create a learningPath
@@ -100,11 +108,10 @@ app.get('/create', (req, res) => {
                 }
                 let id = unique.uniqueId(lpids);
                 let name = unique.uniqueName('Lernpfad', names);
-                dbMan.insert('public.learningpath', { 'lpid': id, 'title': name, 'owner': currentUserID }, () => {
-                    res.render('partials/settings', {
-                        data: {
-                            'learningpathTitle': name
-                        }
+                dbMan.insert('public.learningpath', { 'lpid': id, 'title': name, 'content': JSON.stringify({ props: { 'id': id, 'title': name } }), 'owner': currentUserID }, () => {
+                    res.status(200).send({
+                        'learningpathID': id,
+                        'learningpathTitle': name
                     });
                 })
             });
@@ -118,22 +125,51 @@ app.get('/create', (req, res) => {
 
 // user wants to edit the settings of a learningPath
 app.get('/settings', (req, res) => {
+    let sid = req.sessionID;
+    let lpid = req.query.lpid;
+    let mode = req.query.mode;
 
-    // TODO
+    if (req.session.isAuth == true) {
 
-    //dbMan.selectMatch('public.learningpath', 'title', 'lpid', req.query.lpid, (title) => {
-    //    res.render('partials/settings', {
-    //        data: {
-    //            'learningpathTitle': title[0]['title']
-    //        }
-    //    });
-    //})
-    res.render('partials/settings', {
-        data: {
-            'learningpathTitle': 'Lernpfad'
+        if (mode == 'userSettingsOnly') {
+            dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
+                res.render('partials/settings', {
+                    data: {
+                        'lpSet': false,
+                        'userSet': true,
+                        'nickname': data[0]['nickname']
+                    }
+                });
+            });
+        } else if (mode == 'lpSettingsOnly') {
+            lpSet(false);
+        } else if (mode == 'allSettings') {
+            lpSet(true);
         }
-    });
+    }
 
+    function lpSet(getUserSettings) {
+        // resolve uid
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (_data) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (data[0]['uid'] == _data[0]['owner']) {
+                    res.render('partials/settings', {
+                        data: {
+                            'lpSet': true,
+                            'userSet': getUserSettings,
+                            'nickname': data[0]['nickname']
+                        }
+                    });
+                } else {
+                    res.render('landing');
+                }
+            });
+        });
+    }
 })
 
 // user wants to navigate back to landing page
@@ -160,9 +196,31 @@ app.get('/learningPaths', (req, res) => {
 
 // user wants to push his updates to the server
 app.post('/updateLp', (req, res) => {
+    let lpid = req.body.lpid;
 
-    res.send('200')
-})
+    if (req.session.isAuth == true) {
+
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner', 'lpid', lpid, (owner) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == owner[0]['owner']) {
+                    dbMan._update('learningpath', 'lpid', lpid, {
+                        'title': req.body.title,
+                        'content': req.body.learningPath
+                    }, () => {
+
+                        // respond OK to client
+                        res.send('200')
+                    })
+                }
+            });
+        });
+    }
+});
 
 app.post('/updateSettings', (req, res) => {
 

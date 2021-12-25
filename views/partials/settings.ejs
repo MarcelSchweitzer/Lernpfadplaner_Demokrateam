@@ -1,103 +1,24 @@
+<script src="js/viewScrispts/settings.js" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="/css/settings.css" type="text/css">
 </link>
 <div class="container">
     <div class="cover-background">
         <img class="img-background" src="img/settings.png">
-        <div class="setting-section">
-            <input type="text" class="form-control" id="formGroupExampleInput" value="<%=data.learningpathTitle%>">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="true">Globale</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="h5p-tab" data-toggle="tab" href="#h5p" role="tab" aria-controls="h5p" aria-selected="false">H5P</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="moodle-tab" data-toggle="tab" href="#moodle" role="tab" aria-controls="moodle" aria-selected="false">Moodle</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="cap-tab" data-toggle="tab" href="#cap" role="tab" aria-controls="cap" aria-selected="false">Captivate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="add-tab" data-toggle="tab" href="#add" role="tab" aria-controls="add" aria-selected="false">Hinzufügen</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="global" role="tabpanel" aria-labelledby="global-tab">
-                    <div class="global">
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-                        <input type="checkbox" id="Interaktion" name="Interaktion">
-                        <label for="Interaktion">Interaktion</label>
-
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="h5p" role="tabpanel" aria-labelledby="h5p-tab">
-                    <div class="h5p">
-                        <div class="row sub-menu">
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Interactive Book</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Twitter User Feed</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Greeting Card</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Image Choice</label>
-                        </div>
-                        <div class="row sub-menu">
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Crossword</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Find the words</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Virtual Tour (360)</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Branching Scenario</label>
-                        </div>
-                        <div class="row sub-menu">
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Dictation</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Essay</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Image Slider</label>
-                            <input type="checkbox" id="Interaktion" name="Interaktion">
-                            <label for="Interaktion">Speak the Words Set</label>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="moodle" role="tabpanel" aria-labelledby="moodle-tab">...</div>
-                <div class="tab-pane fade" id="cap" role="tabpanel" aria-labelledby="cap-tab">...</div>
-                <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add-tab">...</div>
+        <% if(data.lpSet == true){ %>
+            <div>
+                <%- include('./lpSettings') %>
             </div>
-        </div>
-    </div>
-    <div class="profile-options">
-        <button class="button btn btn-primary" id="saveSettingsBtn"> Weiter </button>
+            <% } %>
+                <% if(data.userSet == true){ %>
+                    <div>
+                        <%- include('./userSettings') %>
+                    </div>
+                    <% } %>
+                        <div class="profile-options">
+                            <button class="button btn btn-success" id="saveSettingsBtn"> Speichern </button>
+                        </div>
     </div>
 </div>
-
 <script>
     $('#myTab a').on('click', function(e) {
         e.preventDefault()

@@ -1,12 +1,15 @@
 // request edit patch from server
-function getEditPage(lpid) {
-    $.get('/editor', { 'lpid': lpid }).done(function(data, status) { replaceBody(data) });
+function getEditPage(lpid = session.getCurrentLearningPathId()) {
+    $.get('/editor', { 'lpid': lpid }).done((data, status) => {
+        replaceBody(data);
+        mountEditorEventHandlers();
+    });
 }
 
-function getCreatePage(cb = noop) {
+function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        replaceBody(data);
-        mountSettingsEventHandlers();
+        session.addLearningPath(data['learningpathID'], data['learningpathTitle']);
+        session.openLearningPath(data['learningpathID'])
         return cb()
     });
 }
@@ -23,17 +26,28 @@ function getHomePage() {
 
 }
 
-function getSettingsPage(currentLp) {
-    $.get('/settings', { lpid: currentLp }).done((data, status) => {
+function getSettingsPage(mode = null) {
+    if (mode == null && session.getCurrentLearningPathId() == null)
+        mode = 'userSettingsOnly';
+    else if (mode == null)
+        mode = 'allSettings';
+    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
         mountSettingsEventHandlers();
     });
+
+
 }
 
-function LearningPathToServer() {
-
-    // TODO
-
+function LearningPathToServer(learningPath, cb = noop) {
+    if (JSON.stringify(learningPath) != 'undefined') {
+        $.post('/updateLp', { 'lpid': learningPath.getProp('id'), 'title': learningPath.getProp('title'), 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
+            if (status === 'success')
+                return cb()
+            else
+                alertToUser("Lernpfad konnte nicht gespeichert werden!", 10, 'red');
+        });
+    }
 }
 
 function deleteLearningPath(lpid, cb = noop) {
@@ -41,7 +55,7 @@ function deleteLearningPath(lpid, cb = noop) {
         if (status === 'success')
             return cb()
         else
-            alert('Lernpfad konnte nicht gelöscht werden!');
+            alertToUser('Lernpfad konnte nicht gelöscht werden!');
     });
 }
 

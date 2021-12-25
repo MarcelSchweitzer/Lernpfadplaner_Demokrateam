@@ -1,110 +1,40 @@
-function noop() { return }
+function noop() {}
 
 class LearningPath {
-    constructor(id, name) {
-        this.id = id;
-        this.module = new Module(name);
-        this.learningGoal = new LearningGoal();
+    constructor(id, title) {
+        this.props = {
+            'id': id,
+            'title': title,
+            'goalTaxonomyLevel': 0,
+            'goalEvaluation': 0,
+            'evaluationModeID': 0,
+            'description': '',
+            'notes': '',
+            'scenarios': [], // list of dicts
+            'categoryIDs': [],
+            'interactionTypeIDs': []
+        };
     }
 
-    // id is immutable
-    getId() { return this.id }
-
-    getName() { return this.module.getName() }
-    setName(name) { this.module.setName(name) }
-
-    createOverview() {}
-    getShortOverview() {}
-    goalComparison() {}
-    createLicenseList() {}
-}
-
-class LearningGoal {
-    constructor(goalTaxonomyLevel = 0, goalEvaluation = 0, evaluationModeID = 0) {
-        this.goalTaxonomyLevel = goalTaxonomyLevel; // int
-        this.goalEvaluation = goalEvaluation; // int
-        this.evaluationModeID = evaluationModeID; // int
+    setProp(key, value) {
+        this.props[key] = value;
     }
 
-    setGoalTaxonomyLevel() {}
-    getGoalTaxonomyLevel() {}
-
-    setGoalEvaluation() {}
-    getGoalEvaluation() {}
-
-    setEvaluationMode() {}
-    getEvaluationMode() {}
-}
-
-class Module {
-    constructor(name, description = "", notes = "") {
-        this.name = name; // string
-        this.description = description; // string
-        this.notes = notes; // string
-        this.scenarios = [];
-        this.categoryIDs = [];
-        this.interactionTypeIDs = [];
+    getProp(key) {
+        return this.props[key];
     }
-
-    setName(name) { this.name = name; }
-    getName() { return this.name; }
-
-    setDescripton(description) { this.description = description; }
-    getDescription() { return this.description; }
-
-    setNotes(notes) { this.notes = notes; }
-    getNotes() { return this.notes; }
 
     // create scanario at any position
     createScenario(index = null, title = null) {
         sc = new Scenario(title)
-        this.scenarios = arrTk.insertAt(this.scenarios, sc, index)
+        this.props.scenarios = arrTk.insertAt(this.props.scenarios, sc, index)
     }
 
     moveScenario(indexOld, indexNew) {
-        this.scenarios = arrTk.mvByIndex(this.scenarios, indexOld, indexNew)
+        this.scenarios = arrTk.mvByIndex(this.props.scenarios, indexOld, indexNew)
     }
 
     deleteScenario(index) {
-        this.scenarios = arrTk.rmByIndex(this.scenarios, index)
+        this.props.scenarios = arrTk.rmByIndex(this.props.scenarios, index)
     }
-
-    setCategories(categories) { this.categoryIDs = categories }
-    getCategories() { return this.categoryIDs }
-
-    setInteractionTypes(interactionTypes) { this.interactionTypeIDs = interactionTypes }
-    getInteractionTypes() { return this.interactionTypeIDs }
-
-    getExTaxonomy() {
-
-        // TODO get highest taxonomy level
-
-    }
-    getUsedLicense() {
-
-        // TODO return list of all used licenses
-
-    }
-
-    getEvaluations() {
-
-        // TODO return evaluations
-
-    }
-}
-
-// TODO title instead of name?
-
-class Scenario {
-    constructor(title) {
-        this.title = title;
-
-        // TODO 
-
-    }
-
-    setTitle(title) { this.title = title; }
-    getTitle() { return this.title; }
-
-    // TODO 
 }

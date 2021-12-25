@@ -71,7 +71,7 @@ function _delete(table, attrib, equals, cb = noop) {
     let quotes = ((typeof equals != 'number') ? "'" : "");
     query += quotes + equals + quotes + ','
     query = query.slice(0, -1)
-        // console.log(query)
+        //console.log(query)
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);
@@ -82,11 +82,35 @@ function _delete(table, attrib, equals, cb = noop) {
     });
 }
 
-function _update(table, dict, cb = noop) {
+function _update(table, key, equals, dict, cb = noop) {
+    let listOfKeys = Object.keys(dict);
+    let listOfValues = Object.values(dict)
 
-    // TODO
+    if (listOfKeys.length != listOfValues.length)
+        return
+
+    let dbClient = createClient();
+    let query = 'UPDATE ' + table + ' SET '
+
+    for (let i = 0; i < listOfKeys.length; i++) {
+        let quotes = ((typeof listOfValues[i] != 'number') ? "'" : "");
+        query += listOfKeys[i] + '=' + quotes + listOfValues[i] + quotes + ','
+    }
+    query = query.slice(0, -1)
+    query += ' WHERE ' + key + '=';
+    let _quotes = ((typeof equals != 'number') ? "'" : "");
+    query += _quotes + equals + _quotes
+
+    //console.log(query)
+    dbClient.query(query, (err, res) => {
+        if (err) {
+            console.error(err);
+            return false
+        }
+        dbClient.end()
+        return cb()
+    });
 }
-
 
 
 module.exports.select = select;

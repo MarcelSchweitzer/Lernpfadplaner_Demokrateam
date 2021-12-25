@@ -12,19 +12,35 @@ class Session {
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentLearningPathId; }
 
-    // get a read only object representation of current lp 
-    getCurrentLearningPath() {
-        return this.getLearningPathById(this.currentLearningPathId);
-    }
-
     // get a read only object representation by id 
     getLearningPathById(id) {
         return this.learningPaths[this.getLpIndexById(id)]
     }
 
+    setCurrentLearningPathProp(key, value) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].setProp(key, value);
+    }
+
+    getCurrentLearningPathProp(key) {
+        return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].getProp(key);
+    }
+
+    setLearningPathPropById(id, key, value) {
+        this.learningPaths[this.getLpIndexById(id)].setProp(key, value);
+    }
+
+    getLearningPathPropById(id, key) {
+        return this.learningPaths[this.getLpIndexById(id)].getProp(key);
+    }
+
+    // get a read only object representation of current lp 
+    getCurrentLearningPath() {
+        return this.getLearningPathById(this.currentLearningPathId);
+    }
+
     getLpIndexById(id) {
         for (let i = 0; i < this.learningPaths.length; i++)
-            if (this.learningPaths[i].getId() == id)
+            if (this.learningPaths[i].getProp('id') == id)
                 return i
         return null
     }
@@ -34,24 +50,8 @@ class Session {
         return this.learningPaths;
     }
 
-    // return list of all available learning path ids 
-    getLearningPathIds() {
-        let ids = [];
-        for (var lp in this.learningPaths)
-            ids.push(this.learningPaths[lp].getId())
-        return ids
-    }
-
-    // return list of all available learning path names 
-    getLearningPathNames() {
-        let names = [];
-        for (let lp in this.learningPaths)
-            names.push(this.learningPaths[lp].getName())
-        return names
-    }
-
     // create meaning add + open
-    createLearningPath(id = null, name = null) {
+    createLearningPath(id = null, title = null) {
         let newLP = this.addLearningPath();
         this.openLearningPath(newLP)
     }
@@ -70,12 +70,12 @@ class Session {
     }
 
     // add learning path to list and return id
-    addLearningPath(id, name) {
-        let lp = new LearningPath(id, name);
+    addLearningPath(id, title) {
+        let lp = new LearningPath(id, title);
         this.learningPaths = insertAt(this.learningPaths, lp);
 
-        // return id
-        return lp.getId()
+        // return 
+        return lp.getProp('id')
     }
 
     // remove Learning Path from list
@@ -97,6 +97,7 @@ class Session {
     closeLearningPath() {
         this.currentLearningPathId = null;
     }
+
 }
 
 const session = new Session();
