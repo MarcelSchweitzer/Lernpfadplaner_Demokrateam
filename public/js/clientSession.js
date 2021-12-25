@@ -97,6 +97,8 @@ class Session {
     closeLearningPath() {
         this.currentLearningPathId = null;
     }
+
+
 }
 
 const session = new Session();

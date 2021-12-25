@@ -1,3 +1,5 @@
+var unsavedChanges = false;
+
 $(document).ready(() => {
     mountHeaderEventHandlers();
     mountIndexEventHandlers();
@@ -17,13 +19,14 @@ function mountButtonHandler(element, fun) {
 function propertyConnection(input, lpProp) {
     let inp = document.getElementById(input);
     inp.addEventListener('input', () => {
+        unsavedChanges = true;
         session.setCurrentLearningPathProp(lpProp, inp.value)
     }, false);
 }
 
 function mountHeaderEventHandlers() {
     mountButtonHandler('settingsBtn', () => {
-        getSettingsPage(session.getCurrentLearningPathId());
+        getSettingsPage();
     });
     mountButtonHandler('homeBtn', () => {
         LearningPathToServer(session.getCurrentLearningPath(), () => {
@@ -33,7 +36,6 @@ function mountHeaderEventHandlers() {
 }
 
 function mountIndexEventHandlers() {
-    mountHeaderEventHandlers();
     mountButtonHandler('createLpBtn', createHandler);
 
     var openButtons = document.getElementsByClassName('open');
@@ -50,7 +52,6 @@ function mountIndexEventHandlers() {
 
 function mountSettingsEventHandlers() {
     mountButtonHandler('saveSettingsBtn', () => {
-        saveLpSettings();
         getEditPage(session.getCurrentLearningPathId());
     });
 }
@@ -58,6 +59,7 @@ function mountSettingsEventHandlers() {
 function mountEditorEventHandlers() {
     propertyConnection('lpNotes', 'notes');
     propertyConnection('lpEvaluationMode', 'evaluationModeID');
+    propertyConnection('lpTitleInput', 'title');
 }
 
 function createHandler() {
@@ -93,13 +95,29 @@ function editHandler() {
     session.openLearningPath(editID);
 }
 
-function saveLpSettings() {
-    session.setLearningPathPropById(session.getCurrentLearningPathId(), 'title', document.getElementById('lpTitleInput').value);
-    LearningPathToServer(session.getCurrentLearningPath(), () => {
-        alertToUser('Änderungen gespeichert!')
-    });
-}
-
 function exportHandler() {
 
 }
+
+function saveCurrentLp() {
+    if (session.getCurrentLearningPathId() != null) {
+        LearningPathToServer(session.getCurrentLearningPath(), () => {
+            alertToUser('Änderungen gespeichert!', 3);
+            unsavedChanges = false;
+        });
+    }
+}
+
+function alertToUser(message, seconds = 5, color = 'black') {
+
+    // TODO
+
+    console.log(message);
+}
+
+// autosave
+
+setInterval(function() {
+    if (unsavedChanges)
+        saveCurrentLp()
+}, 30000)

@@ -10,6 +10,7 @@ function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
         session.addLearningPath(data['learningpathID'], data['learningpathTitle']);
         session.openLearningPath(data['learningpathID'])
+        console.log(session.getCurrentLearningPathId());
         return cb()
     });
 }
@@ -26,11 +27,19 @@ function getHomePage() {
 
 }
 
-function getSettingsPage(lp = session.getCurrentLearningPathId()) {
-    $.get('/settings', { 'lpid': lp }).done((data, status) => {
-        replaceBody(data);
-        mountSettingsEventHandlers();
-    });
+function getSettingsPage() {
+    if (session.getCurrentLearningPathId() != null) {
+        $.get('/settings', { 'lpid': session.getCurrentLearningPathId() }).done((data, status) => {
+            replaceBody(data);
+            mountSettingsEventHandlers();
+        });
+    } else {
+        $.get('/userSettings').done((data, status) => {
+            replaceBody(data);
+            mountSettingsEventHandlers();
+        });
+    }
+
 }
 
 function LearningPathToServer(learningPath, cb = noop) {

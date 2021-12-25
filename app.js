@@ -68,21 +68,30 @@ app.get('/get_started', (req, res) => {
 
 // user wants to edit a learningPath
 app.get('/editor', (req, res) => {
-    openId = req.params.lpId;
+    let lpid = req.query.lpid;
+    console.log(lpid)
+
     if (req.session.isAuth == true) {
 
-        // get name for new learningPath
-        getCurrentUser(req.sessionID, (currentUserID) => {
-            dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', currentUserID, (data) => {});
+        // resolve uid
+        getCurrentUser(req.sessionID, (uid) => {
+
+            // find owner of lp
+            dbMan.selectMatch('public.learningpath', 'owner, content', 'lpid', lpid, (data) => {
+
+                // check if user is owner of lp that is to be deleted
+                if (uid == data[0]['owner']) {
+                    res.render('partials/editor', {
+                        data: {
+                            'learningpath': data[0]['content']
+                        }
+                    });
+                } else {
+                    res.render('landing');
+                }
+            });
         });
     }
-
-    // return ejs rendered page for editor screen
-    res.render('partials/editor', {
-        data: {
-            id: req.params.lpId
-        }
-    });
 })
 
 // user wants to create a learningPath
@@ -100,7 +109,7 @@ app.get('/create', (req, res) => {
                 }
                 let id = unique.uniqueId(lpids);
                 let name = unique.uniqueName('Lernpfad', names);
-                dbMan.insert('public.learningpath', { 'lpid': id, 'title': name, 'owner': currentUserID }, () => {
+                dbMan.insert('public.learningpath', { 'lpid': id, 'title': name, 'content': JSON.stringify({ props: { 'id': id, 'title': name } }), 'owner': currentUserID }, () => {
                     res.status(200).send({
                         'learningpathID': id,
                         'learningpathTitle': name
@@ -122,16 +131,16 @@ app.get('/settings', (req, res) => {
     if (req.session.isAuth == true) {
 
         // resolve uid
-        getCurrentUser(req.sessionID, (uid) => {
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, (data) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (data) => {
+            dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (_data) => {
 
                 // check if user is owner of lp that is to be deleted
-                if (uid == data[0]['owner']) {
-                    res.render('partials/settings', {
+                if (data[0]['uid'] == _data[0]['owner']) {
+                    res.render('partials/lpSettings', {
                         data: {
-                            'learningpathTitle': data[0]['title']
+                            'nickname': data[0]['nickname']
                         }
                     });
                 } else {
@@ -140,8 +149,21 @@ app.get('/settings', (req, res) => {
             });
         });
     }
-
 })
+
+
+app.get('/userSettings', (req, res) => {
+    if (req.session.isAuth == true) {
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, (data) => {
+            res.render('partials/userSettings', {
+                data: {
+                    'nickname': data[0]['nickname']
+                }
+            });
+
+        });
+    }
+});
 
 // user wants to navigate back to landing page
 app.get('/home', (req, res) => {

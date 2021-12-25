@@ -7,8 +7,12 @@
             <div class="col-md-3">
                 <section class="left">
                     <div class="left-side">
+                        <div class="title">
+                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningpath.props.title%>">
+                        </div>
+
                         <div class="note">
-                            <p>Notitzen</p>
+                            <p>Notizen</p>
                             <img type="button" data-toggle="modal" data-target="#exampleModal" src="img/post-it.png" alt="Notitzen">
 
 
@@ -17,7 +21,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Notitzen</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Notizen</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -52,9 +56,6 @@
                                     </select>
                                 </div>
                             </form>
-
-
-
                         </div>
                         <hr>
                         <div class="activity">
