@@ -10,10 +10,10 @@ class LearningPath {
             'evaluationModeID': 0,
             'description': '',
             'notes': '',
-            'scenarios': [], // list of dicts
             'categoryIDs': [],
             'interactionTypeIDs': []
         };
+        this.scenarios = [] // list of dicts
     }
 
     setProp(key, value) {
@@ -36,5 +36,11 @@ class LearningPath {
 
     deleteScenario(index) {
         this.props.scenarios = arrTk.rmByIndex(this.props.scenarios, index)
+    }
+}
+
+class Scenario {
+    constructor(title) {
+        this.title = title;
     }
 }

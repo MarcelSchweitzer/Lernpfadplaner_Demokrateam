@@ -8,6 +8,9 @@ class Session {
     getUserId() {
         return this.userId;
     }
+    setUserId(uid) {
+        this.userId = uid;
+    }
 
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentLearningPathId; }

@@ -3,6 +3,7 @@ var unsavedChanges = false;
 $(document).ready(() => {
     mountHeaderEventHandlers();
     mountIndexEventHandlers();
+    updateUserName();
     fetchLearningPaths();
 });
 
@@ -62,6 +63,14 @@ function mountSettingsEventHandlers() {
         else
             getHomePage();
     });
+    let uidInp = document.getElementById('userNameInput');
+    if (typeof(uidInp) != 'undefined' && uidInp != null) {
+        uidInp.addEventListener('input', () => {
+            changeUserName(uidInp.value, () => {
+                updateUserName();
+            });
+        }, false);
+    }
 }
 
 function mountEditorEventHandlers() {

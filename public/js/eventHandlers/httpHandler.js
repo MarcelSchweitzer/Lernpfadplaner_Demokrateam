@@ -72,3 +72,18 @@ function replaceBody(data) {
     const main = document.getElementById('main');
     main.innerHTML = data;
 }
+
+function changeUserName(newUserName, cb = noop) {
+    $.post('/updateUserName', { 'nickname': newUserName }).done((data, status) => {
+        if (status === 'success')
+            return cb();
+    });
+}
+
+function updateUserName() {
+    $.get('/whoami').done((data) => {
+        console.log(data.nickname);
+        document.getElementById("usernameText").innerText = data.nickname;
+        session.setUserId(data.uid);
+    });
+}

@@ -222,6 +222,39 @@ app.post('/updateLp', (req, res) => {
     }
 });
 
+app.post('/updateUserName', (req, res) => {
+    let sid = req.sessionID;
+
+    if (req.session.isAuth == true) {
+        getCurrentUser(sid, (uid) => {
+            dbMan._update('public.user', 'uid', uid, {
+                'nickname': req.body.nickname
+            }, () => {
+
+                // respond OK to client
+                res.send('200')
+            })
+        });
+    }
+});
+
+// user wants to know his username
+app.get('/whoami', (req, res) => {
+    let sid = req.sessionID;
+
+    if (req.session.isAuth == true) {
+
+        // resolve uid
+        dbMan.selectMatch('public.user', 'nickname', 'latestSession', sid, (data) => {
+            res.status(200).send({
+                'nickname': data[0]['nickname'],
+                'uid': data[0]['uid']
+            });
+        });
+    }
+});
+
+
 app.post('/updateSettings', (req, res) => {
 
     res.send('200')

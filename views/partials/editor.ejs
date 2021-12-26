@@ -8,9 +8,10 @@
                 <section class="left">
                     <div class="left-side">
                         <div class="title">
+                            <label for="lpTitleInput">Titel</label>
                             <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningpath.props.title%>">
                         </div>
-
+                        <hr>
                         <div class="note">
                             <p>Notizen</p>
                             <img type="button" data-toggle="modal" data-target="#exampleModal" src="img/post-it.png" alt="Notitzen">
@@ -67,7 +68,7 @@
             </div>
             <div class="col-md-9">
                 <div class="material-group" id="accordion">
-                    <div class="card">
+                    <div class="card" number="1">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
