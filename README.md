@@ -8,7 +8,7 @@ installation:
 4) set up a server hosted at localhost:5432 (default)
 5) set up a database name users (see setup_db.sql)
 6) connect to the users database (\c users)
-7) run the remaining code contained in setup_db.sql via psql or pgadmin 
+7) run the remaining code contained in setup_db.sql via psql or pgadmin's Query Tool
 8) run "git clone https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam.git"
 9) run "cd Lernpfadplaner_Demokrateam"
 10) run "npm install" to install dependencies

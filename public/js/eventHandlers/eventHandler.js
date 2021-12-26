@@ -77,6 +77,12 @@ function mountEditorEventHandlers() {
     propertyConnection('lpNotes', 'notes');
     propertyConnection('lpEvaluationMode', 'evaluationModeID');
     propertyConnection('lpTitleInput', 'title');
+
+    mountButtonHandler('addScenarioButton', () => {
+        session.createScenario();
+        addScenarioElement();
+    });
+
 }
 
 function createHandler() {
@@ -123,6 +129,62 @@ function saveCurrentLp() {
             unsavedChanges = false;
         });
     }
+}
+
+function addScenarioElement(elementData = null) {
+    const defaultData = {
+        'title': 'Szenario',
+    }
+    let props = (elementData == null ? defaultData : elementData);
+
+
+    let scenarios = document.getElementsByClassName('scenario');
+    let scenarioIDs = [];
+    for (let scen of scenarios)
+        scenarioIDs.push(scen.id);
+    let divID = uniqueName('scenario', scenarioIDs);
+    let headingID = divID + 'Heading';
+    let colapseID = divID + 'Colapse';
+    let lpDescritionID = divID + 'lpDescrition';
+    let lpLearningGoal = divID + 'lpLearningGoal';
+    let lastScenario = scenarios[scenarios.length - 1];
+
+    let newScenarioDiv = document.createElement('div');
+    newScenarioDiv.innerHTML =
+        `
+    <div class="card scenario">
+        <div class="card-header" id="` + headingID + `">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#` + colapseID + ` aria-expanded="false" aria-controls="` + colapseID + `">
+                    <img src="./img/script.png" alt="script" class="script"> ` + props.title + `
+                </button>
+            </h5>
+        </div>
+
+        <div id="` + colapseID + `" class="collapse" aria-labelledby="` + headingID + `" data-parent="#accordion">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="lpDescrition">Beschreibung</label>
+                        <input type="text" class="form-control" id="` + lpDescritionID + `" placeholder="Beschreibung">
+                    </div>
+                    <div class="form-group">
+                        <label for="lpLearningGoal">Lernziel</label>
+                        <input type="text" class="form-control" id="` + lpLearningGoal + `" placeholder="Lernziel">
+                    </div>
+                </form>
+                <div>
+                    <label>Material</label>
+                    <div class="innen-material">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+
+    lastScenario.parentNode.insertBefore(newScenarioDiv, lastScenario);
 }
 
 function alertToUser(message, seconds = 5, color = 'black') {

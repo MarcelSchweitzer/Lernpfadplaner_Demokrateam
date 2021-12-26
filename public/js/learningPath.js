@@ -26,16 +26,16 @@ class LearningPath {
 
     // create scanario at any position
     createScenario(index = null, title = null) {
-        sc = new Scenario(title)
-        this.props.scenarios = arrTk.insertAt(this.props.scenarios, sc, index)
+        let sc = new Scenario(title)
+        this.scenarios = insertAt(this.scenarios, sc, index)
     }
 
     moveScenario(indexOld, indexNew) {
-        this.scenarios = arrTk.mvByIndex(this.props.scenarios, indexOld, indexNew)
+        this.scenarios = mvByIndex(this.scenarios, indexOld, indexNew)
     }
 
     deleteScenario(index) {
-        this.props.scenarios = arrTk.rmByIndex(this.props.scenarios, index)
+        this.scenarios = rmByIndex(this.scenarios, index)
     }
 }
 

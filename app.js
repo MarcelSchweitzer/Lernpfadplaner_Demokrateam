@@ -123,7 +123,7 @@ app.get('/create', (req, res) => {
     }
 })
 
-// user wants to edit the settings of a learningPath
+// user wants to edit the settings
 app.get('/settings', (req, res) => {
     let sid = req.sessionID;
     let lpid = req.query.lpid;

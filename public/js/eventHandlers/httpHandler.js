@@ -82,7 +82,6 @@ function changeUserName(newUserName, cb = noop) {
 
 function updateUserName() {
     $.get('/whoami').done((data) => {
-        console.log(data.nickname);
         document.getElementById("usernameText").innerText = data.nickname;
         session.setUserId(data.uid);
     });

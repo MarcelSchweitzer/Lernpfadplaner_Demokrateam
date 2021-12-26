@@ -40,12 +40,12 @@ function mvByIndex(arr, index, newIndex) {
 }
 
 function insertAt(arr, element, index = null) {
-    if (index > arr.length || index < 0)
-        throw 'Index Out of Bound!'
-
     // insert at end of list if index was not passed
     if (index === null)
         index = arr.length
+
+    if (index > arr.length || index < 0)
+        throw 'Index Out of Bound!'
 
     arr.splice(index, 0, element)
 

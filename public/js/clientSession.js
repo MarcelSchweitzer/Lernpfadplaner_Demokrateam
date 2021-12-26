@@ -5,6 +5,10 @@ class Session {
         this.userId = 0;
     }
 
+    createScenario() {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario();
+    }
+
     getUserId() {
         return this.userId;
     }
