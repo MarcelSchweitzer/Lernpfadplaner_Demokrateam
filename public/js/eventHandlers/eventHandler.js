@@ -142,6 +142,7 @@ function addScenarioElement(elementData = null) {
     let scenarioIDs = [];
     for (let scen of scenarios)
         scenarioIDs.push(scen.id);
+    console.log(scenarioIDs)
     let divID = uniqueName('scenario', scenarioIDs);
     let headingID = divID + 'Heading';
     let colapseID = divID + 'Colapse';
@@ -152,10 +153,10 @@ function addScenarioElement(elementData = null) {
     let newScenarioDiv = document.createElement('div');
     newScenarioDiv.innerHTML =
         `
-    <div class="card scenario">
+    <div class="card scenario" id="` + divID + `" >
         <div class="card-header" id="` + headingID + `">
             <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#` + colapseID + ` aria-expanded="false" aria-controls="` + colapseID + `">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#` + colapseID + `" aria-expanded="false" aria-controls="` + colapseID + `">
                     <img src="./img/script.png" alt="script" class="script"> ` + props.title + `
                 </button>
             </h5>
@@ -165,11 +166,11 @@ function addScenarioElement(elementData = null) {
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label for="lpDescrition">Beschreibung</label>
+                        <label for="` + lpDescritionID + `">Beschreibung</label>
                         <input type="text" class="form-control" id="` + lpDescritionID + `" placeholder="Beschreibung">
                     </div>
                     <div class="form-group">
-                        <label for="lpLearningGoal">Lernziel</label>
+                        <label for="` + lpLearningGoal + `">Lernziel</label>
                         <input type="text" class="form-control" id="` + lpLearningGoal + `" placeholder="Lernziel">
                     </div>
                 </form>
