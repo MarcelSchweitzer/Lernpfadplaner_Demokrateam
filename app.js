@@ -110,11 +110,12 @@ app.get('/create', (req, res) => {
                 }
                 let id = unique.uniqueId(lpids);
                 let name = unique.uniqueName('Lernpfad', names);
+                const defaultProps = { 'id': id, 'title': name, 'scenarios': [{ 'title': 'Neues Szenario' }] }
                 dbMan.insert('public.learningpath', {
                     'lpid': id,
                     'title': name,
                     'content': JSON.stringify({
-                        'props': { 'id': id, 'title': name, 'scenarios': [{ 'props': { 'title': 'Neues Szenario' } }] }
+                        'props': defaultProps
                     }),
                     'owner': currentUserID
                 }, () => {
@@ -122,7 +123,7 @@ app.get('/create', (req, res) => {
                         'learningpathID': id,
                         'learningpathTitle': name,
                         'content': JSON.stringify({
-                            'props': { 'id': id, 'title': name, 'scenarios': [{ 'props': { 'title': 'Neues Szenario' } }] }
+                            'props': defaultProps
                         }),
                     });
                 })

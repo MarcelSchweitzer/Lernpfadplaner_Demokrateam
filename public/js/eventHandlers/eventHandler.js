@@ -18,11 +18,11 @@ function mountButtonHandler(element, fun) {
 }
 
 // mount a connection between a html element and a learningpath property 
-function lpPropertyConnection(input, lpProp) {
+function mountPropertyConnection(input, lpProp, index = null, indexKey = null) {
     let inp = document.getElementById(input);
     inp.addEventListener('input', () => {
         unsavedChanges = true;
-        session.setCurrentLearningPathProp(lpProp, inp.value)
+        session.setCurrentLearningPathProp(lpProp, inp.value, index, indexKey)
     }, false);
 }
 
@@ -75,9 +75,14 @@ function mountSettingsEventHandlers() {
 }
 
 function mountEditorEventHandlers() {
-    lpPropertyConnection('lpNotes', 'notes');
-    lpPropertyConnection('lpEvaluationMode', 'evaluationModeID');
-    lpPropertyConnection('lpTitleInput', 'title');
+    mountPropertyConnection('lpNotes', 'notes');
+    mountPropertyConnection('lpEvaluationMode', 'evaluationModeID');
+    mountPropertyConnection('lpTitleInput', 'title');
+
+    for (let i = 0; i < session.getCurrentLearningPathProp('scenarios').length; i++) {
+        mountPropertyConnection('lpDescription' + i, 'scenarios', i, 'description')
+        mountPropertyConnection('lpLearningGoal' + i, 'scenarios', i, 'learningGoal')
+    }
 
     mountButtonHandler('addScenarioButton', () => {
         session.createScenario({ 'title': 'Neues Szenario' }, () => {

@@ -67,27 +67,32 @@
             <div class="col-md-9">
                 <div class="material-group scenarios" id="accordion">
 
-                    <% if(data.learningpath.props.scenarios){ let count = 0; data.learningpath.props.scenarios.forEach(sc=>{ count++; %>
+                    <% if(data.learningpath.props.scenarios){ 
+                        let count = 0; 
+                        data.learningpath.props.scenarios.forEach(sc=>{ 
+                            let lastScenario = count == data.learningpath.props.scenarios.length - 1;
+                            let showLastscenario = lastScenario ? ' show' : '';
+                            %>
 
                         <div class="card scenario">
                             <div class="card-header" id="heading<%= count %>">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= count %>" aria-expanded="false" aria-controls="collapse<%= count %>">
-                                    <img src="./img/script.png" alt="script" class="script"> <%= sc.props.title %>
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                    <img src="./img/script.png" alt="script" class="script"> <%= sc.title %>
                                 </button>
                                 </h5>
                             </div>
 
-                            <div id="collapse<%= count %>" class="collapse" aria-labelledby="heading<%= count %>" data-parent="#accordion">
+                            <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
                                 <div class="card-body">
                                     <form>
                                         <div class="form-group">
-                                            <label for="lpDescrition<%= count %>">Beschreibung</label>
-                                            <input type="text" class="form-control" id="lpDescrition<%= count %>" placeholder="Beschreibung">
+                                            <label for="lpDescription<%= count %>">Beschreibung</label>
+                                            <input type="text" class="form-control" id="lpDescription<%= count %>" value="<%= sc.description %>">
                                         </div>
                                         <div class="form-group">
                                             <label for="lpLearningGoal<%= count %>">Lernziel</label>
-                                            <input type="text" class="form-control" id="lpLearningGoal<%= count %>" placeholder="Lernziel">
+                                            <input type="text" class="form-control" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
                                         </div>
                                     </form>
                                     <div>
@@ -100,7 +105,7 @@
                             </div>
                         </div>
 
-                        <% }); }%>
+                        <% count++; }); }%>
 
                             <div class="card scenario">
                                 <div class="card-header" id="headingAddScenario">

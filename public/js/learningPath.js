@@ -5,19 +5,23 @@ class LearningPath {
         this.props = params.props;
     }
 
-    setProp(key, value, index = null) {
+    setProp(key, value, index = null, indexKey = null) {
         if (index === null)
             this.props[key] = value;
+        else if (index !== null && indexKey === null)
+            this.props[key][index] = value;
         else
-            this.props[key][index] = value
+            this.props[key][index][indexKey] = value;
 
     }
 
-    getProp(key, index = null) {
+    getProp(key, index = null, indexKey = null) {
         if (index === null)
             return this.props[key];
-        else
+        else if (index !== null && indexKey === null)
             return this.props[key][index];
+        else
+            return this.props[key][index][indexKey];
     }
 
     // create scanario at any position

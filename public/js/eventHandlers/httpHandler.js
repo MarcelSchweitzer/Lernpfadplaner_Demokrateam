@@ -2,7 +2,9 @@
 function getEditPage(lpid = session.getCurrentLearningPathId()) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
-        mountEditorEventHandlers();
+        fetchLearningPaths(() => {
+            mountEditorEventHandlers();
+        });
     });
 }
 

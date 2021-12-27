@@ -7,15 +7,12 @@ class Session {
 
     createScenario(params, cb = noop) {
         if (this.currentLearningPathId != null) {
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'props': { 'title': params.title } }, () => {
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'title': params.title }, () => {
                 return cb()
             });
         }
     }
 
-    updateScenarioProperty() {
-
-    }
 
     getUserId() {
         return this.userId;
@@ -32,12 +29,12 @@ class Session {
         return this.learningPaths[this.getLpIndexById(id)]
     }
 
-    setCurrentLearningPathProp(key, value) {
-        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].setProp(key, value);
+    setCurrentLearningPathProp(key, value, index = null, indexKey = null) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].setProp(key, value, index, indexKey);
     }
 
-    getCurrentLearningPathProp(key) {
-        return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].getProp(key);
+    getCurrentLearningPathProp(key, index = null, indexKey = null) {
+        return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].getProp(key, index, indexKey);
     }
 
     setLearningPathPropById(id, key, value) {
