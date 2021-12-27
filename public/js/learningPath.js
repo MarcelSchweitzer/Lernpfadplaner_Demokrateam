@@ -1,19 +1,25 @@
 function noop() {}
 
 class LearningPath {
-    constructor(id, title) {
+    constructor(params) {
+
         this.props = {
-            'id': id,
-            'title': title,
-            'goalTaxonomyLevel': 0,
-            'goalEvaluation': 0,
-            'evaluationModeID': 0,
-            'description': '',
-            'notes': '',
-            'categoryIDs': [],
-            'interactionTypeIDs': []
+            'id': params.props.id,
+            'title': params.props.title,
+            'goalTaxonomyLevel': params.props.goalTaxonomyLevel,
+            'goalEvaluation': params.props.goalEvaluation,
+            'evaluationModeID': params.props.evaluationModeID,
+            'description': params.props.description,
+            'notes': params.props.notes,
+            'categoryIDs': params.props.categoryIDs,
+            'interactionTypeIDs': params.props.interactionTypeIDs
         };
-        this.scenarios = [] // list of dicts
+
+        this.scenarios = []
+
+        if (params.scenarios != null)
+            for (let scenario of params.scenarios)
+                this.createScenario(scenario)
     }
 
     setProp(key, value) {
@@ -25,10 +31,10 @@ class LearningPath {
     }
 
     // create scanario at any position
-    createScenario(title = null, index = null) {
-        let sc = new Scenario(title)
-        this.scenarios = insertAt(this.scenarios, sc, index)
-        return sc
+    createScenario(props, cb = noop) {
+        let sc = new Scenario(props)
+        this.scenarios = insertAt(this.scenarios, sc);
+        return cb()
     }
 
     moveScenario(indexOld, indexNew) {
@@ -41,9 +47,9 @@ class LearningPath {
 }
 
 class Scenario {
-    constructor(title) {
+    constructor(props) {
         this.props = {
-            'title': title
+            'title': props.title
         }
     }
 
@@ -54,4 +60,5 @@ class Scenario {
     getProp(key) {
         return this.props[key];
     }
+
 }

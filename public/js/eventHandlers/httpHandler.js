@@ -8,7 +8,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId()) {
 
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        session.addLearningPath(data['learningpathID'], data['learningpathTitle']);
+        session.addLearningPath({ 'props': { 'id': data['learningpathID'], 'title': data['learningpathTitle'] } });
         session.openLearningPath(data['learningpathID'])
         return cb()
     });
@@ -41,6 +41,7 @@ function getSettingsPage(mode = null) {
 
 function LearningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
+        console.log(JSON.stringify(learningPath));
         $.post('/updateLp', { 'lpid': learningPath.getProp('id'), 'title': learningPath.getProp('title'), 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
             if (status === 'success')
                 return cb()

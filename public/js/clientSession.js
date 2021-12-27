@@ -5,8 +5,10 @@ class Session {
         this.userId = 0;
     }
 
-    createScenario(title = null) {
-        return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario(title);
+    createScenario(params, cb = noop) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'title': params.title }, () => {
+            return cb()
+        });
     }
 
     getUserId() {
@@ -57,12 +59,6 @@ class Session {
         return this.learningPaths;
     }
 
-    // create meaning add + open
-    createLearningPath(id = null, title = null) {
-        let newLP = this.addLearningPath();
-        this.openLearningPath(newLP)
-    }
-
     updateLearningPath(id, newLP) {
         this.learningPaths[this.getLpIndexById(id)] = newLP;
     }
@@ -73,12 +69,12 @@ class Session {
         // TODO 
         if (learningPaths)
             for (let i = 0; i < learningPaths.length; i++)
-                session.addLearningPath(learningPaths[i]['lpid'], learningPaths[i]['title'])
+                session.addLearningPath(learningPaths[i].content);
     }
 
     // add learning path to list and return id
-    addLearningPath(id, title) {
-        let lp = new LearningPath(id, title);
+    addLearningPath(params) {
+        let lp = new LearningPath(params);
         this.learningPaths = insertAt(this.learningPaths, lp);
 
         // return 

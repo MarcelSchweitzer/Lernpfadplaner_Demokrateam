@@ -1,9 +1,10 @@
 const express = require('express');
 const session = require('express-session');
-const { render } = require('express/lib/response');
 const PsqlStore = require('./src/psqlStore.js')(session);
 const unique = require('./src/uniqueIdentifiers.js');
 const dbMan = require('./src/dbManager.js');
+const fstk = require('./src/fileSystemToolkit.js');
+const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 
 require('dotenv').config();
 
@@ -82,7 +83,8 @@ app.get('/editor', (req, res) => {
                 if (uid == data[0]['owner']) {
                     res.render('partials/editor', {
                         data: {
-                            'learningpath': data[0]['content']
+                            'learningpath': data[0]['content'],
+                            'evaluationModes': evaluationModes
                         }
                     });
                 } else {
@@ -172,7 +174,7 @@ app.get('/settings', (req, res) => {
     }
 })
 
-// user wants to navigate back to landing page
+// user wants to navigate back to dashboard page
 app.get('/home', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
         dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', uid, (data) => {
@@ -188,7 +190,7 @@ app.get('/home', (req, res) => {
 // user wants a list of his learningPaths
 app.get('/learningPaths', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
-        dbMan.selectMatch('learningpath', 'lpid, title', 'owner', uid, (data) => {
+        dbMan.selectMatch('learningpath', 'content', 'owner', uid, (data) => {
             res.send(JSON.stringify(data));
         })
     });

@@ -31,7 +31,7 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="lpNotes">Notizen</label>
-                                                    <textarea class="form-control" id="lpNotes" rows="3"></textarea>
+                                                    <textarea class="form-control" id="lpNotes" rows="3"><%=data.learningpath.props.notes%></textarea>
                                                 </div>
                                             </form>
 
@@ -48,12 +48,10 @@
                             <p>Bewertungsmodus </p>
                             <form>
                                 <div class="form-group col-12">
-                                    <select class="form-control" id="lpEvaluationMode">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningpath.props.evaluationModeID%>">
+                                        <% if(data.evaluationModes){  data.evaluationModes.forEach(evalMode=>{ %>
+                                        <option <% if(evalMode == data.learningpath.props.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                                        <% }); } %>
                                     </select>
                                 </div>
                             </form>
