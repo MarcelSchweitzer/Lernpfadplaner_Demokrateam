@@ -8,7 +8,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId()) {
 
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        session.addLearningPath({ 'props': { 'id': data['learningpathID'], 'title': data['learningpathTitle'] } });
+        session.addLearningPath({ 'props': data.content });
         session.openLearningPath(data['learningpathID'])
         return cb()
     });

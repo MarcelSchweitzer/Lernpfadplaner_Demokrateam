@@ -18,7 +18,7 @@ function mountButtonHandler(element, fun) {
 }
 
 // mount a connection between a html element and a learningpath property 
-function propertyConnection(input, lpProp) {
+function lpPropertyConnection(input, lpProp) {
     let inp = document.getElementById(input);
     inp.addEventListener('input', () => {
         unsavedChanges = true;
@@ -75,9 +75,9 @@ function mountSettingsEventHandlers() {
 }
 
 function mountEditorEventHandlers() {
-    propertyConnection('lpNotes', 'notes');
-    propertyConnection('lpEvaluationMode', 'evaluationModeID');
-    propertyConnection('lpTitleInput', 'title');
+    lpPropertyConnection('lpNotes', 'notes');
+    lpPropertyConnection('lpEvaluationMode', 'evaluationModeID');
+    lpPropertyConnection('lpTitleInput', 'title');
 
     mountButtonHandler('addScenarioButton', () => {
         session.createScenario({ 'title': 'Neues Szenario' }, () => {

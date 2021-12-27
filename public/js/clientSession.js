@@ -6,9 +6,15 @@ class Session {
     }
 
     createScenario(params, cb = noop) {
-        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'props': { 'title': params.title } }, () => {
-            return cb()
-        });
+        if (this.currentLearningPathId != null) {
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'props': { 'title': params.title } }, () => {
+                return cb()
+            });
+        }
+    }
+
+    updateScenarioProperty() {
+
     }
 
     getUserId() {

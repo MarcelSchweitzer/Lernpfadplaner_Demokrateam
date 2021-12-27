@@ -2,42 +2,35 @@ function noop() {}
 
 class LearningPath {
     constructor(params) {
+        this.props = params.props;
+    }
 
-        this.props = {
-            'id': params.props.id,
-            'title': params.props.title,
-            'goalTaxonomyLevel': params.props.goalTaxonomyLevel,
-            'goalEvaluation': params.props.goalEvaluation,
-            'evaluationModeID': params.props.evaluationModeID,
-            'description': params.props.description,
-            'notes': params.props.notes,
-            'categoryIDs': params.props.categoryIDs,
-            'interactionTypeIDs': params.props.interactionTypeIDs
-        };
-
-        this.scenarios = params.scenarios;
+    setProp(key, value, index = null) {
+        if (index === null)
+            this.props[key] = value;
+        else
+            this.props[key][index] = value
 
     }
 
-    setProp(key, value) {
-        this.props[key] = value;
-    }
-
-    getProp(key) {
-        return this.props[key];
+    getProp(key, index = null) {
+        if (index === null)
+            return this.props[key];
+        else
+            return this.props[key][index];
     }
 
     // create scanario at any position
     createScenario(props, cb = noop) {
-        this.scenarios = insertAt(this.scenarios, props);
+        this.props.scenarios = insertAt(this.props.scenarios, props);
         return cb()
     }
 
     moveScenario(indexOld, indexNew) {
-        this.scenarios = mvByIndex(this.scenarios, indexOld, indexNew)
+        this.props.scenarios = mvByIndex(this.props.scenarios, indexOld, indexNew)
     }
 
     deleteScenario(index) {
-        this.scenarios = rmByIndex(this.scenarios, index)
+        this.props.scenarios = rmByIndex(this.props.scenarios, index)
     }
 }
