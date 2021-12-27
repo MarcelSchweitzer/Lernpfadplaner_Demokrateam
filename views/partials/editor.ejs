@@ -68,15 +68,51 @@
             </div>
             <div class="col-md-9">
                 <div class="material-group scenarios" id="accordion">
-                    <div class="card scenario">
-                        <div class="card-header" id="headingAddScenario">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" id="addScenarioButton" data-toggle="collapse" data-target="#collapseAddScenario" aria-expanded="false" aria-controls="collapseAddScenario">
+
+                    <% if(data.learningpath.scenarios){ let count = 0; data.learningpath.scenarios.forEach(sc=>{ count++; %>
+
+                        <div class="card scenario">
+                            <div class="card-header" id="heading<%= count %>">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= count %>" aria-expanded="false" aria-controls="collapse<%= count %>">
+                                    <img src="./img/script.png" alt="script" class="script"> <%= sc.props.title %>
+                                </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse<%= count %>" class="collapse" aria-labelledby="heading<%= count %>" data-parent="#accordion">
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="lpDescrition<%= count %>">Beschreibung</label>
+                                            <input type="text" class="form-control" id="lpDescrition<%= count %>" placeholder="Beschreibung">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lpLearningGoal<%= count %>">Lernziel</label>
+                                            <input type="text" class="form-control" id="lpLearningGoal<%= count %>" placeholder="Lernziel">
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <label>Material</label>
+                                        <div class="innen-material">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% }); }%>
+
+                            <div class="card scenario">
+                                <div class="card-header" id="headingAddScenario">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" id="addScenarioButton" data-toggle="collapse" data-target="#collapseAddScenario" aria-expanded="false" aria-controls="collapseAddScenario">
                                     +
                                 </button>
-                            </h5>
-                        </div>
-                    </div>
+                                    </h5>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div>

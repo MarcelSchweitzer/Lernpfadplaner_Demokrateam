@@ -79,8 +79,9 @@ function mountEditorEventHandlers() {
     propertyConnection('lpTitleInput', 'title');
 
     mountButtonHandler('addScenarioButton', () => {
-        session.createScenario();
-        addScenarioElement();
+        let newScenario = session.createScenario('Neues Szenario');
+        LearningPathToServer(session.getCurrentLearningPath());
+        addScenarioElement(newScenario.props);
     });
 
 }
@@ -142,7 +143,6 @@ function addScenarioElement(elementData = null) {
     let scenarioIDs = [];
     for (let scen of scenarios)
         scenarioIDs.push(scen.id);
-    console.log(scenarioIDs)
     let divID = uniqueName('scenario', scenarioIDs);
     let headingID = divID + 'Heading';
     let colapseID = divID + 'Colapse';

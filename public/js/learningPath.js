@@ -25,9 +25,10 @@ class LearningPath {
     }
 
     // create scanario at any position
-    createScenario(index = null, title = null) {
+    createScenario(title = null, index = null) {
         let sc = new Scenario(title)
         this.scenarios = insertAt(this.scenarios, sc, index)
+        return sc
     }
 
     moveScenario(indexOld, indexNew) {
@@ -41,6 +42,16 @@ class LearningPath {
 
 class Scenario {
     constructor(title) {
-        this.title = title;
+        this.props = {
+            'title': title
+        }
+    }
+
+    setProp(key, value) {
+        this.props[key] = value;
+    }
+
+    getProp(key) {
+        return this.props[key];
     }
 }
