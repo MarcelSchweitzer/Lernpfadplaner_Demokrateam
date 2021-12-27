@@ -15,11 +15,8 @@ class LearningPath {
             'interactionTypeIDs': params.props.interactionTypeIDs
         };
 
-        this.scenarios = []
+        this.scenarios = params.scenarios;
 
-        if (params.scenarios != null)
-            for (let scenario of params.scenarios)
-                this.createScenario(scenario)
     }
 
     setProp(key, value) {
@@ -32,8 +29,7 @@ class LearningPath {
 
     // create scanario at any position
     createScenario(props, cb = noop) {
-        let sc = new Scenario(props)
-        this.scenarios = insertAt(this.scenarios, sc);
+        this.scenarios = insertAt(this.scenarios, props);
         return cb()
     }
 
@@ -44,21 +40,4 @@ class LearningPath {
     deleteScenario(index) {
         this.scenarios = rmByIndex(this.scenarios, index)
     }
-}
-
-class Scenario {
-    constructor(props) {
-        this.props = {
-            'title': props.title
-        }
-    }
-
-    setProp(key, value) {
-        this.props[key] = value;
-    }
-
-    getProp(key) {
-        return this.props[key];
-    }
-
 }
