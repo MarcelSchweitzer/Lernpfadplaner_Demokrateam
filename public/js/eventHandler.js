@@ -31,13 +31,34 @@ function mountHeaderEventHandlers() {
         getSettingsPage();
     });
     mountButtonHandler('homeBtn', () => {
-        if (session.getCurrentLearningPathId() != null) {
+        if (session.learningPathOpened()) {
             LearningPathToServer(session.getCurrentLearningPath(), () => {
                 session.closeLearningPath();
                 getHomePage();
             });
         } else {
             getHomePage();
+        }
+    });
+    mountButtonHandler('downloadButton', () => {
+        if (session.learningPathOpened()) {
+            downloadLearningpaths([session.getCurrentLearningPath()], 'json');
+        } else {
+            lpids = []
+            for (lp of session.getLearningPaths())
+                lpids.push(lp.id);
+            downloadLearningpaths(session.getLearningPaths(), 'json');
+        }
+    });
+
+    mountButtonHandler('exportButton', () => {
+        if (session.learningPathOpened()) {
+            downloadLearningpaths([session.getCurrentLearningPath()], 'pdf');
+        } else {
+            lpids = []
+            for (lp of session.getLearningPaths())
+                lpids.push(lp.id);
+            downloadLearningpaths(session.getLearningPaths(), 'pdf');
         }
     });
 }
@@ -83,9 +104,13 @@ function mountEditorEventHandlers() {
         mountPropertyConnection('lpDescription' + i, 'scenarios', i, 'description')
         mountPropertyConnection('lpLearningGoal' + i, 'scenarios', i, 'learningGoal')
         mountPropertyConnection('lpResource' + i, 'scenarios', i, 'resource')
-            //mountButtonHandler('deleteScenario', () => {
-
-        //});
+        mountPropertyConnection('lpTitleInput' + i, 'scenarios', i, 'title')
+        mountButtonHandler('deleteScenario' + i, () => {
+            session.deleteScenario(i);
+            LearningPathToServer(session.getCurrentLearningPath(), () => {
+                getEditPage();
+            });
+        });
     }
 
     mountButtonHandler('addScenarioButton', () => {

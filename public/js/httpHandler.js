@@ -25,7 +25,6 @@ function getHomePage() {
     });
 
     fetchLearningPaths();
-
 }
 
 function getSettingsPage(mode = null) {
@@ -37,8 +36,6 @@ function getSettingsPage(mode = null) {
         replaceBody(data);
         mountSettingsEventHandlers();
     });
-
-
 }
 
 function LearningPathToServer(learningPath, cb = noop) {
@@ -86,4 +83,21 @@ function updateUserName() {
     $.get('/whoami').done((data) => {
         document.getElementById("usernameText").innerText = data.nickname;
     });
+}
+
+function downloadLearningpaths(lps, format) {
+    var text = JSON.stringify(lps);
+    var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+
+    download(filename, text);
+}
+
+function download(filename, text) {
+    var tmp = document.createElement('a');
+    tmp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    tmp.setAttribute('download', filename);
+    tmp.style.display = 'none';
+    document.body.appendChild(tmp);
+    tmp.click()
+    document.body.removeChild(tmp);
 }

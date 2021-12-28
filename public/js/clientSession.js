@@ -48,6 +48,10 @@ class Session {
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentLearningPathId; }
 
+    // get all learningPaths
+
+    getLearningPaths() { return this.learningPaths; }
+
     // get a read only object representation by id 
     getLearningPathById(id) {
         return this.learningPaths[this.getLpIndexById(id)]
@@ -98,6 +102,10 @@ class Session {
     // close the current learning path
     closeLearningPath() {
         this.currentLearningPathId = null;
+    }
+
+    learningPathOpened() {
+        return this.currentLearningPathId != null;
     }
 
 }

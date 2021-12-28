@@ -313,3 +313,11 @@ function getCurrentUser(sessionID, cb = noop) {
         return cb(data[0]['uid'])
     });
 }
+
+
+// user wants to download one or more learningpaths
+var text = { "hello.txt": "Hello World!", "bye.txt": "Goodbye Cruel World!" };
+app.get('/download/:name', function(req, res) {
+    res.set({ "Content-Disposition": "attachment; filename=\"req.params.name\"" });
+    res.send(text[req.params.name]);
+});
