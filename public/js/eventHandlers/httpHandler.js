@@ -10,7 +10,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId()) {
 
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        session.addLearningPath({ 'props': data.content });
+        session.addLearningPath(data.content);
         session.openLearningPath(data['learningpathID'])
         return cb()
     });
@@ -43,7 +43,7 @@ function getSettingsPage(mode = null) {
 
 function LearningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
-        $.post('/updateLp', { 'lpid': learningPath.getProp('id'), 'title': learningPath.getProp('title'), 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
+        $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
             if (status === 'success')
                 return cb()
             else
@@ -85,6 +85,5 @@ function changeUserName(newUserName, cb = noop) {
 function updateUserName() {
     $.get('/whoami').done((data) => {
         document.getElementById("usernameText").innerText = data.nickname;
-        session.setUserId(data.uid);
     });
 }

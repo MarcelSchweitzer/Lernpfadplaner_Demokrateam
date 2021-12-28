@@ -9,12 +9,18 @@
                     <div class="left-side">
                         <div class="title">
                             <label for="lpTitleInput">Titel</label>
-                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningpath.props.title%>">
+                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningpath.title%>">
                         </div>
                         <hr>
                         <div class="note">
                             <p>Notizen</p>
-                            <img type="button" data-toggle="modal" data-target="#exampleModal" src="img/post-it.png" alt="Notitzen">
+                            <div class="noteContainer" type="button" data-toggle="modal" data-target="#exampleModal">
+                                <img src="img/post-it.png" alt="Notitzen" style="width:100%;">
+                                <p class="notesLeft" id="noteP">
+                                    <%=data.learningpath.notes%>
+                                </p>
+                            </div>
+
 
 
                             <!-- Modal -->
@@ -31,7 +37,7 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="lpNotes">Notizen</label>
-                                                    <textarea class="form-control" id="lpNotes" rows="3"><%=data.learningpath.props.notes%></textarea>
+                                                    <textarea class="form-control" id="lpNotes" rows="3" onchange="document.getElementById('noteP').innerHTML = document.getElementById('lpNotes').value"><%=data.learningpath.notes%></textarea>
                                                 </div>
                                             </form>
 
@@ -48,9 +54,9 @@
                             <p>Bewertungsmodus </p>
                             <form>
                                 <div class="form-group col-12">
-                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningpath.props.evaluationModeID%>">
+                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningpath.evaluationModeID%>">
                                         <% if(data.evaluationModes){  data.evaluationModes.forEach(evalMode=>{ %>
-                                        <option <% if(evalMode == data.learningpath.props.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                                        <option <% if(evalMode == data.learningpath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
                                         <% }); } %>
                                     </select>
                                 </div>
@@ -67,10 +73,10 @@
             <div class="col-md-9">
                 <div class="material-group scenarios" id="accordion">
 
-                    <% if(data.learningpath.props.scenarios){ 
+                    <% if(data.learningpath.scenarios){ 
                         let count = 0; 
-                        data.learningpath.props.scenarios.forEach(sc=>{ 
-                            let lastScenario = count == data.learningpath.props.scenarios.length - 1;
+                        data.learningpath.scenarios.forEach(sc=>{ 
+                            let lastScenario = count == data.learningpath.scenarios.length - 1;
                             let showLastscenario = lastScenario ? ' show' : '';
                             %>
 
@@ -79,7 +85,8 @@
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                     <img src="./img/script.png" alt="script" class="script"> <%= sc.title %>
-                                </button>
+                                    <button class="button btn btn-warning" id="deleteScenario<%= count %>">-</button>
+                                    </button>
                                 </h5>
                             </div>
 
@@ -93,6 +100,10 @@
                                         <div class="form-group">
                                             <label for="lpLearningGoal<%= count %>">Lernziel</label>
                                             <input type="text" class="form-control" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lpResource<%= count %>">Quelle</label>
+                                            <input type="text" class="form-control" id="lpResource<%= count %>" value="<%= sc.resource %>">
                                         </div>
                                     </form>
                                     <div>

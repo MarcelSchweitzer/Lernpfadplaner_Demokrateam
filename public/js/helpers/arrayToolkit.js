@@ -1,3 +1,5 @@
+function noop() {}
+
 // remove by index
 function rmByIndex(arr, ind) {
     if (ind >= arr.length || ind < 0)
@@ -11,7 +13,7 @@ function rmByIndex(arr, ind) {
 // remove by id
 function rmById(arr, id) {
     return arr.filter(function(value) {
-        return value.getProp('id') != id
+        return value.id != id
     });
 }
 

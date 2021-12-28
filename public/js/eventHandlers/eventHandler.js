@@ -22,7 +22,7 @@ function mountPropertyConnection(input, lpProp, index = null, indexKey = null) {
     let inp = document.getElementById(input);
     inp.addEventListener('input', () => {
         unsavedChanges = true;
-        session.setCurrentLearningPathProp(lpProp, inp.value, index, indexKey)
+        session.setProp(lpProp, inp.value, index, indexKey)
     }, false);
 }
 
@@ -79,9 +79,13 @@ function mountEditorEventHandlers() {
     mountPropertyConnection('lpEvaluationMode', 'evaluationModeID');
     mountPropertyConnection('lpTitleInput', 'title');
 
-    for (let i = 0; i < session.getCurrentLearningPathProp('scenarios').length; i++) {
+    for (let i = 0; i < session.getProp('scenarios').length; i++) {
         mountPropertyConnection('lpDescription' + i, 'scenarios', i, 'description')
         mountPropertyConnection('lpLearningGoal' + i, 'scenarios', i, 'learningGoal')
+        mountPropertyConnection('lpResource' + i, 'scenarios', i, 'resource')
+            //mountButtonHandler('deleteScenario', () => {
+
+        //});
     }
 
     mountButtonHandler('addScenarioButton', () => {

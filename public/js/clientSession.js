@@ -2,7 +2,6 @@ class Session {
     constructor() {
         this.learningPaths = [];
         this.currentLearningPathId = null;
-        this.userId = 0;
     }
 
     createScenario(params, cb = noop) {
@@ -13,12 +12,37 @@ class Session {
         }
     }
 
+    setProp(key, value, index = null, indexKey = null) {
+        if (index === null)
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key] = value;
+        else if (index !== null && indexKey === null)
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index] = value;
+        else
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey] = value;
 
-    getUserId() {
-        return this.userId;
     }
-    setUserId(uid) {
-        this.userId = uid;
+
+    getProp(key, index = null, indexKey = null) {
+        if (index === null)
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key];
+        else if (index !== null && indexKey === null)
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index];
+        else
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey];
+    }
+
+    // create scanario at any position
+    createScenario(props, cb = noop) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, props);
+        return cb()
+    }
+
+    moveScenario(indexOld, indexNew) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, indexOld, indexNew)
+    }
+
+    deleteScenario(index) {
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, index)
     }
 
     // get Id of current (opened) learningPath
@@ -29,22 +53,6 @@ class Session {
         return this.learningPaths[this.getLpIndexById(id)]
     }
 
-    setCurrentLearningPathProp(key, value, index = null, indexKey = null) {
-        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].setProp(key, value, index, indexKey);
-    }
-
-    getCurrentLearningPathProp(key, index = null, indexKey = null) {
-        return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].getProp(key, index, indexKey);
-    }
-
-    setLearningPathPropById(id, key, value) {
-        this.learningPaths[this.getLpIndexById(id)].setProp(key, value);
-    }
-
-    getLearningPathPropById(id, key) {
-        return this.learningPaths[this.getLpIndexById(id)].getProp(key);
-    }
-
     // get a read only object representation of current lp 
     getCurrentLearningPath() {
         return this.getLearningPathById(this.currentLearningPathId);
@@ -52,18 +60,9 @@ class Session {
 
     getLpIndexById(id) {
         for (let i = 0; i < this.learningPaths.length; i++)
-            if (this.learningPaths[i].getProp('id') == id)
+            if (this.learningPaths[i].id == id)
                 return i
         return null
-    }
-
-    // return learning paths
-    getLearningPaths() {
-        return this.learningPaths;
-    }
-
-    updateLearningPath(id, newLP) {
-        this.learningPaths[this.getLpIndexById(id)] = newLP;
     }
 
     updateLearningPaths(learningPaths) {
@@ -72,16 +71,13 @@ class Session {
         // TODO 
         if (learningPaths)
             for (let i = 0; i < learningPaths.length; i++)
-                session.addLearningPath(learningPaths[i].content);
+                this.addLearningPath(learningPaths[i].content);
     }
 
     // add learning path to list and return id
     addLearningPath(params) {
-        let lp = new LearningPath(params);
+        let lp = params;
         this.learningPaths = insertAt(this.learningPaths, lp);
-
-        // return 
-        return lp.getProp('id')
     }
 
     // remove Learning Path from list

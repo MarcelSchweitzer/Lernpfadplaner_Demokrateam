@@ -114,17 +114,13 @@ app.get('/create', (req, res) => {
                 dbMan.insert('public.learningpath', {
                     'lpid': id,
                     'title': name,
-                    'content': JSON.stringify({
-                        'props': defaultProps
-                    }),
+                    'content': JSON.stringify(defaultProps),
                     'owner': currentUserID
                 }, () => {
                     res.status(200).send({
                         'learningpathID': id,
                         'learningpathTitle': name,
-                        'content': JSON.stringify({
-                            'props': defaultProps
-                        }),
+                        'content': JSON.stringify(defaultProps),
                     });
                 })
             });

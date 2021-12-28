@@ -96,3 +96,18 @@
 .activity p {
     text-align: center;
 }
+
+
+/* text on notes */
+
+.noteContainer {
+    position: relative;
+    text-align: center;
+    color: rgb(66, 66, 66);
+}
+
+.notesLeft {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
