@@ -167,7 +167,7 @@ function exportHandler() {
 }
 
 function saveCurrentLp() {
-    if (session.getCurrentLearningPathId() != null) {
+    if (session.learningPathOpened()) {
         LearningPathToServer(session.getCurrentLearningPath(), () => {
             alertToUser('Änderungen gespeichert!', 3);
             unsavedChanges = false;

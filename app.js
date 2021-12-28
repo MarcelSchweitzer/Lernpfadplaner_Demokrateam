@@ -5,6 +5,7 @@ const unique = require('./src/uniqueIdentifiers.js');
 const dbMan = require('./src/dbManager.js');
 const fstk = require('./src/fileSystemToolkit.js');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
+const interactivityTypes = fstk.readJson('./res/interactionTypes.json');
 
 require('dotenv').config();
 
@@ -118,7 +119,8 @@ app.get('/create', (req, res) => {
                     'evaluationModeID': 'Punkte',
                     'scenarios': [{
                         'title': 'Neues Szenario',
-                    }]
+                    }],
+                    'interactivityTypes': { 'globale': ['Video'], 'H5P': ['Ja', 'nein', 'vielleicht'] }
                 }
                 dbMan.insert('public.learningpath', {
                     'lpid': id,
@@ -178,6 +180,7 @@ app.get('/settings', (req, res) => {
                     res.render('partials/settings', {
                         data: {
                             'lpSet': true,
+                            'availableInteractivityTypes': interactivityTypes,
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname']
                         }
