@@ -10,6 +10,13 @@ function rmByIndex(arr, ind) {
         });
 }
 
+// remove by value
+function rmByValue(arr, val) {
+    return arr.filter(function(value, index) {
+        return value != val
+    })
+}
+
 // remove by id
 function rmById(arr, id) {
     return arr.filter(function(value) {

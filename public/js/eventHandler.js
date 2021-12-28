@@ -106,13 +106,18 @@ function mountSettingsEventHandlers() {
 }
 
 function interactivitySelectionHandler() {
+    let checked = document.getElementById(this.getAttribute("id")).checked
     let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '');
     let interactivity = this.getAttribute("id").replaceAll('CB', '')
-    interactivity = interactivity.replaceAll('\n', '');
+    interactivity = interactivity.replace(/^\s+|\s+$/g, '');
     let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
-    newList.push(interactivity)
+    if (checked)
+        newList.push(interactivity)
+    else
+        newList = rmByValue(newList, interactivity)
     session.setProp('interactivityTypes', newList, category)
     unsavedChanges = true;
+    saveCurrentLp();
 }
 
 function mountEditorEventHandlers() {
