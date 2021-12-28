@@ -120,7 +120,7 @@ app.get('/create', (req, res) => {
                     'scenarios': [{
                         'title': 'Neues Szenario',
                     }],
-                    'interactivityTypes': { 'globale': ['Video'], 'H5P': ['Ja', 'nein', 'vielleicht'] }
+                    'interactivityTypes': { 'Global': ['Chat'] }
                 }
                 dbMan.insert('public.learningpath', {
                     'lpid': id,
@@ -173,7 +173,7 @@ app.get('/settings', (req, res) => {
         dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningpath', 'owner, title', 'lpid', lpid, (_data) => {
+            dbMan.selectMatch('public.learningpath', 'owner, title, content', 'lpid', lpid, (_data) => {
 
                 // check if user is owner of lp that is to be deleted
                 if (data[0]['uid'] == _data[0]['owner']) {
@@ -181,6 +181,7 @@ app.get('/settings', (req, res) => {
                         data: {
                             'lpSet': true,
                             'availableInteractivityTypes': interactivityTypes,
+                            'learningpath': _data[0]['content'],
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname']
                         }
