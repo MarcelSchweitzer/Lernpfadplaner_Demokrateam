@@ -1,17 +1,20 @@
 .left-side {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 1000px;
     margin: 40px auto;
     background-color: #f7f7f7;
-    border-radius: 5px
+    border-radius: 5px;
+    position: fixed;
 }
 
 .right-side {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 1000px;
     margin: 40px auto;
     background-color: #f7f7f7;
-    border-radius: 5px
+    border-radius: 5px;
+    overflow: scroll;
+    position: fixed;
 }
 
 .material-group {
@@ -118,4 +121,9 @@
     position: absolute;
     top: 8px;
     left: 16px;
+}
+
+.interactivityCategory {
+    text-decoration: underline;
+    font-weight: bold;
 }

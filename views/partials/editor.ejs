@@ -135,7 +135,8 @@
             <div class="col-md-3">
                 <section class="right">
                     <div class="right-side">
-                        <p>Interaktionen</p>                        
+                        <p>Interaktionen</p>
+                        <hr>                     
                         <div class="interactivityPicker">
                             <% if(data.learningpath.interactivityTypes){
                                 let count = 0;
@@ -143,11 +144,13 @@
                                     <a class="interactivityCategory" style="width:100%;">
                                         <%= key %>
                                     </a>
+                                    <br>
                                     <% value.forEach(val=> { %>
                                         <a class="selectedInteractivity" style="width:100%;">
                                             <%= val %>
                                         </a>
-                            <% });}} %>                                    
+                                        <br>
+                            <% });}} %>
                         </div>
                     </div>
                 </section>
