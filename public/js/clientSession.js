@@ -13,22 +13,32 @@ class Session {
     }
 
     setProp(key, value, index = null, indexKey = null) {
-        if (index === null)
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key] = value;
-        else if (index !== null && indexKey === null)
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index] = value;
-        else
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey] = value;
+        try {
+            if (index === null)
+                this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key] = value;
+            else if (index !== null && indexKey === null)
+                this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index] = value;
+            else
+                this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey] = value;
+        } catch (e) {
+            console.error(e);
+        }
 
     }
 
     getProp(key, index = null, indexKey = null) {
-        if (index === null)
-            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key];
-        else if (index !== null && indexKey === null)
-            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index];
-        else
-            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey];
+        try {
+            if (index === null)
+                return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key];
+            else if (index !== null && indexKey === null)
+                return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index];
+            else
+                return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey];
+        } catch (e) {
+            console.error(e);
+            return null
+        }
+
     }
 
     // create scanario at any position

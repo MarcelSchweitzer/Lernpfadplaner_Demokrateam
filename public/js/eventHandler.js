@@ -97,6 +97,22 @@ function mountSettingsEventHandlers() {
             });
         }, false);
     }
+
+    var interactivityInputs = document.getElementsByClassName('interactivityInputCB');
+    for (let i = 0; i < interactivityInputs.length; i++) {
+        interactivityInputs[i].removeEventListener('input', interactivitySelectionHandler, false);
+        interactivityInputs[i].addEventListener('input', interactivitySelectionHandler, false);
+    }
+}
+
+function interactivitySelectionHandler() {
+    let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '');
+    let interactivity = this.getAttribute("id").replaceAll('CB', '')
+    interactivity = interactivity.replaceAll('\n', '');
+    let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
+    newList.push(interactivity)
+    session.setProp('interactivityTypes', newList, category)
+    unsavedChanges = true;
 }
 
 function mountEditorEventHandlers() {
