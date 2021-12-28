@@ -6,7 +6,7 @@
     color: #1f2235;
 }
 
-.global {
+.active {
     display: grid;
     grid-template-columns: repeat(8, 0fr);
     gap: 35px;
