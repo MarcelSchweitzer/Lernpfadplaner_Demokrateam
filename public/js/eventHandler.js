@@ -52,6 +52,10 @@ function mountHeaderEventHandlers() {
     });
 
     mountButtonHandler('exportButton', () => {
+
+        // TODO 
+
+
         if (session.learningPathOpened()) {
             downloadLearningpaths([session.getCurrentLearningPath()], 'pdf');
         } else {
@@ -116,7 +120,9 @@ function mountEditorEventHandlers() {
     mountButtonHandler('addScenarioButton', () => {
         session.createScenario({ 'title': 'Neues Szenario' }, () => {
             LearningPathToServer(session.getCurrentLearningPath(), () => {
-                getEditPage();
+                getEditPage(session.getCurrentLearningPathId(), () => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                });
             });
         });
     });

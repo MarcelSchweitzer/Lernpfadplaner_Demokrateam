@@ -1,9 +1,10 @@
 // request edit patch from server
-function getEditPage(lpid = session.getCurrentLearningPathId()) {
+function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
         fetchLearningPaths(() => {
             mountEditorEventHandlers();
+            return cb()
         });
     });
 }
