@@ -79,7 +79,6 @@ app.get('/editor', (req, res) => {
 
             // find owner of lp
             dbMan.selectMatch('public.learningpath', 'owner, content', 'lpid', lpid, (data) => {
-
                 // check if user is owner of lp that is to be deleted
                 if (uid == data[0]['owner']) {
                     res.render('partials/editor', {
