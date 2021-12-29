@@ -4,14 +4,6 @@ class Session {
         this.currentLearningPathId = null;
     }
 
-    createScenario(params, cb = noop) {
-        if (this.currentLearningPathId != null) {
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].createScenario({ 'title': params.title }, () => {
-                return cb()
-            });
-        }
-    }
-
     setProp(key, value, index = null, indexKey = null) {
         try {
             if (index === null)

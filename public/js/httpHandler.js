@@ -9,6 +9,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     });
 }
 
+// create a new learningpath on the server and add it to the list of learningpaths
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
         session.addLearningPath(data.content);
@@ -28,6 +29,7 @@ function getHomePage() {
     fetchLearningPaths();
 }
 
+// request the settings page from the server
 function getSettingsPage(mode = null) {
     if (mode == null && session.getCurrentLearningPathId() == null)
         mode = 'userSettingsOnly';
@@ -39,6 +41,7 @@ function getSettingsPage(mode = null) {
     });
 }
 
+// push any learningpath to the server
 function LearningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
         $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
@@ -50,6 +53,7 @@ function LearningPathToServer(learningPath, cb = noop) {
     }
 }
 
+// delete a learningpath from the server
 function deleteLearningPath(lpid, cb = noop) {
     $.post('/deletelp', { 'lpid': lpid }).done((data, status) => {
         if (status === 'success')
@@ -59,6 +63,7 @@ function deleteLearningPath(lpid, cb = noop) {
     });
 }
 
+// fetch all learningpaths that we have access to
 function fetchLearningPaths(cb = noop) {
     // fetch users learning paths from server
     $.get('/learningPaths').done((data) => {
@@ -68,11 +73,13 @@ function fetchLearningPaths(cb = noop) {
     });
 }
 
+// replace the main area by some new html
 function replaceBody(data) {
     const main = document.getElementById('main');
     main.innerHTML = data;
 }
 
+// push a change of username to the server
 function changeUserName(newUserName, cb = noop) {
     $.post('/updateUserName', { 'nickname': newUserName }).done((data, status) => {
         if (status === 'success')
@@ -80,12 +87,14 @@ function changeUserName(newUserName, cb = noop) {
     });
 }
 
+// update the username shown in the header
 function updateUserName() {
     $.get('/whoami').done((data) => {
         document.getElementById("usernameText").innerText = data.nickname;
     });
 }
 
+// serve a list of learningpaths as a download for the user
 function downloadLearningpaths(lps, format) {
     var text = JSON.stringify(lps);
     var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;

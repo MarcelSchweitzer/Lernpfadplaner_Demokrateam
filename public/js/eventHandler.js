@@ -26,6 +26,7 @@ function mountPropertyConnection(input, lpProp, index = null, indexKey = null) {
     }, false);
 }
 
+// mount the event handlers for the header
 function mountHeaderEventHandlers() {
     mountButtonHandler('settingsBtn', () => {
         getSettingsPage();
@@ -67,6 +68,7 @@ function mountHeaderEventHandlers() {
     });
 }
 
+// mount eventhandlers for the dashboard page
 function mountIndexEventHandlers() {
     mountButtonHandler('createLpBtn', createHandler);
 
@@ -82,9 +84,10 @@ function mountIndexEventHandlers() {
     }
 }
 
+// mount eventhandlers for the settings page
 function mountSettingsEventHandlers() {
     mountButtonHandler('saveSettingsBtn', () => {
-        if (session.getCurrentLearningPathId() != null)
+        if (session.learningPathOpened())
             getEditPage();
         else
             getHomePage();
@@ -105,21 +108,7 @@ function mountSettingsEventHandlers() {
     }
 }
 
-function interactivitySelectionHandler() {
-    let checked = document.getElementById(this.getAttribute("id")).checked
-    let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '');
-    let interactivity = this.getAttribute("id").replaceAll('CB', '')
-    interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-    let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
-    if (checked)
-        newList.push(interactivity)
-    else
-        newList = rmByValue(newList, interactivity)
-    session.setProp('interactivityTypes', newList, category)
-    unsavedChanges = true;
-    saveCurrentLp();
-}
-
+// mount eventhandlers for the editor page
 function mountEditorEventHandlers() {
     mountPropertyConnection('lpNotes', 'notes');
     mountPropertyConnection('lpEvaluationMode', 'evaluationModeID');
@@ -150,6 +139,7 @@ function mountEditorEventHandlers() {
 
 }
 
+// handle clicks on the create learningpath button
 function createHandler() {
     createLpOnServer(() => {
         fetchLearningPaths();
@@ -157,6 +147,7 @@ function createHandler() {
     });
 }
 
+// handle clicks on delete learningpath buttons
 function deleteHandler() {
     let _id = this.getAttribute('id');
     lpID = _id.replaceAll('delete', '');
@@ -176,6 +167,7 @@ function deleteHandler() {
     })
 }
 
+// handle clicks on existing learning paths -> editor
 function editHandler() {
     let editID = this.getAttribute("id");
     editID = editID.replaceAll("edit", "");
@@ -187,6 +179,7 @@ function exportHandler() {
 
 }
 
+// save the currently opened learning path to the server
 function saveCurrentLp() {
     if (session.learningPathOpened()) {
         LearningPathToServer(session.getCurrentLearningPath(), () => {
@@ -196,6 +189,23 @@ function saveCurrentLp() {
     }
 }
 
+// handle a change in the selection of available interactivity types
+function interactivitySelectionHandler() {
+    let checked = document.getElementById(this.getAttribute("id")).checked
+    let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '');
+    let interactivity = this.getAttribute("id").replaceAll('CB', '')
+    interactivity = interactivity.replace(/^\s+|\s+$/g, '');
+    let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
+    if (checked)
+        newList.push(interactivity)
+    else
+        newList = rmByValue(newList, interactivity)
+    session.setProp('interactivityTypes', newList, category)
+    unsavedChanges = true;
+    saveCurrentLp();
+}
+
+// alert a message to the user
 function alertToUser(message, seconds = 5, color = 'black') {
 
     // TODO
@@ -204,7 +214,6 @@ function alertToUser(message, seconds = 5, color = 'black') {
 }
 
 // autosave
-
 setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
