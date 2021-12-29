@@ -7,7 +7,6 @@
             for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
                 let first = counter == 0 ? true : false;
                 let active = first ? ' active' : '';
-                console.log(first);
                 %>
                 <li class="nav-item">
                     <a class="nav-link<%= active %>" id="<%= key %>-tab" data-toggle="tab" href="#<%= key %>" role="tab" aria-controls="<%= key %>" aria-selected="<%= first %>">

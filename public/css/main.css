@@ -1,5 +1,8 @@
 body {
     box-sizing: border-box;
+    background-image: url("/img/settings.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .image-cover {
@@ -260,3 +263,10 @@ footer {
 #usernameText {
     vertical-align: middle;
 }
+
+footer {
+    margin-top: 20px;
+    position: fixed;
+    bottom: 0;
+}
+
