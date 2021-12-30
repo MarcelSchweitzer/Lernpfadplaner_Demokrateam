@@ -36,7 +36,7 @@
                                 data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                     <div class="interactivityList">
                                         <a>
-                                            <%= ia.categroy %> - <%= ia.interactionType %>
+                                            <%= ia.category %> - <%= ia.interactionType %>
                                         </a>
                                     </div>
                                 <% }); %>
@@ -164,6 +164,7 @@
                                             <p class="selectedInteractivity">
                                                 <%= val %>
                                             </p>
+                                            <span class="tooltiptext"> <%= val %> </span>
                                         </div>
                                         <% });}} %>
                                 </div>
