@@ -1,3 +1,7 @@
+// stores currently dragged element
+var draggedInteraction = null;
+
+// is true when changes are not saved yet
 var unsavedChanges = false;
 
 $(document).ready(() => {
@@ -66,6 +70,8 @@ document.addEventListener('click', (event)=>{
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
                 LearningPathToServer(session.getCurrentLearningPath(), () => {
                     getEditPage(session.getCurrentLearningPathId(), () => {
+
+                        // scroll to the bottom
                         window.scrollTo(0, document.body.scrollHeight);
                     });
                 });
@@ -177,26 +183,22 @@ document.addEventListener('input', (event)=>{
     }
 });
 
-
-// stores currently dragged element
-var draggedInteraction = null;
-
 // fire on drag start 
-function dragStartHandler(event){
+document.addEventListener("dragstart", (event)=> {
     draggedInteraction = event.target;
     if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
         draggedInteraction.style.opacity = .5;
     }
-}
+}, false);
 
 // allow dropping of interactivities
-function dragHandler(event){
+document.addEventListener("dragover", (event)=> {
     if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox"))
         event.preventDefault();
-}
+}, false);
 
 // handle dropable elements beeing dropped
-function dropHandler(event){
+document.addEventListener("drop", (event)=> {
     droppedTo = event.target;
     if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
         draggedInteraction.style.opacity = 1;
@@ -208,11 +210,8 @@ function dropHandler(event){
             draggedInteraction = null;
         }
     }
-}
+}, false);
 
-document.addEventListener("dragstart", dragStartHandler, false);
-document.addEventListener("dragover", dragHandler, false);
-document.addEventListener("drop", dropHandler, false);
 
 // update a learning path property
 function updateLpProperty(lpProp, value, index = null, indexKey = null){
@@ -238,7 +237,7 @@ function alertToUser(message, seconds = 5, color = 'black') {
     console.log(message);
 }
 
-// autosave
+// autosave every ten seconds
 setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
