@@ -16,6 +16,7 @@ document.addEventListener('click', (event)=>{
 
     if(id == 'homeBtn'){
         if (session.learningPathOpened()) {
+            saveCurrentLp();
             LearningPathToServer(session.getCurrentLearningPath(), () => {
                 session.closeLearningPath();
                 getHomePage();
@@ -199,14 +200,18 @@ document.addEventListener("dragover", (event)=> {
 
 // handle dropable elements beeing dropped
 document.addEventListener("drop", (event)=> {
+    let coordinates = {'x':event.offsetX, 'y':event.offsetY};
+
     droppedTo = event.target;
+
     if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
         draggedInteraction.style.opacity = 1;
         event.preventDefault();
         if (droppedTo.classList.contains('workspace')) {
             let category = draggedInteraction.getAttribute('id').split('$$')[0];
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
-            alert(category+" "+interactionType);
+            alert('adding interaction'+category+"-"+interactionType+' @ '+JSON.stringify(coordinates));
+            session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
         }
     }

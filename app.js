@@ -289,7 +289,7 @@ app.post('/updateSettings', (req, res) => {
 })
 
 // user wants to delete a learningPath
-app.post('/deletelp', (req, res) => {
+app.post('/deleteLp', (req, res) => {
     let lpid = req.body.lpid;
 
     if (req.session.isAuth == true) {

@@ -114,9 +114,9 @@
                                 let count = 0;
                                 for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
                                 <div class="categoryBox">
-                                    <h4 class="interactivityCategory">
+                                    <h6 class="interactivityCategory">
                                         <%= key %>
-                                    </h4>
+                                    </h6>
                                 <% value.forEach(val=> { %>
                                     <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
                                         <p class="selectedInteractivity" >

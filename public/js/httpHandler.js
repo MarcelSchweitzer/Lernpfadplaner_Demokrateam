@@ -56,7 +56,7 @@ function createLpOnServer(cb = noop) {
 
 // delete a learningpath from the server
 function deleteLearningPath(lpid, cb = noop) {
-    $.post('/deletelp', { 'lpid': lpid }).done((data, status) => {
+    $.post('/deleteLp', { 'lpid': lpid }).done((data, status) => {
         if (status === 'success')
             return cb()
         else

@@ -76,9 +76,10 @@ class Session {
     }  
 
     // add a new interaction
-    addInteraction(x_coord, y_coord, interactionType){
+    addInteraction(coordinates, category, interactionType){
+        console.log('adding interaction '+JSON.stringify(coordinates)+' cat: '+category+' interaction type: '+interactionType)
         if(this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions, {'x_coord':x_coord, 'y_coord':y_coord, 'interactionType':interactionType});
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions, {'x_coord':coordinates.x, 'y_coord':coordinates.y, 'categroy':category, 'interactionType':interactionType});
     }
 
     // move interaction from indexOld to IndexNew
