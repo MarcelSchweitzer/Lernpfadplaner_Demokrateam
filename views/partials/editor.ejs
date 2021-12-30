@@ -50,7 +50,7 @@
                             <div class="card-header" id="heading<%= count %>">
                                 <h5 class="mb-0">
                                     <input type="text" class="form-control lpTitleInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
-                                <button class="btn btn-link openScenario" data-toggle="collapse" id="openScenario<%= count %>"style="width:100%;" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                    <button class="btn btn-link openScenario" data-toggle="collapse" id="openScenario<%= count %>" style="width:100%;" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                     <img src="./img/script.png" id="openScenario<%= count %>" alt="script" class="script">
                                 </button>
                                     <button class="button btn btn-warning deleteScenario" style="width:20%;" id="deleteScenario<%= count %>">-</button>
@@ -76,15 +76,48 @@
                                     </form>
                                     <div>
                                         <label>Material</label>
-                                            <div class="inner-material">
+                                        <div class="inner-material">
 
-                                                <div class="workspace" id="workspace">
+                                            <div class="workspace" id="workspace">
 
-                                                </div>
+                                            </div>
 
-                                                <div class="interactionSettings">
-
-                                                </div>
+                                            <div class="interactionSettings">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label class="centeredLabel" for="x_coord">X</label>
+                                                        <input type="text" class="form-control x_coord" id="x_coord">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="centeredLabel" for="y_coord">Y</label>
+                                                        <input type="text" class="form-control y_coord" id="y_coord">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="centeredLabel" for="EvaluationHeurestic">EvaluationHeurestic</label>
+                                                        <input type="text" class="form-control EvaluationHeurestic" id="EvaluationHeurestic">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="centeredLabel" for="BehaviorSettings">BehaviorSettings</label>
+                                                        <select class="form-control" id="BehaviorSettings">
+                                                        <option selected>Hover</option>
+                                                        <option>Click</option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="interactionTypeDrop">
+                                                        <% if(data.learningpath.interactivityTypes){
+                                                            let count = 0;
+                                                            for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
+                                                                <optgroup label=<%= key %>>
+                                                                <% value.forEach(val=> { %>
+                                                                        <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity">
+                                                                            <%= val %>
+                                                                        </option>
+                                                                    <% });}} %>
+                                                    </select>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -117,13 +150,13 @@
                                     <h6 class="interactivityCategory">
                                         <%= key %>
                                     </h6>
-                                <% value.forEach(val=> { %>
-                                    <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
-                                        <p class="selectedInteractivity" >
-                                            <%= val %>
-                                        </p>
-                                    </div>
-                                    <% });}} %>
+                                    <% value.forEach(val=> { %>
+                                        <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
+                                            <p class="selectedInteractivity">
+                                                <%= val %>
+                                            </p>
+                                        </div>
+                                        <% });}} %>
                                 </div>
                         </div>
                     </div>
