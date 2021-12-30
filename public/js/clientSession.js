@@ -97,9 +97,9 @@ class Session {
     }
 
     // get Interaction a given index
-    getInteraction() {
+    getCurrentInteraction() {
         if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
-            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.getCurrentInteractionIndex]
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]
     }
 
     // change a property of a interaction
@@ -164,12 +164,12 @@ class Session {
     }
 
     // open a scenario by index
-    openInteraction(index) {
+    openInteractivity(index) {
         this.currentInteractionIndex = index;
     }
 
     // close the current scenario
-    closeInteraction() {
+    closeInteractivity() {
         this.currentInteractionIndex = null;
     }
 

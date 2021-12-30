@@ -30,17 +30,18 @@
                         </div>
                         <hr>
                         <div class="interactivity">
-                           <p>Interaktivitäten</p>
-                            <% if(data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions){
+                            <p>Interaktivitäten</p>
+                            <div class="interactivityList">
+                                <% if(data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions){
                                 let count = 0;
                                 data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions.forEach(ia=>{ %>
-                                    <div class="interactivityList">
-                                        <a>
-                                            <%= ia.categroy %> - <%= ia.interactionType %>
-                                        </a>
-                                    </div>
-                                <% }); %>
-                            <% } %> 
+                                    <button class="interactivityListItem" id="iaListItem<%= count %>">
+                                        <%= ia.category %> -
+                                            <%= ia.interactionType %>
+                                </button>
+                                    <% count++; }); %>
+                                        <% } %>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -92,40 +93,37 @@
                                             </div>
 
                                             <div class="interactionSettings">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label class="centeredLabel" for="x_coord">X</label>
-                                                        <input type="text" class="form-control x_coord" id="x_coord">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="centeredLabel" for="y_coord">Y</label>
-                                                        <input type="text" class="form-control y_coord" id="y_coord">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="centeredLabel" for="EvaluationHeurestic">EvaluationHeurestic</label>
-                                                        <input type="text" class="form-control EvaluationHeurestic" id="EvaluationHeurestic">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="centeredLabel" for="BehaviorSettings">BehaviorSettings</label>
-                                                        <select class="form-control" id="BehaviorSettings">
-                                                        <option selected>Hover</option>
-                                                        <option>Click</option>
-                                                    </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="interactionTypeDrop">
-                                                        <% if(data.learningpath.interactivityTypes){
-                                                            let count = 0;
-                                                            for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
-                                                                <optgroup label=<%= key %>>
-                                                                <% value.forEach(val=> { %>
-                                                                        <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity">
-                                                                            <%= val %>
-                                                                        </option>
-                                                                    <% });}} %>
-                                                    </select>
-                                                    </div>
-                                                </form>
+                                                <div class="form-group coords">
+                                                    <label class="centeredLabel" for="x_coord">X</label>
+                                                    <input type="text" class="form-control interSet x_coord" id="x_coord">
+                                                    <label class="centeredLabel" for="y_coord">Y</label>
+                                                    <input type="text" class="form-control interSet y_coord" id="y_coord">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="centeredLabel" for="EvaluationHeurestic">Erreichbare Wertung</label>
+                                                    <input type="text" class="form-control interSet EvaluationHeurestic" id="EvaluationHeurestic">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="centeredLabel" for="BehaviorSettings">Verhaltenseinstellungen</label>
+                                                    <select class="form-control interSet" id="BehaviorSettings">
+                                                    <option selected>Hover</option>
+                                                    <option>Click</option>
+                                                </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="centeredLabel" for="interactionTypeDrop">Interaktionstyp</label>
+                                                    <select class="form-control interSet" id="interactionTypeDrop">
+                                                    <% if(data.learningpath.interactivityTypes){
+                                                        let count = 0;
+                                                        for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
+                                                            <optgroup label=<%= key %>>
+                                                            <% value.forEach(val=> { %>
+                                                                    <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity">
+                                                                        <%= val %>
+                                                                    </option>
+                                                                <% });}} %>
+                                                </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

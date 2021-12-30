@@ -35,19 +35,19 @@
     border: 1px solid #f7f7f7;
 }
 
-.workspace{
+.workspace {
     height: 100%;
     width: 80%;
-    float:left;
-    display:inline;
+    float: left;
+    display: inline;
     background-color: #c59e1e;
 }
 
-.interactionSettings{
+.interactionSettings {
     height: 100%;
     width: 20%;
-    float:left;
-    display:inline;
+    float: left;
+    display: inline;
     background-color: #bbb157;
 }
 
@@ -186,6 +186,7 @@ footer {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .interactivityList {
     border-radius: 10px;
     height: 30px;
@@ -194,4 +195,17 @@ footer {
     text-align: center;
     vertical-align: middle;
     background-color: rgb(172, 172, 172)
+}
+
+.coords {
+    float: left;
+    display: inline;
+}
+
+.interactionSettings {
+    text-align: center;
+}
+
+.interSet {
+    width: 80%;
 }

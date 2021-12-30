@@ -75,6 +75,7 @@ document.addEventListener('click', (event) => {
             session.openScenario(scenarioIndex);
         else
             session.closeScenario();
+        refreshInteractivityList();
     }
 
     // handle delete scenario buttons
@@ -95,9 +96,9 @@ document.addEventListener('click', (event) => {
 
     // handle delete learningpath buttons
     else if (classes.contains('deleteLp')) {
-        lpID = id.replaceAll('deleteLp', '');
-        deleteID = 'openLpDiv' + lpID
-        editID = 'deleteLpDiv' + lpID
+        let lpID = id.replaceAll('delete', '');
+        let editID = 'openLpDiv' + lpID
+        let deleteID = 'deleteLpDiv' + lpID
 
         let deleteButton = document.getElementById(deleteID);
         deleteButton.remove();
@@ -110,6 +111,10 @@ document.addEventListener('click', (event) => {
                 session.closeLearningPath()
             session.removeLearningPath(lpID)
         })
+    } else if (classes.contains('interactivityListItem')) {
+        interID = id.replaceAll('iaListItem', '');
+        session.openInteractivity(interID);
+        refreshInteractivityInputs();
     }
 }, false);
 
@@ -156,12 +161,11 @@ document.addEventListener('input', (event) => {
     } else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
             let elemId = $(input).find('option:selected').attr('id')
-            let category = elemId.split('$$')[0];
-            let interactionType = elemId.split('$$')[1];
-            alert('changing interaction' + category + "-" + interactionType + ' @ ' + JSON.stringify(coordinates));
+            let category = elemId.split('$$')[1];
+            let interactionType = elemId.split('$$')[2];
             session.setInteractionProp('category', category);
             session.setInteractionProp('interactionType', interactionType);
-            draggedInteraction = null;
+            refreshInteractivityList();
         }
     }
 });
@@ -195,9 +199,29 @@ document.addEventListener("drop", (event) => {
             alert('adding interaction' + category + "-" + interactionType + ' @ ' + JSON.stringify(coordinates));
             session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
+            refreshInteractivityList();
         }
     }
 }, false);
+
+function refreshInteractivityList() {
+    if (session.scenarioOpened() && session.interactionOpened()) {
+        $('.interactivityList').html('');
+        for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
+            inter = session.getCurrentScenario().interactions[i];
+            console.log('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>')
+            $('.interactivityList').append('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>');
+        }
+    }
+
+}
+
+function refreshInteractivityInputs() {
+    $(".x_coord").val(session.getCurrentInteraction().x_coord);
+    $(".y_coord").val(session.getCurrentInteraction().y_coord);
+    $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
+    $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
+}
 
 
 // update a learning path property
