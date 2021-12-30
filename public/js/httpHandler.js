@@ -6,7 +6,6 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
 
             // the last scenario is opened by default
             session.openScenario(session.getProp('scenarios').length - 1);
-            mountEditorEventHandlers();
             return cb()
         });
     });
@@ -17,7 +16,6 @@ function getHomePage() {
     // request index patch from server
     $.get('/home').done((data, status) => {
         replaceBody(data);
-        mountIndexEventHandlers();
     });
 
     fetchLearningPaths();
@@ -31,7 +29,6 @@ function getSettingsPage(mode = null) {
         mode = 'allSettings';
     $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
-        mountSettingsEventHandlers();
     });
 }
 

@@ -119,7 +119,15 @@ app.get('/create', (req, res) => {
                     'scenarios': [{
                         'title': 'Neues Szenario',
                     }],
-                    'interactivityTypes': { 'Global': ['Chat'] }
+                    'interactivityTypes': { 
+                        'Global': [
+                            'Chat'
+                        ],
+                        'Moodle' : [
+                            'Wahr/Falsch-Fragen', 
+                            'Multiple-Choice-Fragen'
+                        ]
+                }
                 }
                 dbMan.insert('public.learningpath', {
                     'lpid': id,

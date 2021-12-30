@@ -1,37 +1,16 @@
 var unsavedChanges = false;
 
 $(document).ready(() => {
-    mountHeaderEventHandlers();
-    mountIndexEventHandlers();
     updateUserName();
     fetchLearningPaths();
 });
 
+document.addEventListener('click', (event)=>{
+    let id = event.target.getAttribute('id');
+    let classes = event.target.classList;
+    let button = event.target;
 
-
-function mountButtonHandler(element, fun) {
-    let elem = document.getElementById(element);
-    elem.removeEventListener('click', fun, false);
-    elem.addEventListener('click', fun, false);
-}
-
-// mount a connection between a html element and a learningpath property 
-function mountPropertyConnection(input, lpProp, index = null, indexKey = null) {
-    let inp = document.getElementById(input);
-    inp.removeEventListener('input', con , false);
-    inp.addEventListener('input', con , false);
-    function con(){
-        unsavedChanges = true;
-        session.setProp(lpProp, inp.value, index, indexKey)
-    }
-}
-
-// mount the event handlers for the header
-function mountHeaderEventHandlers() {
-    mountButtonHandler('settingsBtn', () => {
-        getSettingsPage();
-    });
-    mountButtonHandler('homeBtn', () => {
+    if(id == 'homeBtn'){
         if (session.learningPathOpened()) {
             LearningPathToServer(session.getCurrentLearningPath(), () => {
                 session.closeLearningPath();
@@ -40,8 +19,13 @@ function mountHeaderEventHandlers() {
         } else {
             getHomePage();
         }
-    });
-    mountButtonHandler('downloadButton', () => {
+    }
+
+    else if(id == 'settingsBtn'){
+        getSettingsPage();
+    }
+
+    else if(id == 'downloadButton'){
         if (session.learningPathOpened()) {
             downloadLearningpaths([session.getCurrentLearningPath()], 'json');
         } else {
@@ -50,13 +34,9 @@ function mountHeaderEventHandlers() {
                 lpids.push(lp.id);
             downloadLearningpaths(session.getLearningPaths(), 'json');
         }
-    });
+    }
 
-    mountButtonHandler('exportButton', () => {
-
-        // TODO 
-
-
+    else if(id == 'exportButton'){
         if (session.learningPathOpened()) {
             downloadLearningpaths([session.getCurrentLearningPath()], 'pdf');
         } else {
@@ -65,161 +45,179 @@ function mountHeaderEventHandlers() {
                 lpids.push(lp.id);
             downloadLearningpaths(session.getLearningPaths(), 'pdf');
         }
-    });
-}
-
-// mount eventhandlers for the dashboard page
-function mountIndexEventHandlers() {
-    mountButtonHandler('createLpBtn', createHandler);
-
-    var openButtons = document.getElementsByClassName('open');
-    var deleteButtons = document.getElementsByClassName('delete');
-    for (let i = 0; i < openButtons.length; i++) {
-        openButtons[i].removeEventListener('click', editHandler, false);
-        openButtons[i].addEventListener('click', editHandler, false);
     }
-    for (let i = 0; i < deleteButtons.length; i++) {
-        deleteButtons[i].removeEventListener('click', deleteHandler, false);
-        deleteButtons[i].addEventListener('click', deleteHandler, false);
-    }
-}
 
-// mount eventhandlers for the settings page
-function mountSettingsEventHandlers() {
-    mountButtonHandler('saveSettingsBtn', () => {
+    else if(id == 'createLpBtn'){
+        createLpOnServer(() => {
+            fetchLearningPaths();
+            getSettingsPage(mode = 'lpSettingsOnly');
+        });
+    }
+
+    else if(id == 'saveSettingsBtn'){
         if (session.learningPathOpened())
             getEditPage();
         else
             getHomePage();
-    });
-    let uidInp = document.getElementById('userNameInput');
-    if (typeof(uidInp) != 'undefined' && uidInp != null) {
-        uidInp.addEventListener('input', () => {
-            changeUserName(uidInp.value, () => {
-                updateUserName();
-            });
-        }, false);
     }
 
-    var interactivityInputs = document.getElementsByClassName('interactivityInputCB');
-    for (let i = 0; i < interactivityInputs.length; i++) {
-        interactivityInputs[i].removeEventListener('input', interactivitySelectionHandler, false);
-        interactivityInputs[i].addEventListener('input', interactivitySelectionHandler, false);
-    }
-}
-
-// mount eventhandlers for the editor page
-function mountEditorEventHandlers() {
-    mountPropertyConnection('lpNotes', 'notes');
-    mountPropertyConnection('lpEvaluationMode', 'evaluationModeID');
-    mountPropertyConnection('lpTitleInput', 'title');
-
-    // interate over scenarios and mount eventlisteners
-    for (let i = 0; i < session.getProp('scenarios').length; i++) {
-        mountPropertyConnection('lpDescription' + i, 'scenarios', i, 'description')
-        mountPropertyConnection('lpLearningGoal' + i, 'scenarios', i, 'learningGoal')
-        mountPropertyConnection('lpResource' + i, 'scenarios', i, 'resource')
-        mountPropertyConnection('lpTitleInput' + i, 'scenarios', i, 'title')
-        mountButtonHandler('deleteScenario' + i, () => {
-            session.deleteScenario(i);
-            LearningPathToServer(session.getCurrentLearningPath(), () => {
-                getEditPage();
-            });
-        });
-        mountButtonHandler('openScenario' + i, () => {
-            if(document.getElementById('openScenario' + i).getAttribute("aria-expanded") === 'false') 
-                session.openScenario(i);
-            else
-                session.closeScenario();
-        });
-    }
-
-    mountButtonHandler('addScenarioButton', () => {
-        session.createScenario({ 'title': 'Neues Szenario' }, () => {
-            LearningPathToServer(session.getCurrentLearningPath(), () => {
-                getEditPage(session.getCurrentLearningPathId(), () => {
-                    window.scrollTo(0, document.body.scrollHeight);
+    else if(id == 'addScenarioButton'){
+        if(session.learningPathOpened()){
+            session.createScenario({ 'title': 'Neues Szenario' }, () => {
+                LearningPathToServer(session.getCurrentLearningPath(), () => {
+                    getEditPage(session.getCurrentLearningPathId(), () => {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    });
                 });
             });
+        }
+    }
+
+    // handle open scenario buttons
+    else if(classes.contains('openScenario')){
+        scenarioIndex = id.replaceAll('openScenario','');
+        if(button.getAttribute("aria-expanded") === 'false') 
+            session.openScenario(scenarioIndex);
+         else
+            session.closeScenario();
+    }
+
+    // handle delete scenario buttons
+    else if(classes.contains('deleteScenario')){
+        scenarioIndex = id.replaceAll('deleteScenario','');
+        session.deleteScenario(scenarioIndex);
+        LearningPathToServer(session.getCurrentLearningPath(), () => {
+            getEditPage();
         });
-    });
-
-    // stores currently dragged element
-    var draggedInteraction = null;
-
-    // fire on drag start 
-    function dragStartHandler(event){
-        draggedInteraction = event.target;
-        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
-            draggedInteraction.style.opacity = .5;
-        }
     }
 
-    // allow dropping of interactivities
-    function dragHandler(event){
-        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox"))
-            event.preventDefault();
+    // handle open learningpath buttons
+    else if(classes.contains('openLp')){
+        editID = id.replaceAll('openLp', '');
+        getEditPage(editID);
+        session.openLearningPath(editID);
     }
 
-    // handle dropable elements beeing dropped
-    function dropHandler(event){
-        droppedTo = event.target;
-        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
-            draggedInteraction.style.opacity = 1;
-            event.preventDefault();
-            if (droppedTo.classList.contains('workspace')) {
-                let category = draggedInteraction.getAttribute('id').split('$$')[0];
-                let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
-              alert(category+" "+interactionType);
-              draggedInteraction = null;
-            }
-        }
-    }
-
-    document.removeEventListener("dragstart", dragStartHandler, false);
-    document.addEventListener("dragstart", dragStartHandler, false);
+    // handle delete learningpath buttons
+    else if(classes.contains('deleteLp')){
+        lpID = id.replaceAll('deleteLp', '');
+        deleteID = 'openLpDiv' + lpID
+        editID = 'deleteLpDiv' + lpID
     
-    document.removeEventListener("dragover", dragHandler, false);
-    document.addEventListener("dragover", dragHandler, false);
+        let deleteButton = document.getElementById(deleteID);
+        deleteButton.remove();
+    
+        let editButton = document.getElementById(editID);
+        editButton.remove();
+    
+        deleteLearningPath(lpID, () => {
+            if (session.getCurrentLearningPathId() == lpID)
+                session.closeLearningPath()
+            session.removeLearningPath(lpID)
+        })
+    }
+}, false);
 
-    document.removeEventListener("drop", dropHandler, false);
-    document.addEventListener("drop", dropHandler, false);
+document.addEventListener('input', (event)=>{
+    let id = event.target.getAttribute('id');
+    let classes = event.target.classList;
+    let input = event.target;
+
+    if(id == 'lpNotes'){
+        updateLpProperty('notes', input.value);
+    }
+
+    else if(id == 'lpEvaluationMode'){
+        updateLpProperty('evaluationModeID', input.value);
+    }
+
+    else if(id == 'lpTitleInput'){
+        updateLpProperty('title', input.value);
+    }
+
+    else if(id == 'userNameInput'){
+        changeUserName(input.value, () => {
+            updateUserName();
+        });
+    }
+
+    else if(classes.contains('lpTitleInput')){
+        scenarioIndex = id.replaceAll('lpTitleInput', '');
+        updateLpProperty('scenarios', input.value, scenarioIndex, 'title');
+    }
+
+    else if(classes.contains('lpDescription')){
+        scenarioIndex = id.replaceAll('lpDescription', '');
+        updateLpProperty('scenarios', input.value, scenarioIndex, 'description');
+    }
+
+    else if(classes.contains('lpLearningGoal')){
+        scenarioIndex = id.replaceAll('lpLearningGoal', '');
+        updateLpProperty('scenarios', input.value, scenarioIndex, 'learningGoal');
+    }
+
+    else if(classes.contains('lpResource')){
+        scenarioIndex = id.replaceAll('lpResource', '');
+        updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
+    }
+
+    else if(classes.contains('interactivityInputCB')){
+        let checked = input.checked
+        let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
+        let interactivity = id.replaceAll('CB', '')
+        interactivity = interactivity.replace(/^\s+|\s+$/g, '');
+        let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
+        if (checked)
+            newList.push(interactivity)
+        else
+            newList = rmByValue(newList, interactivity)
+        session.setProp('interactivityTypes', newList, category)
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
+});
+
+
+// stores currently dragged element
+var draggedInteraction = null;
+
+// fire on drag start 
+function dragStartHandler(event){
+    draggedInteraction = event.target;
+    if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
+        draggedInteraction.style.opacity = .5;
+    }
 }
 
-// handle clicks on the create learningpath button
-function createHandler() {
-    createLpOnServer(() => {
-        fetchLearningPaths();
-        getSettingsPage(mode = 'lpSettingsOnly');
-    });
+// allow dropping of interactivities
+function dragHandler(event){
+    if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox"))
+        event.preventDefault();
 }
 
-// handle clicks on delete learningpath buttons
-function deleteHandler() {
-    let _id = this.getAttribute('id');
-    lpID = _id.replaceAll('delete', '');
-    deleteID = '_del' + lpID
-    editID = '_edit' + lpID
-
-    let deleteButton = document.getElementById(deleteID);
-    deleteButton.remove();
-
-    let editButton = document.getElementById(editID);
-    editButton.remove();
-
-    deleteLearningPath(lpID, () => {
-        if (session.getCurrentLearningPathId() == lpID)
-            session.closeLearningPath()
-        session.removeLearningPath(lpID)
-    })
+// handle dropable elements beeing dropped
+function dropHandler(event){
+    droppedTo = event.target;
+    if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
+        draggedInteraction.style.opacity = 1;
+        event.preventDefault();
+        if (droppedTo.classList.contains('workspace')) {
+            let category = draggedInteraction.getAttribute('id').split('$$')[0];
+            let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
+            alert(category+" "+interactionType);
+            draggedInteraction = null;
+        }
+    }
 }
 
-// handle clicks on existing learning paths -> editor
-function editHandler() {
-    let editID = this.getAttribute("id");
-    editID = editID.replaceAll("edit", "");
-    getEditPage(editID);
-    session.openLearningPath(editID);
+document.addEventListener("dragstart", dragStartHandler, false);
+document.addEventListener("dragover", dragHandler, false);
+document.addEventListener("drop", dropHandler, false);
+
+// update a learning path property
+function updateLpProperty(lpProp, value, index = null, indexKey = null){
+    unsavedChanges = true;
+    session.setProp(lpProp, value, index, indexKey)
 }
 
 // save the currently opened learning path to the server
@@ -230,22 +228,6 @@ function saveCurrentLp() {
             unsavedChanges = false;
         });
     }
-}
-
-// handle a change in the selection of available interactivity types
-function interactivitySelectionHandler() {
-    let checked = document.getElementById(this.getAttribute("id")).checked
-    let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '');
-    let interactivity = this.getAttribute("id").replaceAll('CB', '')
-    interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-    let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
-    if (checked)
-        newList.push(interactivity)
-    else
-        newList = rmByValue(newList, interactivity)
-    session.setProp('interactivityTypes', newList, category)
-    unsavedChanges = true;
-    saveCurrentLp();
 }
 
 // alert a message to the user
