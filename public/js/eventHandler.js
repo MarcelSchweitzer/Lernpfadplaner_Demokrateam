@@ -7,23 +7,23 @@ $(document).ready(() => {
     fetchLearningPaths();
 });
 
+
+
 function mountButtonHandler(element, fun) {
     let elem = document.getElementById(element);
-    try {
-        elem.addEventListener('click', fun, false);
-    } catch (e) {
-        elem.removeEventListener('click', fun, false);
-        elem.addEventListener('click', fun, false);
-    }
+    elem.removeEventListener('click', fun, false);
+    elem.addEventListener('click', fun, false);
 }
 
 // mount a connection between a html element and a learningpath property 
 function mountPropertyConnection(input, lpProp, index = null, indexKey = null) {
     let inp = document.getElementById(input);
-    inp.addEventListener('input', () => {
+    inp.removeEventListener('input', con , false);
+    inp.addEventListener('input', con , false);
+    function con(){
         unsavedChanges = true;
         session.setProp(lpProp, inp.value, index, indexKey)
-    }, false);
+    }
 }
 
 // mount the event handlers for the header
@@ -114,6 +114,7 @@ function mountEditorEventHandlers() {
     mountPropertyConnection('lpEvaluationMode', 'evaluationModeID');
     mountPropertyConnection('lpTitleInput', 'title');
 
+    // interate over scenarios and mount eventlisteners
     for (let i = 0; i < session.getProp('scenarios').length; i++) {
         mountPropertyConnection('lpDescription' + i, 'scenarios', i, 'description')
         mountPropertyConnection('lpLearningGoal' + i, 'scenarios', i, 'learningGoal')
@@ -124,6 +125,12 @@ function mountEditorEventHandlers() {
             LearningPathToServer(session.getCurrentLearningPath(), () => {
                 getEditPage();
             });
+        });
+        mountButtonHandler('openScenario' + i, () => {
+            if(document.getElementById('openScenario' + i).getAttribute("aria-expanded") === 'false') 
+                session.openScenario(i);
+            else
+                session.closeScenario();
         });
     }
 
@@ -137,6 +144,46 @@ function mountEditorEventHandlers() {
         });
     });
 
+    // stores currently dragged element
+    var draggedInteraction = null;
+
+    // fire on drag start 
+    function dragStartHandler(event){
+        draggedInteraction = event.target;
+        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
+            draggedInteraction.style.opacity = .5;
+        }
+    }
+
+    // allow dropping of interactivities
+    function dragHandler(event){
+        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox"))
+            event.preventDefault();
+    }
+
+    // handle dropable elements beeing dropped
+    function dropHandler(event){
+        droppedTo = event.target;
+        if(draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")){
+            draggedInteraction.style.opacity = 1;
+            event.preventDefault();
+            if (droppedTo.classList.contains('workspace')) {
+                let category = draggedInteraction.getAttribute('id').split('$$')[0];
+                let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
+              alert(category+" "+interactionType);
+              draggedInteraction = null;
+            }
+        }
+    }
+
+    document.removeEventListener("dragstart", dragStartHandler, false);
+    document.addEventListener("dragstart", dragStartHandler, false);
+    
+    document.removeEventListener("dragover", dragHandler, false);
+    document.addEventListener("dragover", dragHandler, false);
+
+    document.removeEventListener("drop", dropHandler, false);
+    document.addEventListener("drop", dropHandler, false);
 }
 
 // handle clicks on the create learningpath button
@@ -173,10 +220,6 @@ function editHandler() {
     editID = editID.replaceAll("edit", "");
     getEditPage(editID);
     session.openLearningPath(editID);
-}
-
-function exportHandler() {
-
 }
 
 // save the currently opened learning path to the server

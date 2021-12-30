@@ -49,6 +49,13 @@ function mvByIndex(arr, index, newIndex) {
 }
 
 function insertAt(arr, element, index = null) {
+    try{
+        _len = arr.length;
+    }catch(e){
+
+        // recieved invalid array -> create empty
+        arr = []
+    }
     // insert at end of list if index was not passed
     if (index === null)
         index = arr.length

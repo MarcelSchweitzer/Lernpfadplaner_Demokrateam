@@ -48,13 +48,13 @@
 
                         <div class="card scenario">
                             <div class="card-header" id="heading<%= count %>">
-                                <button class="btn btn-link" data-toggle="collapse" style="width:100%;" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                <button class="btn btn-link" data-toggle="collapse" id="openScenario<%= count %>"style="width:100%;" data-target="#collapse<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                 <h5 class="mb-0">
                                     <input type="text" class="form-control" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
 
                                     <img src="./img/script.png" alt="script" class="script">
-                                    <button class="button btn btn-warning" style="width:20%;" id="deleteScenario<%= count %>">-</button>
                                 </button>
+                                    <button class="button btn btn-warning" style="width:20%;" id="deleteScenario<%= count %>">-</button>
                                 </h5>
                             </div>
 
@@ -71,14 +71,21 @@
                                             <input type="text" class="form-control" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
                                         </div>
                                         <div class="form-group">
-                                            <label for="lpResource<%= count %>">Quelle</label>
+                                            <label for="lpResource<%= count %>">Material URL</label>
                                             <input type="text" class="form-control" id="lpResource<%= count %>" value="<%= sc.resource %>">
                                         </div>
                                     </form>
                                     <div>
                                         <label>Material</label>
-                                        <div class="innen-material">
+                                            <div class="inner-material">
 
+                                                <div class="workspace" id="workspace">
+
+                                                </div>
+
+                                                <div class="interactionSettings">
+
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,16 +114,18 @@
                             <% if(data.learningpath.interactivityTypes){
                                 let count = 0;
                                 for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
-                                <a class="interactivityCategory" style="width:100%;">
-                                    <%= key %>
-                                </a>
-                                <br>
+                                <div class="categoryBox">
+                                    <h4 class="interactivityCategory">
+                                        <%= key %>
+                                    </h4>
                                 <% value.forEach(val=> { %>
-                                    <a class="selectedInteractivity" style="width:100%;">
-                                        <%= val %>
-                                    </a>
-                                    <br>
+                                    <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
+                                        <p class="selectedInteractivity" >
+                                            <%= val %>
+                                        </p>
+                                    </div>
                                     <% });}} %>
+                                </div>
                         </div>
                     </div>
                 </section>

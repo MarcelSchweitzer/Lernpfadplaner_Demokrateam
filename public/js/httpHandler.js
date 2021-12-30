@@ -3,18 +3,12 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
         fetchLearningPaths(() => {
+
+            // the last scenario is opened by default
+            session.openScenario(session.getProp('scenarios').length - 1);
             mountEditorEventHandlers();
             return cb()
         });
-    });
-}
-
-// create a new learningpath on the server and add it to the list of learningpaths
-function createLpOnServer(cb = noop) {
-    $.get('/create').done((data, status) => {
-        session.addLearningPath(data.content);
-        session.openLearningPath(data['learningpathID'])
-        return cb()
     });
 }
 
@@ -53,6 +47,16 @@ function LearningPathToServer(learningPath, cb = noop) {
     }
 }
 
+// create a new learningpath on the server and add it to the list of learningpaths
+function createLpOnServer(cb = noop) {
+    $.get('/create').done((data, status) => {
+        session.addLearningPath(data.content);
+        session.openLearningPath(data['learningpathID'])
+        return cb()
+    });
+}
+
+
 // delete a learningpath from the server
 function deleteLearningPath(lpid, cb = noop) {
     $.post('/deletelp', { 'lpid': lpid }).done((data, status) => {
@@ -73,10 +77,12 @@ function fetchLearningPaths(cb = noop) {
     });
 }
 
-// replace the main area by some new html
-function replaceBody(data) {
-    const main = document.getElementById('main');
-    main.innerHTML = data;
+// serve a list of learningpaths as a download for the user
+function downloadLearningpaths(lps, format) {
+    var text = JSON.stringify(lps);
+    var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+
+    download(filename, text);
 }
 
 // push a change of username to the server
@@ -94,12 +100,10 @@ function updateUserName() {
     });
 }
 
-// serve a list of learningpaths as a download for the user
-function downloadLearningpaths(lps, format) {
-    var text = JSON.stringify(lps);
-    var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
-
-    download(filename, text);
+// replace the main area by some new html
+function replaceBody(data) {
+    const main = document.getElementById('main');
+    main.innerHTML = data;
 }
 
 function download(filename, text) {
