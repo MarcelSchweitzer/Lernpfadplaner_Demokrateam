@@ -29,9 +29,18 @@
                             </form>
                         </div>
                         <hr>
-                        <div class="activity">
-                            <p>Interaktivitäten</p>
-
+                        <div class="interactivity">
+                           <p>Interaktivitäten</p>
+                            <% if(data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions){
+                                let count = 0;
+                                data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                    <div class="interactivityList">
+                                        <a>
+                                            <%= ia.categroy %> - <%= ia.interactionType %>
+                                        </a>
+                                    </div>
+                                <% }); %>
+                            <% } %> 
                         </div>
                     </div>
                 </section>
@@ -123,7 +132,7 @@
                                             <%= val %>
                                         </p>
                                     </div>
-                                    <% });}} %>
+                            <% });}} %>
                                 </div>
                         </div>
                     </div>
