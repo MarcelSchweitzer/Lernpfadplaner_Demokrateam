@@ -52,10 +52,13 @@ document.addEventListener('click', (event) => {
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     } else if (id == 'saveSettingsBtn') {
-        if (session.learningPathOpened())
+        if (session.learningPathOpened()){
+            saveCurrentLp();
             getEditPage();
-        else
+        }
+        else{
             getHomePage();
+        }
     } else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
@@ -115,7 +118,7 @@ document.addEventListener('click', (event) => {
         })
     } else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
-        session.openInteractivity(interID);
+        session.openInteraction(interID);
         refreshInteractivityInputs();
     }
 }, false);
@@ -208,17 +211,20 @@ document.addEventListener("drop", (event) => {
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
+            unsavedChanges = true;
+            session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
+            refreshInteractivityInputs();
         }
     }
 }, false);
 
 function refreshInteractivityList() {
-    if (session.scenarioOpened()) {
+    if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         $('.interactivityList').html('');
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
-            $('.interactivityList').append('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>');
+            $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
     }
 

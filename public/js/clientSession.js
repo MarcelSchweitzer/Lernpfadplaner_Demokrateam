@@ -16,7 +16,7 @@ class Session {
             this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey] = value;
     }
 
-    // get property of a learningPath
+    // get property of a learningPath 
     getProp(key, index = null, indexKey = null) {
         if (index === null)
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key];
@@ -25,6 +25,19 @@ class Session {
         else
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey];
     }
+
+    // find out if a property of a learningpath exists e.g propExists(['scenario', 3, 'interactions'])
+    propExists(calls, root=this.learningPaths){
+        if(calls.length == 1 && root[calls[0]])
+            return true
+        if(root[calls[0]]){
+            let origCalls = calls.slice()
+            calls.splice(0, 2, calls[1])
+            return propExists(root[origCalls[0]], calls)
+        }
+        return false
+    }
+
 
     // add learning path to list and return id
     addlearningPath(params) {
@@ -66,13 +79,13 @@ class Session {
 
     // set a scenario property
     setScenarioProp(key, value, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened && index != null)
+        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
             this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key] = value;
     }
 
     // get a scenario property
     getScenarioProp(key, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened && index != null)
+        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key]
     }
 
@@ -150,6 +163,8 @@ class Session {
     // close the current learning path
     closelearningPath() {
         this.currentlearningPathId = null;
+        this.currentScenarioIndex = null;
+        this.currentInteractionIndex = null;
     }
 
     // open a scenario by index
@@ -161,15 +176,16 @@ class Session {
     // close the current scenario
     closeScenario() {
         this.currentScenarioIndex = null;
+        this.currentInteractionIndex = null;
     }
 
     // open a scenario by index
-    openInteractivity(index) {
+    openInteraction(index) {
         this.currentInteractionIndex = index;
     }
 
     // close the current scenario
-    closeInteractivity() {
+    closeInteraction() {
         this.currentInteractionIndex = null;
     }
 

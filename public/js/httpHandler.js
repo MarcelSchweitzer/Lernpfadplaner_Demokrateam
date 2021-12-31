@@ -8,7 +8,7 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
             session.openScenario(session.getProp('scenarios').length - 1);
 
             // the first interaction is opened by default
-            session.openInteractivity(0);
+            session.openInteraction(0);
             return cb()
         });
     });

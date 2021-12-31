@@ -1,42 +1,47 @@
 <div class="container lpSettings">
     <h3>Lernpfad-Einstellungen</h3>
     <div class="setting-section">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <% if(data.availableInteractivityTypes){ 
-            let counter = 0;
-            for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
-                let first = counter == 0 ? true : false;
-                let active = first ? ' active' : '';
-                %>
-                <li class="nav-item">
-                    <a class="nav-link<%= active %>" id="<%= key %>-tab" data-toggle="tab" href="#<%= key %>" role="tab" aria-controls="<%= key %>" aria-selected="<%= first %>">
-                        <%= key %>
-                    </a>
-                </li>
-                <%counter++ } %>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <%
-                counter = 0;
-                for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
-                    let showActive = counter == 0 ? ' show active' : '';
-                    let active = counter == 0 ? ' active' : ''; %>
-                <div class="tab-pane fade<%= showActive %>" id="<%= key %>" role="tabpanel" aria-labelledby="
-                <%= key %>-tab">
-                    <div class="<%= key %> <%= active %>">
-                        <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
-                            <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
-                            <% } %> type="checkbox" id="
-                                <%= val %>CB" name="
-                                    <%= val %>">
-                                        <label for="<%= val %>CB"><%= val %></label>
-                                        <% }); %>
-
-                    </div>
-                </div>
-                <%counter++} %>
+        <div class="title">
+            <label for="lpTitleInput">Titel</label>
+            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
         </div>
-        <%} %>
+        <div class="interactivityTypes">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <% if(data.availableInteractivityTypes){ 
+                let counter = 0;
+                for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
+                    let first = counter == 0 ? true : false;
+                    let active = first ? ' active' : '';
+                    %>
+                    <li class="nav-item">
+                        <a class="nav-link<%= active %>" id="<%= key %>-tab" data-toggle="tab" href="#<%= key %>" role="tab" aria-controls="<%= key %>" aria-selected="<%= first %>">
+                            <%= key %>
+                        </a>
+                    </li>
+                    <%counter++ } %>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <%
+                    counter = 0;
+                    for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
+                        let showActive = counter == 0 ? ' show active' : '';
+                        let active = counter == 0 ? ' active' : ''; %>
+                    <div class="tab-pane fade<%= showActive %>" id="<%= key %>" role="tabpanel" aria-labelledby="
+                    <%= key %>-tab">
+                        <div class="<%= key %> <%= active %>">
+                            <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
+                                <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
+                                <% } %> type="checkbox" id="
+                                    <%= val %>CB" name="
+                                        <%= val %>">
+                                            <label for="<%= val %>CB"><%= val %></label>
+                                            <% }); %>
 
+                        </div>
+                    </div>
+                    <%counter++} %>
+            </div>
+            <%} %>
+        </div>
     </div>
 </div>

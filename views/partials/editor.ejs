@@ -6,7 +6,7 @@ function canBeRead(root, calls){
     if(calls.length == 1 && root[calls[0]])
         return true
     if(root[calls[0]]){
-        origCalls = calls.slice()
+        let origCalls = calls.slice()
         calls.splice(0, 2, calls[1])
         return canBeRead(root[origCalls[0]], calls)
     }
@@ -19,13 +19,7 @@ function canBeRead(root, calls){
             <div class="col-2">
                 <section class="left">
                     <div class="left-side">
-                        <div class="title">
-                            <label for="lpTitleInput">Titel</label>
-                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
-                        </div>
-                        <hr>
                         <div class="note">
-                            <p>Notizen</p>
                             <textarea class="form-control lpNotes" id="lpNotes" style="background-image:url('/img/post-it.png')"><%=data.learningPath.notes%></textarea>
                         </div>
                         <hr>
@@ -51,10 +45,12 @@ function canBeRead(root, calls){
                                     let count = 0;
                                     data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                         <div class="interactivityList">
-                                            <button class="interactivityListItem" id="iaListItem<%= count %>">
-                                                <%= ia.category %> -
-                                                    <%= ia.interactionType %>
-                                            </button>
+                                            <div class="interactivityListElem">
+                                                <button class="button btn interactivityListItem" id="iaListItem<%= count %>">
+                                                    <%= ia.category %> -
+                                                        <%= ia.interactionType %>
+                                                </button>
+                                            </div>
                                         </div>
                                         <% count++; }); %>
                                     <% } %>
@@ -133,9 +129,10 @@ function canBeRead(root, calls){
                                                     <div class="form-group">
                                                         <label class="centeredLabel" for="behaviorSettings">Verhaltenseinstellungen</label>
                                                         <select class="form-control interSet" id="behaviorSettings">
-                                                    <option selected>Hover</option>
-                                                    <option>Click</option>
-                                                </select>
+                                                            <option selected></option>
+                                                            <option>Hover</option>
+                                                            <option>Click</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="centeredLabel" for="interactionTypeDrop">Interaktionstyp</label>
