@@ -52,11 +52,10 @@ document.addEventListener('click', (event) => {
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     } else if (id == 'saveSettingsBtn') {
-        if (session.learningPathOpened()){
+        if (session.learningPathOpened()) {
             saveCurrentLp();
             getEditPage();
-        }
-        else{
+        } else {
             getHomePage();
         }
     } else if (id == 'addScenarioButton') {
@@ -163,19 +162,21 @@ document.addEventListener('input', (event) => {
         session.setProp('interactivityTypes', newList, category)
         unsavedChanges = true;
         saveCurrentLp();
-    }else if(id == 'x_coord'){
+    } else if (id == 'x_coord') {
         updateInteractionProperty('x_coord', input.value)
-    }else if(id == 'y_coord'){
+    } else if (id == 'y_coord') {
         updateInteractionProperty('y_coord', input.value)
-    }else if(id == 'evaluationHeurestic'){
+    } else if (id == 'evaluationHeurestic') {
         updateInteractionProperty('evaluationHeurestic', input.value)
-    }else if(id == 'behaviorSettings'){
+    } else if (id == 'behaviorSettings') {
         updateInteractionProperty('behaviorSettings', input.value)
-    }else if (id == 'interactionTypeDrop') {
+    } else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
             let elemId = $(input).find('option:selected').attr('id')
             let category = elemId.split('$$')[1];
             let interactionType = elemId.split('$$')[2];
+            category = category = category.trim();
+            interactionType = interactionType = interactionType.trim();
             session.setInteractionProp('category', category);
             session.setInteractionProp('interactionType', interactionType);
             refreshInteractivityList();
@@ -209,12 +210,13 @@ document.addEventListener("drop", (event) => {
         if (droppedTo.classList.contains('workspace')) {
             let category = draggedInteraction.getAttribute('id').split('$$')[0];
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
+            category.trim()
+            interactionType.trim()
             session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
-            refreshInteractivityInputs();
         }
     }
 }, false);
@@ -226,20 +228,24 @@ function refreshInteractivityList() {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
+        refreshInteractivityInputs();
     }
 
 }
 
 function refreshInteractivityInputs() {
-    if(session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()){
+    if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
-        $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
+        let behaDropID = session.getCurrentInteraction().behaviorSettings;
+        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
+        $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
     }
 }
 
-function updateInteractionProperty(key, value){
+function updateInteractionProperty(key, value) {
     unsavedChanges = true;
     session.setInteractionProp(key, value);
 }
