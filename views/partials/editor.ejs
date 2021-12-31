@@ -148,10 +148,9 @@ function canBeRead(root, calls){
                                                                         <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity"
                                                                             <% 
                                                                                 if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0])){
-                                                                                    if(lastscenario.interactions[0].category == key && lastscenario.interactions[0].interactionType == val){
                                                                             %>
                                                                             selected
-                                                                            <%}}%>>
+                                                                            <%}%>>
                                                                             <%= val %>
                                                                         </option>
                                                                     <% });}} %>
