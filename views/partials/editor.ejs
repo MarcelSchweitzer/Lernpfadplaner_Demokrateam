@@ -1,25 +1,18 @@
 <link rel="stylesheet" href="/css/editor.css" type="text/css">
 </link>
-
 <% 
-    // return true if data is available
-    function canBeRead(root, calls){
-        if(calls.length == 1 && root[calls[0]])
-            return true
-        if(root[calls[0]]){
-            origCalls = calls.slice()
-            calls.splice(0, 2, calls[1])
-            return canBeRead(root[origCalls[0]], calls)
-        }
-            
-        return false
+// return true if data is available
+function canBeRead(root, calls){
+    if(calls.length == 1 && root[calls[0]])
+        return true
+    if(root[calls[0]]){
+        origCalls = calls.slice()
+        calls.splice(0, 2, calls[1])
+        return canBeRead(root[origCalls[0]], calls)
     }
-
-    console.log(canBeRead(data, ['learningPath']))
-    console.log(canBeRead(data, ['learningPath','scenarios']))
-    console.log(canBeRead(data, ['learningPath','scenarios',4]))
+    return false
+}
 %>
-
 <div class="container-fluid">
     <div class="cover-background">
         <div class="row">
@@ -41,7 +34,7 @@
                             <form>
                                 <div class="form-group col-12">
                                     <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
-                                        <% if(data.evaluationModes){  data.evaluationModes.forEach(evalMode=>{ %>
+                                        <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
                                         <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
                                         <% }); } %>
                                     </select>
@@ -52,31 +45,31 @@
                         <div class="interactivity">
                             <p>Interaktivitäten</p>
                             <div class="interactivityList">
-                                <% if(data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions){
-                                let count = 0;
-                                data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
-                                    <div class="interactivityList">
-                                        <button class="interactivityListItem" id="iaListItem<%= count %>">
-                                            <%= ia.category %> -
-                                                <%= ia.interactionType %>
-                                    </button>
-                                    </div>
-                                    <% count++; }); %>
-                                        <% } %>
+                                <% if(canBeRead(data, ['learningPath', 'scenarios']) && 
+                                      data.learningPath.scenarios.length > 0 && 
+                                      canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
+                                        let count = 0;
+                                        data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                        <div class="interactivityList">
+                                            <button class="interactivityListItem" id="iaListItem<%= count %>">
+                                                <%= ia.category %> -
+                                                    <%= ia.interactionType %>
+                                            </button>
+                                        </div>
+                                        <% count++; }); %>
+                                    <% } %>
                             </div>
                         </div>
                 </section>
                 </div>
                 <div class="col-8 midCol">
                     <div class="material-group scenarios" id="accordion">
-
-                        <% if(data.learningPath.scenarios){ 
+                        <% if(canBeRead(data, ['learningPath','scenarios'])){ 
                         let count = 0; 
                         data.learningPath.scenarios.forEach(sc=>{ 
                             let lastScenario = count == data.learningPath.scenarios.length - 1;
                             let showLastscenario = lastScenario ? ' show' : '';
-                            %>
-
+                        %>
                             <div class="card scenario">
                                 <div class="card-header" id="heading<%= count %>">
                                     <h5 class="mb-0">
@@ -87,8 +80,6 @@
                                         <button class="button btn btn-warning deleteScenario" style="width:20%;" id="deleteScenario<%= count %>">-</button>
                                     </h5>
                                 </div>
-
-
                                 <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
                                     <div class="card-body">
                                         <form>
@@ -118,15 +109,14 @@
                                                         <label class="centeredLabel" for="x_coord">X</label>
                                                         <input type="text" class="form-control interSet x_coord" id="x_coord"
                                                         <% 
-                                                        let lastscenario = data.learningPath.scenarios[data.learningPath.scenarios.length - 1];
-                                                        if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                            if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0])){
                                                         %>
                                                             value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].x_coord%>" 
                                                         <%}%>>
                                                         <label class="centeredLabel" for="y_coord">Y</label>
                                                         <input type="text" class="form-control interSet y_coord" id="y_coord"
                                                         <% 
-                                                            if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                            if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0])){
                                                         %>
                                                                 value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].y_coord%>" 
                                                         <%}%>>
@@ -135,7 +125,7 @@
                                                         <label class="centeredLabel" for="evaluationHeurestic">Erreichbare Wertung</label>
                                                         <input type="text" class="form-control interSet evaluationHeurestic" id="evaluationHeurestic" 
                                                         <% 
-                                                            if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                            if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0])){ 
                                                         %>
                                                                 value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].evaluationHeurestic%>" 
                                                         <%}%>>
@@ -149,6 +139,23 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="centeredLabel" for="interactionTypeDrop">Interaktionstyp</label>
+                                                        <select class="form-control interSet" id="interactionTypeDrop">
+                                                            <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
+                                                                let count = 0;
+                                                                for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
+                                                                    <optgroup label=<%= key %>>
+                                                                    <% value.forEach(val=> { %>
+                                                                        <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity"
+                                                                            <% 
+                                                                                if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0])){
+                                                                                    if(lastscenario.interactions[0].category == key && lastscenario.interactions[0].interactionType == val){
+                                                                            %>
+                                                                            selected
+                                                                            <%}}%>>
+                                                                            <%= val %>
+                                                                        </option>
+                                                                    <% });}} %>
+                                                        </select>
 
                                                     </div>
                                                 </div>
@@ -177,7 +184,7 @@
                             <p>Interaktionen</p>
                             <hr>
                             <div class="interactivityPicker">
-                                <% if(data.learningPath.interactivityTypes){
+                                <% if(canBeRead(data, ['learningPath', 'interactivityTypes'])){
                                 let count = 0;
                                 for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
                                     <div class="categoryBox">
