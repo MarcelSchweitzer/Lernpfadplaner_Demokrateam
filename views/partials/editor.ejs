@@ -1,5 +1,25 @@
 <link rel="stylesheet" href="/css/editor.css" type="text/css">
 </link>
+
+<% 
+    // return true if data is available
+    function canBeRead(root, calls){
+        if(calls.length == 1 && root[calls[0]])
+            return true
+        if(root[calls[0]]){
+            origCalls = calls.slice()
+            calls.splice(0, 2, calls[1])
+            return canBeRead(root[origCalls[0]], calls)
+        }
+            
+        return false
+    }
+
+    console.log(canBeRead(data, ['learningPath']))
+    console.log(canBeRead(data, ['learningPath','scenarios']))
+    console.log(canBeRead(data, ['learningPath','scenarios',4]))
+%>
+
 <div class="container-fluid">
     <div class="cover-background">
         <div class="row">
@@ -8,21 +28,21 @@
                     <div class="left-side">
                         <div class="title">
                             <label for="lpTitleInput">Titel</label>
-                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningpath.title%>">
+                            <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
                         </div>
                         <hr>
                         <div class="note">
                             <p>Notizen</p>
-                            <textarea class="form-control lpNotes" id="lpNotes" style="background-image:url('/img/post-it.png')"><%=data.learningpath.notes%></textarea>
+                            <textarea class="form-control lpNotes" id="lpNotes" style="background-image:url('/img/post-it.png')"><%=data.learningPath.notes%></textarea>
                         </div>
                         <hr>
                         <div class="rate-part">
                             <p>Bewertungsmodus </p>
                             <form>
                                 <div class="form-group col-12">
-                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningpath.evaluationModeID%>">
+                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
                                         <% if(data.evaluationModes){  data.evaluationModes.forEach(evalMode=>{ %>
-                                        <option <% if(evalMode == data.learningpath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                                        <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
                                         <% }); } %>
                                     </select>
                                 </div>
@@ -32,9 +52,9 @@
                         <div class="interactivity">
                             <p>Interaktivitäten</p>
                             <div class="interactivityList">
-                                <% if(data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions){
+                                <% if(data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions){
                                 let count = 0;
-                                data.learningpath.scenarios[data.learningpath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                     <div class="interactivityList">
                                         <button class="interactivityListItem" id="iaListItem<%= count %>">
                                             <%= ia.category %> -
@@ -50,10 +70,10 @@
                 <div class="col-8 midCol">
                     <div class="material-group scenarios" id="accordion">
 
-                        <% if(data.learningpath.scenarios){ 
+                        <% if(data.learningPath.scenarios){ 
                         let count = 0; 
-                        data.learningpath.scenarios.forEach(sc=>{ 
-                            let lastScenario = count == data.learningpath.scenarios.length - 1;
+                        data.learningPath.scenarios.forEach(sc=>{ 
+                            let lastScenario = count == data.learningPath.scenarios.length - 1;
                             let showLastscenario = lastScenario ? ' show' : '';
                             %>
 
@@ -96,19 +116,28 @@
                                                 <div class="interactionSettings">
                                                     <div class="form-group coords">
                                                         <label class="centeredLabel" for="x_coord">X</label>
-                                                        <input type="text" class="form-control interSet x_coord" id="x_coord">
+                                                        <input type="text" class="form-control interSet x_coord" id="x_coord"
+                                                        <% 
+                                                        let lastscenario = data.learningPath.scenarios[data.learningPath.scenarios.length - 1];
+                                                        if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                        %>
+                                                            value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].x_coord%>" 
+                                                        <%}%>>
                                                         <label class="centeredLabel" for="y_coord">Y</label>
-                                                        <input type="text" class="form-control interSet y_coord" id="y_coord">
+                                                        <input type="text" class="form-control interSet y_coord" id="y_coord"
+                                                        <% 
+                                                            if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                        %>
+                                                                value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].y_coord%>" 
+                                                        <%}%>>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="centeredLabel" for="evaluationHeurestic">Erreichbare Wertung</label>
                                                         <input type="text" class="form-control interSet evaluationHeurestic" id="evaluationHeurestic" 
                                                         <% 
-                                                            let lastscenario = data.learningpath.scenarios[data.learningpath.scenarios.length - 1];
-                                                            console.log(lastscenario)
                                                             if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
                                                         %>
-                                                                value="<%=data.learningpath.scenarios[data.learningpath.scenarios.length - 1].interactions[0].evaluationHeurestic%>" 
+                                                                value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].evaluationHeurestic%>" 
                                                         <%}%>>
                                                     </div>
                                                     <div class="form-group">
@@ -120,17 +149,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="centeredLabel" for="interactionTypeDrop">Interaktionstyp</label>
-                                                        <select class="form-control interSet" id="interactionTypeDrop">
-                                                    <% if(data.learningpath.interactivityTypes){
-                                                        let count = 0;
-                                                        for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
-                                                            <optgroup label=<%= key %>>
-                                                            <% value.forEach(val=> { %>
-                                                                    <option id="$$<%= key %>$$ <%= val %>" class="changeInteractivity">
-                                                                        <%= val %>
-                                                                    </option>
-                                                                <% });}} %>
-                                                </select>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,9 +177,9 @@
                             <p>Interaktionen</p>
                             <hr>
                             <div class="interactivityPicker">
-                                <% if(data.learningpath.interactivityTypes){
+                                <% if(data.learningPath.interactivityTypes){
                                 let count = 0;
-                                for (let [key, value] of Object.entries(data.learningpath.interactivityTypes)){ %>
+                                for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
                                     <div class="categoryBox">
                                         <h6 class="interactivityCategory">
                                             <%= key %>

@@ -4,11 +4,13 @@ var draggedInteraction = null;
 // is true when changes are not saved yet
 var unsavedChanges = false;
 
+// on startup
 $(document).ready(() => {
     updateUserName();
-    fetchLearningPaths();
+    fetchlearningPaths();
 });
 
+// handle click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
@@ -17,8 +19,8 @@ document.addEventListener('click', (event) => {
     if (id == 'homeBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();
-            LearningPathToServer(session.getCurrentLearningPath(), () => {
-                session.closeLearningPath();
+            learningPathToServer(session.getCurrentlearningPath(), () => {
+                session.closelearningPath();
                 getHomePage();
             });
         } else {
@@ -28,25 +30,25 @@ document.addEventListener('click', (event) => {
         getSettingsPage();
     } else if (id == 'downloadButton') {
         if (session.learningPathOpened()) {
-            downloadLearningpaths([session.getCurrentLearningPath()], 'json');
+            downloadlearningPaths([session.getCurrentlearningPath()], 'json');
         } else {
             lpids = []
-            for (lp of session.getLearningPaths())
+            for (lp of session.getlearningPaths())
                 lpids.push(lp.id);
-            downloadLearningpaths(session.getLearningPaths(), 'json');
+            downloadlearningPaths(session.getlearningPaths(), 'json');
         }
     } else if (id == 'exportButton') {
         if (session.learningPathOpened()) {
-            downloadLearningpaths([session.getCurrentLearningPath()], 'pdf');
+            downloadlearningPaths([session.getCurrentlearningPath()], 'pdf');
         } else {
             lpids = []
-            for (lp of session.getLearningPaths())
+            for (lp of session.getlearningPaths())
                 lpids.push(lp.id);
-            downloadLearningpaths(session.getLearningPaths(), 'pdf');
+            downloadlearningPaths(session.getlearningPaths(), 'pdf');
         }
     } else if (id == 'createLpBtn') {
         createLpOnServer(() => {
-            fetchLearningPaths();
+            fetchlearningPaths();
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     } else if (id == 'saveSettingsBtn') {
@@ -57,8 +59,8 @@ document.addEventListener('click', (event) => {
     } else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
-                LearningPathToServer(session.getCurrentLearningPath(), () => {
-                    getEditPage(session.getCurrentLearningPathId(), () => {
+                learningPathToServer(session.getCurrentlearningPath(), () => {
+                    getEditPage(session.getCurrentlearningPathId(), () => {
 
                         // scroll to the bottom
                         window.scrollTo(0, document.body.scrollHeight);
@@ -82,19 +84,19 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('deleteScenario')) {
         scenarioIndex = id.replaceAll('deleteScenario', '');
         session.deleteScenario(scenarioIndex);
-        LearningPathToServer(session.getCurrentLearningPath(), () => {
+        learningPathToServer(session.getCurrentlearningPath(), () => {
             getEditPage();
         });
     }
 
-    // handle open learningpath buttons
+    // handle open learningPath buttons
     else if (classes.contains('openLp')) {
         editID = id.replaceAll('openLp', '');
         getEditPage(editID);
-        session.openLearningPath(editID);
+        session.openlearningPath(editID);
     }
 
-    // handle delete learningpath buttons
+    // handle delete learningPath buttons
     else if (classes.contains('deleteLp')) {
         let lpID = id.replaceAll('delete', '');
         let editID = 'openLpDiv' + lpID
@@ -106,10 +108,10 @@ document.addEventListener('click', (event) => {
         let editButton = document.getElementById(editID);
         editButton.remove();
 
-        deleteLearningPath(lpID, () => {
-            if (session.getCurrentLearningPathId() == lpID)
-                session.closeLearningPath()
-            session.removeLearningPath(lpID)
+        deletelearningPath(lpID, () => {
+            if (session.getCurrentlearningPathId() == lpID)
+                session.closelearningPath()
+            session.removelearningPath(lpID)
         })
     } else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
@@ -216,7 +218,6 @@ function refreshInteractivityList() {
         $('.interactivityList').html('');
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
-            console.log('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>')
             $('.interactivityList').append('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>');
         }
     }
@@ -224,10 +225,12 @@ function refreshInteractivityList() {
 }
 
 function refreshInteractivityInputs() {
-    $(".x_coord").val(session.getCurrentInteraction().x_coord);
-    $(".y_coord").val(session.getCurrentInteraction().y_coord);
-    $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
-    $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
+    if(session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()){
+        $(".x_coord").val(session.getCurrentInteraction().x_coord);
+        $(".y_coord").val(session.getCurrentInteraction().y_coord);
+        $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
+        $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
+    }
 }
 
 function updateInteractionProperty(key, value){
@@ -244,7 +247,7 @@ function updateLpProperty(key, value, index = null, indexKey = null) {
 // save the currently opened learning path to the server
 function saveCurrentLp() {
     if (session.learningPathOpened()) {
-        LearningPathToServer(session.getCurrentLearningPath(), () => {
+        learningPathToServer(session.getCurrentlearningPath(), () => {
             alertToUser('Änderungen gespeichert!', 3);
             unsavedChanges = false;
         });
