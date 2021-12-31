@@ -76,7 +76,7 @@ function fetchLearningPaths(cb = noop) {
 
 // serve a list of learningpaths as a download for the user
 function downloadLearningpaths(lps, format) {
-    var text = JSON.stringify(lps);
+    var text = JSON.stringify(lps, null, 4);
     var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
 
     download(filename, text);

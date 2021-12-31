@@ -101,12 +101,19 @@
                                                         <input type="text" class="form-control interSet y_coord" id="y_coord">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="centeredLabel" for="EvaluationHeurestic">Erreichbare Wertung</label>
-                                                        <input type="text" class="form-control interSet EvaluationHeurestic" id="EvaluationHeurestic">
+                                                        <label class="centeredLabel" for="evaluationHeurestic">Erreichbare Wertung</label>
+                                                        <input type="text" class="form-control interSet evaluationHeurestic" id="evaluationHeurestic" 
+                                                        <% 
+                                                            let lastscenario = data.learningpath.scenarios[data.learningpath.scenarios.length - 1];
+                                                            console.log(lastscenario)
+                                                            if(lastscenario && lastscenario.interactions  && lastscenario.interactions[0]){ 
+                                                        %>
+                                                                value="<%=data.learningpath.scenarios[data.learningpath.scenarios.length - 1].interactions[0].evaluationHeurestic%>" 
+                                                        <%}%>>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="centeredLabel" for="BehaviorSettings">Verhaltenseinstellungen</label>
-                                                        <select class="form-control interSet" id="BehaviorSettings">
+                                                        <label class="centeredLabel" for="behaviorSettings">Verhaltenseinstellungen</label>
+                                                        <select class="form-control interSet" id="behaviorSettings">
                                                     <option selected>Hover</option>
                                                     <option>Click</option>
                                                 </select>

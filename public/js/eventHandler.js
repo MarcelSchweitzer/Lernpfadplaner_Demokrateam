@@ -158,7 +158,15 @@ document.addEventListener('input', (event) => {
         session.setProp('interactivityTypes', newList, category)
         unsavedChanges = true;
         saveCurrentLp();
-    } else if (id == 'interactionTypeDrop') {
+    }else if(id == 'x_coord'){
+        updateInteractionProperty('x_coord', input.value)
+    }else if(id == 'y_coord'){
+        updateInteractionProperty('y_coord', input.value)
+    }else if(id == 'evaluationHeurestic'){
+        updateInteractionProperty('evaluationHeurestic', input.value)
+    }else if(id == 'behaviorSettings'){
+        updateInteractionProperty('behaviorSettings', input.value)
+    }else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
             let elemId = $(input).find('option:selected').attr('id')
             let category = elemId.split('$$')[1];
@@ -196,7 +204,6 @@ document.addEventListener("drop", (event) => {
         if (droppedTo.classList.contains('workspace')) {
             let category = draggedInteraction.getAttribute('id').split('$$')[0];
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
-            alert('adding interaction' + category + "-" + interactionType + ' @ ' + JSON.stringify(coordinates));
             session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
             refreshInteractivityList();
@@ -205,7 +212,7 @@ document.addEventListener("drop", (event) => {
 }, false);
 
 function refreshInteractivityList() {
-    if (session.scenarioOpened() && session.interactionOpened()) {
+    if (session.scenarioOpened()) {
         $('.interactivityList').html('');
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
@@ -223,11 +230,15 @@ function refreshInteractivityInputs() {
     $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
 }
 
+function updateInteractionProperty(key, value){
+    unsavedChanges = true;
+    session.setInteractionProp(key, value);
+}
 
 // update a learning path property
-function updateLpProperty(lpProp, value, index = null, indexKey = null) {
+function updateLpProperty(key, value, index = null, indexKey = null) {
     unsavedChanges = true;
-    session.setProp(lpProp, value, index, indexKey)
+    session.setProp(key, value, index, indexKey)
 }
 
 // save the currently opened learning path to the server
