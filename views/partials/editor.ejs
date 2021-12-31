@@ -46,10 +46,10 @@ function canBeRead(root, calls){
                             <p>Interaktivitäten</p>
                             <div class="interactivityList">
                                 <% if(canBeRead(data, ['learningPath', 'scenarios']) && 
-                                      data.learningPath.scenarios.length > 0 && 
-                                      canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
-                                        let count = 0;
-                                        data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                data.learningPath.scenarios.length > 0 && 
+                                canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
+                                    let count = 0;
+                                    data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                         <div class="interactivityList">
                                             <button class="interactivityListItem" id="iaListItem<%= count %>">
                                                 <%= ia.category %> -
