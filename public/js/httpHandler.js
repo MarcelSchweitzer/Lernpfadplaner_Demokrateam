@@ -1,11 +1,14 @@
 // request edit patch from server
-function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
+function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
-        fetchLearningPaths(() => {
+        fetchlearningPaths(() => {
 
             // the last scenario is opened by default
             session.openScenario(session.getProp('scenarios').length - 1);
+
+            // the first interaction is opened by default
+            session.openInteraction(0);
             return cb()
         });
     });
@@ -18,22 +21,22 @@ function getHomePage() {
         replaceBody(data);
     });
 
-    fetchLearningPaths();
+    fetchlearningPaths();
 }
 
 // request the settings page from the server
 function getSettingsPage(mode = null) {
-    if (mode == null && session.getCurrentLearningPathId() == null)
+    if (mode == null && session.getCurrentlearningPathId() == null)
         mode = 'userSettingsOnly';
     else if (mode == null)
         mode = 'allSettings';
-    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
+    $.get('/settings', { 'lpid': session.getCurrentlearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
     });
 }
 
-// push any learningpath to the server
-function LearningPathToServer(learningPath, cb = noop) {
+// push any learningPath to the server
+function learningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
         $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
             if (status === 'success')
@@ -44,18 +47,18 @@ function LearningPathToServer(learningPath, cb = noop) {
     }
 }
 
-// create a new learningpath on the server and add it to the list of learningpaths
+// create a new learningPath on the server and add it to the list of learningPaths
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
-        session.addLearningPath(data.content);
-        session.openLearningPath(data['learningpathID'])
+        session.addlearningPath(data.content);
+        session.openlearningPath(data['learningPathID'])
         return cb()
     });
 }
 
 
-// delete a learningpath from the server
-function deleteLearningPath(lpid, cb = noop) {
+// delete a learningPath from the server
+function deletelearningPath(lpid, cb = noop) {
     $.post('/deleteLp', { 'lpid': lpid }).done((data, status) => {
         if (status === 'success')
             return cb()
@@ -64,20 +67,20 @@ function deleteLearningPath(lpid, cb = noop) {
     });
 }
 
-// fetch all learningpaths that we have access to
-function fetchLearningPaths(cb = noop) {
+// fetch all learningPaths that we have access to
+function fetchlearningPaths(cb = noop) {
     // fetch users learning paths from server
     $.get('/learningPaths').done((data) => {
         lps = JSON.parse(data)
-        session.updateLearningPaths(lps);
+        session.updatelearningPaths(lps);
         return cb()
     });
 }
 
-// serve a list of learningpaths as a download for the user
-function downloadLearningpaths(lps, format) {
-    var text = JSON.stringify(lps);
-    var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+// serve a list of learningPaths as a download for the user
+function downloadlearningPaths(lps, format) {
+    var text = JSON.stringify(lps, null, 4);
+    var filename = session.learningPathOpened() ? session.getCurrentlearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
 
     download(filename, text);
 }

@@ -4,9 +4,10 @@ var draggedInteraction = null;
 // is true when changes are not saved yet
 var unsavedChanges = false;
 
+// on startup
 $(document).ready(() => {
     updateUserName();
-    fetchLearningPaths();
+    fetchlearningPaths();
 });
 
 function isValidURL(str) {
@@ -25,6 +26,7 @@ function isValidURL(str) {
       
 
   }
+// handle click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
@@ -33,8 +35,8 @@ document.addEventListener('click', (event) => {
     if (id == 'homeBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();
-            LearningPathToServer(session.getCurrentLearningPath(), () => {
-                session.closeLearningPath();
+            learningPathToServer(session.getCurrentlearningPath(), () => {
+                session.closelearningPath();
                 getHomePage();
             });
         } else {
@@ -44,37 +46,39 @@ document.addEventListener('click', (event) => {
         getSettingsPage();
     } else if (id == 'downloadButton') {
         if (session.learningPathOpened()) {
-            downloadLearningpaths([session.getCurrentLearningPath()], 'json');
+            downloadlearningPaths([session.getCurrentlearningPath()], 'json');
         } else {
             lpids = []
-            for (lp of session.getLearningPaths())
+            for (lp of session.getlearningPaths())
                 lpids.push(lp.id);
-            downloadLearningpaths(session.getLearningPaths(), 'json');
+            downloadlearningPaths(session.getlearningPaths(), 'json');
         }
     } else if (id == 'exportButton') {
         if (session.learningPathOpened()) {
-            downloadLearningpaths([session.getCurrentLearningPath()], 'pdf');
+            downloadlearningPaths([session.getCurrentlearningPath()], 'pdf');
         } else {
             lpids = []
-            for (lp of session.getLearningPaths())
+            for (lp of session.getlearningPaths())
                 lpids.push(lp.id);
-            downloadLearningpaths(session.getLearningPaths(), 'pdf');
+            downloadlearningPaths(session.getlearningPaths(), 'pdf');
         }
     } else if (id == 'createLpBtn') {
         createLpOnServer(() => {
-            fetchLearningPaths();
+            fetchlearningPaths();
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     } else if (id == 'saveSettingsBtn') {
-        if (session.learningPathOpened())
+        if (session.learningPathOpened()) {
+            saveCurrentLp();
             getEditPage();
-        else
+        } else {
             getHomePage();
+        }
     } else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
-                LearningPathToServer(session.getCurrentLearningPath(), () => {
-                    getEditPage(session.getCurrentLearningPathId(), () => {
+                learningPathToServer(session.getCurrentlearningPath(), () => {
+                    getEditPage(session.getCurrentlearningPathId(), () => {
 
                         // scroll to the bottom
                         window.scrollTo(0, document.body.scrollHeight);
@@ -98,19 +102,19 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('deleteScenario')) {
         scenarioIndex = id.replaceAll('deleteScenario', '');
         session.deleteScenario(scenarioIndex);
-        LearningPathToServer(session.getCurrentLearningPath(), () => {
+        learningPathToServer(session.getCurrentlearningPath(), () => {
             getEditPage();
         });
     }
 
-    // handle open learningpath buttons
+    // handle open learningPath buttons
     else if (classes.contains('openLp')) {
         editID = id.replaceAll('openLp', '');
         getEditPage(editID);
-        session.openLearningPath(editID);
+        session.openlearningPath(editID);
     }
 
-    // handle delete learningpath buttons
+    // handle delete learningPath buttons
     else if (classes.contains('deleteLp')) {
         let lpID = id.replaceAll('delete', '');
         let editID = 'openLpDiv' + lpID
@@ -122,14 +126,14 @@ document.addEventListener('click', (event) => {
         let editButton = document.getElementById(editID);
         editButton.remove();
 
-        deleteLearningPath(lpID, () => {
-            if (session.getCurrentLearningPathId() == lpID)
-                session.closeLearningPath()
-            session.removeLearningPath(lpID)
+        deletelearningPath(lpID, () => {
+            if (session.getCurrentlearningPathId() == lpID)
+                session.closelearningPath()
+            session.removelearningPath(lpID)
         })
     } else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
-        session.openInteractivity(interID);
+        session.openInteraction(interID);
         refreshInteractivityInputs();
     }
 }, false);
@@ -174,11 +178,21 @@ document.addEventListener('input', (event) => {
         session.setProp('interactivityTypes', newList, category)
         unsavedChanges = true;
         saveCurrentLp();
+    } else if (id == 'x_coord') {
+        updateInteractionProperty('x_coord', input.value)
+    } else if (id == 'y_coord') {
+        updateInteractionProperty('y_coord', input.value)
+    } else if (id == 'evaluationHeurestic') {
+        updateInteractionProperty('evaluationHeurestic', input.value)
+    } else if (id == 'behaviorSettings') {
+        updateInteractionProperty('behaviorSettings', input.value)
     } else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
             let elemId = $(input).find('option:selected').attr('id')
             let category = elemId.split('$$')[1];
             let interactionType = elemId.split('$$')[2];
+            category = category = category.trim();
+            interactionType = interactionType = interactionType.trim();
             session.setInteractionProp('category', category);
             session.setInteractionProp('interactionType', interactionType);
             refreshInteractivityList();
@@ -212,44 +226,56 @@ document.addEventListener("drop", (event) => {
         if (droppedTo.classList.contains('workspace')) {
             let category = draggedInteraction.getAttribute('id').split('$$')[0];
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
-            alert('adding interaction' + category + "-" + interactionType + ' @ ' + JSON.stringify(coordinates));
+            category.trim()
+            interactionType.trim()
             session.addInteraction(coordinates, category, interactionType);
             draggedInteraction = null;
+            unsavedChanges = true;
+            session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
         }
     }
 }, false);
 
 function refreshInteractivityList() {
-    if (session.scenarioOpened() && session.interactionOpened()) {
+    if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         $('.interactivityList').html('');
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
-            console.log('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>')
-            $('.interactivityList').append('<button class="interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button>');
+            $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
+        refreshInteractivityInputs();
     }
 
 }
 
 function refreshInteractivityInputs() {
-    $(".x_coord").val(session.getCurrentInteraction().x_coord);
-    $(".y_coord").val(session.getCurrentInteraction().y_coord);
-    $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
-    $(".behaviorSettings").val(session.getCurrentInteraction().behaviorSettings);
+    if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
+        $(".x_coord").val(session.getCurrentInteraction().x_coord);
+        $(".y_coord").val(session.getCurrentInteraction().y_coord);
+        $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
+        let behaDropID = session.getCurrentInteraction().behaviorSettings;
+        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
+        $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
+    }
 }
 
+function updateInteractionProperty(key, value) {
+    unsavedChanges = true;
+    session.setInteractionProp(key, value);
+}
 
 // update a learning path property
-function updateLpProperty(lpProp, value, index = null, indexKey = null) {
+function updateLpProperty(key, value, index = null, indexKey = null) {
     unsavedChanges = true;
-    session.setProp(lpProp, value, index, indexKey)
+    session.setProp(key, value, index, indexKey)
 }
 
 // save the currently opened learning path to the server
 function saveCurrentLp() {
     if (session.learningPathOpened()) {
-        LearningPathToServer(session.getCurrentLearningPath(), () => {
+        learningPathToServer(session.getCurrentlearningPath(), () => {
             alertToUser('Änderungen gespeichert!', 3);
             unsavedChanges = false;
         });
