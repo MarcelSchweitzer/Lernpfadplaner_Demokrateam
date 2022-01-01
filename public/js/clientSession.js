@@ -1,140 +1,128 @@
 class Session {
     constructor() {
         this.learningPaths = [];
-        this.currentlearningPathId = null;
+        this.currentLearningPathId = null;
         this.currentScenarioIndex = null;
         this.currentInteractionIndex = null;
     }
 
-    // set a property of a learningPath
+    // set a property of a learningpath
     setProp(key, value, index = null, indexKey = null) {
         if (index === null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key] = value;
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key] = value;
         else if (index !== null && indexKey === null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index] = value;
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index] = value;
         else
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey] = value;
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey] = value;
     }
 
-    // get property of a learningPath 
+    // get property of a learningpath
     getProp(key, index = null, indexKey = null) {
         if (index === null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key];
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key];
         else if (index !== null && indexKey === null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index];
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index];
         else
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey];
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)][key][index][indexKey];
     }
-
-    // find out if a property of a learningpath exists e.g propExists(['scenario', 3, 'interactions'])
-    propExists(calls, root=this.learningPaths){
-        if(calls.length == 1 && root[calls[0]])
-            return true
-        if(root[calls[0]]){
-            let origCalls = calls.slice()
-            calls.splice(0, 2, calls[1])
-            return propExists(root[origCalls[0]], calls)
-        }
-        return false
-    }
-
 
     // add learning path to list and return id
-    addlearningPath(params) {
+    addLearningPath(params) {
         let lp = params;
         this.learningPaths = insertAt(this.learningPaths, lp);
     }
 
     // remove Learning Path from list
-    removelearningPath(id) {
+    removeLearningPath(id) {
 
         // if deleted path is opened -> close
-        if (this.currentlearningPathId == id)
-            this.closelearningPath();
+        if (this.currentLearningPathId == id)
+            this.closeLearningPath();
 
         this.learningPaths = rmById(this.learningPaths, id);
     }
 
     // create scanario at any position
     createScenario(props, cb = noop) {
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, props);
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, props);
         return cb()
     }
 
     // move a scenario within the list of scenarios
     moveScenario(indexOld, indexNew) {
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, indexOld, indexNew)
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, indexOld, indexNew)
     }
 
     // delete a scenario
     deleteScenario(index) {
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, index)
+        this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios, index)
     }
 
     // get the currently shown scenarios
     getCurrentScenario() {
         if (this.learningPathOpened() && this.scenarioOpened())
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex]
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex]
     }
 
     // set a scenario property
     setScenarioProp(key, value, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key] = value;
+        if (this.learningPathOpened() && this.scenarioOpened && index != null)
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex][key] = value;
     }
 
     // get a scenario property
     getScenarioProp(key, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key]
+        if (this.learningPathOpened() && this.scenarioOpened && index != null)
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex][key]
     }
 
     // add a new interaction
     addInteraction(coordinates, category, interactionType) {
+        console.log('adding interaction ' + JSON.stringify(coordinates) + ' cat: ' + category + ' interaction type: ' + interactionType)
         if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'category': category, 'interactionType': interactionType });
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'category': category, 'interactionType': interactionType });
     }
 
     // move interaction from indexOld to IndexNew
     moveInteraction(indexOld, indexNew) {
         if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, indexOld, indexNew);
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions, indexOld, indexNew);
     }
 
 
     // delete interaction in current lp and scenario by index
     deleteInteraction(index) {
         if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, index);
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions, index);
     }
 
     // get Interaction a given index
     getCurrentInteraction() {
         if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]
+            return this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]
     }
 
     // change a property of a interaction
     setInteractionProp(key, value) {
         if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex][key] = value
+            this.learningPaths[this.getLpIndexById(this.currentLearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex][key] = value
     }
 
 
     // get Id of current (opened) learningPath
-    getCurrentlearningPathId() { return this.currentlearningPathId; }
+    getCurrentLearningPathId() { return this.currentLearningPathId; }
 
     // get a read only object representation by id 
-    getlearningPathById(id) {
+    getLearningPathById(id) {
         return this.learningPaths[this.getLpIndexById(id)]
     }
 
     // get a read only object representation of current lp 
-    getCurrentlearningPath() {
-        return this.getlearningPathById(this.currentlearningPathId);
+    getCurrentLearningPath() {
+        return this.getLearningPathById(this.currentLearningPathId);
     }
 
-    // get the index in the list of a learningPath that the element with the given id has
+    // get the index in the list of a learningpath that the element with the given id has
     getLpIndexById(id) {
         for (let i = 0; i < this.learningPaths.length; i++)
             if (this.learningPaths[i].id == id)
@@ -143,55 +131,51 @@ class Session {
     }
 
     // get all learningPaths
-    getlearningPaths() { return this.learningPaths; }
+    getLearningPaths() { return this.learningPaths; }
 
     // set the current set of lps to be another set of lps
-    updatelearningPaths(learningPaths) {
+    updateLearningPaths(learningPaths) {
         this.learningPaths = []
 
         // TODO 
         if (learningPaths)
             for (let i = 0; i < learningPaths.length; i++)
-                this.addlearningPath(learningPaths[i].content);
+                this.addLearningPath(learningPaths[i].content);
     }
 
     // open a learning path by id
-    openlearningPath(id) {
-        this.currentlearningPathId = id;
+    openLearningPath(id) {
+        this.currentLearningPathId = id;
     }
 
     // close the current learning path
-    closelearningPath() {
-        this.currentlearningPathId = null;
-        this.currentScenarioIndex = null;
-        this.currentInteractionIndex = null;
+    closeLearningPath() {
+        this.currentLearningPathId = null;
     }
 
     // open a scenario by index
     openScenario(index) {
-        if(this.learningPaths)
         this.currentScenarioIndex = index;
     }
 
     // close the current scenario
     closeScenario() {
         this.currentScenarioIndex = null;
-        this.currentInteractionIndex = null;
     }
 
     // open a scenario by index
-    openInteraction(index) {
+    openInteractivity(index) {
         this.currentInteractionIndex = index;
     }
 
     // close the current scenario
-    closeInteraction() {
+    closeInteractivity() {
         this.currentInteractionIndex = null;
     }
 
-    // return true if a learningPath is opened
+    // return true if a learningpath is opened
     learningPathOpened() {
-        return this.currentlearningPathId != null;
+        return this.currentLearningPathId != null;
     }
 
     // return true if a scenario is opened

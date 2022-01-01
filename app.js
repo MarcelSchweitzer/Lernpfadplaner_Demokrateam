@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 
     function renderIndex(data) {
         console.log("user " + data[0]['uid'] + " connected!");
-        dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', data[0]['uid'], (_data) => {
+        dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', data[0]['uid'], (_data) => {
             res.render('index', {
                 data: {
                     learningPaths: _data,
@@ -78,12 +78,12 @@ app.get('/editor', (req, res) => {
         getCurrentUser(req.sessionID, (uid) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningPath', 'owner, content', 'lpid', lpid, (data) => {
+            dbMan.selectMatch('public.learningpath', 'owner, content', 'lpid', lpid, (data) => {
                 // check if user is owner of lp that is to be deleted
                 if (uid == data[0]['owner']) {
                     res.render('partials/editor', {
                         data: {
-                            'learningPath': data[0]['content'],
+                            'learningpath': data[0]['content'],
                             'evaluationModes': evaluationModes
                         }
                     });
@@ -101,7 +101,7 @@ app.get('/create', (req, res) => {
 
         // get name for new learningPath
         getCurrentUser(req.sessionID, (currentUserID) => {
-            dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', currentUserID, (data) => {
+            dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', currentUserID, (data) => {
                 let lpids = [];
                 let names = [];
                 for (let i = 0; i < data.length; i++) {
@@ -111,7 +111,7 @@ app.get('/create', (req, res) => {
                 let id = unique.uniqueId(lpids);
                 let name = unique.uniqueName('Neuer Lernpfad', names);
 
-                // default settings for new learningPaths
+                // default settings for new learningpaths
                 const defaultProps = {
                     'id': id,
                     'title': name,
@@ -129,15 +129,15 @@ app.get('/create', (req, res) => {
                         ]
                 }
                 }
-                dbMan.insert('public.learningPath', {
+                dbMan.insert('public.learningpath', {
                     'lpid': id,
                     'title': name,
                     'content': JSON.stringify(defaultProps),
                     'owner': currentUserID
                 }, () => {
                     res.status(200).send({
-                        'learningPathID': id,
-                        'learningPathTitle': name,
+                        'learningpathID': id,
+                        'learningpathTitle': name,
                         'content': JSON.stringify(defaultProps),
                     });
                 })
@@ -180,7 +180,7 @@ app.get('/settings', (req, res) => {
         dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningPath', 'owner, title, content', 'lpid', lpid, (_data) => {
+            dbMan.selectMatch('public.learningpath', 'owner, title, content', 'lpid', lpid, (_data) => {
 
                 // check if user is owner of lp that is to be deleted
                 if (data[0]['uid'] == _data[0]['owner']) {
@@ -188,7 +188,7 @@ app.get('/settings', (req, res) => {
                         data: {
                             'lpSet': true,
                             'availableInteractivityTypes': interactivityTypes,
-                            'learningPath': _data[0]['content'],
+                            'learningpath': _data[0]['content'],
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname']
                         }
@@ -204,7 +204,7 @@ app.get('/settings', (req, res) => {
 // user wants to navigate back to dashboard page
 app.get('/home', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
-        dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', uid, (data) => {
+        dbMan.selectMatch('public.learningpath', 'lpid, title', 'owner', uid, (data) => {
             res.render('partials/dashboard', {
                 data: {
                     learningPaths: data
@@ -217,7 +217,7 @@ app.get('/home', (req, res) => {
 // user wants a list of his learningPaths
 app.get('/learningPaths', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
-        dbMan.selectMatch('learningPath', 'content', 'owner', uid, (data) => {
+        dbMan.selectMatch('learningpath', 'content', 'owner', uid, (data) => {
             res.send(JSON.stringify(data));
         })
     });
@@ -233,11 +233,11 @@ app.post('/updateLp', (req, res) => {
         getCurrentUser(req.sessionID, (uid) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
+            dbMan.selectMatch('public.learningpath', 'owner', 'lpid', lpid, (owner) => {
 
                 // check if user is owner of lp that is to be deleted
                 if (uid == owner[0]['owner']) {
-                    dbMan._update('learningPath', 'lpid', lpid, {
+                    dbMan._update('learningpath', 'lpid', lpid, {
                         'title': req.body.title,
                         'content': req.body.learningPath
                     }, () => {
@@ -298,11 +298,11 @@ app.post('/deleteLp', (req, res) => {
         getCurrentUser(req.sessionID, (uid) => {
 
             // find owner of lp
-            dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
+            dbMan.selectMatch('public.learningpath', 'owner', 'lpid', lpid, (owner) => {
 
                 // check if user is owner of lp that is to be deleted
                 if (uid == owner[0]['owner']) {
-                    dbMan._delete('learningPath', 'lpid', lpid, () => {
+                    dbMan._delete('learningpath', 'lpid', lpid, () => {
 
                         // respond OK to client
                         res.send('200')
