@@ -6,16 +6,23 @@
     color: #1f2235;
 }
 
+.lpSettings{
+    margin-top: 60px;
+        position: fixed;
+}
+
 .active {
     display: grid;
     grid-template-columns: repeat(8, 0fr);
     gap: 35px;
+    background-color: white;
     padding: 40px 0px 0px 0px;
     font-size: 14px;
 }
 
 .sub-menu {
     display: grid;
+    background-color: white;
     grid-template-columns: repeat(4, 0fr);
     gap: 35px;
     padding: 40px 0px 0px 40px;
