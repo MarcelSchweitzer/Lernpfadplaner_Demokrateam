@@ -43,6 +43,16 @@
     background-color: #c59e1e;
 }
 
+.workspace img {
+    border-radius: 8px;
+    max-height: 50%;
+    max-width: 100%;
+    height: auto;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+}
 .interactionSettings {
     height: 100%;
     width: 20%;

@@ -9,6 +9,22 @@ $(document).ready(() => {
     fetchLearningPaths();
 });
 
+function isValidURL(str) {
+    var res = str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res==null)
+        alert("Unvalid URL");
+    return (res != null)
+  };
+
+  function addImage(str) {
+      let id=document.getElementById(str);
+      let source=document.getElementById(str).value;
+      if(isValidURL(source)){
+        document.getElementById('imageID').src=source;
+      }
+      
+
+  }
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;

@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="lpResource<%= count %>">Material URL</label>
-                                                <input type="text" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
+                                                <input type="text" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>" onchange="addImage(this.id)">
                                             </div>
                                         </form>
                                         <div>
@@ -90,7 +90,9 @@
                                             <div class="inner-material">
 
                                                 <div class="workspace" id="workspace">
-
+                                                    
+                                                    <img id="imageID" > 
+                                  
                                                 </div>
 
                                                 <div class="interactionSettings">
