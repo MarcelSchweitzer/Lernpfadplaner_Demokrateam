@@ -44,16 +44,16 @@ module.exports = function(session) {
             dbMan.insert('public.session', _sess, () => {
                 dbMan.select('public.user', 'uid, nickname', '', (result) => {
                     let uids = [];
-                    let names = [];
-                    for (let i = 0; i < result.length; i++) {
+                    let namesList = [];
+                    for (let i = 0; i < result.length -1; i++) {
                         uids.push(result[i].uid);
-                        names.push(result[i].nickname);
+                        namesList.push(result[i].nickname);
                     }
                     let uid = unique.uniqueId(uids);
-                    let nickname = unique.createUniqueUserName(names);
+                    let newNick = unique.createUniqueUserName(namesList);
                     let _user = {
                         'uid': uid,
-                        'nickname': nickname,
+                        'nickname': newNick,
                         'latestsession': sid
                     }
                     dbMan.insert('public.user', _user, cb)
