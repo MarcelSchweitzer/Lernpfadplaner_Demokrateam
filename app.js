@@ -275,6 +275,7 @@ app.get('/whoami', (req, res) => {
 
         // resolve uid
         dbMan.selectMatch('public.user', 'nickname', 'latestSession', sid, (data) => {
+            console.log(data[0]['nickname'])
             res.status(200).send({
                 'nickname': data[0]['nickname'],
                 'uid': data[0]['uid']

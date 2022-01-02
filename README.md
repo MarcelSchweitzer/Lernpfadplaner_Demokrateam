@@ -2,7 +2,7 @@
 
 installation:
 
-1) navigate to https://nodejs.org/ and install the latest LTS version of node.js on your machine
+1) navigate to https://nodejs.org/ and install node.js version 16.13.1 on your machine
 2) navigate to https://www.postgresql.org/download/ an install PostgreSQL on your machine
 3) use username: postgres, pw: demokrateam123 as login credentials
 4) set up a server hosted at localhost:5432 (default)
