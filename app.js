@@ -42,12 +42,12 @@ app.get('/', (req, res) => {
     if (req.session.isAuth == true) {
 
         // user is known
-        dbMan.selectMatch('public.user', 'uid', 'latestSession', req.sessionID, renderIndex)
+        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, renderIndex)
     } else {
 
         // user is unknowm
         req.session.isAuth = true;
-        renderIndex([{ 'uid': 0 }]);
+        renderIndex([{ 'uid': 0, 'nickname': 'Anonymer Benutzer' }]);
     }
 
     function renderIndex(data) {
@@ -57,6 +57,7 @@ app.get('/', (req, res) => {
                 data: {
                     learningPaths: _data,
                     uId: data[0]['uid'],
+                    nickname: data[0]['nickname']
                 }
             });
         });
@@ -159,7 +160,6 @@ app.get('/settings', (req, res) => {
 
         if (mode == 'userSettingsOnly') {
             dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
-                console.log(JSON.stringify(data))
                 res.render('partials/settings', {
                     data: {
                         'lpSet': false,
