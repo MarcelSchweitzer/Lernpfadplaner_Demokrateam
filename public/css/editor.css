@@ -1,8 +1,4 @@
-.left-side::-webkit-scrollbar {
-    display: none;
-}
-
-.right-side::-webkit-scrollbar {
+.sidepanel::-webkit-scrollbar {
     display: none;
 }
 
