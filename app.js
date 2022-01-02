@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
     if (req.session.isAuth == true) {
 
         // user is known
-        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, renderIndex)
+        dbMan.selectMatch('public.user', 'uid', 'latestSession', req.sessionID, renderIndex)
     } else {
 
         // user is unknowm
@@ -159,6 +159,7 @@ app.get('/settings', (req, res) => {
 
         if (mode == 'userSettingsOnly') {
             dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', sid, (data) => {
+                console.log(JSON.stringify(data))
                 res.render('partials/settings', {
                     data: {
                         'lpSet': false,
@@ -274,10 +275,8 @@ app.get('/whoami', (req, res) => {
 
         // resolve uid
         dbMan.selectMatch('public.user', 'nickname', 'latestSession', sid, (data) => {
-            console.log(data[0]['nickname'])
             res.status(200).send({
-                'nickname': data[0]['nickname'],
-                'uid': data[0]['uid']
+                'nickname': data[0]['nickname']
             });
         });
     }
