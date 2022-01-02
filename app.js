@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 
         // user is unknowm
         req.session.isAuth = true;
-        renderIndex([{ 'uid': 0, 'nickname': 'Anonymer Benutzer' }]);
+        renderIndex([{ 'uid': 0 }]);
     }
 
     function renderIndex(data) {
@@ -57,7 +57,6 @@ app.get('/', (req, res) => {
                 data: {
                     learningPaths: _data,
                     uId: data[0]['uid'],
-                    nickname: data[0]['nickname']
                 }
             });
         });

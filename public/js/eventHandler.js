@@ -18,8 +18,7 @@ function isValidURL(str) {
   };
 
 function addImage(str) {
-    let id=document.getElementById(str);
-    let source=document.getElementById(str).value;
+    let source = document.getElementById(str).value;
     if(isValidURL(source)){
         document.getElementById('imageID').src=source;
     }
