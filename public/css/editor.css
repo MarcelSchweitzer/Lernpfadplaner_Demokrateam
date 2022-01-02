@@ -229,3 +229,10 @@ footer {
     padding-bottom: 50px;
     padding-left: 80px;
 }
+
+.inputImg button {
+    color: white;
+    background-color: #6da5f8;
+    height: 38px;
+}
+

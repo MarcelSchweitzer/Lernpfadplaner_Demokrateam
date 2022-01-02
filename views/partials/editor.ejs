@@ -61,7 +61,7 @@ function canBeRead(root, calls){
                                 </div>
                             </div>
                     </section>
-                    </div>
+                        </div>
                     <div class="col-8 midCol">
                         <div class="material-group scenarios" id="accordion">
                             <% if(canBeRead(data, ['learningPath','scenarios'])){ 
@@ -91,9 +91,16 @@ function canBeRead(root, calls){
                                                     <label for="lpLearningGoal<%= count %>">Lernziel</label>
                                                     <input type="text" class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
                                                 </div>
+
+
                                                 <div class="form-group">
                                                     <label for="lpResource<%= count %>">Material URL</label>
-                                                    <input type="text" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>" onchange="addImage(this.id)">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>" onchange="addImage(this.id)">
+                                                        <span class="inputImg button">
+                                                            <button class="inputImg button" type="button" onclick="addImage(<%= sc.resource%>)">Einfügen</button>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </form>
                                             <div>
@@ -152,8 +159,8 @@ function canBeRead(root, calls){
                                                                             <%= val %>
                                                                         </option>
                                                                     <% });}} %>
-                                                        </select>
-
+                                                                    </optgroup>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,5 +212,5 @@ function canBeRead(root, calls){
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>

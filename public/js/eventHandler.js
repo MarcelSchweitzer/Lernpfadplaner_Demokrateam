@@ -17,13 +17,13 @@ function isValidURL(str) {
     return (res != null)
   };
 
-  function addImage(str) {
-      let id=document.getElementById(str);
-      let source=document.getElementById(str).value;
-      if(isValidURL(source)){
+function addImage(str) {
+    let id=document.getElementById(str);
+    let source=document.getElementById(str).value;
+    if(isValidURL(source)){
         document.getElementById('imageID').src=source;
-      }
-    }    
+    }
+}
 
 // handle click events
 document.addEventListener('click', (event) => {
