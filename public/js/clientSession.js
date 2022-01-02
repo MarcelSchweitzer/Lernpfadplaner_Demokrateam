@@ -72,6 +72,11 @@ class Session {
     }
 
     // get the currently shown scenarios
+    getCurrentScenarioIndex() {
+        return this.currentScenarioIndex
+    }
+
+    // get the currently shown scenarios
     getCurrentScenario() {
         if (this.learningPathOpened() && this.scenarioOpened())
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex]
@@ -169,12 +174,13 @@ class Session {
 
     // open a scenario by index
     openScenario(index) {
-        if(this.learningPaths)
+        console.log("openScenarion")
         this.currentScenarioIndex = index;
     }
 
     // close the current scenario
     closeScenario() {
+        console.log("closeScenario")
         this.currentScenarioIndex = null;
         this.currentInteractionIndex = null;
     }

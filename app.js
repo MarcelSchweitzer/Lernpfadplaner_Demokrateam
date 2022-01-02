@@ -313,16 +313,16 @@ app.post('/deleteLp', (req, res) => {
     }
 })
 
-// start server
-app.listen(process.env.HTTP_PORT, function(err) {
-    if (err)
-        console.log("Error in server setup");
-    console.log("Server listening on Port", process.env.HTTP_PORT);
-})
-
 // return the current user
 function getCurrentUser(sessionID, cb = noop) {
     dbMan.selectMatch('public.user', 'uid', 'latestSession', sessionID, (data) => {
         return cb(data[0]['uid'])
     });
 }
+
+// start server
+app.listen(process.env.HTTP_PORT, process.env.SERVER_IP, function(err) {
+    if (err)
+        console.log("Error in server setup");
+    console.log("Server listening on Port", process.env.HTTP_PORT);
+})

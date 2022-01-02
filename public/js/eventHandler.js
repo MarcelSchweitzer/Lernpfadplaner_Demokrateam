@@ -89,11 +89,16 @@ document.addEventListener('click', (event) => {
 
     // handle open scenario buttons
     else if (classes.contains('openScenario')) {
-        scenarioIndex = id.replaceAll('openScenario', '');
-        if (button.getAttribute("aria-expanded") === 'false')
-            session.openScenario(scenarioIndex);
-        else
-            session.closeScenario();
+        scenarioIndex = id.replaceAll('openScenario', '')
+        collapseID = '#collapse' + scenarioIndex
+        if (!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex()){
+            $(collapseID).collapse('show')
+            session.openScenario(scenarioIndex)
+        }else{
+            $(collapseID).collapse('hide')
+            session.closeScenario()
+        }
+            
         refreshInteractivityList();
     }
 
@@ -202,14 +207,14 @@ document.addEventListener('input', (event) => {
 // fire on drag start 
 document.addEventListener("dragstart", (event) => {
     draggedInteraction = event.target;
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")) {
+    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened()) {
         draggedInteraction.style.opacity = .5;
     }
 }, false);
 
 // allow dropping of interactivities
 document.addEventListener("dragover", (event) => {
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox"))
+    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened())
         event.preventDefault();
 }, false);
 
@@ -219,7 +224,7 @@ document.addEventListener("drop", (event) => {
 
     droppedTo = event.target;
 
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox")) {
+    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened()) {
         draggedInteraction.style.opacity = 1;
         event.preventDefault();
         if (droppedTo.classList.contains('workspace')) {

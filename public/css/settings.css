@@ -6,11 +6,6 @@
     color: #1f2235;
 }
 
-.lpSettings{
-    margin-top: 60px;
-        position: fixed;
-}
-
 .active {
     display: grid;
     grid-template-columns: repeat(8, 0fr);
