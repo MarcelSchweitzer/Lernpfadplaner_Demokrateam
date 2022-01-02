@@ -6,6 +6,19 @@
     color: #1f2235;
 }
 
+.settings::-webkit-scrollbar {
+    display: none;
+}
+
+.settings{
+    margin-bottom: 60px;
+}
+
+.settingsItem{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .active {
     display: grid;
     grid-template-columns: repeat(8, 0fr);

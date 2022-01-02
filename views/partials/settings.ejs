@@ -3,20 +3,26 @@
 </link>
 <div class="container">
     <div class="cover-background">
+        <div class="row">
         <img class="img-background" src="img/settings.png">
-        <% if(data.lpSet == true){ %>
-            <div>
-                <%- include('./lpSettings') %>
-            </div>
-            <% } %>
+        <div class="col-8">
+            <div class="material-group">
+                <% if(data.lpSet == true){ %>
+                <div>
+                    <%- include('./lpSettings') %>
+                </div>
+                <% } %>
                 <% if(data.userSet == true){ %>
-                    <div>
-                        <%- include('./userSettings') %>
-                    </div>
-                    <% } %>
-                        <div class="profile-options">
-                            <button class="button btn btn-success" id="saveSettingsBtn"> Speichern </button>
-                        </div>
+                <div>
+                    <%- include('./userSettings') %>
+                </div>
+                <% } %>
+                <div class="profile-options">
+                    <button class="button btn btn-success" id="saveSettingsBtn"> Speichern </button>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
 </div>
 <script>

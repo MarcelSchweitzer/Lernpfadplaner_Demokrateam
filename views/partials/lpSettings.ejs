@@ -1,11 +1,12 @@
-<div class="container settings">
-    <h3>Lernpfad-Einstellungen</h3>
+<div class="container lpSettings">
     <div class="setting-section">
-        <div class="title">
+        <h3>Lernpfad-Einstellungen</h3>
+        <div class="settingsItem" id="title">
             <label for="lpTitleInput">Titel</label>
             <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
         </div>
-        <div class="interactivityTypes">
+        <div class="settingsItem" id="interactivityTypes">
+            <label for="myTab">Interaktionstypen für diesen Lernpfad</label>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <% if(data.availableInteractivityTypes){ 
                 let counter = 0;
@@ -21,24 +22,22 @@
                     <%counter++ } %>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <%
-                    counter = 0;
-                    for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
-                        let showActive = counter == 0 ? ' show active' : '';
-                        let active = counter == 0 ? ' active' : ''; %>
-                    <div class="tab-pane fade<%= showActive %>" id="<%= key %>" role="tabpanel" aria-labelledby="
-                    <%= key %>-tab">
-                        <div class="<%= key %> <%= active %>">
-                            <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
-                                <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
-                                <% } %> type="checkbox" id="
-                                    <%= val %>CB" name="
-                                        <%= val %>">
-                                            <label for="<%= val %>CB"><%= val %></label>
-                                            <% }); %>
-                        </div>
+            <%
+                counter = 0;
+                for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
+                    let showActive = counter == 0 ? ' show active' : '';
+                    let active = counter == 0 ? ' active' : ''; %>
+                <div class="tab-pane fade<%= showActive %>" id="<%= key %>" role="tabpanel" aria-labelledby="
+                <%= key %>-tab">
+                    <div class="<%= key %> <%= active %>">
+                    <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
+                        <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
+                        <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
+                        <label for="<%= val %>CB"><%= val %></label>
+                        <% }); %>
                     </div>
-                    <%counter++} %>
+                </div>
+                <%counter++} %>
             </div>
             <%} %>
         </div>

@@ -6,26 +6,14 @@
     display: none;
 }
 
-.left-side {
-    width: 15%;
-    height: 85%;
-    margin-top: 60px;
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: fixed;
-    scrollbar-width: none;
-}
-
-.right-side {
+.sidepanel{
     width: 15%;
     height: 85%;
     margin-top: 60px;
     margin-bottom: 100px;
     background-color: #f7f7f7;
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
@@ -53,8 +41,14 @@
     width: 80%;
     float: left;
     display: inline;
-    background-color: #c59e1e;
+    background-color: #6da5f8;
     cursor: pointer;
+}
+
+.coords{
+    display: inline;
+    width: 30%;
+    margin-left: 5%;
 }
 
 .interactionSettings {
@@ -62,7 +56,14 @@
     width: 20%;
     float: left;
     display: inline;
-    background-color: #bbb157;
+    text-align: center;
+    background-color: #ffffff;
+    padding-top: 15px;
+}
+
+.interactionItem{
+    width: 80%;
+    display: inline-block;
 }
 
 .note {
