@@ -9,6 +9,8 @@ function readJson(dataPath){
 function textToArray(dataPath){
   text =  fs.readFileSync(dataPath).toString('utf-8');
   arr = text.split('\n')
+  for (let i = 0; i < arr.length; i++)
+    arr[i] = arr[i].replaceAll('\r', '');
   return arr
 }
 

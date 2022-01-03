@@ -17,12 +17,16 @@ function isValidURL(str) {
     return (res != null)
   };
 
-function addImage(str) {
-    let source = document.getElementById(str).value;
+  function addImage(str) {
+     
+    let str2=str.substr(-1);
+    let source=document.getElementById(str).value;
+    let str3="imageID";
     if(isValidURL(source)){
-        document.getElementById('imageID').src=source;
+      document.getElementById(str3.concat(str2)).src=source;
     }
-}
+
+  } 
 
 // handle click events
 document.addEventListener('click', (event) => {

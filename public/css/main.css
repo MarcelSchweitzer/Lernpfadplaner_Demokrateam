@@ -1,6 +1,6 @@
 body {
     box-sizing: border-box;
-    background-image: url("/img/settings.png");
+   /* background-image: url("/img/settings.png");*/
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -11,11 +11,14 @@ body {
 }
 
 .image-cover img {
-    width: 85%;
+    width: 84%;
     display: block;
     margin: 8% auto;
 }
-
+.sub-menu{
+    padding: 40px 0px 0px 40px;  
+    font-size: 14px;
+}
 .info-box {
     width: 400px;
     height: 400px;
@@ -150,14 +153,34 @@ header {
     height: 40px;
     top: 0;
     background-color: #f7f7f7;
-    position: sticky;
-    z-index: 1;
+    /*position: sticky;
+    z-index: 1;*/
 }
 
 .settings-icon {
     width: 3%;
     height: 20px;
     float: left;
+}
+
+#homeBtn {
+    width: 35px;
+}
+
+.user {
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    margin-top: 2.5px;
+}
+
+#userIcon {
+    height: 30px;
+    padding-top: 5px;
+}
+
+#usernameText {
+    padding-top: 20px;
 }
 
 .colz-icon a img {
