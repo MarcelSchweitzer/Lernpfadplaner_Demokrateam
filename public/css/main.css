@@ -163,6 +163,26 @@ header {
     float: left;
 }
 
+#homeBtn {
+    width: 35px;
+}
+
+.user {
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    margin-top: 2.5px;
+}
+
+#userIcon {
+    height: 30px;
+    padding-top: 5px;
+}
+
+#usernameText {
+    padding-top: 20px;
+}
+
 .colz-icon a img {
     width: 35px;
     padding-top: 9px;

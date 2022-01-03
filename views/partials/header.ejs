@@ -4,15 +4,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <div class="setting">
-                    <a href="#"> <img type="image" class="button setting-icon" id="settingsBtn" src="img/settings.svg" alt="settings.svg"> </a>
+                <div class="home">
+                    <a href="#">
+                        <img type="image" class="button save-icon" id="homeBtn" src="img/home.svg" alt="home.svg">
+                    </a>
                 </div>
             </div>
             <div class="col-9">
                 <div class="colz-icon">
-                    <a href="#" id="usernameText">
-                        <%= data.nickname %>
-                    </a>
+                        <img id="userIcon" src="img/user.svg">
+                        <a href="#" id="usernameText">
+                            <%= data.nickname %>
+                        </a>
                     <a href="#"  data-toggle="modal" data-target="#exampleModal">
                         <img class="button" src="img/download.svg">
                     </a>
@@ -33,9 +36,7 @@
                           </div>
                         </div>
                       </div>
-                    <a href="#">
-                        <img type="image" class="button save-icon" id="homeBtn" src="img/home.svg" alt="home.svg">
-                    </a>
+                    <a href="#"> <img type="image" class="button setting-icon" id="settingsBtn" src="img/settings.svg" alt="settings.svg"> </a>
                 </div>
             </div>
         </div>
