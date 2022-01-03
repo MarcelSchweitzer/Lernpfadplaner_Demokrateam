@@ -164,23 +164,24 @@ header {
 }
 
 #homeBtn {
-    width: 35px;
+    padding-top: 5px;
+    width: 30px;
 }
 
-.user {
-    text-align: center;
-    width: 300px;
-    height: 35px;
-    margin-top: 2.5px;
+.user{
+    padding: 5px 10px;
+    background-color: red;
+    border-radius: 10px;
 }
 
 #userIcon {
     height: 30px;
     padding-top: 5px;
+    padding-left: 10px;
 }
 
 #usernameText {
-    padding-top: 20px;
+    padding:12px 2px;
 }
 
 .colz-icon a img {
