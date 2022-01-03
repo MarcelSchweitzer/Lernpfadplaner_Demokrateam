@@ -18,13 +18,14 @@ function isValidURL(str) {
   };
 
   function addImage(str) {
-     
+      /*
     let str2=str.substr(-1);
     let source=document.getElementById(str).value;
     let str3="imageID";
     if(isValidURL(source)){
       document.getElementById(str3.concat(str2)).src=source;
     }
+    */
 
   } 
 
