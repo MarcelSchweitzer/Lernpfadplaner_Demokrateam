@@ -42,8 +42,8 @@ function canBeRead(root, calls){
                                 <div class="interactivity">
                                     <p>Interaktivitäten</p>
                                     <div class="interactivityList">
-                                        <% if(canBeRead(data, ['learningPath', 'scenarios']) && 
-                                    data.learningPath.scenarios.length > 0 && 
+                                        <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
+                                    data.learningPath.scenarios.length > 0 &&
                                     canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
                                         let count = 0;
                                         data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
@@ -64,9 +64,9 @@ function canBeRead(root, calls){
                         </div>
                     <div class="col-8 midCol">
                         <div class="material-group scenarios" id="accordion">
-                            <% if(canBeRead(data, ['learningPath','scenarios'])){ 
-                        let count = 0; 
-                        data.learningPath.scenarios.forEach(sc=>{ 
+                            <% if(canBeRead(data, ['learningPath','scenarios'])){
+                        let count = 0;
+                        data.learningPath.scenarios.forEach(sc=>{
                             let lastScenario = count == data.learningPath.scenarios.length - 1;
                             let showLastscenario = lastScenario ? ' show' : '';
                         %>
@@ -108,18 +108,17 @@ function canBeRead(root, calls){
                                                 <div class="inner-material">
 
                                                     <div class="workspace" id="workspace<%= count %>">
-                                                        <img id="imageID" > 
-
+                                                        <script src="js/p5.js"></script>
                                                     </div>
 
                                                     <div class="interactionSettings">
                                                         <div class="form-group">
                                                             <label class="coords" for="x_coord">X</label>
-                                                            <input type="text" class="form-control interSet coords x_coord" id="x_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){ 
+                                                            <input type="text" class="form-control interSet coords x_coord" id="x_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
                                                                 %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].x_coord%>"
                                                                 <%}%>>
                                                             <label class="coords" for="y_coord">Y</label>
-                                                            <input type="text" class="form-control interSet coords y_coord" id="y_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){ 
+                                                            <input type="text" class="form-control interSet coords y_coord" id="y_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
                                                                 %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].y_coord%>"
                                                                 <%}%>>
                                                         </div>
@@ -132,11 +131,11 @@ function canBeRead(root, calls){
                                                         <div class="form-group interactionItem">
                                                             <label for="behaviorSettings">Verhaltenseinstellungen</label>
                                                             <select class="form-control interSet" id="behaviorSettings">
-                                                                <% 
+                                                                <%
                                                                 behaviorModes = ['', 'Hover', 'Click'];
                                                                 behaviorModes.forEach(bm=> { %>
                                                                 <option id="<%= bm %>"
-                                                                    <% 
+                                                                    <%
                                                                         if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].behaviorSettings == bm){%>selected
                                                                     <%}%>>
                                                                     <%= bm %>
@@ -153,7 +152,7 @@ function canBeRead(root, calls){
                                                                     <optgroup label=<%= key %>>
                                                                     <% value.forEach(val=> { %>
                                                                         <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
-                                                                            <% 
+                                                                            <%
                                                                                 if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
                                                                             <%}%>>
                                                                             <%= val %>
