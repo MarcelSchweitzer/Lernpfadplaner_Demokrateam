@@ -10,14 +10,11 @@
             </div>
             <div class="col-9">
                 <div class="colz-icon">
-                  <!--<a href="#" id="usernameText">
+                    <a href="#" id="usernameText">
                         <%= data.nickname %>
-                    </a>-->
-                    <a href="#">
-                        <img class="button" id="exportButton" src="img/export.svg">
                     </a>
                     <a href="#"  data-toggle="modal" data-target="#exampleModal">
-                        <img class="button" id="downloadButton" src="img/download.svg">
+                        <img class="button" src="img/download.svg">
                     </a>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -29,8 +26,8 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Pdf</button>
-                                <button type="button" class="btn btn-secondary">Json</button>
+                                <button type="button" id="exportButton" class="btn btn-secondary" data-dismiss="modal">Pdf</button>
+                                <button type="button" id="downloadButton" class="btn btn-secondary">Json</button>
                             </div>
                           
                           </div>
