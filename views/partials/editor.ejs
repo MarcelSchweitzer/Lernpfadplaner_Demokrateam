@@ -96,9 +96,9 @@ function canBeRead(root, calls){
                                                 <div class="form-group">
                                                     <label for="lpResource<%= count %>">Material URL</label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>" onchange="addImage(this.id)">
+                                                        <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
                                                         <span class="inputImg button">
-                                                            <button class="inputImg button" type="button" onclick="addImage(<%= sc.resource%>)">Einfügen</button>
+                                                            <button class="inputImg button" type="button" onclick="addImage('lpResource<%= count %>')">Einfügen</button>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -108,7 +108,7 @@ function canBeRead(root, calls){
                                                 <div class="inner-material">
 
                                                     <div class="workspace" id="workspace<%= count %>">
-                                                        <img id="imageID" > 
+                                                        <img id="imageID<%= count %>" > 
 
                                                     </div>
 
