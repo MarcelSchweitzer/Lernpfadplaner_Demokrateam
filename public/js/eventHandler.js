@@ -21,7 +21,6 @@ function createCanvases(){
     if(session.learningPathOpened()){
         for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
             workspaceID = 'workspace' + i
-            console.log(workspaceID)
             new p5(newSketch, workspaceID)
         }
     }
@@ -117,7 +116,6 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('openLp')) {
         editID = id.replaceAll('openLp', '');
         getEditPage(editID);
-        session.openlearningPath(editID);
     }
 
     // handle delete learningPath buttons
@@ -229,7 +227,7 @@ document.addEventListener("drop", (event) => {
     if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened()) {
         draggedInteraction.style.opacity = 1;
         event.preventDefault();
-        if (droppedTo.classList.contains('workspace')) {
+        if (droppedTo.classList.contains('p5Canvas')) {
             let category = draggedInteraction.getAttribute('id').split('$$')[0];
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             category.trim()

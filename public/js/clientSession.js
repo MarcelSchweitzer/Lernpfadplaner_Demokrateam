@@ -33,11 +33,18 @@ class Session {
         if(root[calls[0]]){
             let origCalls = calls.slice()
             calls.splice(0, 2, calls[1])
-            return propExists(root[origCalls[0]], calls)
+            return this.propExists(calls, root[origCalls[0]])
         }
         return false
     }
 
+    interactionsExist(){
+        return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios', this.currentScenarioIndex, 'interactions'])
+    }
+
+    ScenariosExist(){
+        return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios'])
+    }
 
     // add learning path to list and return id
     addlearningPath(params) {
@@ -117,6 +124,10 @@ class Session {
     getCurrentInteraction() {
         if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]
+    }
+
+    getCurrentInteractionIndex() {
+        return this.currentInteractionIndex
     }
 
     // change a property of a interaction

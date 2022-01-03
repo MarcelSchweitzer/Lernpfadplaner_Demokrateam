@@ -4,11 +4,16 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
         replaceBody(data);
         fetchlearningPaths(() => {
 
-            // the last scenario is opened by default
-            session.openScenario(session.getProp('scenarios').length - 1);
+            session.openlearningPath(lpid);
 
-            // the first interaction is opened by default
-            session.openInteraction(0);
+            // the last scenario is opened by default
+            if(session.ScenariosExist() && session.getProp('scenarios').length > 0){
+                session.openScenario(session.getProp('scenarios').length - 1);
+
+                // the first interaction is opened by default
+                if(session.interactionsExist() && session.getCurrentScenario().interactions.length > 0)
+                    session.openInteraction(0);
+            }
 
             createCanvases();
             return cb()
