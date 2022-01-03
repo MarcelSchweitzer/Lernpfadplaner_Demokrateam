@@ -153,8 +153,8 @@ header {
     height: 40px;
     top: 0;
     background-color: #f7f7f7;
-    position: sticky;
-    z-index: 1;
+    /*position: sticky;
+    z-index: 1;*/
 }
 
 .settings-icon {
