@@ -8,7 +8,7 @@ function readJson(dataPath){
 // read File, return array line by line
 function textToArray(dataPath){
   text =  fs.readFileSync(dataPath).toString('utf-8');
-  arr = text.split('\r\n')
+  arr = text.split('\n')
   return arr
 }
 
