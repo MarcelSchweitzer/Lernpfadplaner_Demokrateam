@@ -17,17 +17,15 @@ function isValidURL(str) {
     return (res != null)
   };
 
-  function addImage(str) {
-      /*
-    let str2=str.substr(-1);
-    let source=document.getElementById(str).value;
-    let str3="imageID";
-    if(isValidURL(source)){
-      document.getElementById(str3.concat(str2)).src=source;
+function createCanvases(){
+    if(session.learningPathOpened()){
+        for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
+            workspaceID = 'workspace' + i
+            console.log(workspaceID)
+            new p5(newSketch, workspaceID)
+        }
     }
-    */
-
-  } 
+}
 
 // handle click events
 document.addEventListener('click', (event) => {

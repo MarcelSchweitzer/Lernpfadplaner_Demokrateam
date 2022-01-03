@@ -9,6 +9,8 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
 
             // the first interaction is opened by default
             session.openInteraction(0);
+
+            createCanvases();
             return cb()
         });
     });

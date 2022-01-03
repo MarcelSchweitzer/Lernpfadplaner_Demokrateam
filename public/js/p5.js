@@ -1,7 +1,9 @@
-function setup() {
-    createCanvas(800, 800);
-}
-
-function draw() {
-    background(10);
-}
+function newSketch(p) {
+    p.setup = function () {
+      p.createCanvas(400,400);
+    }
+  
+    p.draw = function () {
+      p.background(10);
+    }
+  }
