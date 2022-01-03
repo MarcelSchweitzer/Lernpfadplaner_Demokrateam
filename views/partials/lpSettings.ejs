@@ -1,10 +1,15 @@
-<div class="container lpSettings">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
+integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container-fluid lpSettings">
     <div class="setting-section">
         <h3>Lernpfad-Einstellungen</h3>
         <div class="settingsItem" id="title">
             <label for="lpTitleInput">Titel</label>
             <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
         </div>
+    <div class="col-9">
         <div class="settingsItem" id="interactivityTypes">
             <label for="myTab">Interaktionstypen für diesen Lernpfad</label>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -29,7 +34,9 @@
                     let active = counter == 0 ? ' active' : ''; %>
                 <div class="tab-pane fade<%= showActive %>" id="<%= key %>" role="tabpanel" aria-labelledby="
                 <%= key %>-tab">
-                    <div class="<%= key %> <%= active %>">
+                  <div class="container sub-menu">
+                    <div class="row">
+                    <div class="col-2 <%= key %> <%= active %>">
                     <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
                         <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
                         <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
@@ -37,9 +44,12 @@
                         <% }); %>
                     </div>
                 </div>
+                </div>
+                </div>
                 <%counter++} %>
             </div>
             <%} %>
         </div>
+    </div>
     </div>
 </div>
