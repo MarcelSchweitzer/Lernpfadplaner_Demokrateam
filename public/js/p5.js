@@ -2,21 +2,27 @@ var bg
 
 function newSketch(p) {
     p.setup = function () {
+      p.background(0, 0, 0, 0);
+      if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource'])){
+        // console.log("loading image!..")
 
-      if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource']))
-        bg = p.loadImage('https://cors-anywhere.herokuapp.com/'+session.getCurrentScenario().resource)
-      else
-        bg = 230
+        // Creates CORS Error because resource is on a different server
+
+        //bg = p.loadImage(session.getCurrentScenario().resource)
+        // bg.crossOrigin = "";
+      }else{
+        // bg = 230
+      }
 
       // TODO make canvas parent(workspace) size
-      p.createCanvas(600, 400); 
+      p.createCanvas(900, 500); 
     }
   
     p.draw = function () {
-      p.background(230);
+      p.clear();
 
       // draw one frame per second
-      p.frameRate(1);
+      p.frameRate(3);
 
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
         interactions = session.getCurrentScenario().interactions

@@ -10,18 +10,34 @@ $(document).ready(() => {
     fetchlearningPaths();
 });
 
-function isValidURL(str) {
-    var res = str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+function isValidURL(url) {
+    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     if(res==null)
-        alert("Unvalid URL");
+        alertToUser("Bild konnte nicht geladen werden!")
     return (res != null)
   };
+
+function updateWorkspaceBackground(source) {
+    workspaceID = '#workspace' + session.getCurrentScenarioIndex()
+    urlHandle = "url("+source+")"
+    $(workspaceID).css("background-image", urlHandle);
+}
 
 function createCanvases(){
     if(session.learningPathOpened()){
         for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
             workspaceID = 'workspace' + i
             new p5(newSketch, workspaceID)
+        }
+    }
+}
+
+function loadWorkspaceBackgrounds(){
+    if(session.ScenariosExist() && session.getCurrentlearningPath().scenarios.length > 0){
+        for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
+            workspaceID = '#workspace' + i
+            urlHandle = "url("+session.getCurrentlearningPath().scenarios[i].resource + ")"
+            $(workspaceID).css("background-image", urlHandle);
         }
     }
 }
@@ -169,6 +185,7 @@ document.addEventListener('input', (event) => {
     } else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
+        updateWorkspaceBackground(input.value)
     } else if (classes.contains('interactivityInputCB')) {
         let checked = input.checked
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');

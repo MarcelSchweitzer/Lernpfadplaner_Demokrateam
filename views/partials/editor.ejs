@@ -97,9 +97,6 @@ function canBeRead(root, calls){
                                                     <label for="lpResource<%= count %>">Material URL</label>
                                                     <div class="input-group">
                                                         <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
-                                                        <span class="inputImg button">
-                                                            <button class="inputImg button" type="button" onclick="addImage('lpResource<%= count %>')">Einfügen</button>
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </form>
@@ -107,7 +104,7 @@ function canBeRead(root, calls){
                                                 <label>Arbeitsbereich</label>
                                                 <div class="inner-material">
                                                     <div class="workspace" id="workspace<%= count %>"></div>
-
+                                                    <!-- <image class="workSpaceImage" id="workSpaceImage<%= count %>"></image> -->
                                                     <div class="interactionSettings">
                                                         <div class="form-group">
                                                             <label class="coords" for="x_coord">X</label>

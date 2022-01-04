@@ -38,6 +38,7 @@
     float: left;
     display: inline;
     background-color: transparent;
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 
