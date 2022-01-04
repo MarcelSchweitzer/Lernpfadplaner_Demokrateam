@@ -6,7 +6,7 @@ function newSketch(p) {
       if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource'])){
         // console.log("loading image!..")
 
-        // Creates CORS Error because resource is on a different server
+        // Creates CORS Error
 
         //bg = p.loadImage(session.getCurrentScenario().resource)
         // bg.crossOrigin = "";
@@ -21,7 +21,6 @@ function newSketch(p) {
     p.draw = function () {
       p.clear();
 
-      // draw one frame per second
       p.frameRate(3);
 
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
