@@ -1,8 +1,13 @@
 body {
     box-sizing: border-box;
+    background: radial-gradient(rgba(71, 130, 211, 0.59) 0%, #e5e5ec 100%);
     /*background-image: url("/img/settings.png");*/
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.row {
+    margin: 5px;
 }
 
 .image-cover {
@@ -153,9 +158,11 @@ header {
     width: 100%;
     height: 40px;
     top: 0;
-    background-color: #f7f7f7;
-    /*position: sticky;
-    z-index: 1;*/
+    /*background-color: #f7f7f7;*/
+    background-color: transparent;
+    position: fixed;
+    z-index: 1;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .settings-icon {
@@ -165,7 +172,6 @@ header {
 }
 
 #homeBtn {
-    padding-top: 5px;
     width: 30px;
 }
 
@@ -177,7 +183,6 @@ header {
 
 #userIcon {
     height: 30px;
-    padding-top: 5px;
     padding-left: 10px;
 }
 
@@ -187,7 +192,7 @@ header {
 
 .colz-icon a img {
     width: 35px;
-    padding-top: 9px;
+    padding-top: 2px;
     float: right;
     padding-right: 10px;
     cursor: pointer;
@@ -214,11 +219,14 @@ header {
 footer {
     width: 100%;
     height: 40px;
-    background-color: #f7f7f7;
-    position: sticky;
+    background-color: transparent;
+    /*background-color: #f7f7f7;*/
+    position: fixed;
     bottom:0;
     left: 0;
     z-index: -1;
+    margin-top: 20px;
+    margin-left: 5px;
 }
 
 @media screen and (max-width:1110px) {
@@ -290,9 +298,16 @@ footer {
     vertical-align: middle;
 }
 
-footer {
-    margin-top: 20px;
-    position: fixed;
-    bottom: 0;
+#createLpBtn {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
+.history{
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.deleteLpClass{
+    margin-left: 5px;
+
+}

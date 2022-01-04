@@ -2,16 +2,16 @@ var bg
 
 function newSketch(p) {
     p.setup = function () {
-      p.background(0, 0, 0, 0);
+      //p.background(0, 0, 0, 0);
       if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource'])){
         // console.log("loading image!..")
 
         // Creates CORS Error
 
-        //bg = p.loadImage(session.getCurrentScenario().resource)
+        bg = p.loadImage(session.getCurrentScenario().resource)
         // bg.crossOrigin = "";
       }else{
-        // bg = 230
+        bg = 230
       }
 
       // TODO make canvas parent(workspace) size
@@ -20,7 +20,7 @@ function newSketch(p) {
   
     p.draw = function () {
       p.clear();
-
+      p.background(bg);
       p.frameRate(3);
 
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){

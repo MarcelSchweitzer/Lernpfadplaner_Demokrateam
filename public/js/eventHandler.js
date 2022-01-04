@@ -185,7 +185,7 @@ document.addEventListener('input', (event) => {
     } else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        updateWorkspaceBackground(input.value)
+        //updateWorkspaceBackground(input.value)
     } else if (classes.contains('interactivityInputCB')) {
         let checked = input.checked
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
