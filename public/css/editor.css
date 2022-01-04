@@ -1,239 +1,261 @@
 .sidepanel::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-.sidepanel{
-    width: 15%;
-    height: 85%;
-    margin-top: 60px;
-    margin-bottom: 100px;
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: fixed;
-    scrollbar-width: none;
+.sidepanel {
+  width: 15%;
+  height: 85%;
+  margin-top: 60px;
+  margin-bottom: 100px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  scrollbar-width: none;
 }
 
 .midCol {
-    margin-top: 20px;
-    width: 65%;
+  margin-top: 20px;
+  width: 65%;
 }
 
 .material-group {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .inner-material {
-    width: 100%;
-    height: 500px;
-    border: 1px solid #f7f7f7;
+  width: 100%;
+  height: 500px;
+  border: 1px solid #f7f7f7;
 }
 
 .workspace {
-    height: 100%;
-    width: 80%;
-    float: left;
-    display: inline;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    cursor: pointer;
+  height: 100%;
+  width: 80%;
+  float: left;
+  display: inline;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .p5Canvas {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-.coords{
-    display: inline;
-    width: 30%;
-    margin-left: 5%;
+.coords {
+  display: inline;
+  width: 30%;
+  margin-left: 5%;
 }
 
 .interactionSettings {
-    height: 100%;
-    width: 20%;
-    float: left;
-    display: inline;
-    text-align: center;
-    background-color: #ffffff;
-    padding-top: 15px;
+  height: 100%;
+  width: 20%;
+  float: left;
+  display: inline;
+  text-align: center;
+  background-color: #ffffff;
+  padding-top: 15px;
 }
 
-.interactionItem{
-    width: 80%;
-    display: inline-block;
+.interactionItem {
+  width: 80%;
+  display: inline-block;
 }
+
+footer {
+    margin-top: 20px;
+    position: relative;
+  }
 
 .note {
-    padding-top: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 36px;
 }
 
 .note p {
-    padding-top: 20px;
-    text-align: center;
+  padding-top: 20px;
+  text-align: center;
 }
 
 .note img {
-    width: 40%;
-    display: block;
-    margin: 10px auto;
-    opacity: 0.7;
+  width: 40%;
+  display: block;
+  margin: 10px auto;
+  opacity: 0.7;
 }
 
 .note img:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .btn-link {
-    color: #000 !important;
-    text-decoration: none !important;
+  color: #000 !important;
+  text-decoration: none !important;
 }
 
 .script {
-    width: 30px;
-    padding-right: 10px;
+  width: 30px;
+  padding-right: 10px;
 }
 
 .rate-part {
-    text-align: center;
+  text-align: center;
 }
 
 .rate {
-    display: flex;
-    justify-content: center;
-    height: 46px;
-    padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  height: 46px;
+  padding: 0 10px;
 }
 
-.rate:not(:checked)>input {
-    position: absolute;
-    top: -9999px;
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
 }
 
-.rate:not(:checked)>label {
-    float: right;
-    width: 1em;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 30px;
-    color: #ccc;
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
 }
 
-.rate:not(:checked)>label:before {
-    content: '★ ';
+.rate:not(:checked) > label:before {
+  content: "★ ";
 }
 
-.rate>input:checked~label {
-    color: #ffc700;
+.rate > input:checked ~ label {
+  color: #ffc700;
 }
 
-.rate:not(:checked)>label:hover,
-.rate:not(:checked)>label:hover~label {
-    color: #deb217;
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
 }
 
-.rate>input:checked+label:hover,
-.rate>input:checked+label:hover~label,
-.rate>input:checked~label:hover,
-.rate>input:checked~label:hover~label,
-.rate>label:hover~input:checked~label {
-    color: #c59b08;
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
 }
 
 .activity p {
-    text-align: center;
+  text-align: center;
 }
-
 
 /* text on notes */
 
 .noteContainer {
-    position: relative;
-    text-align: center;
-    color: rgb(66, 66, 66);
+  position: relative;
+  text-align: center;
+  color: rgb(66, 66, 66);
 }
 
 .notesLeft {
-    position: absolute;
-    top: 8px;
-    left: 16px;
+  position: absolute;
+  top: 8px;
+  left: 16px;
 }
 
 .interactivityCategory {
-    text-decoration: underline;
-    font-weight: bold;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .note {
-    height: 300px;
-    overflow: hidden;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
 }
 
 #lpNotes {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    padding-right: 17px;
-    box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 17px;
+  box-sizing: content-box;
+  background-image: url("/img/post-it.png");
+  background-size: cover;
+}
+
+.noteMaximize {
+  width: 50px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+#lpNotesModal {
+  height: 470px;
+  background-image: url("/img/post-it.png");
+  background-size: cover;
 }
 
 .categoryBox {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .interactivityBox {
-    border-radius: 10px;
-    height: 30px;
-    margin-top: 3px;
-    text-align: center;
-    vertical-align: middle;
-    background-color: rgb(172, 172, 172);
-    width: 100%;
-    overflow: hidden;
-    cursor: pointer;
-    text-overflow: ellipsis;
+  border-radius: 10px;
+  height: 30px;
+  margin-top: 3px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgb(172, 172, 172);
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  text-overflow: ellipsis;
 }
 
 .selectedInteractivity {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
-.interactivityListItem{
-    width: 100%;
-    height: 100%;
+.interactivityListItem {
+  width: 100%;
+  height: 100%;
 }
 
-.interactivityListElem{
-    border-radius: 10px;
-    height: auto;
-    width: 100%;
-    margin-top: 3px;
-    text-align: center;
-    vertical-align: middle;
-    background-color: rgb(172, 172, 172);
-    padding: 2px;
+.interactivityListElem {
+  border-radius: 10px;
+  height: auto;
+  width: 100%;
+  margin-top: 3px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgb(172, 172, 172);
+  padding: 2px;
 }
 
 .workspace img {
-    border-radius: 8px;
-    max-height: 50%;
-    max-width: 100%;
-    height: auto;
-    padding-top: 50px;
-    padding-right: 30px;
-    padding-bottom: 50px;
-    padding-left: 80px;
+  border-radius: 8px;
+  max-height: 50%;
+  max-width: 100%;
+  height: auto;
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;
 }
 
 .inputImg button {
-    color: white;
-    background-color: #6da5f8;
-    height: 38px;
+  color: white;
+  background-color: #6da5f8;
+  height: 38px;
 }
-
