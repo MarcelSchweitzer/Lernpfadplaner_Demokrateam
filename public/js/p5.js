@@ -2,7 +2,6 @@ var bg
 
 function newSketch(p) {
     p.setup = function () {
-      //p.background(0, 0, 0, 0);
       if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource'])){
         // console.log("loading image!..")
 
@@ -20,7 +19,10 @@ function newSketch(p) {
   
     p.draw = function () {
       p.clear();
-      p.background(bg);
+      //load as image
+      p.image(bg, 0, 0);
+      
+      //p.background(bg);
       p.frameRate(3);
 
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
