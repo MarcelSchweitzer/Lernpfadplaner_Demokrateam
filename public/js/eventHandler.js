@@ -108,12 +108,16 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('openScenario')) {
         scenarioIndex = id.replaceAll('openScenario', '')
         collapseID = '#collapse' + scenarioIndex
+        imgID = '#openScenario' + scenarioIndex + 'Img'
         if (!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex()){
-            $(collapseID).collapse('show')
             session.openScenario(scenarioIndex)
+            $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
+            $(imgID).attr("src","./img/arrows-collapse.svg");
+            $(collapseID).collapse('show')
         }else{
-            $(collapseID).collapse('hide')
             session.closeScenario()
+            $(imgID).attr("src","./img/arrows-fullscreen.svg");
+            $(collapseID).collapse('hide')
         }
             
         refreshInteractivityList();
@@ -185,7 +189,7 @@ document.addEventListener('input', (event) => {
     } else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        //updateWorkspaceBackground(input.value)
+        updateWorkspaceBackground(input.value)
     } else if (classes.contains('interactivityInputCB')) {
         let checked = input.checked
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
@@ -259,15 +263,15 @@ document.addEventListener("drop", (event) => {
 }, false);
 
 function refreshInteractivityList() {
+    $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
-        $('.interactivityList').html('');
+        
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
         refreshInteractivityInputs();
     }
-
 }
 
 function refreshInteractivityInputs() {

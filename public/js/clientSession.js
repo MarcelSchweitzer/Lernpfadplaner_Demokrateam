@@ -185,11 +185,13 @@ class Session {
 
     // open a scenario by index
     openScenario(index) {
+        console.log("open scenario "+index)
         this.currentScenarioIndex = index;
     }
 
     // close the current scenario
     closeScenario() {
+        console.log("close scenario "+this.currentScenarioIndex)
         this.currentScenarioIndex = null;
         this.currentInteractionIndex = null;
     }

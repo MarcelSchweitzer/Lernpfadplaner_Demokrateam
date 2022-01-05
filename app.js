@@ -1,3 +1,4 @@
+
 const express = require('express');
 const session = require('express-session');
 const PsqlStore = require('./src/psqlStore.js')(session);
@@ -118,6 +119,7 @@ app.get('/create', (req, res) => {
                     'evaluationModeID': 'Punkte',
                     'scenarios': [{
                         'title': 'Neues Szenario',
+                        'resource': 'img/example.jpg'
                     }],
                     'interactivityTypes': { 
                         'Global': [
