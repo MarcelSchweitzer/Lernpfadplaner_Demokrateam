@@ -105,21 +105,26 @@ document.addEventListener('click', (event) => {
     }
 
     // handle open scenario buttons
-    else if (classes.contains('openScenario')) {
-        scenarioIndex = id.replaceAll('openScenario', '')
-        collapseID = '#collapse' + scenarioIndex
-        imgID = '#openScenario' + scenarioIndex + 'Img'
-        if (!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex()){
-            // $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
-            //$(imgID).attr("src","./img/arrows-collapse.svg");
-            $(collapseID).collapse('show')
-            session.openScenario(scenarioIndex)
-        }else{
-            //$(imgID).attr("src","./img/arrows-fullscreen.svg");
-            $(collapseID).collapse('hide')
-            session.closeScenario()
-        }
-            
+    else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
+        let scenarioIndex = id.replaceAll('openScenario', '')
+        scenarioIndex = scenarioIndex.replaceAll('Img', '')
+        let collapseID = '#collapse' + scenarioIndex
+        let isExpanded = $(collapseID).attr("aria-expanded");
+        let imgID = '#openScenario' + scenarioIndex + 'Img'
+        let classListCollapse = document.getElementById(collapseID.replaceAll('#', '')).className.split(/\s+/);
+        if(!classListCollapse.includes('collapsing')){
+            if ((!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex())){
+                $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
+                $(imgID).attr("src","./img/arrows-collapse.svg");
+                $(collapseID).collapse('show')
+                session.openScenario(scenarioIndex)
+                
+            }else if(session.scenarioOpened() && scenarioIndex == session.getCurrentScenarioIndex()){
+                $(imgID).attr("src","./img/arrows-fullscreen.svg");
+                $(collapseID).collapse('hide')
+                session.closeScenario()
+            }
+        }   
         refreshInteractivityList();
     }
 
