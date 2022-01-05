@@ -11,7 +11,7 @@ function newSketch(p) {
       let height = workspace.clientHeight;
 
       // TODO make canvas parent(workspace) size
-      p.createCanvas(600, 400); 
+      p.createCanvas(949, 498); 
     }
   
     p.draw = function () {

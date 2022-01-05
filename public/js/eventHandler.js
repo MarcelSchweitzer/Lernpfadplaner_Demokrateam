@@ -110,14 +110,14 @@ document.addEventListener('click', (event) => {
         collapseID = '#collapse' + scenarioIndex
         imgID = '#openScenario' + scenarioIndex + 'Img'
         if (!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex()){
-            session.openScenario(scenarioIndex)
-            $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
-            $(imgID).attr("src","./img/arrows-collapse.svg");
+            // $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
+            //$(imgID).attr("src","./img/arrows-collapse.svg");
             $(collapseID).collapse('show')
+            session.openScenario(scenarioIndex)
         }else{
-            session.closeScenario()
-            $(imgID).attr("src","./img/arrows-fullscreen.svg");
+            //$(imgID).attr("src","./img/arrows-fullscreen.svg");
             $(collapseID).collapse('hide')
+            session.closeScenario()
         }
             
         refreshInteractivityList();
