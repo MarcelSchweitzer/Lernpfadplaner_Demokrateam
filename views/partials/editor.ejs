@@ -45,6 +45,18 @@ function canBeRead(root, calls){
                                     </div>
                             </div>
                             <hr>
+                            <div class="taxonomy-part">
+                                <p>Taxonomiestufe</p>
+                                <form>
+                                    <div class="form-group col-12">
+                                        <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
+                                        <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
+                                        <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
+                                        <% }); } %>
+                                    </select>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="rate-part">
                                 <p>Bewertungsmodus </p>
                                 <form>

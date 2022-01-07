@@ -7,6 +7,8 @@ const dbMan = require('./src/dbManager.js');
 const fstk = require('./src/fileSystemToolkit.js');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactivityTypes = fstk.readJson('./res/interactionTypes.json');
+const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
+console.log(taxonomyLevels);
 
 require('dotenv').config();
 
@@ -85,7 +87,8 @@ app.get('/editor', (req, res) => {
                     res.render('partials/editor', {
                         data: {
                             'learningPath': data[0]['content'],
-                            'evaluationModes': evaluationModes
+                            'evaluationModes': evaluationModes,
+                            'taxonomyLevels': taxonomyLevels
                         }
                     });
                 } else {

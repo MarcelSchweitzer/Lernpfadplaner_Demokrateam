@@ -176,6 +176,8 @@ document.addEventListener('input', (event) => {
         updateLpProperty('notes', input.value);
     } else if (id == 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
+    } else if (id == 'lpTaxonomyLevel') {
+        updateLpProperty('taxonomyLevelID', input.value);
     } else if (id == 'lpTitleInput') {
         updateLpProperty('title', input.value);
     } else if (id == 'userNameInput') {
