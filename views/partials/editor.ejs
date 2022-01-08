@@ -45,6 +45,18 @@ function canBeRead(root, calls){
                                     </div>
                             </div>
                             <hr>
+                            <div class="taxonomy-part">
+                                <p>Taxonomiestufe</p>
+                                <form>
+                                    <div class="form-group col-12">
+                                        <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
+                                        <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
+                                        <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
+                                        <% }); } %>
+                                    </select>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="rate-part">
                                 <p>Bewertungsmodus </p>
                                 <form>
@@ -95,7 +107,7 @@ function canBeRead(root, calls){
                                         <h5 class="mb-0">
                                             <input type="text" class="form-control lpTitleInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
                                             <button class="btn btn-link openScenario" data-toggle="collapse" id="openScenario<%= count %>" style="width:100%;"  aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
-                                    <img src="./img/script.png" id="openScenario<%= count %>" alt="script" class="script">
+                                    <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                 </button>
                                             <button class="button btn btn-warning deleteScenario" style="width:20%;" id="deleteScenario<%= count %>">-</button>
                                         </h5>

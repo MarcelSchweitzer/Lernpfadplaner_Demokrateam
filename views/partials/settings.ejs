@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
 integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
 crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="container-fluid">
+<div class="container">
     <div class="cover-background">
-        <div class="row">
+        <div class="row setting-sec" >
         <img class="img-background" src="img/settings.png">
-        <div class="col-10">
+        <div class="col-md-12">
             <div class="material-group">
                 <% if(data.lpSet == true){ %>
                 <div>
@@ -21,7 +21,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 </div>
                 <% } %>
                 <div class="profile-options">
-                    <button class="button btn btn-success" id="saveSettingsBtn"> Speichern </button>
+                    <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button>
                 </div>
             </div>
         </div>

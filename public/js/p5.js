@@ -3,33 +3,28 @@ var bg
 function newSketch(p) {
     p.setup = function () {
       p.background(0, 0, 0, 0);
-      if(session.propExists([session.getLpIndexById(session.getCurrentlearningPathId()),'scenarios', session.getCurrentScenarioIndex(), 'resource'])){
-        // console.log("loading image!..")
+      p.noFill();
+      p.colorMode(p.RGB, 255, 255, 255, 1);
 
-        // Creates CORS Error
-
-        //bg = p.loadImage(session.getCurrentScenario().resource)
-        // bg.crossOrigin = "";
-      }else{
-        // bg = 230
-      }
+      let workspace = document.querySelector('.workspace');
+      let width = workspace.clientWidth;
+      let height = workspace.clientHeight;
 
       // TODO make canvas parent(workspace) size
-      p.createCanvas(900, 500); 
+      p.createCanvas(949, 498); 
     }
   
     p.draw = function () {
       p.clear();
 
-      p.frameRate(3);
+      p.frameRate(10);
 
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
         interactions = session.getCurrentScenario().interactions
         for(i = 0; i < interactions.length; i++){
-          let c = i == session.getCurrentInteractionIndex() ? p.color(255, 0, 0) : p.color(0, 255, 0);
-          p.fill(c);
-          p.noStroke();
-          p.circle(interactions[i].x_coord, interactions[i].y_coord, 20);
+          i == session.getCurrentInteractionIndex() ? p.stroke(205, 12, 30, 0.7) : p.stroke(12, 230, 30, 0.3);
+          p.strokeWeight(10);
+          p.circle(interactions[i].x_coord, interactions[i].y_coord, 40);
         }
       }
     }

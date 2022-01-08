@@ -105,17 +105,26 @@ document.addEventListener('click', (event) => {
     }
 
     // handle open scenario buttons
-    else if (classes.contains('openScenario')) {
-        scenarioIndex = id.replaceAll('openScenario', '')
-        collapseID = '#collapse' + scenarioIndex
-        if (!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex()){
-            $(collapseID).collapse('show')
-            session.openScenario(scenarioIndex)
-        }else{
-            $(collapseID).collapse('hide')
-            session.closeScenario()
-        }
-            
+    else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
+        let scenarioIndex = id.replaceAll('openScenario', '')
+        scenarioIndex = scenarioIndex.replaceAll('Img', '')
+        let collapseID = '#collapse' + scenarioIndex
+        let isExpanded = $(collapseID).attr("aria-expanded");
+        let imgID = '#openScenario' + scenarioIndex + 'Img'
+        let classListCollapse = document.getElementById(collapseID.replaceAll('#', '')).className.split(/\s+/);
+        if(!classListCollapse.includes('collapsing')){
+            if ((!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex())){
+                $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
+                $(imgID).attr("src","./img/arrows-collapse.svg");
+                $(collapseID).collapse('show')
+                session.openScenario(scenarioIndex)
+                
+            }else if(session.scenarioOpened() && scenarioIndex == session.getCurrentScenarioIndex()){
+                $(imgID).attr("src","./img/arrows-fullscreen.svg");
+                $(collapseID).collapse('hide')
+                session.closeScenario()
+            }
+        }   
         refreshInteractivityList();
     }
 
@@ -167,6 +176,8 @@ document.addEventListener('input', (event) => {
         updateLpProperty('notes', input.value);
     } else if (id == 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
+    } else if (id == 'lpTaxonomyLevel') {
+        updateLpProperty('taxonomyLevelID', input.value);
     } else if (id == 'lpTitleInput') {
         updateLpProperty('title', input.value);
     } else if (id == 'userNameInput') {
@@ -259,15 +270,15 @@ document.addEventListener("drop", (event) => {
 }, false);
 
 function refreshInteractivityList() {
+    $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
-        $('.interactivityList').html('');
+        
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
         refreshInteractivityInputs();
     }
-
 }
 
 function refreshInteractivityInputs() {
