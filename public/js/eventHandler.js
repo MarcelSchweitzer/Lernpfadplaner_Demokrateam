@@ -327,3 +327,9 @@ setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
 }, 10000)
+
+$(function(){
+    $('#clickme').click(function(){
+        $('#uploadme').click();
+    });
+});
