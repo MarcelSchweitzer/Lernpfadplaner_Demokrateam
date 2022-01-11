@@ -26,7 +26,10 @@ body {
 .image-cover img {
     width: 84%;
     display: block;
-    margin: 8% auto;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin: 8% auto;*/
+    margin-top:10%;
 }
 
 .sub-menu{
@@ -285,15 +288,31 @@ footer a:hover{
     text-decoration:none;
     color:#000;
 }
-@media screen and (max-width:1110px) {
+@media screen and (max-width:1024px) {
+    .info-box{
+        width:340px;
+        margin: 35% 8%;
+      
+    }
+    .image-cover{
+        margin-top:6.5%;
+    }
     .profile-options .btn {
-        width: 120px;
+        width: 140px;
         padding: 11px 0;
         z-index: 700;
     }
 }
 
 @media screen and (max-width:810px) {
+    .info-box{
+        width:60%;
+        display: block;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:7%;
+        margin-bottom:0%;
+    }
     .profile-options {
         display: flex;
         justify-content: space-between;
@@ -309,11 +328,55 @@ footer a:hover{
         text-align: center;
     }
 }
+@media screen and (min-width:740px) and  (max-width:768px){
+    
+  .landing{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+  }
+  .col-md-4{
+      max-width:100%;
+  }
+  .info-box{
+    width:100%;
+    margin:12% 0%;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+}
+.profile-options .btn {
+    width: 160px;
+    padding: 11px 0;
+    z-index: 700;
+}
+.image-cover img{
+    width:100%;
+   margin: 0% 0%;
 
+}
+}
 @media screen and (max-width:575px) {
     .info-box {
-        width: 360px;
-        margin: 20% 3.5%;
+        width: 350px;
+        margin: 10% auto;
+        font-size: 14px;
+    }
+    .profile-options .btn {
+        width:150px;
+    }
+}
+@media screen and (max-width:412px) {
+    .info-box {
+        width: 290px;
+        margin: 10% auto;
+        font-size: 14px;
+    }
+    .profile-options .btn {
+        width:150px;
+    }
+    .image-cover img{
+        margin-bottom: 10%;
     }
 }
 
