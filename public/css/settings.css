@@ -9,9 +9,10 @@
     color: #1f2235;
 }
 .profile-options button{
+    display: flex;
+    flex-direction:row;
     display: block;
-    margin-right:auto;
-    margin-left: auto;
+   margin:10px auto;
     border: 2px solid linen !important;
     background-color: #1f2235 !important;
 }
@@ -30,23 +31,7 @@
 .material-group{
     min-height: 100vh;
 }
-/*.active {
-    display: grid;
-    grid-template-columns: repeat(8, 0fr);
-    gap: 35px;
-    background-color: white;
-    padding: 40px 0px 0px 0px;
-    font-size: 14px;
-}
 
-.sub-menu {
-    display: grid;
-    background-color: white;
-    grid-template-columns: repeat(4, 0fr);
-    gap: 35px;
-    padding: 40px 0px 0px 40px;
-    font-size: 14px;
-}*/
 .nav-item{
     font-size: 14px;
 }

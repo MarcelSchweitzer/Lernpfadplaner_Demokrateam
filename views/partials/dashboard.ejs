@@ -16,7 +16,7 @@
                             <div id="openLpDiv<%= lp['lpid'] %>">
                                 <button class="button btn btn-primary openLp" id="openLp<%= lp['lpid'] %>">
                                 <%= lp['title'] %>
-                            </button>
+                                </button>
                             </div>
                             <div class="deleteLpClass" id="deleteLpDiv<%= lp['lpid'] %>">
                                 <button class="button btn btn-warning deleteLp" id="delete<%= lp['lpid']%>">x</button>
@@ -24,7 +24,8 @@
                         </div>
                         <% }); %>
                 </div>
-            </div>
+           
+           </div>
         </div>
     </section>
     <input type="file" accept=".json" id="upload" hidden/>

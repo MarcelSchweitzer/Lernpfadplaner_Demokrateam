@@ -4,7 +4,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="container lpSettings">
     <div class="setting-section">
-        <h3>Lernpfad-Einstellungen</h3>
+        <p class="top-name">
+            <h3>Lernpfad-Einstellungen</h3>
+        </p>
+       
         <div class="settingsItem col-md-8" id="title">
             <label for="lpTitleInput">Titel</label>
             <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
@@ -36,7 +39,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <%= key %>-tab">
                     <div class="items <%= key %> <%= active %>">
                     <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
-                       <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
+                       <input  class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
                         <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
                         <label for="<%= val %>CB"><%= val %></label>
                         <br>

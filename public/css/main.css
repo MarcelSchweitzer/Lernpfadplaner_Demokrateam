@@ -108,8 +108,9 @@ body {
     display: inline-block;
     border: 2px solid linen !important;
     background-color: #1f2235 !important;
+    text-align:center;
     color: #ffffff;
-    padding: 0.5rem;
+    padding: 0.7rem;
     font-family: sans-serif;
     border-radius: 0.3rem;
     cursor: pointer;
@@ -268,6 +269,16 @@ header {
     height: 100%;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
+.top-name{
+    padding: 8px;
+}
+.deleteLpClass button{
+    width: 60px;
+    height: 38px;
+    border-radius:50%;
+
+}
+
 footer {
     background-color: transparent;
     color: #000;  
@@ -377,6 +388,28 @@ footer a:hover{
     }
     .image-cover img{
         margin-bottom: 10%;
+    }
+    .start-btn button{
+        width:250px;
+    }
+    .import-btn{
+        width:250px;
+    }
+    .colz-icon{
+        margin-right:10px;
+    }
+    .colz-icon a img{
+        width:20px;
+        margin:5px;
+    }
+    .home a{
+        font-size:12px;
+    }
+    .head img{
+        width:20px;
+    }
+    #homeBtn{
+        width:20px; 
     }
 }
 
