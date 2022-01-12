@@ -174,7 +174,11 @@ document.addEventListener('input', (event) => {
 
     if (id == 'lpNotes') {
         updateLpProperty('notes', input.value);
-    } else if (id == 'lpEvaluationMode') {
+        $("#lpNotesModal").val(input.value);
+    }else if (id == 'lpNotesModal') {
+        updateLpProperty('notes', input.value);
+        $("#lpNotes").val(input.value);
+    }else if (id == 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
     } else if (id == 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevelID', input.value);
