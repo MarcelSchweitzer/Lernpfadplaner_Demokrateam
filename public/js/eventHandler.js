@@ -328,8 +328,24 @@ setInterval(function() {
         saveCurrentLp()
 }, 10000)
 
-$(function(){
-    $('#clickme').click(function(){
-        $('#uploadme').click();
+
+// import functions
+
+document.querySelector('.sbm').addEventListener('click', () => {
+
+    let fileReader = new FileReader();
+    fileReader.onload = function () {
+        let parsedJSON = JSON.parse(fileReader.result);
+        importLP(parsedJSON);
+    }
+    fileReader.readAsText(document.querySelector('.file').files[0]);
+
+})
+
+function importLP(json) {
+    console.log(json)
+    createLpOnServer(() => {
+        fetchlearningPaths();
+        getSettingsPage(mode = 'lpSettingsOnly');
     });
-});
+}
