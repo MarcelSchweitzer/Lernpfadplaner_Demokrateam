@@ -50,7 +50,6 @@ class Session {
     addlearningPath(params) {
         let lp = params;
         this.learningPaths = insertAt(this.learningPaths, lp);
-        console.log(this.learningPaths)
     }
 
     // remove Learning Path from list
