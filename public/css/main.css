@@ -198,16 +198,16 @@ body {
 }
 
 header {
+    position:fixed; 
     width: 100.8%;
     height: 40px;
     top: 0;
+    z-index: 900;
 }
 .head{
     width: 100.8%;
     background-color: transparent;
     box-shadow: 0 8px 6px -6px rgba(83, 83, 83, 0.473);
-    
-    z-index: 1;
 }
 .settings-icon {
     width: 3%;

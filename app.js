@@ -8,7 +8,6 @@ const fstk = require('./src/fileSystemToolkit.js');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactivityTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
-console.log(taxonomyLevels);
 
 require('dotenv').config();
 
