@@ -46,6 +46,7 @@ function getSettingsPage(mode = null) {
 // push any learningPath to the server
 function learningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
+        console.log(JSON.stringify(learningPath))
         $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
             if (status === 'success')
                 return cb()
