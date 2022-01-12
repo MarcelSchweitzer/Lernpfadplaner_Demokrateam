@@ -290,6 +290,7 @@ footer {
     clear: both;
     margin-top:100px !important;
     position: fixed;
+    z-index: -1;
 }
 footer a{
     color: #000;
