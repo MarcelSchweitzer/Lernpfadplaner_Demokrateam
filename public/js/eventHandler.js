@@ -346,10 +346,15 @@ document.querySelector('.sbm').addEventListener('click', () => {
 
 })
 
+function refreshPage(){
+    window.location.reload();
+    window.location.reload();
+}
+
 function importLP(json) {
     console.log(json)
-    createLpOnServer(() => {
-        fetchlearningPaths();
-        getSettingsPage(mode = 'lpSettingsOnly');
+    $.get('/create').done((data, status) => {
+        session.addlearningPath(json);
     });
+    refreshPage()
 }
