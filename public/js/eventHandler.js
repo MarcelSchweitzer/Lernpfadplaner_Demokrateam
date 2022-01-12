@@ -108,9 +108,8 @@ document.addEventListener('click', (event) => {
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
         let scenarioIndex = id.replaceAll('openScenario', '')
         scenarioIndex = scenarioIndex.replaceAll('Img', '')
-        let collapseID = '#collapse' + scenarioIndex
-        let isExpanded = $(collapseID).attr("aria-expanded");
-        let imgID = '#openScenario' + scenarioIndex + 'Img'
+        let collapseID = '#collapse' + scenarioIndex;
+        let imgID = '#openScenario' + scenarioIndex + 'Img';
         let classListCollapse = document.getElementById(collapseID.replaceAll('#', '')).className.split(/\s+/);
         if(!classListCollapse.includes('collapsing')){
             if ((!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex())){
@@ -118,7 +117,7 @@ document.addEventListener('click', (event) => {
                 $(imgID).attr("src","./img/arrows-collapse.svg");
                 $(collapseID).collapse('show')
                 session.openScenario(scenarioIndex)
-                
+
             }else if(session.scenarioOpened() && scenarioIndex == session.getCurrentScenarioIndex()){
                 $(imgID).attr("src","./img/arrows-fullscreen.svg");
                 $(collapseID).collapse('hide')
@@ -227,8 +226,8 @@ document.addEventListener('input', (event) => {
             let elemId = $(input).find('option:selected').attr('id')
             let category = elemId.split('$$')[1];
             let interactionType = elemId.split('$$')[2];
-            category = category = category.trim();
-            interactionType = interactionType = interactionType.trim();
+            category = category.trim();
+            interactionType = interactionType.trim();
             session.setInteractionProp('category', category);
             session.setInteractionProp('interactionType', interactionType);
             refreshInteractivityList();

@@ -102,9 +102,9 @@ class Session {
     }
 
     // add a new interaction
-    addInteraction(coordinates, category, interactionType) {
+    addInteraction(coordinates, category, interactionType, behaviorSettings='Click') {
         if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'category': category, 'interactionType': interactionType });
+            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'category': category, 'behaviorSettings':behaviorSettings, 'interactionType': interactionType });
     }
 
     // move interaction from indexOld to IndexNew
