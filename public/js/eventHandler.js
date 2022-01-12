@@ -331,8 +331,29 @@ setInterval(function() {
         saveCurrentLp()
 }, 10000)
 
-$(function(){
-    $('#clickme').click(function(){
-        $('#uploadme').click();
+
+// import functions
+
+document.querySelector('.sbm').addEventListener('click', () => {
+
+    let fileReader = new FileReader();
+    fileReader.onload = function () {
+        let parsedJSON = JSON.parse(fileReader.result);
+        importLP(parsedJSON);
+    }
+    fileReader.readAsText(document.querySelector('.file').files[0]);
+
+})
+
+function refreshPage(){
+    window.location.reload();
+    window.location.reload();
+}
+
+function importLP(json) {
+    console.log(json)
+    $.get('/create').done((data, status) => {
+        session.addlearningPath(json);
     });
-});
+    refreshPage()
+}
