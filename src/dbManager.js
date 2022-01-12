@@ -53,7 +53,7 @@ function insert(table, dict, cb = noop) {
     }
     query = query.slice(0, -1)
     query += ');'
-        //console.log(query)
+        console.log(query)
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);

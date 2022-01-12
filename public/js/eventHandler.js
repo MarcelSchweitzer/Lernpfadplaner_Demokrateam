@@ -344,13 +344,10 @@ document.querySelector('.sbm').addEventListener('click', () => {
 
 })
 
-function refreshPage(){
-    window.location.reload();
-}
 
 function importLP(json) {
     session.addlearningPath(json[0])
-    learningPathToServer(session.getlearningPathById(json[0].id))
-
-    refreshPage()
+    learningPathToServer(session.getlearningPathById(json[0].id), ()=>{
+        getHomePage();
+    })
 }

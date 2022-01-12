@@ -239,21 +239,46 @@ app.post('/updateLp', (req, res) => {
             // find owner of lp
             dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
 
-                // check if user is owner of lp that is to be deleted
-                if (uid == owner[0]['owner']) {
-                    dbMan._update('learningPath', 'lpid', lpid, {
+                if(owner.length == 1){
+                    // check if user is owner of lp that is to be deleted
+                    if (uid == owner[0]['owner']) {
+                        dbMan._update('learningPath', 'lpid', lpid, {
+                            'title': req.body.title,
+                            'content': req.body.learningPath
+                        }, () => {
+
+                            // respond OK to client
+                            res.send('200')
+                        })
+                    }else{
+                        let lpids = [];
+                        for (let i = 0; i < data.length; i++)
+                            lpids.push(data[i]['lpid'])
+                        let id = unique.uniqueId(lpids);
+                        insertLp(id);
+                    }
+                }else{
+                    insertLp(req.body.lpid);
+                }
+
+                function insertLp(id){
+                    dbMan.insert('public.learningPath', {
+                        'lpid' : id,
                         'title': req.body.title,
-                        'content': req.body.learningPath
+                        'content': req.body.learningPath,
+                        'owner': uid
                     }, () => {
 
                         // respond OK to client
                         res.send('200')
                     })
                 }
+
             });
         });
     }
 });
+
 
 app.post('/updateUserName', (req, res) => {
     let sid = req.sessionID;
