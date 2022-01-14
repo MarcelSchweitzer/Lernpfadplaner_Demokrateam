@@ -22,7 +22,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <% } %>
                 <div class="profile-options">
                     <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button>
-                    <button class="button btn btn-success saveSettingsBtn" onclick="reset()" class="reset"  id="reset"> Reset </button>
+                    <button class="button btn btn-success reset" id="reset"> Reset </button>
                 </div>
             </div>
         </div>
@@ -30,11 +30,22 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     </div>
     <br>
 </div>
+<div class="space"></div>
 <script>
     $('#myTab a').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
-    })
+    });
+
 </script>
+<script >
+$(document).ready(function() {
+    $('#reset').click(function() {
+    $('#myTabContent').find("input[type=text]").each(function() {
+    $(this).val('');
+   });
+  });
+});
+    </script>
 <!-- reset checkbox -->
 

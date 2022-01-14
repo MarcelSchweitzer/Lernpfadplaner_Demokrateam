@@ -4,7 +4,8 @@
         <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
     </div>
     <hr>
-    <section>
+    <div class="row">
+        <div class="col-md-7">
         <div class="history">
             <div class="card">
                 <div class="card-header">
@@ -24,12 +25,29 @@
                         </div>
                         <% }); %>
                 </div>
-           
            </div>
         </div>
-    </section>
-    <div class="start-btn">
-        <button class="sbm">Lernpfad importieren +</button>
-        <input type="file" accept=".json" class="file">
+       </div>
+        <div class="col-md-5">
+            <!-- <div class="start-btn">
+                <button class="sbm">Lernpfad importieren +</button>
+                <input type="file" accept=".json" class="file">
+            </div> -->
+            <form class="form"  action="#" method="POST">
+                <input type="file" multiple>
+                <p>Drag your files here or click in this area</p>
+                <button class="sub submit-btn"  type="submit">Lernpfad importieren</button>
+            </form>
+        </div>
     </div>
+   
 </div>
+<div class="space"></div>
+
+<script>
+    $(document).ready(function(){
+  $('form input').change(function () {
+    $('form p').text(this.files.length + " file(s) selected");
+  });
+});
+</script>
