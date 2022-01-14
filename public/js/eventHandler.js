@@ -333,7 +333,6 @@ setInterval(function() {
 
 
 // import functions
-
 document.querySelector('.sbm').addEventListener('click', () => {
 
     let fileReader = new FileReader();
@@ -345,15 +344,10 @@ document.querySelector('.sbm').addEventListener('click', () => {
 
 })
 
-function refreshPage(){
-    window.location.reload();
-    window.location.reload();
-}
 
 function importLP(json) {
-    console.log(json)
-    $.get('/create').done((data, status) => {
-        session.addlearningPath(json);
-    });
-    refreshPage()
+    session.addlearningPath(json[0])
+    learningPathToServer(session.getlearningPathById(json[0].id), ()=>{
+        getHomePage();
+    })
 }
