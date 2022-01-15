@@ -34,19 +34,10 @@ function canBeRead(root, calls){
                 <div class="col-2">
                     <section class="left">
                         <div class="sidepanel">
-                            <div class="rate-part">
-                                    <div class="note" >
-                                        <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
-                                        <div class="noteMaximize">
-                                            <a href="#" data-toggle="modal" data-target="#noteModal">
-                                                <img class="img-fluid button" src="img/maximize.png">
-                                            </a>
-                                        </div>
-                                    </div>
-                            </div>
-                            <hr>
                             <div class="taxonomy-part">
+                                <hr>
                                 <p>Taxonomiestufe</p>
+                                <hr>
                                 <form>
                                     <div class="form-group col-12">
                                         <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
@@ -58,7 +49,9 @@ function canBeRead(root, calls){
                                 </form>
                             </div>
                             <div class="rate-part">
+                                <hr>
                                 <p>Bewertungsmodus </p>
+                                <hr>
                                 <form>
                                     <div class="form-group col-12">
                                         <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
@@ -69,31 +62,50 @@ function canBeRead(root, calls){
                                     </div>
                                 </form>
                             </div>
-                            <hr>
+                          
+                           
+                        </div>
+                    </section>
+                    <section>
+                        <div class="sidepanel-second">
                             <div class="rate-part">
-                                <div class="interactivity">
-                                    <p>Interaktivitäten</p>
-                                    <div class="interactivityList">
-                                        <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
-                                    data.learningPath.scenarios.length > 0 &&
-                                    canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
-                                        let count = 0;
-                                        data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
-                                            <div class="interactivityList">
-                                                <div class="interactivityListElem">
-                                                    <button class="button btn interactivityListItem" id="iaListItem<%= count %>">
-                                                        <%= ia.category %> -
-                                                            <%= ia.interactionType %>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <% count++; }); %>
-                                                <% } %>
+                                <div class="note" >
+                                    <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                                    <div class="noteMaximize">
+                                        <a href="#" data-toggle="modal" data-target="#noteModal">
+                                            <img class="img-fluid button" src="img/maximize.png">
+                                        </a>
                                     </div>
                                 </div>
+                           </div>
+                      
+                        <div class="rate-part">
+                            <div class="interactivity">
+                                <hr>
+                                <p>Interaktivitäten</p>
+                                <hr>
+                                <div class="interactivityList">
+                                    <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
+                                data.learningPath.scenarios.length > 0 &&
+                                canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
+                                    let count = 0;
+                                    data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                        <div class="interactivityList">
+                                            <div class="interactivityListElem">
+                                                <button class="button btn interactivityListItem" id="iaListItem<%= count %>">
+                                                    <%= ia.category %> -
+                                                        <%= ia.interactionType %>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <% count++; }); %>
+                                            <% } %>
+                                </div>
                             </div>
-                    </section>
                         </div>
+                        </div>
+                    </section>
+                </div>
                     <div class="col-8 midCol">
                         <div class="material-group scenarios" id="accordion">
                             <% if(canBeRead(data, ['learningPath','scenarios'])){
@@ -105,11 +117,14 @@ function canBeRead(root, calls){
                                 <div class="card scenario">
                                     <div class="card-header" id="heading<%= count %>">
                                         <h5 class="mb-0">
-                                            <input type="text" class="form-control lpTitleInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                            <div class="row">
+                                                <input type="text" class="form-control col-md-9 lpTitleInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                                <button class="button btn btn-warning deleteScenario col-md-2"  id="deleteScenario<%= count %>">Löschen</button>
+                                            </div>
                                             <button class="btn btn-link openScenario" data-toggle="collapse" id="openScenario<%= count %>" style="width:100%;"  aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                     <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                 </button>
-                                            <button class="button btn btn-warning deleteScenario" style="width:20%;" id="deleteScenario<%= count %>">Löschen</button>
+                                           
                                         </h5>
                                     </div>
                                     <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
@@ -211,16 +226,18 @@ function canBeRead(root, calls){
                         <section class="right">
                             <div class="sidepanel">
                                 <div class="rate-part">
-                                    <p>Interaktionstypen</p>
+                                    <p class="typ">Interaktionstypen</p>
                                     <hr>
                                     <div class="interactivityPicker">
                                         <% if(canBeRead(data, ['learningPath', 'interactivityTypes'])){
                                     let count = 0;
                                     for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
                                             <div class="categoryBox">
+                                                <hr>
                                                 <h6 class="interactivityCategory">
                                                     <%= key %>
                                                 </h6>
+                                                <hr>
                                                 <% value.forEach(val=> { %>
                                                     <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
                                                         <p class="selectedInteractivity">

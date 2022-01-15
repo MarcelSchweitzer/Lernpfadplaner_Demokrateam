@@ -3,6 +3,7 @@
     <div class="start-btn">
         <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
     </div>
+  
     <hr>
     <div class="row">
         <div class="col-md-7">
@@ -12,6 +13,9 @@
                     Meine Lernpfade
                 </div>
                 <div class="card-body">
+                    <input class="form-control" id="searchbox" type="text" placeholder="Search..">
+                    <hr>
+                    <div class="container">
                     <% data.learningPaths.forEach(lp=>{ %>
                         <div class="row">
                             <div id="openLpDiv<%= lp['lpid'] %>">
@@ -22,12 +26,15 @@
                             <div class="deleteLpClass" id="deleteLpDiv<%= lp['lpid'] %>">
                                 <button class="button btn btn-warning deleteLp" id="delete<%= lp['lpid']%>">Löschen</button>
                             </div>
+                        
                         </div>
                         <% }); %>
+                    </div>
+                    </div>
                 </div>
            </div>
         </div>
-       </div>
+      
         <div class="col-md-5">
             <form class="form"  action="#" method="POST">
                 <input type="file" multiple>
@@ -37,13 +44,8 @@
         </div>
            </div>
         </div>
+      
     </section>
-    <hr>
-    <div class="start-btn">
-        <button class="sbm">Lernpfad importieren +</button>
-        <input type="file" accept=".json" class="file">
-
-    </div>
    
 </div>
 <div class="space"></div>
@@ -55,3 +57,4 @@
   });
 });
 </script>
+
