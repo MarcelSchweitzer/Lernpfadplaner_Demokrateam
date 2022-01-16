@@ -252,8 +252,8 @@ app.post('/updateLp', (req, res) => {
                         })
                     }else{
                         let lpids = [];
-                        for (let i = 0; i < data.length; i++)
-                            lpids.push(data[i]['lpid'])
+                        for (let i = 0; i < owner.length; i++)
+                            lpids.push(owner[i]['lpid'])
                         let id = unique.uniqueId(lpids);
                         insertLp(id);
                     }

@@ -4,6 +4,19 @@ var draggedInteraction = null;
 // is true when changes are not saved yet
 var unsavedChanges = false;
 
+// stores files that are to be imported
+let importFiles = []
+
+// fileReader instance
+let fileReader = new FileReader();
+
+// frie when a file was succesfully loaded
+fileReader.addEventListener("load", () => {
+    console.log(fileReader.result)
+    importFiles.push(JSON.parse(fileReader.result));
+    document.getElementById('dropText').innerText = importFiles.length + " file(s) selected"
+}, false);
+
 // on startup
 $(document).ready(() => {
     updateUserName();
@@ -24,7 +37,7 @@ function updateWorkspaceBackground(source) {
 }
 
 function createCanvases(){
-    if(session.learningPathOpened()){
+    if(session.learningPathOpened() && session.ScenariosExist()){
         for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
             workspaceID = 'workspace' + i
             new p5(newSketch, workspaceID)
@@ -58,9 +71,13 @@ document.addEventListener('click', (event) => {
         } else {
             getHomePage();
         }
-    } else if (id == 'settingsBtn') {
+    }
+    
+    else if (id == 'settingsBtn') {
         getSettingsPage();
-    } else if (id == 'downloadButton') {
+    }
+    
+    else if (id == 'downloadButton') {
         if (session.learningPathOpened()) {
             downloadlearningPaths([session.getCurrentlearningPath()], 'json');
         } else {
@@ -69,7 +86,9 @@ document.addEventListener('click', (event) => {
                 lpids.push(lp.id);
             downloadlearningPaths(session.getlearningPaths(), 'json');
         }
-    } else if (id == 'exportButton') {
+    }
+    
+    else if (id == 'exportButton') {
         if (session.learningPathOpened()) {
             downloadlearningPaths([session.getCurrentlearningPath()], 'pdf');
         } else {
@@ -78,19 +97,25 @@ document.addEventListener('click', (event) => {
                 lpids.push(lp.id);
             downloadlearningPaths(session.getlearningPaths(), 'pdf');
         }
-    } else if (id == 'createLpBtn') {
+    } 
+    
+    else if (id == 'createLpBtn') {
         createLpOnServer(() => {
             fetchlearningPaths();
             getSettingsPage(mode = 'lpSettingsOnly');
         });
-    } else if (id == 'saveSettingsBtn') {
+    }
+    
+    else if (id == 'saveSettingsBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();
             getEditPage();
         } else {
             getHomePage();
         }
-    } else if (id == 'addScenarioButton') {
+    } 
+    
+    else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
                 learningPathToServer(session.getCurrentlearningPath(), () => {
@@ -101,8 +126,8 @@ document.addEventListener('click', (event) => {
                     });
                 });
             });
-        }
-    }
+        } 
+    } 
 
     // handle open scenario buttons
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
@@ -159,11 +184,18 @@ document.addEventListener('click', (event) => {
                 session.closelearningPath()
             session.removelearningPath(lpID)
         })
+        
     } else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
         refreshInteractivityInputs();
     }
+
+    else if ( id == 'importBtn' ){
+        importLP(importFiles);
+        importFiles = []
+    }
+    
 }, false);
 
 document.addEventListener('input', (event) => {
@@ -174,33 +206,51 @@ document.addEventListener('input', (event) => {
     if (id == 'lpNotes') {
         updateLpProperty('notes', input.value);
         $("#lpNotesModal").val(input.value);
-    }else if (id == 'lpNotesModal') {
+    }
+    
+    else if (id == 'lpNotesModal') {
         updateLpProperty('notes', input.value);
         $("#lpNotes").val(input.value);
-    }else if (id == 'lpEvaluationMode') {
+    }
+    
+    else if (id == 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
-    } else if (id == 'lpTaxonomyLevel') {
+    } 
+    
+    else if (id == 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevelID', input.value);
-    } else if (id == 'lpTitleInput') {
+    }
+    
+    else if (id == 'lpTitleInput') {
         updateLpProperty('title', input.value);
     } else if (id == 'userNameInput') {
         changeUserName(input.value, () => {
             updateUserName();
         });
-    } else if (classes.contains('lpTitleInput')) {
+    } 
+    
+    else if (classes.contains('lpTitleInput')) {
         scenarioIndex = id.replaceAll('lpTitleInput', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'title');
-    } else if (classes.contains('lpDescription')) {
+    } 
+    
+    else if (classes.contains('lpDescription')) {
         scenarioIndex = id.replaceAll('lpDescription', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'description');
-    } else if (classes.contains('lpLearningGoal')) {
+    } 
+    
+    else if (classes.contains('lpLearningGoal')) {
         scenarioIndex = id.replaceAll('lpLearningGoal', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'learningGoal');
-    } else if (classes.contains('lpResource')) {
+    }
+    
+    else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
         updateWorkspaceBackground(input.value)
-    } else if (classes.contains('interactivityInputCB')) {
+    }
+    
+    else if (classes.contains('interactivityInputCB')) {
         let checked = input.checked
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
         let interactivity = id.replaceAll('CB', '')
@@ -213,15 +263,25 @@ document.addEventListener('input', (event) => {
         session.setProp('interactivityTypes', newList, category)
         unsavedChanges = true;
         saveCurrentLp();
-    } else if (id == 'x_coord') {
+    } 
+    
+    else if (id == 'x_coord') {
         updateInteractionProperty('x_coord', input.value)
-    } else if (id == 'y_coord') {
+    } 
+    
+    else if (id == 'y_coord') {
         updateInteractionProperty('y_coord', input.value)
-    } else if (id == 'evaluationHeurestic') {
+    } 
+    
+    else if (id == 'evaluationHeurestic') {
         updateInteractionProperty('evaluationHeurestic', input.value)
-    } else if (id == 'behaviorSettings') {
+    } 
+    
+    else if (id == 'behaviorSettings') {
         updateInteractionProperty('behaviorSettings', input.value)
-    } else if (id == 'interactionTypeDrop') {
+    } 
+    
+    else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
             let elemId = $(input).find('option:selected').attr('id')
             let category = elemId.split('$$')[1];
@@ -233,6 +293,11 @@ document.addEventListener('input', (event) => {
             refreshInteractivityList();
         }
     }
+
+    else if ( id = 'importDrop'){
+        fileReader.readAsText(document.querySelector('.fileDrop').files[0]);
+    }
+
 });
 
 // fire on drag start 
@@ -317,6 +382,22 @@ function saveCurrentLp() {
     }
 }
 
+function importLP(learningPaths) {
+    console.log(learningPaths.length)
+    for(let i = 0; i < learningPaths.length; i++){
+        for(let j = 0; j < learningPaths[i].length; j++){
+            console.log(learningPaths[i][j])
+            session.addlearningPath(learningPaths[i][j])
+            learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
+                
+                // reload if last iter
+                if(i == learningPaths.length - 1 && j == learningPaths[i].length - 1)
+                    getHomePage();
+            })
+        }
+    }
+}
+
 // alert a message to the user
 function alertToUser(message, seconds = 5, color = 'black') {
 
@@ -330,24 +411,3 @@ setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
 }, 10000)
-
-
-// import functions
-document.querySelector('.sbm').addEventListener('click', () => {
-
-    let fileReader = new FileReader();
-    fileReader.onload = function () {
-        let parsedJSON = JSON.parse(fileReader.result);
-        importLP(parsedJSON);
-    }
-    fileReader.readAsText(document.querySelector('.file').files[0]);
-
-})
-
-
-function importLP(json) {
-    session.addlearningPath(json[0])
-    learningPathToServer(session.getlearningPathById(json[0].id), ()=>{
-        getHomePage();
-    })
-}
