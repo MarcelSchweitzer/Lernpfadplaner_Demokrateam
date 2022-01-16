@@ -93,7 +93,8 @@ function canBeRead(root, calls){
                                         <div class="interactivityList">
                                             <div class="interactivityListElem">
                                                 <button class="button btn interactivityListItem" id="iaListItem<%= count %>">
-                                                    <%= ia.category %> -
+                                                    <% catName=ia.category.replace("_", " " ); %>
+                                                    <%= catName %> -
                                                         <%= ia.interactionType %>
                                                 </button>
                                             </div>
@@ -239,7 +240,8 @@ function canBeRead(root, calls){
                                             <div class="categoryBox">
                                                 <hr>
                                                 <h6 class="interactivityCategory">
-                                                    <%= key %>
+                                                    <% keyName=key.replace("_", " " ); %>
+                                                        <%= keyName %>
                                                 </h6>
                                                 <hr>
                                                 <% value.forEach(val=> { %>
