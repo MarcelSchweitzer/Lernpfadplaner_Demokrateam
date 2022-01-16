@@ -5,6 +5,7 @@ const PsqlStore = require('./src/psqlStore.js')(session);
 const unique = require('./src/uniqueIdentifiers.js');
 const dbMan = require('./src/dbManager.js');
 const fstk = require('./src/fileSystemToolkit.js');
+const { stringify } = require('nodemon/lib/utils');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactivityTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
@@ -240,7 +241,6 @@ app.post('/updateLp', (req, res) => {
             dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
 
                 if(owner.length == 1){
-                    // check if user is owner of lp that is to be deleted
                     if (uid == owner[0]['owner']) {
                         dbMan._update('learningPath', 'lpid', lpid, {
                             'title': req.body.title,
@@ -257,15 +257,18 @@ app.post('/updateLp', (req, res) => {
                         let id = unique.uniqueId(lpids);
                         insertLp(id);
                     }
-                }else{
+                }else if(owner.length == 0){
                     insertLp(req.body.lpid);
                 }
 
                 function insertLp(id){
+                    var newCont = JSON.parse(req.body.learningPath)
+                    newCont['id'] = id
+                    newContJSON = JSON.stringify(newCont)
                     dbMan.insert('public.learningPath', {
                         'lpid' : id,
                         'title': req.body.title,
-                        'content': req.body.learningPath,
+                        'content': newContJSON,
                         'owner': uid
                     }, () => {
 

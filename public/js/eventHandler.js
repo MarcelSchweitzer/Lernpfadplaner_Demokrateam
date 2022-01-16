@@ -12,7 +12,6 @@ let fileReader = new FileReader();
 
 // frie when a file was succesfully loaded
 fileReader.addEventListener("load", () => {
-    console.log(fileReader.result)
     importFiles.push(JSON.parse(fileReader.result));
     document.getElementById('dropText').innerText = importFiles.length + " file(s) selected"
 }, false);
@@ -383,16 +382,17 @@ function saveCurrentLp() {
 }
 
 function importLP(learningPaths) {
-    console.log(learningPaths.length)
+    done = []
     for(let i = 0; i < learningPaths.length; i++){
         for(let j = 0; j < learningPaths[i].length; j++){
-            console.log(learningPaths[i][j])
+            done[i.toString() + j.toString()] = false
             session.addlearningPath(learningPaths[i][j])
             learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
-                
-                // reload if last iter
-                if(i == learningPaths.length - 1 && j == learningPaths[i].length - 1)
-                    getHomePage();
+                done[i.toString() + j.toString()] = true
+                do{
+                    if(!done.includes(false))
+                        getHomePage();
+                }while(done.includes(false))
             })
         }
     }
