@@ -7,6 +7,10 @@ body {
     overflow-x: hidden;
 }
 
+#dropDiv {
+    min-height: 250px;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

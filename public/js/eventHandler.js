@@ -10,10 +10,11 @@ let importFiles = []
 // fileReader instance
 let fileReader = new FileReader();
 
-// frie when a file was succesfully loaded
+// run when a file was succesfully loaded
 fileReader.addEventListener("load", () => {
     importFiles.push(JSON.parse(fileReader.result));
-    document.getElementById('dropText').innerText = importFiles.length + " file(s) selected"
+    importLP(importFiles);
+    importFiles = []
 }, false);
 
 // on startup
@@ -188,11 +189,6 @@ document.addEventListener('click', (event) => {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
         refreshInteractivityInputs();
-    }
-
-    else if ( id == 'importBtn' ){
-        importLP(importFiles);
-        importFiles = []
     }
     
 }, false);
