@@ -411,3 +411,7 @@ setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
 }, 10000)
+
+function deleteInteractivity(){
+    console.log("XXXXXXXXXX")
+}
