@@ -323,3 +323,28 @@
   background-color: rgb(197, 31, 31);
   color: white;
 }
+
+.scenarioContr{
+  text-align: center;
+  position: relative;
+  display: inline;
+  width: 100%;
+}
+
+.lpTitleInput{
+  width: 30%;
+  position: relative;
+  display: inline-block;
+}
+
+.openScenario{
+  width: 30%;
+  position: relative;
+  display: inline-block;
+}
+
+.deleteScenario{
+  width: 20%;
+  position: relative;
+  float: right;
+}
