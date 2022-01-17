@@ -154,21 +154,16 @@ function canBeRead(root, calls){
                                                     <div class="workspace" id="workspace<%= count %>"></div>
                                                     <!-- <image class="workSpaceImage" id="workSpaceImage<%= count %>"></image> -->
                                                     <div class="interactionSettings">
-                                                        <div class="form-group">
+                                                        <div class="form-group interactionItem">
                                                             <label class="coords" for="x_coord">X</label>
-                                                            <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
-                                                                %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].x_coord%>"
-                                                                <%}%>>
+                                                            <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord">
+
                                                             <label class="coords" for="y_coord">Y</label>
-                                                            <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
-                                                                %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].y_coord%>"
-                                                                <%}%>>
+                                                            <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
                                                         </div>
                                                         <div class="form-group interactionItem">
                                                             <label for="evaluationHeurestic">Erreichbare Wertung</label>
-                                                            <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
-                                                                %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].evaluationHeurestic%>"
-                                                                <%}%>>
+                                                            <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
                                                         </div>
                                                         <div class="form-group interactionItem">
                                                             <label for="behaviorSettings">Verhaltenseinstellungen</label>
@@ -176,10 +171,7 @@ function canBeRead(root, calls){
                                                                 <%
                                                                 behaviorModes = ['', 'Hover', 'Click'];
                                                                 behaviorModes.forEach(bm=> { %>
-                                                                <option id="<%= bm %>"
-                                                                    <%
-                                                                        if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].behaviorSettings == bm){%>selected
-                                                                    <%}%>>
+                                                                <option id="<%= bm %>">
                                                                     <%= bm %>
                                                                 </option>
                                                                 <% }); %>

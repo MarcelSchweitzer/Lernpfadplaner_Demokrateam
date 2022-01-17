@@ -10,9 +10,6 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
             if(session.ScenariosExist() && session.getProp('scenarios').length > 0){
                 session.openScenario(session.getProp('scenarios').length - 1);
 
-                // the first interaction is opened by default
-                if(session.interactionsExist() && session.getCurrentScenario().interactions.length > 0)
-                    session.openInteraction(0);
             }
             // Workspace picture loading css / p5
             loadWorkspaceBackgrounds();

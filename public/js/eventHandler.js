@@ -364,6 +364,12 @@ function refreshInteractivityList() {
 
 function refreshInteractivityInputs() {
     if (session.interactionOpened()) {
+        if($( ".interactionItem").width() == 0){
+            $( ".interactionSettings").animate({width: "20%"}, 'fast', 'swing');
+            $( ".workspace" ).animate({width: "80%"}, 'fast', 'swing');
+            $( ".interactionItem").css({visibility: "visible"});
+            $( ".interactionItem").animate({width: "80%"}, 'fast', 'swing');
+        }
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
@@ -372,6 +378,12 @@ function refreshInteractivityInputs() {
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
     }else{
+        $( ".interactionSettings" ).animate({width: "0px"}, 'fast', 'swing');
+        $( ".interactionItem" ).animate({width: "0px"}, 'fast', 'swing', ()=>{
+            $( ".interactionItem" ).css({visibility: "hidden"});
+            $( ".deleteBtn:hover" ).css({visibility: "hidden"});
+        });
+        $( ".workspace" ).animate({width: "100%"}, 'fast', 'swing');
         $(".interInp").val('');
     }
 }
