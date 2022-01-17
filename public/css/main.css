@@ -566,3 +566,8 @@ footer a:hover{
 .lpTable{
     display: inherit;
 }
+
+.openLp{
+    border: 4px dotted blue;
+    color: black;
+}
