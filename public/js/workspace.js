@@ -1,9 +1,11 @@
 function newCanv(p){
   if(session.learningPathOpened() && session.ScenariosExist()){
     let img;
+    let scale;
+    let center;
+    
     p.preload = function(){
       img = p.loadImage(session.getCurrentlearningPath().scenarios[session.getCurrentScenarioIndex()].resource);
-      console.log(img);
     }
 
     p.setup = function(){
@@ -19,8 +21,8 @@ function newCanv(p){
       p.createCanvas(w,h);
       p.background(50);
 
-      let scale;
-      let center = 0;
+      scale = 0;
+      center = 0;
       if(img.height>img.width){
         scale = h/img.height;
         center = (w-img.width*scale)/2
@@ -37,6 +39,7 @@ function newCanv(p){
       p.frameRate(60);
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
         p.background(50);
+        p.image(img, center, 0, img.width*scale, img.height*scale);
         let interactions = session.getCurrentScenario().interactions
         for(i = 0; i < interactions.length; i++){
           i == session.getCurrentInteractionIndex() ? p.stroke(205, 12, 30, 0.7) : p.stroke(12, 230, 30, 0.3);
