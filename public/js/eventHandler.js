@@ -26,12 +26,11 @@ function updateWorkspaceBackground(source) {
     $(workspaceID).css("background-image", urlHandle);
 }
 
-function createCanvases(){
+function createCanvas(){
     if(session.learningPathOpened() && session.ScenariosExist()){
-        for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
-            workspaceID = 'workspace' + i
-            new p5(newSketch, workspaceID)
-        }
+        workspaceId = 'workspace' + session.getCurrentScenarioIndex();
+        document.getElementById(workspaceId).innerHTML = "";
+        new p5(newCanv, workspaceId)
     }
 }
 
@@ -168,13 +167,14 @@ document.addEventListener('click', (event) => {
             if ((!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex())){
                 $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
                 $(imgID).attr("src","./img/arrows-collapse.svg");
-                $(collapseID).collapse('show')
-                session.openScenario(scenarioIndex)
+                $(collapseID).collapse('show');
+                session.openScenario(scenarioIndex);
+                createCanvas();
 
             }else if(session.scenarioOpened() && scenarioIndex == session.getCurrentScenarioIndex()){
                 $(imgID).attr("src","./img/arrows-fullscreen.svg");
-                $(collapseID).collapse('hide')
-                session.closeScenario()
+                $(collapseID).collapse('hide');
+                session.closeScenario();
             }
         }   
         refreshInteractivityList();
@@ -268,7 +268,7 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        updateWorkspaceBackground(input.value)
+        // updateWorkspaceBackground(input.value)
     }
     
     else if (classes.contains('interactivityInputCB')) {
@@ -391,6 +391,7 @@ function refreshInteractivityInputs() {
         if($( ".interactionSettings").width() == 0){
             $( ".interactionSettings").animate({width: "20%"}, speed, 'swing');
             $( ".workspace" ).animate({width: "80%"}, speed, 'swing');
+            $( ".p5Canvas" ).css({width: "100%"});
             $( ".interactionItem").css({visibility: "visible"});
             $( ".interactionItem").animate({width: "80%"}, 10, 'swing');
         }
@@ -407,6 +408,7 @@ function refreshInteractivityInputs() {
             $( ".interactionItem" ).css({visibility: "hidden"});
         });
         $( ".workspace" ).animate({width: "100%"}, speed, 'swing');
+        $( ".p5Canvas" ).animate({width: "100%"}, speed, 'swing');
         $(".interInp").val('');
     }
 }
