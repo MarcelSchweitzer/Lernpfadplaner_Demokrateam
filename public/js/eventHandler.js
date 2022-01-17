@@ -119,6 +119,14 @@ document.addEventListener('click', (event) => {
         } 
     } 
 
+    else if (id == 'selectAllInter'){
+        $(".interactivityInputCB").prop('checked', true)
+    }
+
+    else if (id == 'selectNoneInter'){
+        $(".interactivityInputCB").prop('checked', false)
+    }
+
     // handle open scenario buttons
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
         let scenarioIndex = id.replaceAll('openScenario', '')
