@@ -19,7 +19,6 @@
                 <% } %>
                 <div class="profile-options">
                     <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button>
-                    <button class="button btn btn-success reset" id="reset"> Reset </button>
                 </div>
             </div>
         </div>
@@ -35,14 +34,4 @@
     });
 
 </script>
-<script >
-$(document).ready(function() {
-    $('#reset').click(function() {
-    $('#myTabContent').find("input[type=text]").each(function() {
-    $(this).val('');
-   });
-  });
-});
-    </script>
-<!-- reset checkbox -->
 

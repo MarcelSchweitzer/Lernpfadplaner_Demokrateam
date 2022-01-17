@@ -233,11 +233,12 @@
 
 .interactivityBox {
   border-radius: 10px;
+  border: 1px solid black;
   height: 30px;
   font-size: 16px;
   text-align: center;
   vertical-align: middle;
-  background-color: rgb(172, 172, 172);
+  background-color: transparent;
   width: 90%;
   margin:5px 10px;
   overflow: hidden;
@@ -249,24 +250,6 @@
 .selectedInteractivity {
   text-overflow: ellipsis;
   font-size:14px;
-  padding: 2px;
-}
-
-.interactivityListItem {
-  width: 100%;
-  height: 100%;
-  color: #000 !important;
-  font-size:14px;
-}
-
-.interactivityListElem {
-  border-radius: 10px;
-  height: auto;
-  width: 90%;
-  margin: 5px 10px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: rgb(172, 172, 172);
   padding: 2px;
 }
 
@@ -314,16 +297,6 @@
   cursor: pointer;
 }
 
-.deleteBtn{
-  background-color: rgb(134, 89, 89);
-  border: 2px solid red;
-}
-
-.deleteBtn:hover{
-  background-color: rgb(197, 31, 31);
-  color: white;
-}
-
 .scenarioContr{
   display: flex;
   justify-content: center;
@@ -333,4 +306,13 @@
 
 .scenarioHeaderInput{
   width: 30%;
+}
+
+.interactivityListElem {
+  border-radius: 10px;
+  height: auto;
+  width: 90%;
+  margin: 5px 10px;
+  text-align: center;
+  padding: 2px;
 }

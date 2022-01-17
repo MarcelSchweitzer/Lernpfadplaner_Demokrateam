@@ -379,7 +379,7 @@ function refreshInteractivityList() {
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
-            $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
+            $('.interactivityList').append('<div class="interactivityListElem"> <button class="btn btn-light interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
         }
         refreshInteractivityInputs();
     }

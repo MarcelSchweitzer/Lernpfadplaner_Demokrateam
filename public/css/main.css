@@ -107,36 +107,6 @@ body {
     text-decoration: none;
 }
 
-.import-btn {
-    width: 300px;
-    height: 50px;
-    display: inline-block;
-    border: 2px solid linen !important;
-    background-color: #1f2235 !important;
-    text-align:center;
-    color: #ffffff;
-    padding: 0.7rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
-.import-btn button:hover {
-    color: aliceblue !important;
-    border: 2px solid #237bff !important;
-    background-color: #1f2235 !important;
-}
-
-.import-btn a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.import-btn a:hover {
-    color: #fff;
-    text-decoration: none;
-}
 
 .profile-container {
     display: flex;
@@ -204,10 +174,9 @@ body {
 
 header {
     position:fixed; 
-    width: 100.8%;
+    width: 100%;
     height: 40px;
     z-index: 1;
-    top: -5px;
 }
 .head{
     width: 100.8%;
@@ -458,18 +427,15 @@ footer a:hover{
     }
 }
 
-
 /**/
 
 .btn {
     border-radius: 50px !important;
-    padding: 14px 0;
     width: 200px;
     display: block;
     margin: 0 auto;
     cursor: pointer;
     transition: 0.2s;
-    color: #fff !important;
 }
 
 .btn:active {
@@ -538,10 +504,6 @@ footer a:hover{
     border: 2px solid #ff5823 !important;
     background-color: #1f2235 !important;
 }
-.headerText {
-    vertical-align: middle;
-    margin:12px 2px;
-}
 
 .row {
     margin: 5px;
@@ -567,7 +529,8 @@ footer a:hover{
     display: inherit;
 }
 
-.openLp{
-    border: 4px dotted blue;
+.btn-light{
+    border: 1px solid black;
+    background-color: transparent;
     color: black;
 }
