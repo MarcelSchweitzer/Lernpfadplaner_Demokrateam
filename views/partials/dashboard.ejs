@@ -16,11 +16,14 @@
                     <input class="form-control" id="searchbox" type="text" placeholder="Search..">
                     <hr>
                     <div class="container">
-                        <table>
+                        <table class="lpTable">
                             <tr id="lpTableHeader">
-                                <th>Titel</th>   
-                                <th>Szenarien</th>   
-                                <th></th>
+                                <th class="lpHeader">Titel</th>   
+                                <th class="lpHeader">Szenarien</th> 
+                                <th class="lpHeader">Interaktivitäten</th>  
+                                <th class="lpHeader">Taxonomiestufe</th> 
+                                <th class="lpHeader">Bewertungsmodus</th> 
+                                <th class="lpHeader"></th>
                             </tr>
                             <%data.learningPaths.forEach(lpR=>{ let lp = lpR['content'] %>
                                 <tr id="lpRow<%= lp['id'] %>">
@@ -29,9 +32,27 @@
                                             <%= lp['title'] %>
                                         </button>
                                     </td>
-                                    <%amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); %>
+                                    <% 
+                                        let amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); 
+                                    %>
                                     <td class="lpInfoCell">
                                             <%= amountScenarios %>
+                                    </td>
+                                    <% 
+                                        let amountInter = 0;
+                                            for(let i = 0; i < amountScenarios; i++){
+                                                let amountThisScenario = lp['scenarios'][i]['interactions'] ? lp['scenarios'][i]['interactions'].length : 0
+                                                amountInter += amountThisScenario;
+                                            }
+                                    %>
+                                    <td class="lpInfoCell">
+                                            <%= amountInter %>
+                                    </td>
+                                    <td class="lpInfoCell">
+                                        <%= lp['taxonomyLevelID'] %>
+                                    </td>
+                                    <td class="lpInfoCell">
+                                        <%= lp['evaluationModeID'] %>
                                     </td>
                                     <td class="deleteLpClass">
                                         <button class="button btn btn-danger deleteLp" id="delete<%= lp['id']%>">Löschen</button>
