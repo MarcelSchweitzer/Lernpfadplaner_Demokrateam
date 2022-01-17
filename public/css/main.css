@@ -269,7 +269,6 @@ header {
 }
 .history{
     min-height:100%;
-    width:90%;
     height: 100%;
     margin: 0% 5%;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
@@ -564,12 +563,6 @@ footer a:hover{
     margin: 5px;
 }
 
-.lpHeader{
-    font-size: 10px;
-}
-
-.lpInfoCell{
-    border-radius: 30px;
-    background-color: grey;
-    text-align: center;
+.lpTable{
+    display: inherit;
 }

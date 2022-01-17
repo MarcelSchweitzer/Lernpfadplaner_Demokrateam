@@ -119,11 +119,11 @@ function canBeRead(root, calls){
                                     <div class="card-header" id="heading<%= count %>">
                                         <h5 class="mb-0">
                                             <div class="scenarioContr">
-                                                <input type="text" class="form-control col-md-9 lpTitleInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
-                                                <button class="btn btn-link btn-dark openScenario" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                                <input type="text" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                                <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                                     <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                                 </button>
-                                                <button class="button btn btn-danger deleteScenario"  id="deleteScenario<%= count %>">Löschen</button>
+                                                <button class="btn btn-dark deleteScenario scenarioHeaderInput"  id="deleteScenario<%= count %>">Löschen</button>
                                             </div>
                                            
                                         </h5>

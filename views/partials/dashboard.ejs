@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <img class="img-background" src="img/settings.png">
     <div class="start-btn">
         <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
@@ -16,17 +16,22 @@
                     <input class="form-control" id="searchbox" type="text" placeholder="Search..">
                     <hr>
                     <div class="container">
-                        <table class="lpTable">
+                        <div class="lpTableDiv table-responsive">
+                        <table class="lpTable table table-striped">
                             <tr id="lpTableHeader">
-                                <th class="lpHeader">Titel</th>   
-                                <th class="lpHeader">Szenarien</th> 
-                                <th class="lpHeader">Interaktivitäten</th>  
-                                <th class="lpHeader">Taxonomiestufe</th> 
-                                <th class="lpHeader">Bewertungsmodus</th> 
-                                <th class="lpHeader"></th>
+                                <th class="lpHeader" scope="col">#</th>
+                                <th class="lpHeader" scope="col">Titel</th>   
+                                <th class="lpHeader" scope="col">Szenarien</th> 
+                                <th class="lpHeader" scope="col">Interaktivitäten</th>  
+                                <th class="lpHeader" scope="col">Taxonomiestufe</th> 
+                                <th class="lpHeader" scope="col">Bewertungsmodus</th> 
+                                <th class="lpHeader" scope="col"></th>
                             </tr>
-                            <%data.learningPaths.forEach(lpR=>{ let lp = lpR['content'] %>
-                                <tr id="lpRow<%= lp['id'] %>">
+                            <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
+                                <tr id="lpRow<%= lp['id'] %>" scope="row">
+                                    <td class="lpInfoCell">
+                                        <%= count %>
+                                    </td>
                                     <td>
                                         <button class="button btn btn-dark openLp" id="openLp<%= lp['id'] %>">
                                             <%= lp['title'] %>
@@ -58,8 +63,9 @@
                                         <button class="button btn btn-danger deleteLp" id="delete<%= lp['id']%>">Löschen</button>
                                     </td>
                                 </tr>
-                            <% }); %>
+                            <% count++;  }); %>
                         </table>
+                        </div>
                     </div>
                     </div>
                 </div>

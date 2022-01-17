@@ -325,26 +325,12 @@
 }
 
 .scenarioContr{
-  text-align: center;
-  position: relative;
-  display: inline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
-.lpTitleInput{
+.scenarioHeaderInput{
   width: 30%;
-  position: relative;
-  display: inline-block;
-}
-
-.openScenario{
-  width: 30%;
-  position: relative;
-  display: inline-block;
-}
-
-.deleteScenario{
-  width: 20%;
-  position: relative;
-  float: right;
 }
