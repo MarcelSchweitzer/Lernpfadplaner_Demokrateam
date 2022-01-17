@@ -563,3 +563,13 @@ footer a:hover{
 .interactivityPicker{
     margin: 5px;
 }
+
+.lpHeader{
+    font-size: 10px;
+}
+
+.lpInfoCell{
+    border-radius: 30px;
+    background-color: grey;
+    text-align: center;
+}
