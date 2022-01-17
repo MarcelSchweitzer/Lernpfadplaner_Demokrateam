@@ -105,7 +105,7 @@ document.addEventListener('click', (event) => {
         } else {
             getHomePage();
         }
-    } 
+    }
     
     else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
@@ -395,6 +395,7 @@ function refreshInteractivityInputs() {
             $( ".workspace" ).animate({width: "80%"}, speed, 'swing');
             $( ".interactionItem").css({visibility: "visible"});
             $( ".interactionItem").animate({width: "80%"}, 10, 'swing');
+            $( ".p5Canvas" ).animate({width: "80%"}, speed, 'swing');
         }
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
@@ -409,6 +410,7 @@ function refreshInteractivityInputs() {
             $( ".interactionItem" ).css({visibility: "hidden"});
         });
         $( ".workspace" ).animate({width: "100%"}, speed, 'swing');
+        $( ".p5Canvas" ).animate({width: "100%"}, speed, 'swing');
         $(".interInp").val('');
     }
 }
