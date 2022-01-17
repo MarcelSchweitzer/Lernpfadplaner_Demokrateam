@@ -23,7 +23,7 @@ function select(from = '', select = '*', where = '', cb = noop) {
     let query = 'SELECT ' + select + ' FROM ' + from;
     if (where != '')
         query += ' WHERE ' + where;
-    //console.log(query);
+    // console.log(query);
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);

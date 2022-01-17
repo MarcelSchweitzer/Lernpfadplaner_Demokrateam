@@ -106,13 +106,13 @@ app.get('/create', (req, res) => {
         // get name for new learningPath
         getCurrentUser(req.sessionID, (currentUserID) => {
             dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', currentUserID, (data) => {
-                let lpids = [];
+
                 let names = [];
                 for (let i = 0; i < data.length; i++) {
-                    lpids.push(data[i]['lpid']);
                     names.push(data[i]['title']);
                 }
-                let id = unique.uniqueId(lpids);
+
+                let id = uniqueLpId()
                 let name = unique.uniqueName('Neuer Lernpfad', names);
 
                 // default settings for new learningPaths
@@ -231,16 +231,31 @@ app.get('/learningPaths', (req, res) => {
 // user wants to push his updates to the server
 app.post('/updateLp', (req, res) => {
     let lpid = req.body.lpid;
+    let newLp = req.body.newLp;
 
     if (req.session.isAuth == true) {
 
         // resolve uid
         getCurrentUser(req.sessionID, (uid) => {
 
-            // find owner of lp
-            dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
-
-                if(owner.length == 1){
+            if(newLp == 'true'){
+                let id = uniqueLpId()
+                var newCont = JSON.parse(req.body.learningPath)
+                newCont['id'] = id
+                newContJSON = JSON.stringify(newCont)
+                dbMan.insert('public.learningPath', {
+                    'lpid' : id,
+                    'title': req.body.title,
+                    'content': newContJSON,
+                    'owner': uid
+                }, 
+                () => { res.send('200') }, 
+                () => { res.send('500') })
+            }
+            
+            else{
+                // find owner of lp
+                dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
                     if (uid == owner[0]['owner']) {
                         dbMan._update('learningPath', 'lpid', lpid, {
                             'title': req.body.title,
@@ -249,31 +264,10 @@ app.post('/updateLp', (req, res) => {
                         () => { res.send('200') }, 
                         () => { res.send('500') })
                     }else{
-                        let lpids = [];
-                        for (let i = 0; i < owner.length; i++)
-                            lpids.push(owner[i]['lpid'])
-                        let id = unique.uniqueId(lpids);
-                        insertLp(id);
+                        res.send('500')
                     }
-                }else if(owner.length == 0){
-                    insertLp(req.body.lpid);
-                }
-
-                function insertLp(id){
-                    var newCont = JSON.parse(req.body.learningPath)
-                    newCont['id'] = id
-                    newContJSON = JSON.stringify(newCont)
-                    dbMan.insert('public.learningPath', {
-                        'lpid' : id,
-                        'title': req.body.title,
-                        'content': newContJSON,
-                        'owner': uid
-                    }, 
-                    () => { res.send('200') }, 
-                    () => { res.send('500') })
-                }
-
-            });
+                });
+            }
         });
     }
 });
@@ -327,13 +321,15 @@ app.post('/deleteLp', (req, res) => {
             // find owner of lp
             dbMan.selectMatch('public.learningPath', 'owner', 'lpid', lpid, (owner) => {
 
-                // check if user is owner of lp that is to be deleted
-                if (uid == owner[0]['owner']) {
-                    dbMan._delete('learningPath', 'lpid', lpid, () => {
+                if(owner.length > 0){
+                    // check if user is owner of lp that is to be deleted
+                    if (uid == owner[0]['owner']) {
+                        dbMan._delete('learningPath', 'lpid', lpid, () => {
 
-                        // respond OK to client
-                        res.send('200')
-                    })
+                            // respond OK to client
+                            res.send('200')
+                        })
+                    }
                 }
             });
         });
@@ -345,6 +341,15 @@ function getCurrentUser(sessionID, cb = noop) {
     dbMan.selectMatch('public.user', 'uid', 'latestSession', sessionID, (data) => {
         return cb(data[0]['uid'])
     });
+}
+
+function uniqueLpId(){
+    lpids = []
+    dbMan.select('public.learningPath', 'lpid', '', (data) => {
+        for (let i = 0; i < data.length; i++)
+            lpids.push(data[i]['lpid'])
+    })
+    return unique.uniqueId(lpids);
 }
 
 // start server

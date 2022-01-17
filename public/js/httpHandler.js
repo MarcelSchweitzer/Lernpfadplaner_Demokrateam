@@ -44,9 +44,9 @@ function getSettingsPage(mode = null) {
 }
 
 // push any learningPath to the server
-function learningPathToServer(learningPath, cb = noop) {
+function learningPathToServer(learningPath, cb = noop, newLp = false) {
     if (JSON.stringify(learningPath) != 'undefined') {
-        $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
+        $.post('/updateLp', { 'newLp': newLp, 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
             if (status === 'success'){
                 alertToUser('Änderungen gespeichert!', 3);
                 return cb()

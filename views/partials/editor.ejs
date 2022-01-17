@@ -156,17 +156,17 @@ function canBeRead(root, calls){
                                                     <div class="interactionSettings">
                                                         <div class="form-group">
                                                             <label class="coords" for="x_coord">X</label>
-                                                            <input type="text" class="form-control interSet coords x_coord" id="x_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
+                                                            <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
                                                                 %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].x_coord%>"
                                                                 <%}%>>
                                                             <label class="coords" for="y_coord">Y</label>
-                                                            <input type="text" class="form-control interSet coords y_coord" id="y_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
+                                                            <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
                                                                 %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].y_coord%>"
                                                                 <%}%>>
                                                         </div>
                                                         <div class="form-group interactionItem">
                                                             <label for="evaluationHeurestic">Erreichbare Wertung</label>
-                                                            <input type="text" class="form-control interSet evaluationHeurestic" id="evaluationHeurestic" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
+                                                            <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic" <% if(canBeRead(data, [ 'learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], [ 'interactions', 0])){
                                                                 %>value="<%=data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].evaluationHeurestic%>"
                                                                 <%}%>>
                                                         </div>
@@ -204,8 +204,7 @@ function canBeRead(root, calls){
                                                             </select>
                                                         </div>
                                                         <div class="form-group interactionItem">
-                                                            <label for="deleteInteractivity">Interaktion löschen</label>
-                                                            <button class="button deleteBtn" id="deleteInteractivity">Löschen</button>
+                                                            <button class="button deleteBtn" id="deleteInteractivity">Interaktion löschen</button>
                                                         </div>
                                                     </div>
                                                 </div>

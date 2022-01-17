@@ -152,7 +152,14 @@ document.addEventListener('click', (event) => {
     }
 
     else if(id == 'deleteInteractivity'){
-        console.log("XXXXXXXXXX")
+        if(session.interactionOpened()){
+            session.deleteInteraction(session.getCurrentInteractionIndex());
+            session.closeInteraction();
+            if(session.interactionsExist && session.getCurrentScenario().interactions.length > 0)
+                session.openInteraction(session.getCurrentScenario().interactions.length - 1)
+            refreshInteractivityList();
+            unsavedChanges = true;
+        }
     }
 
     // handle open learningPath buttons
@@ -290,7 +297,11 @@ document.addEventListener('input', (event) => {
             let fileReader = new FileReader();
 
             fileReader.addEventListener("load", () => {
-                importFiles.push(JSON.parse(fileReader.result));
+                try{
+                    importFiles.push(JSON.parse(fileReader.result));
+                }catch( e ){
+                    alertToUser('Lernpfad konnte nicht geladen werden!', 5, 'red')
+                }
                 if(importFiles.length == document.querySelector('.fileDrop').files.length){
                     importLP(importFiles);
                     importFiles = []
@@ -343,7 +354,6 @@ document.addEventListener("drop", (event) => {
 function refreshInteractivityList() {
     $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
-        
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append('<div class="interactivityListElem"> <button class="button btn interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
@@ -353,7 +363,7 @@ function refreshInteractivityList() {
 }
 
 function refreshInteractivityInputs() {
-    if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
+    if (session.interactionOpened()) {
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
@@ -361,6 +371,8 @@ function refreshInteractivityInputs() {
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
+    }else{
+        $(".interInp").val('');
     }
 }
 
@@ -385,28 +397,16 @@ function saveCurrentLp() {
 }
 
 function importLP(learningPaths) {
-    done = []
     for(let i = 0; i < learningPaths.length; i++){
-        done[i] = []
         for(let j = 0; j < learningPaths[i].length; j++){
-            done[i][j] = 'false'
             session.addlearningPath(learningPaths[i][j])
             learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
-                done[i][j] = 'true'
-                let finStr = ""
-                if(i == learningPaths.length - 1 && j == learningPaths[i].length -1){
-                    do{
-                        finStr = ""
-                        for(let k = 0; k < learningPaths.length; k++){
-                            finStr = finStr + done[k].join('')
-                        }
-                        if(!finStr.includes('false'))
-                            getHomePage();
-                    }while(finStr.includes('false'))
-                }
-            })
+            }, true);
         }
     }
+    setTimeout(() => {
+        getHomePage();
+    }, 1000);
 }
 
 // alert a message to the user
