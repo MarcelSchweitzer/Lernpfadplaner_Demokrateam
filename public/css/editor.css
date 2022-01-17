@@ -34,9 +34,7 @@
   scrollbar-width: none;
   padding-bottom: 20px;
 }
-.typ{
-  margin: 14px auto;
-}
+
 .midCol {
   margin-top: 20px;
   width: 65%;
@@ -184,12 +182,6 @@
   color: rgb(66, 66, 66);
 }
 
-.notesLeft {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-}
-
 .interactivityCategory {
   text-decoration: none;
   font-weight: bold;
@@ -315,4 +307,8 @@
   margin: 5px 10px;
   text-align: center;
   padding: 2px;
+}
+
+header {
+  top: 0px;
 }

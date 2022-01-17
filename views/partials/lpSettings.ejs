@@ -4,7 +4,7 @@
             <h3>Lernpfad-Einstellungen</h3>
         </p>
        
-        <div class="settingsItem col-md-8" id="title">
+        <div class="settingsItem" id="title">
             <label for="lpTitleInput">Titel</label>
             <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
         </div>
@@ -49,9 +49,9 @@
             </div>
             <%} %>
         </div>
-        <div class="settingsItem col-md-8">
-            <button class="button btn btn-light" id="selectAllInter"> Alle auswählen </button>
-            <button class="button btn btn-light" id="selectNoneInter"> Keine auswählen </button>
+        <div class="settingsItem resetBtns">
+            <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle auswählen </button>
+            <button class="button btn btn-light resetBtn" id="selectNoneInter"> Keine auswählen </button>
         </div>
     </div>
     </div>

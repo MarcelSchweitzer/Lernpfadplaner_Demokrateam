@@ -1,28 +1,28 @@
 <header>
-        <div class="row head">
-            <div class="col-8" style="padding:0px;">
-                <div class="home">
-                        <img type="image" class="button save-icon" id="homeBtn" src="img/home.svg" alt="home.svg">
-                    <img id="userIcon" src="img/user.svg">
-                   <a href="#" id="usernameText" class="headerText">
-                        <%= data.nickname %>
-                    </a>   
-                </div>
-            </div>
-            <div class="col-4" style="padding:0px;">
-                <div class="colz-icon">
-                    <a href="#" id="userMessage" class="headerText">
-                    </a>   
-                    <a href="#"  data-toggle="modal" data-target="#downloadPop">
-                        <img class="button" src="img/download.svg">
-                    </a>
-                    
-                    <a href="#"> 
-                      <img type="image" class="button setting-icon" id="settingsBtn" src="img/settings.svg" alt="settings.svg"> 
-                    </a>
-                </div>
+    <div class="row head">
+        <div class="col-8" style="padding:0px;">
+            <div class="home">
+                    <img type="image" class="button save-icon" id="homeBtn" src="img/home.svg" alt="home.svg">
+                <img id="userIcon" src="img/user.svg">
+                <a href="#" id="usernameText" class="headerText">
+                    <%= data.nickname %>
+                </a>   
             </div>
         </div>
+        <div class="col-4" style="padding:0px;">
+            <div class="colz-icon">
+                <a href="#" id="userMessage" class="headerText">
+                </a>   
+                <a href="#"  data-toggle="modal" data-target="#downloadPop">
+                    <img class="button" src="img/download.svg">
+                </a>
+                
+                <a href="#"> 
+                  <img type="image" class="button setting-icon" id="settingsBtn" src="img/settings.svg" alt="settings.svg"> 
+                </a>
+            </div>
+        </div>
+    </div>
 </header>
 <div class="modal fade" id="downloadPop" tabindex="-1" role="dialog" aria-labelledby="downloadPopLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -33,9 +33,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="downloadPop">
-          <button type="button" id="exportButton" class="btn btn-secondary" data-dismiss="modal">Pdf</button>
-          <button type="button" id="downloadButton" class="btn btn-secondary">Json</button>
+      <div class="modal-body modalButtons">
+          <button type="button" id="exportButton" class="btn btn-light modalBtn" data-dismiss="modal">Pdf</button>
+          <button type="button" id="downloadButton" class="btn btn-light modalBtn">Json</button>
       </div>
     </div>
   </div>
