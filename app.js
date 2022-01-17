@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 
     function renderIndex(data) {
         console.log("user " + data[0]['uid'] + " connected!");
-        dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', data[0]['uid'], (_data) => {
+        dbMan.selectMatch('public.learningPath', 'content', 'owner', data[0]['uid'], (_data) => {
             res.render('index', {
                 data: {
                     learningPaths: _data,
@@ -209,7 +209,7 @@ app.get('/settings', (req, res) => {
 // user wants to navigate back to dashboard page
 app.get('/home', (req, res) => {
     getCurrentUser(req.sessionID, (uid) => {
-        dbMan.selectMatch('public.learningPath', 'lpid, title', 'owner', uid, (data) => {
+        dbMan.selectMatch('public.learningPath', 'content', 'owner', uid, (data) => {
             res.render('partials/dashboard', {
                 data: {
                     learningPaths: data

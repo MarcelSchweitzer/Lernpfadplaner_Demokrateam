@@ -198,15 +198,11 @@ document.addEventListener('click', (event) => {
     // handle delete learningPath buttons
     else if (classes.contains('deleteLp')) {
         let lpID = id.replaceAll('delete', '');
-        let editID = 'openLpDiv' + lpID
-        let deleteID = 'deleteLpDiv' + lpID
+        let rowId = 'lpRow' + lpID
 
-        let deleteButton = document.getElementById(deleteID);
-        deleteButton.remove();
-
-        let editButton = document.getElementById(editID);
-        editButton.remove();
-
+        let row = document.getElementById(rowId);
+        row.remove();
+        
         deletelearningPath(lpID, () => {
             if (session.getCurrentlearningPathId() == lpID)
                 session.closelearningPath()
