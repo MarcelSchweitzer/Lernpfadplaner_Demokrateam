@@ -26,11 +26,13 @@ function updateWorkspaceBackground(source) {
     $(workspaceID).css("background-image", urlHandle);
 }
 
+let workspaces = [];
+
 function createCanvases(){
     if(session.learningPathOpened() && session.ScenariosExist()){
         for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
-            workspaceID = 'workspace' + i
-            new p5(newSketch, workspaceID)
+            workspaceID = 'workspace' + i;
+            workspaces[i] = new p5(sketch[i], workspaceID);
         }
     }
 }
@@ -245,7 +247,7 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        updateWorkspaceBackground(input.value)
+        //updateWorkspaceBackground(input.value)
     }
     
     else if (classes.contains('interactivityInputCB')) {

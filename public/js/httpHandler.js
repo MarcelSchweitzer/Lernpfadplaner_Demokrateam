@@ -12,7 +12,7 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
 
             }
             // Workspace picture loading css / p5
-            loadWorkspaceBackgrounds();
+            //loadWorkspaceBackgrounds();
             createCanvases();
             return cb()
         });
