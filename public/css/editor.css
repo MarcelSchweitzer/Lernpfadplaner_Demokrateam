@@ -315,12 +315,11 @@
 }
 
 .deleteBtn{
-  background-color: white;
-  color: black;
+  background-color: rgb(134, 89, 89);
   border: 2px solid red;
 }
 
 .deleteBtn:hover{
-  background-color: red;
+  background-color: rgb(197, 31, 31);
   color: white;
 }
