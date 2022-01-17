@@ -40,7 +40,7 @@ function selectMatch(from = '', select = '*', col, equals, cb = noop) {
     return module.exports.select(from, select, where, cb)
 }
 
-function insert(table, dict, cb = noop) {
+function insert(table, dict, cb = noop, errCb = noop) {
     let dbClient = createClient();
     let query = 'INSERT INTO ' + table + ' ('
     for (let [key, value] of Object.entries(dict))
@@ -57,7 +57,7 @@ function insert(table, dict, cb = noop) {
     dbClient.query(query, (err, res) => {
         if (err) {
             console.error(err);
-            return false
+            return errCb()
         }
         dbClient.end()
         return cb()

@@ -245,11 +245,9 @@ app.post('/updateLp', (req, res) => {
                         dbMan._update('learningPath', 'lpid', lpid, {
                             'title': req.body.title,
                             'content': req.body.learningPath
-                        }, () => {
-
-                            // respond OK to client
-                            res.send('200')
-                        })
+                        }, 
+                        () => { res.send('200') }, 
+                        () => { res.send('500') })
                     }else{
                         let lpids = [];
                         for (let i = 0; i < owner.length; i++)
@@ -270,11 +268,9 @@ app.post('/updateLp', (req, res) => {
                         'title': req.body.title,
                         'content': newContJSON,
                         'owner': uid
-                    }, () => {
-
-                        // respond OK to client
-                        res.send('200')
-                    })
+                    }, 
+                    () => { res.send('200') }, 
+                    () => { res.send('500') })
                 }
 
             });

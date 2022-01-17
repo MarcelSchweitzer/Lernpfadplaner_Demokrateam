@@ -47,10 +47,12 @@ function getSettingsPage(mode = null) {
 function learningPathToServer(learningPath, cb = noop) {
     if (JSON.stringify(learningPath) != 'undefined') {
         $.post('/updateLp', { 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
-            if (status === 'success')
+            if (status === 'success'){
+                alertToUser('Änderungen gespeichert!', 3);
                 return cb()
-            else
-                alertToUser("Lernpfad konnte nicht gespeichert werden!", 10, 'red');
+            }else{
+                alertToUser("Lernpfad konnte nicht gespeichert werden!", 10, red);
+            }   
         });
     }
 }

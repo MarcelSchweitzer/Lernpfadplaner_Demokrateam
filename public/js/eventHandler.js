@@ -7,16 +7,6 @@ var unsavedChanges = false;
 // stores files that are to be imported
 let importFiles = []
 
-// fileReader instance
-let fileReader = new FileReader();
-
-// run when a file was succesfully loaded
-fileReader.addEventListener("load", () => {
-    importFiles.push(JSON.parse(fileReader.result));
-    importLP(importFiles);
-    importFiles = []
-}, false);
-
 // on startup
 $(document).ready(() => {
     updateUserName();
@@ -161,6 +151,10 @@ document.addEventListener('click', (event) => {
         });
     }
 
+    else if(id == 'deleteInteractivity'){
+        console.log("XXXXXXXXXX")
+    }
+
     // handle open learningPath buttons
     else if (classes.contains('openLp')) {
         editID = id.replaceAll('openLp', '');
@@ -185,12 +179,14 @@ document.addEventListener('click', (event) => {
             session.removelearningPath(lpID)
         })
         
-    } else if (classes.contains('interactivityListItem')) {
+    } 
+    
+    else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
         refreshInteractivityInputs();
     }
-    
+
 }, false);
 
 document.addEventListener('input', (event) => {
@@ -290,7 +286,19 @@ document.addEventListener('input', (event) => {
     }
 
     else if ( id = 'importDrop'){
-        fileReader.readAsText(document.querySelector('.fileDrop').files[0]);
+        for(let i = 0; i < document.querySelector('.fileDrop').files.length; i++){
+            let fileReader = new FileReader();
+
+            fileReader.addEventListener("load", () => {
+                importFiles.push(JSON.parse(fileReader.result));
+                if(importFiles.length == document.querySelector('.fileDrop').files.length){
+                    importLP(importFiles);
+                    importFiles = []
+                }
+            }, false);
+
+            fileReader.readAsText(document.querySelector('.fileDrop').files[i]);
+        }
     }
 
 });
@@ -371,7 +379,6 @@ function updateLpProperty(key, value, index = null, indexKey = null) {
 function saveCurrentLp() {
     if (session.learningPathOpened()) {
         learningPathToServer(session.getCurrentlearningPath(), () => {
-            alertToUser('Änderungen gespeichert!', 3);
             unsavedChanges = false;
         });
     }
@@ -380,15 +387,23 @@ function saveCurrentLp() {
 function importLP(learningPaths) {
     done = []
     for(let i = 0; i < learningPaths.length; i++){
+        done[i] = []
         for(let j = 0; j < learningPaths[i].length; j++){
-            done[i.toString() + j.toString()] = false
+            done[i][j] = 'false'
             session.addlearningPath(learningPaths[i][j])
             learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
-                done[i.toString() + j.toString()] = true
-                do{
-                    if(!done.includes(false))
-                        getHomePage();
-                }while(done.includes(false))
+                done[i][j] = 'true'
+                let finStr = ""
+                if(i == learningPaths.length - 1 && j == learningPaths[i].length -1){
+                    do{
+                        finStr = ""
+                        for(let k = 0; k < learningPaths.length; k++){
+                            finStr = finStr + done[k].join('')
+                        }
+                        if(!finStr.includes('false'))
+                            getHomePage();
+                    }while(finStr.includes('false'))
+                }
             })
         }
     }
@@ -396,10 +411,13 @@ function importLP(learningPaths) {
 
 // alert a message to the user
 function alertToUser(message, seconds = 5, color = 'black') {
-
-    // TODO
-
-    console.log(message);
+    userMess = document.getElementById("userMessage")
+    userMess.innerText = message;
+    userMess.style.color = color;
+    setTimeout(() => {
+        userMess.innerText = "";
+        userMess.style.color = 'black';
+    }, seconds * 1000)
 }
 
 // autosave every ten seconds
@@ -408,6 +426,9 @@ setInterval(function() {
         saveCurrentLp()
 }, 10000)
 
-function deleteInteractivity(){
-    console.log("XXXXXXXXXX")
-}
+window.onbeforeunload = function() {
+    if(unsavedChanges){
+        return "Deine Änderungen werden eventuell nicht gespeichert!";
+    }
+    
+};

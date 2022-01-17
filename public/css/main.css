@@ -236,10 +236,6 @@ header {
     margin: 8px;
 }
 
-#usernameText {
-    margin:12px 2px;
-}
-
 .colz-icon{
     cursor: pointer;
     margin-right: 30px;
@@ -543,8 +539,9 @@ footer a:hover{
     border: 2px solid #ff5823 !important;
     background-color: #1f2235 !important;
 }
-#usernameText {
+.headerText {
     vertical-align: middle;
+    margin:12px 2px;
 }
 
 .row {
