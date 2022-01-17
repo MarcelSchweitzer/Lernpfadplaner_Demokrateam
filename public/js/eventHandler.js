@@ -121,10 +121,40 @@ document.addEventListener('click', (event) => {
 
     else if (id == 'selectAllInter'){
         $(".interactivityInputCB").prop('checked', true)
+        let allBoxes = $(".interactivityInputCB").map(function() {
+            let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '')
+            let interactivity = this.id.replaceAll('CB', '')
+            interactivity = interactivity.replace(/^\s+|\s+$/g, '');
+            return {'category':category, 'interactivity':interactivity}
+        }).get();
+        let interactionTypes = {}
+        for (const [key, value] of Object.entries(allBoxes)) {
+            if(!Array.isArray(interactionTypes[value['category']]))
+                interactionTypes[value['category']] = []
+            interactionTypes[value['category']].push(value['interactivity'])
+          }
+
+        session.setProp('interactivityTypes', interactionTypes)
+        unsavedChanges = true;
+        saveCurrentLp();
     }
 
     else if (id == 'selectNoneInter'){
         $(".interactivityInputCB").prop('checked', false)
+        session.setProp('interactivityTypes', {})
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
+
+    else if(id == 'deleteInteractivity'){
+        if(session.interactionOpened()){
+            session.deleteInteraction(session.getCurrentInteractionIndex());
+            session.closeInteraction();
+            if(session.interactionsExist && session.getCurrentScenario().interactions.length > 0)
+                session.openInteraction(session.getCurrentScenario().interactions.length - 1)
+            refreshInteractivityList();
+            unsavedChanges = true;
+        }
     }
 
     // handle open scenario buttons
@@ -157,17 +187,6 @@ document.addEventListener('click', (event) => {
         learningPathToServer(session.getCurrentlearningPath(), () => {
             getEditPage();
         });
-    }
-
-    else if(id == 'deleteInteractivity'){
-        if(session.interactionOpened()){
-            session.deleteInteraction(session.getCurrentInteractionIndex());
-            session.closeInteraction();
-            if(session.interactionsExist && session.getCurrentScenario().interactions.length > 0)
-                session.openInteraction(session.getCurrentScenario().interactions.length - 1)
-            refreshInteractivityList();
-            unsavedChanges = true;
-        }
     }
 
     // handle open learningPath buttons
