@@ -2,8 +2,18 @@ class CanvasManager {
   constructor() { 
     this.images = []
     this.p5Obj = null;
-    this.scale;
-    this.center;
+    this.scale = 1;
+    this.userOffsetX = 0;
+    this.userOffsetY = 0;
+  }
+
+  setUserOffset(x, y){
+    this.userOffsetX = x;
+    this.userOffsetY = y;
+  }
+
+  getUserOffset(){
+    return{'x': this.userOffsetX, 'y': this.userOffsetY}
   }
 
   setP5(p){
@@ -42,15 +52,14 @@ class CanvasManager {
     return {'width': w, 'height': h}
   }
 
-  getScale(){
-    let img = this.images[session.getCurrentScenarioIndex()]
-    return (img.height > img.width) ? this.getWorkspaceDimension().height / img.height : this.getWorkspaceDimension().height / img.height;
+  addToScale(scale){
+    this.scale += scale;
   }
 
-  getCenter(){
-    let img = this.images[session.getCurrentScenarioIndex()]
-    return (img.height > img.width) ? (this.getWorkspaceDimension().width - img.width * this.getScale()) / 2 : (this.getWorkspaceDimension().width - img.width * this.getScale()) / 2;
+  getScale(){
+    return this.scale;
   }
+
 }
 
 let canvasManager = new CanvasManager();
@@ -74,18 +83,44 @@ function newCanv(p){
 
     }
 
+    // handle drag events
+
+    p.mouseDragged = function () {
+      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && draggedInteraction == null)
+        canvasManager.setUserOffset(p.mouseX, p.mouseY)
+    }
+
+    p.mouseWheel = function (event) {
+      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
+        canvasManager.addToScale(event.delta * -0.0005)
+        return false;
+      }
+    }
+
     p.draw = function () {
 
       // set FrameRate
       p.frameRate(60);
 
+      
+      // draw background
+      p.background(50);
+
+      // translate (zoom + position)
+      p.translate(canvasManager.getUserOffset().x, canvasManager.getUserOffset().y);
+      p.scale(canvasManager.getScale(), canvasManager.getScale());
+
+      // draw image
+      if(canvasManager.getCurrentImage()){
+        p.image(canvasManager.getCurrentImage(),
+        - canvasManager.getCurrentImage().width / 2,
+        - canvasManager.getCurrentImage().height / 2,
+        canvasManager.getImageDimension().width,
+        canvasManager.getImageDimension().height
+        );
+      }
+
       if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
-
-        // draw background
-        p.background(50);
-
-        // draw image
-        p.image(canvasManager.getCurrentImage(), canvasManager.getCenter(), 0, canvasManager.getImageDimension().width * canvasManager.getScale(), canvasManager.getImageDimension().height * canvasManager.getScale());
 
         let interactions = session.getCurrentScenario().interactions
 

@@ -122,7 +122,7 @@ app.get('/create', (req, res) => {
                     'evaluationModeID': 'Punkte',
                     'scenarios': [{
                         'title': 'Neues Szenario',
-                        'resource': 'img/example.jpg'
+                        'resource': 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Helvellyn_Striding_Edge_360_Panorama%2C_Lake_District_-_June_09.jpg'
                     }],
                     'interactivityTypes': { 
                         'Global': [
