@@ -20,12 +20,6 @@ function isValidURL(url) {
     return (res != null)
   };
 
-function updateWorkspaceBackground(source) {
-    workspaceID = '#workspace' + session.getCurrentScenarioIndex()
-    urlHandle = "url("+source+")"
-    $(workspaceID).css("background-image", urlHandle);
-}
-
 function createCanvas(){
     if(session.learningPathOpened() && session.ScenariosExist()){
         workspaceId = 'workspace' + session.getCurrentScenarioIndex();
@@ -268,7 +262,7 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        // updateWorkspaceBackground(input.value)
+        canvasManager.setCurrentImage(input.value);
     }
     
     else if (classes.contains('interactivityInputCB')) {
@@ -469,3 +463,7 @@ window.onbeforeunload = function() {
     }
     
 };
+
+  window.onresize = ()=>{
+    $( ".p5Canvas" ).css({width: "100%"});
+  };

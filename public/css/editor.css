@@ -36,6 +36,7 @@
 }
 
 .midCol {
+  overflow-y: auto;
   margin-top: 20px;
   width: 65%;
 }
@@ -69,6 +70,7 @@
 }
 
 .interactionSettings {
+  overflow-y: auto;
   height: 100%;
   width: 0px;
   float: left;
