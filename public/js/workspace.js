@@ -30,8 +30,29 @@ class CanvasManager {
   }
 
   setImage(index, path){
-    this.images[index] = this.p5Obj.createImg(path, path);
-    this.images[index].hide()
+
+    let success; 
+
+    if(this.images[index])
+      this.images[index].remove();
+    
+    // load image ist hmtl object
+    this.p5Obj.createImg(path, "", (img)=>{
+      img.id('wsImage' + index)
+    
+      // get width and height 
+      let width = document.getElementById('wsImage' + index).clientWidth
+      let height = document.getElementById('wsImage' + index).clientWidth
+  
+      // hide original html object
+      img.hide()
+      
+      // if width & heigth > 0 -> load successfull, save to imagelist
+      if(width > 0 && height > 0){
+        this.images[index] = img
+        success = true;
+      }
+    });
   }
 
   getCurrentImage(){
