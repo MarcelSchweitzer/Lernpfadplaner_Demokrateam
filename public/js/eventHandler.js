@@ -364,12 +364,12 @@ document.addEventListener("drop", (event) => {
             category.trim()
             interactionType.trim()
             session.addInteraction(coordinates, category, interactionType);
-            draggedInteraction = null;
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
         }
     }
+    draggedInteraction = null;
 }, false);
 
 function refreshInteractivityList() {
@@ -391,7 +391,9 @@ function refreshInteractivityInputs() {
             $( ".workspace" ).animate({width: "80%"}, speed, 'swing');
             $( ".p5Canvas" ).css({width: "100%"});
             $( ".interactionItem").css({visibility: "visible"});
-            $( ".interactionItem").animate({width: "80%"}, 10, 'swing');
+            $( ".interactionItem").animate({width: "80%"}, 10, 'swing', ()=>{
+                canvasManager.resizeCanvas();
+            });
         }
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
@@ -406,7 +408,9 @@ function refreshInteractivityInputs() {
             $( ".interactionItem" ).css({visibility: "hidden"});
         });
         $( ".workspace" ).animate({width: "100%"}, speed, 'swing');
-        $( ".p5Canvas" ).animate({width: "100%"}, speed, 'swing');
+        $( ".p5Canvas" ).animate({width: "100%"}, speed, 'swing', ()=>{
+            canvasManager.resizeCanvas();
+        });
         $(".interInp").val('');
     }
 }
@@ -468,6 +472,6 @@ window.onbeforeunload = function() {
     
 };
 
-  window.onresize = ()=>{
-    $( ".p5Canvas" ).css({width: "100%"});
-  };
+window.onresize = (event)=>{
+    canvasManager.resizeCanvas();
+};

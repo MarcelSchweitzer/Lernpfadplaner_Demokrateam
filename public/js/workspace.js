@@ -46,7 +46,7 @@ class CanvasManager {
   
       // hide original html object
       img.hide()
-      
+
       // if width & heigth > 0 -> load successfull, save to imagelist
       if(width > 0 && height > 0){
         this.images[index] = img
@@ -63,8 +63,12 @@ class CanvasManager {
     return images[index]
   }
 
+  getWorkSpaceName(){
+    return 'workspace' + session.getCurrentScenarioIndex();
+  }
+
   getWorkSpaceId(){
-    return '#workspace' + session.getCurrentScenarioIndex()
+    return '#' + this.getWorkSpaceName();
   }
 
   getImageDimension(){
@@ -93,6 +97,10 @@ class CanvasManager {
     }
   }
 
+  resizeCanvas(){
+    this.p5Obj.resizeCanvas(document.getElementById(this.getWorkSpaceName()).clientWidth, document.getElementById(this.getWorkSpaceName()).clientHeight);
+  }
+
 }
 
 let canvasManager = new CanvasManager();
@@ -114,6 +122,12 @@ function newCanv(p){
 
       // set colorMode
       p.colorMode(p.RGB, 255,255,255,1);
+
+      // handle resizeEvents
+      document.getElementById('defaultCanvas0').onresize = function(){
+        console.log(document.getElementById(this.getWorkSpaceId()).clientHeight)
+        canvasManager.resizeCanvas(document.getElementById(this.getWorkSpaceId()).clientWidth, document.getElementById(this.getWorkSpaceId()).clientHeight);
+      };
 
     }
 
@@ -138,7 +152,7 @@ function newCanv(p){
 
       
       // draw background
-      p.background(50);
+      p.background(245);
 
       // translate (zoom + position)
       p.translate(canvasManager.getUserOffset().x, canvasManager.getUserOffset().y);
