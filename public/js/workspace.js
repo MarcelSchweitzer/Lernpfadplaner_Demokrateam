@@ -26,13 +26,12 @@ class CanvasManager {
   }
 
   setCurrentImage(path){
-    this.images[session.getCurrentScenarioIndex()] = this.p5Obj.loadImage(path, 
-      ()=>{ alertToUser('Inhalt wurde geladen!')},
-      ()=>{ alertToUser('Inhalt konnte nicht geladen werden!', 5, 'red')});
+    this.setImage(session.getCurrentScenarioIndex(), path);
   }
 
   setImage(index, path){
-    this.images[index] = this.p5Obj.loadImage(path);
+    this.images[index] = this.p5Obj.createImg(path, path);
+    this.images[index].hide()
   }
 
   getCurrentImage(){
