@@ -86,10 +86,17 @@ function fetchlearningPaths(cb = noop) {
 
 // serve a list of learningPaths as a download for the user
 function downloadlearningPaths(lps, format) {
-    var text = JSON.stringify(lps, null, 4);
-    var filename = session.learningPathOpened() ? session.getCurrentlearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+    if(format == "pdf" || format == "json"){
+        var text = JSON.stringify(lps, null, 4);
+        var filename = session.learningPathOpened() ? session.getCurrentlearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+    
+        download(filename, text);
+    }
 
-    download(filename, text);
+    else if (format == "png"){
+        canvasManager.printCurrentCanvas();
+    }
+
 }
 
 // push a change of username to the server

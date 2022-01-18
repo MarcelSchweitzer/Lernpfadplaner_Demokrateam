@@ -2,6 +2,7 @@ class CanvasManager {
   constructor() { 
     this.images = []
     this.p5Obj = null;
+    this.canvas = null
     this.scale = 1;
     this.userOffsetX = 0;
     this.userOffsetY = 0;
@@ -20,8 +21,14 @@ class CanvasManager {
     this.p5Obj = p;
   }
 
+  setCanvas(cnv){
+    this.canvas = cnv;
+  }
+
   setCurrentImage(path){
-    this.images[session.getCurrentScenarioIndex()] = this.p5Obj.loadImage(path);
+    this.images[session.getCurrentScenarioIndex()] = this.p5Obj.loadImage(path, 
+      ()=>{ alertToUser('Inhalt wurde geladen!')},
+      ()=>{ alertToUser('Inhalt konnte nicht geladen werden!', 5, 'red')});
   }
 
   setImage(index, path){
@@ -60,6 +67,12 @@ class CanvasManager {
     return this.scale;
   }
 
+  printCurrentCanvas(){
+    if(session.scenarioOpened()){
+      this.p5Obj.save(this.canvas, session.getCurrentScenario().title + '.png');
+    }
+  }
+
 }
 
 let canvasManager = new CanvasManager();
@@ -73,7 +86,8 @@ function newCanv(p){
     p.setup = function(){
 
       // create canvas
-      p.createCanvas(canvasManager.getWorkspaceDimension().width, canvasManager.getWorkspaceDimension().height);
+      let cnv = p.createCanvas(canvasManager.getWorkspaceDimension().width, canvasManager.getWorkspaceDimension().height);
+      canvasManager.setCanvas(cnv);
 
       // no fill mode
       p.noFill();

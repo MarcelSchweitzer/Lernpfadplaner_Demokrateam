@@ -72,11 +72,15 @@ document.addEventListener('click', (event) => {
     else if (id == 'exportButton') {
         if (session.learningPathOpened()) {
             downloadlearningPaths([session.getCurrentlearningPath()], 'pdf');
+        }
+    } 
+    
+    else if (id == 'exportImage') {
+        if (session.learningPathOpened()) {
+            downloadlearningPaths([session.getCurrentlearningPath()], 'png');
         } else {
-            lpids = []
-            for (lp of session.getlearningPaths())
-                lpids.push(lp.id);
-            downloadlearningPaths(session.getlearningPaths(), 'pdf');
+
+            
         }
     } 
     
