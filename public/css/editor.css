@@ -193,6 +193,7 @@
 
 #lpNotes {
   width: 100%;
+  min-height: 100px;
   height: 100%;
   overflow-y: auto;
   padding-right: 17px;
@@ -212,6 +213,10 @@
   height: 470px;
   background-image: url("/img/post-it.png");
   background-size: cover;
+}
+
+.scenarios{
+  margin-top: 40px;
 }
 
 .categoryBox {
@@ -258,7 +263,6 @@
   height: 38px;
 }
 
-
 .sidepanel{
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
@@ -270,19 +274,6 @@
     width: 100%;
 
   }
-}
-
-.button {
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
 }
 
 .scenarioContr{

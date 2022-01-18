@@ -31,6 +31,7 @@ function getHomePage() {
 
 // request the settings page from the server
 function getSettingsPage(mode = null) {
+    session.closeScenario();
     if (mode == null && session.getCurrentlearningPathId() == null)
         mode = 'userSettingsOnly';
     else if (mode == null)
