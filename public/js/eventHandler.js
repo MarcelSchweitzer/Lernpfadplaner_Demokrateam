@@ -77,7 +77,10 @@ document.addEventListener('click', (event) => {
     
     else if (id == 'exportImage') {
         if (session.learningPathOpened()) {
-            downloadlearningPaths([session.getCurrentlearningPath()], 'png');
+            if(classes.contains('png'))
+                downloadlearningPaths([session.getCurrentlearningPath()], 'png');
+            else if(classes.contains('jpg'))
+                downloadlearningPaths([session.getCurrentlearningPath()], 'jpg');
         } else {
 
             

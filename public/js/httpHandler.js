@@ -93,8 +93,8 @@ function downloadlearningPaths(lps, format) {
         download(filename, text);
     }
 
-    else if (format == "png"){
-        canvasManager.printCurrentCanvas();
+    else if (format == "png" || format == "jpg"){
+        canvasManager.printCurrentCanvas(format);
     }
 
 }

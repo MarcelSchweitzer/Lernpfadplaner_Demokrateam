@@ -67,9 +67,9 @@ class CanvasManager {
     return this.scale;
   }
 
-  printCurrentCanvas(){
+  printCurrentCanvas(format){
     if(session.scenarioOpened()){
-      this.p5Obj.save(this.canvas, session.getCurrentScenario().title + '.png');
+      this.p5Obj.saveCanvas(this.canvas, session.getCurrentScenario().title, format);
     }
   }
 
