@@ -31,9 +31,7 @@ function createCanvas(){
 function loadWorkspaceBackgrounds(){
     if(session.ScenariosExist() && session.getCurrentlearningPath().scenarios.length > 0){
         for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
-            workspaceID = '#workspace' + i
-            urlHandle = "url("+session.getCurrentlearningPath().scenarios[i].resource + ")"
-            $(workspaceID).css("background-image", urlHandle);
+            canvasManager.setImage(i, session.getCurrentlearningPath().scenarios[i].resource)
         }
     }
 }
@@ -163,7 +161,6 @@ document.addEventListener('click', (event) => {
                 $(imgID).attr("src","./img/arrows-collapse.svg");
                 $(collapseID).collapse('show');
                 session.openScenario(scenarioIndex);
-                createCanvas();
 
             }else if(session.scenarioOpened() && scenarioIndex == session.getCurrentScenarioIndex()){
                 $(imgID).attr("src","./img/arrows-fullscreen.svg");

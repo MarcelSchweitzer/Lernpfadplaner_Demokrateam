@@ -59,14 +59,6 @@ function newCanv(p){
 
   canvasManager.setP5(p);
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  for(let i = 0; i < 10; i++){
-    canvasManager.setImage(i, 'img/example.jpg');
-  }
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   if(session.learningPathOpened() && session.ScenariosExist()){
 
     p.setup = function(){

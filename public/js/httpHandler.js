@@ -11,9 +11,8 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
                 session.openScenario(session.getProp('scenarios').length - 1);
 
             }
-            // Workspace picture loading css / p5
-            //loadWorkspaceBackgrounds();
             createCanvas();
+            loadWorkspaceBackgrounds();
             return cb()
         });
     });
