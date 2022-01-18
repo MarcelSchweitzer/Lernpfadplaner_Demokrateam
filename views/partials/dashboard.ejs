@@ -1,87 +1,99 @@
-<div class="container-fluid">
-    <img class="img-background" src="img/settings.png">
-    <div class="start-btn">
-        <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
-    </div>
-  
-    <hr>
-    <div class="row">
-        <div class="col-md-7">
-        <div class="history">
-            <div class="card">
-                <div class="card-header">
-                    Meine Lernpfade
-                </div>
-                <div class="card-body">
-                    <input class="form-control" id="searchbox" type="text" placeholder="Search..">
-                    <hr>
-                    <div class="container">
-                        <div class="lpTableDiv table-responsive">
-                        <table class="lpTable table table-striped">
-                            <tr id="lpTableHeader">
-                                <th class="lpHeader" scope="col">#</th>
-                                <th class="lpHeader" scope="col">Titel</th>   
-                                <th class="lpHeader" scope="col">Szenarien</th> 
-                                <th class="lpHeader" scope="col">Interaktivitäten</th>  
-                                <th class="lpHeader" scope="col">Taxonomiestufe</th> 
-                                <th class="lpHeader" scope="col">Bewertungsmodus</th> 
-                                <th class="lpHeader" scope="col"></th>
-                            </tr>
-                            <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
-                                <tr id="lpRow<%= lp['id'] %>" scope="row">
-                                    <td class="lpInfoCell">
-                                        <%= count %>
-                                    </td>
-                                    <td>
-                                        <button class="button btn btn-light openLp" id="openLp<%= lp['id'] %>">
-                                            <%= lp['title'] %>
-                                        </button>
-                                    </td>
-                                    <% 
-                                        let amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); 
-                                    %>
-                                    <td class="lpInfoCell">
-                                            <%= amountScenarios %>
-                                    </td>
-                                    <% 
-                                        let amountInter = 0;
-                                            for(let i = 0; i < amountScenarios; i++){
-                                                let amountThisScenario = lp['scenarios'][i]['interactions'] ? lp['scenarios'][i]['interactions'].length : 0
-                                                amountInter += amountThisScenario;
-                                            }
-                                    %>
-                                    <td class="lpInfoCell">
-                                            <%= amountInter %>
-                                    </td>
-                                    <td class="lpInfoCell">
-                                        <%= lp['taxonomyLevelID'] %>
-                                    </td>
-                                    <td class="lpInfoCell">
-                                        <%= lp['evaluationModeID'] %>
-                                    </td>
-                                    <td class="deleteLpClass">
-                                        <button class="button btn btn-light deleteLp" id="delete<%= lp['id']%>">Löschen</button>
-                                    </td>
-                                </tr>
-                            <% count++;  }); %>
-                        </table>
+
+<% if(data.learningPaths.length > 0){ %>
+    <div class="container-fluid">
+        <img class="img-background" src="img/settings.png">
+        <hr>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="history">
+                    <div class="card">
+                        <div class="card-header">
+                            Meine Lernpfade
+                        </div>
+                        <div class="card-body">
+                            <input class="form-control" id="searchbox" type="text" placeholder="Search..">
+                            <hr>
+                            <div class="container">
+                                <div class="lpTableDiv table-responsive">
+                                    <table class="lpTable table table-striped">
+                                        <tr id="lpTableHeader">
+                                            <th class="lpHeader" scope="col">#</th>
+                                            <th class="lpHeader" scope="col">Titel</th>   
+                                            <th class="lpHeader" scope="col">Szenarien</th> 
+                                            <th class="lpHeader" scope="col">Interaktivitäten</th>  
+                                            <th class="lpHeader" scope="col">Taxonomiestufe</th> 
+                                            <th class="lpHeader" scope="col">Bewertungsmodus</th> 
+                                            <th class="lpHeader" scope="col"></th>
+                                        </tr>
+                                        <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
+                                            <tr id="lpRow<%= lp['id'] %>" scope="row">
+                                                <td class="lpInfoCell">
+                                                    <%= count %>
+                                                </td>
+                                                <td>
+                                                    <button class="button btn btn-light openLp" id="openLp<%= lp['id'] %>">
+                                                        <%= lp['title'] %>
+                                                    </button>
+                                                </td>
+                                                <% 
+                                                    let amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); 
+                                                %>
+                                                <td class="lpInfoCell">
+                                                        <%= amountScenarios %>
+                                                </td>
+                                                <% 
+                                                    let amountInter = 0;
+                                                        for(let i = 0; i < amountScenarios; i++){
+                                                            let amountThisScenario = lp['scenarios'][i]['interactions'] ? lp['scenarios'][i]['interactions'].length : 0
+                                                            amountInter += amountThisScenario;
+                                                        }
+                                                %>
+                                                <td class="lpInfoCell">
+                                                        <%= amountInter %>
+                                                </td>
+                                                <td class="lpInfoCell">
+                                                    <%= lp['taxonomyLevelID'] %>
+                                                </td>
+                                                <td class="lpInfoCell">
+                                                    <%= lp['evaluationModeID'] %>
+                                                </td>
+                                                <td class="deleteLpClass">
+                                                    <button class="button btn btn-light deleteLp" id="delete<%= lp['id']%>">Löschen</button>
+                                                </td>
+                                            </tr>
+                                        <% count++;  }); %>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-           </div>
+            </div>
+            <div class="col-md-4">
+                <div class="start-btn">
+                    <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
+                </div>
+                <div class="form" id="dropDiv">
+                    <input type="file" class="fileDrop" id="importDrop" multiple>
+                    <p id="dropText">Ziehe Deine Lernpfad-Dateien in dieses Feld oder klicke darauf, um Dateien von Deinem Rechner auszuwählen!</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-5">
-            <div class="form" id="dropDiv">
+    </div>
+<%}else{%>
+    <div class="welcome">
+        <div class="welcomeItem">
+            <div class="start-btn">
+                <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
+            </div>
+        </div>
+        <div class="welcomeItem">
+            <div class="form dropDiv" id="dropDiv">
                 <input type="file" class="fileDrop" id="importDrop" multiple>
                 <p id="dropText">Ziehe Deine Lernpfad-Dateien in dieses Feld oder klicke darauf, um Dateien von Deinem Rechner auszuwählen!</p>
             </div>
         </div>
-           </div>
-        </div>
-      
-    </section>
-   
-</div>
+    </div>
+<%}%>
 <div class="space"></div>
 

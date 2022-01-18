@@ -38,10 +38,6 @@
   display: inline-block;
 }
 
-.material-group {
-  min-height: 100vh;
-}
-
 .nav-item {
   font-size: 14px;
 }
