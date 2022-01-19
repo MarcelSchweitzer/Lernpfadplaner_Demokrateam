@@ -116,7 +116,7 @@ class CanvasManager {
   }
 
   resizeCanvas(){
-    if(this.p5Obj)
+    if(this.p5Obj && session.scenarioOpened())
       this.p5Obj.resizeCanvas(document.getElementById(this.getWorkSpaceName()).clientWidth, document.getElementById(this.getWorkSpaceName()).clientHeight);
   }
 
