@@ -312,14 +312,17 @@ document.addEventListener('input', (event) => {
     
     else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
+
             let elemId = $(input).find('option:selected').attr('id')
-            let category = elemId.split('$$')[1];
-            let interactionType = elemId.split('$$')[2];
-            category = category.trim();
-            interactionType = interactionType.trim();
-            session.setInteractionProp('category', category);
-            session.setInteractionProp('interactionType', interactionType);
-            refreshInteractivityList();
+            if(elemId != "noInteractiontype"){
+                let category = elemId.split('$$')[1];
+                let interactionType = elemId.split('$$')[2];
+                category = category.trim();
+                interactionType = interactionType.trim();
+                session.setInteractionProp('category', category);
+                session.setInteractionProp('interactionType', interactionType);
+                refreshInteractivityList();
+            }
         }
     }
 

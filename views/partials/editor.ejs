@@ -281,15 +281,13 @@ function canBeRead(root, calls){
                             <div class="form-group interactionItem">
                                 <label for="interactionTypeDrop">Interaktionstyp</label>
                                 <select class="form-control interSet" id="interactionTypeDrop">
+                                    <option id="noInteractiontype" class="changeInteractivity"> </option>
                                     <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
                                         let count = 0;
                                             for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
                                     <optgroup label=<%= key %>>
                                         <% value.forEach(val=> { %>
-                                            <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
-                                                    <%
-                                                    if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
-                                                    <%}%>>
+                                            <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity">
                                                 <%= val %>
                                             </option>
                                         <% });}} %>
