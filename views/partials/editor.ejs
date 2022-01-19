@@ -1,6 +1,7 @@
+
 <link rel="stylesheet" href="/css/editor.css" type="text/css">
 </link>
-<% 
+<%
 // return true if data is available
 function canBeRead(root, calls){
     if(calls.length == 1 && root[calls[0]])
@@ -13,75 +14,75 @@ function canBeRead(root, calls){
     return false
 }
 %>
-    <div class="container-fluid">
-        <div class="cover-background">
-            <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="noteModalLabel">Notizen</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <textarea class="form-control lpNotesModal" id="lpNotesModal"><%=data.learningPath.notes%></textarea>
-                        </div>
+<div class="container-fluid">
+    <div class="cover-background">
+        <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="noteModalLabel">Notizen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control lpNotesModal" id="lpNotesModal"><%=data.learningPath.notes%></textarea>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2 sidecol">
-                    <section class="left">
-                        <div class="sidepanel">
-                            <div class="taxonomy-part">
-                                <hr>
-                                <p>Taxonomiestufe</p>
-                                <hr>
-                                <form>
-                                    <div class="form-group col-12">
-                                        <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
+        </div>
+        <div class="row">
+            <div class="col-2 sidecol">
+                <section class="left">
+                    <div class="sidepanel">
+                        <div class="taxonomy-part">
+                            <hr>
+                            <p>Taxonomiestufe</p>
+                            <hr>
+                            <form>
+                                <div class="form-group col-12">
+                                    <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
                                         <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
-                                        <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
+                                            <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
                                         <% }); } %>
                                     </select>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="rate-part">
-                                <hr>
-                                <p>Bewertungsmodus </p>
-                                <hr>
-                                <form>
-                                    <div class="form-group col-12">
-                                        <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
-                                        <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
-                                        <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
-                                        <% }); } %>
-                                    </select>
-                                    </div>
-                                </form>
-                            </div>
-                          
-                           
-                        </div>
-                    </section>
-                    <section>
-                        <div class="sidepanel sidepanel-second">
-                            <div class="rate-part">
-                                <hr>
-                                <p>Notizen</p>
-                                <hr>
-                                <div class="note" >
-                                    <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
-                                    <div class="noteMaximize">
-                                        <a href="#" data-toggle="modal" data-target="#noteModal">
-                                            <img class="img-fluid button" src="img/maximize.png">
-                                        </a>
-                                    </div>
                                 </div>
-                           </div>
-                      
+                            </form>
+                        </div>
+                        <div class="rate-part">
+                            <hr>
+                            <p>Bewertungsmodus </p>
+                            <hr>
+                            <form>
+                                <div class="form-group col-12">
+                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
+                                        <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
+                                            <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                                        <% }); } %>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </section>
+                <section>
+                    <div class="sidepanel sidepanel-second">
+                        <div class="rate-part">
+                            <hr>
+                            <p>Notizen</p>
+                            <hr>
+                            <div class="note" >
+                                <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                                <div class="noteMaximize">
+                                    <a href="#" data-toggle="modal" data-target="#noteModal">
+                                        <img class="img-fluid button" src="img/maximize.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="rate-part">
                             <div class="interactivity">
                                 <hr>
@@ -89,238 +90,236 @@ function canBeRead(root, calls){
                                 <hr>
                                 <div class="interactivityList">
                                     <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
-                                data.learningPath.scenarios.length > 0 &&
-                                canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
-                                    let count = 0;
+                                            data.learningPath.scenarios.length > 0 &&
+                                            canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
+                                        let count = 0;
                                     data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                         <div class="interactivityList">
                                             <div class="interactivityListElem">
                                                 <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
                                                     <% catName=ia.category.replace("_", " " ); %>
                                                     <%= catName %> -
-                                                        <%= ia.interactionType %>
+                                                    <%= ia.interactionType %>
                                                 </button>
                                             </div>
                                         </div>
-                                        <% count++; }); %>
-                                            <% } %>
+                                    <% count++; }); %>
+                                    <% } %>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-                    </section>
-
-                    <section>
-                        <div class="sidepanel sidepanel-second">
-                            <div class="rate-part">
-                                <hr>
-                                <p>Übersicht</p>
-                                <hr>
-                                <button class="button btn btn-primary" id="showTreegraph">Baumansicht anzeigen</button>
-                                <div id="treegraphNav" class="overlay">
-                                    <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
-                                    <div class="overlay-content">
-                                        <div id="treegraph">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
-                </div>
-                    <div class="col-8 midCol">
-                        <div class="material-group scenarios" id="accordion">
-                            <% if(canBeRead(data, ['learningPath','scenarios'])){
-                        let count = 0;
-                        data.learningPath.scenarios.forEach(sc=>{
-                            let lastScenario = count == data.learningPath.scenarios.length - 1;
-                            let showLastscenario = lastScenario ? ' show' : '';
-                        %>
-                                <div class="card scenario">
-                                    <div class="card-header" id="heading<%= count %>">
-                                        <h5 class="mb-0">
-                                            <div class="scenarioContr">
-                                                <input type="text" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
-                                                <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
-                                                    <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
-                                                </button>
-                                                
-                                                <button class="btn btn-light scenarioHeaderInput" 
-                                                data-toggle="modal" data-target="#delete" ">Löschen</button>
-                                                 <!-- delete -->
-                                                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        <button type="button" class="close" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                             <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
-                                                            <p>Bist Du sicher? </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light deleteScenario" id="deleteScenario<%= count %>" data-dismiss="modal">Löschen</button>
-                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                                <!-- delete -->
-                                            </div>
-                                           
-                                        </h5>
-                                    </div>
-                                    <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="lpDescription<%= count %>">Beschreibung</label>
-                                                    <input type="text" class="form-control lpDescription" id="lpDescription<%= count %>" value="<%= sc.description %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lpLearningGoal<%= count %>">Lernziel</label>
-                                                    <input type="text" class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="lpResource<%= count %>">Material URL</label>
-                                                    <div class="input-group">
-                                                        <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <div>
-                                                <label>Arbeitsbereich</label>
-                                                <div class="inner-material">
-                                                    <div class="workspace" id="workspace<%= count %>"></div>
-                                                    <div class="interactionSettings">
-                                                        <div class="form-group interactionItem">
-                                                            <label class="coords" for="x_coord">X</label>
-                                                            <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord">
-
-                                                            <label class="coords" for="y_coord">Y</label>
-                                                            <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="materialUrl">Material URL</label>
-                                                            <input type="text" class="form-control interSet interInp materialUrl" id="materialUrl">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="evaluationHeurestic">Erreichbare Wertung</label>
-                                                            <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="behaviorSettings">Verhaltenseinstellungen</label>
-                                                            <select class="form-control interSet" id="behaviorSettings">
-                                                                <%
-                                                                behaviorModes = ['', 'Hover', 'Click'];
-                                                                behaviorModes.forEach(bm=> { %>
-                                                                <option id="<%= bm %>">
-                                                                    <%= bm %>
-                                                                </option>
-                                                                <% }); %>
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="interactionTypeDrop">Interaktionstyp</label>
-                                                            <select class="form-control interSet" id="interactionTypeDrop">
-                                                            <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
-                                                                let count = 0;
-                                                                for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
-                                                                    <optgroup label=<%= key %>>
-                                                                    <% value.forEach(val=> { %>
-                                                                        <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
-                                                                            <%
-                                                                                if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
-                                                                            <%}%>>
-                                                                            <%= val %>
-                                                                        </option>
-                                                                    <% });}} %>
-                                                                    </optgroup>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-
-                                                            <button class="btn btn-light interSet"
-                                                                    data-toggle="modal" data-target="#deleteInteract" ">Interaktion löschen</button>
-                                                            <div class="modal fade" id="deleteInteract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
-                                                                            <p>Bist Du sicher? </p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
-                                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <% count++; }); }%>
-
-                                    <div class="card scenario">
-                                        <div class="card-header" id="headingAddScenario">
-                                            <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" id="addScenarioButton" data-toggle="collapse" data-target="#collapseAddScenario" aria-expanded="false" aria-controls="collapseAddScenario">
-                                    +
-                                </button>
-                                            </h5>
-                                        </div>
-                                    </div>
                         </div>
                     </div>
-                    <div class="col-2 sidecol">
-                        <section class="right">
-                            <div class="sidepanel">
-                                <div class="rate-part">
-                                    <hr>
-                                    <p class="typ">Interaktionstypen</p>
-                                    <hr>
-                                    <div class="interactivityPicker">
-                                        <% if(canBeRead(data, ['learningPath', 'interactivityTypes'])){
-                                    let count = 0;
-                                    for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
-                                            <div class="categoryBox">
-                                                <hr>
-                                                <h6 class="interactivityCategory">
-                                                    <% keyName=key.replace("_", " " ); %>
-                                                        <%= keyName %>
-                                                </h6>
-                                                <hr>
-                                                <% value.forEach(val=> { %>
-                                                    <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
-                                                        <p class="selectedInteractivity">
-                                                            <%= val %>
-                                                        </p>
-                                                        <span class="tooltiptext"> <%= val %> </span>
-                                                    </div>
-                                                    <% });}} %>
-                                            </div>
+                </section>
+
+                <section>
+                    <div class="sidepanel sidepanel-second">
+                        <div class="rate-part">
+                            <hr>
+                            <p>Übersicht</p>
+                            <hr>
+                            <button class="button btn btn-light" id="showTreegraph">Baumansicht anzeigen</button>
+                            <div id="treegraphNav" class="overlay">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
+                                <div class="overlay-content">
+                                    <div id="treegraph">
+
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+            <div class="col-8 midCol">
+                <div class="material-group scenarios" id="accordion">
+                    <% if(canBeRead(data, ['learningPath','scenarios'])){
+                        let count = 0;
+                    data.learningPath.scenarios.forEach(sc=>{
+                        let lastScenario = count == data.learningPath.scenarios.length - 1;
+                        let showLastscenario = lastScenario ? ' show' : '';
+                    %>
+                    <div class="card scenario">
+                        <div class="card-header" id="heading<%= count %>">
+                            <h5 class="mb-0">
+                                <div class="scenarioContr">
+                                    <input type="text" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                    <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                        <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
+                                    </button>
+
+                                    <button class="btn btn-light scenarioHeaderInput"
+                                            data-toggle="modal" data-target="#delete" ">Löschen</button>
+                                    <!-- delete -->
+                                    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
+                                                    <p>Bist Du sicher? </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light deleteScenario" id="deleteScenario<%= count %>" data-dismiss="modal">Löschen</button>
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- delete -->
+                                </div>
+
+                            </h5>
+                        </div>
+                        <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="lpDescription<%= count %>">Beschreibung</label>
+                                        <input type="text" class="form-control lpDescription" id="lpDescription<%= count %>" value="<%= sc.description %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lpLearningGoal<%= count %>">Lernziel</label>
+                                        <input type="text" class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lpResource<%= count %>">Material URL</label>
+                                        <div class="input-group">
+                                            <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
+                                        </div>
+                                    </div>
+                                </form>
+                                <div>
+                                    <label>Arbeitsbereich</label>
+                                    <div class="inner-material">
+                                        <div class="workspace" id="workspace<%= count %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% count++; }); }%>
+                    <div class="card scenario">
+                        <div class="card-header" id="headingAddScenario">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" id="addScenarioButton" data-toggle="collapse" data-target="#collapseAddScenario" aria-expanded="false" aria-controls="collapseAddScenario">
+                                    +
+                                </button>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 sidecol">
+                <section class="right">
+                    <div class="sidepanel">
+                        <div class="rate-part">
+                            <hr>
+                            <p class="typ">Interaktionstypen</p>
+                            <hr>
+                            <div class="interactivityPicker">
+                                <% if(canBeRead(data, ['learningPath', 'interactivityTypes'])){
+                                    let count = 0;
+                                        for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
+                                <div class="categoryBox">
+                                    <hr>
+                                    <h6 class="interactivityCategory">
+                                        <% keyName=key.replace("_", " " ); %>
+                                        <%= keyName %>
+                                    </h6>
+                                    <hr>
+                                    <% value.forEach(val=> { %>
+                                        <div class="interactivityBox" id="<%= key %>$$<%= val %>" draggable="true">
+                                            <p class="selectedInteractivity">
+                                                <%= val %>
+                                            </p>
+                                            <span class="tooltiptext"> <%= val %> </span>
+                                        </div>
+                                    <% });}} %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="sidepanel sidepanel-second">
+                    <div class="rate-part">
+                        <hr>
+                        <p>Interaktionseinstellungen</p>
+                        <hr>
+                        <div class="interactionSettings">
+                            <div class="form-group interactionItem">
+                                <label class="coords" for="x_coord">X</label>
+                                <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord">
+                                <label class="coords" for="y_coord">Y</label>
+                                <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
+                            </div>
+                            <div class="form-group interactionItem">
+                                <label for="materialUrl">Material URL</label>
+                                <input type="text" class="form-control interSet interInp materialUrl" id="materialUrl">
+                            </div>
+                            <div class="form-group interactionItem">
+                                <label for="evaluationHeurestic">Erreichbare Wertung</label>
+                                <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
+                            </div>
+                            <div class="form-group interactionItem">
+                                <label for="behaviorSettings">Verhaltenseinstellungen</label>
+                                <select class="form-control interSet" id="behaviorSettings">
+                                    <%
+                                    behaviorModes = ['', 'Hover', 'Click'];
+                                    behaviorModes.forEach(bm=> { %>
+                                        <option id="<%= bm %>">
+                                            <%= bm %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group interactionItem">
+                                <label for="interactionTypeDrop">Interaktionstyp</label>
+                                <select class="form-control interSet" id="interactionTypeDrop">
+                                    <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
+                                        let count = 0;
+                                            for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
+                                    <optgroup label=<%= key %>>
+                                        <% value.forEach(val=> { %>
+                                            <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
+                                                    <%
+                                                    if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
+                                                    <%}%>>
+                                                <%= val %>
+                                            </option>
+                                        <% });}} %>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group interactionItem">
+                                <button class="btn btn-light interSet"
+                                        data-toggle="modal" data-target="#deleteInteract" ">Interaktion löschen</button>
+                                <div class="modal fade" id="deleteInteract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
+                                                <p>Bist Du sicher? </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
+                                                <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -88,7 +88,7 @@
 .interactionSettings {
   overflow-y: auto;
   height: 100%;
-  width: 0px;
+  width: 100%;
   float: left;
   display: inline;
   text-align: center;
@@ -97,8 +97,7 @@
 }
 
 .interactionItem {
-  width: 0px;
-  visibility: hidden;
+  width: 80%;
   display: inline-block;
 }
 
