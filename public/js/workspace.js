@@ -206,10 +206,10 @@ function newCanv(p){
 
         let hover = false
         for(let i = 0; i < session.getCurrentScenario().interactions.length; i++){
-          let leftBorder = session.getCurrentScenario().interactions[i].x_coord - ( 40 ) / 2;
-          let rightBorder = session.getCurrentScenario().interactions[i].x_coord + ( 40 ) / 2;
-          let topBorder = session.getCurrentScenario().interactions[i].y_coord - ( 40 ) / 2;
-          let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + ( 40 ) / 2;
+          let leftBorder = session.getCurrentScenario().interactions[i].x_coord - 5;
+          let rightBorder = session.getCurrentScenario().interactions[i].x_coord + 5 + ( 60 ); // !!
+          let topBorder = session.getCurrentScenario().interactions[i].y_coord - 5; // !!
+          let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + 5 + ( 60 ) ; // !!
           let x = (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale();
           let y = (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale()
 
@@ -270,23 +270,32 @@ function newCanv(p){
         // draw cicles 
         for(i = 0; i < interactions.length; i++){
 
+          p.stroke(12, 230, 30, 0.1); // !!
+          p.strokeWeight(20);
+
+          // inner rect
+          p.rect(interactions[i].x_coord + 5, interactions[i].y_coord + 5 , 50, 50, 20); // !!
+
           // default color
-          p.stroke(12, 230, 30, 0.3);
+          p.stroke(12, 230, 30, 0.3); // !!
 
           // color for selected
           if(i == session.getCurrentInteractionIndex())
-            p.stroke(205, 12, 30, 0.7)
+            p.stroke(205, 12, 30, 0.7) // !!
           
           // color for hover
           if(i == canvasManager.getHover())
-            p.stroke(120, 120, 30, 0.7)
+            p.stroke(120, 120, 30, 0.7) // !!
 
           // color for drag
           if(i == canvasManager.getDrag())
-            p.stroke(205, 12, 30, 0.7)
-        
+            p.stroke(205, 12, 30, 0.7) // !!
+         
           p.strokeWeight(10);
-          p.circle(interactions[i].x_coord, interactions[i].y_coord, 40);
+
+          // outer rect
+          p.rect(interactions[i].x_coord, interactions[i].y_coord, 60, 60, 20); // !!
+
         }
 
       }
