@@ -11,11 +11,12 @@
                             Meine Lernpfade
                         </div>
                         <div class="card-body">
-                            <input class="form-control" id="searchbox" type="text" placeholder="Search..">
+                            <input class="form-control"  id="searchIn" onkeyup="searchBox()" type="text" placeholder="Search..">
                             <hr>
                             <div class="container">
                                 <div class="lpTableDiv table-responsive">
-                                    <table class="lpTable table table-striped">
+                                    <table class="lpTable table table-striped" id="infoTab"> 
+                                       <thead>
                                         <tr id="lpTableHeader">
                                             <th class="lpHeader" scope="col">#</th>
                                             <th class="lpHeader" scope="col">Titel</th>   
@@ -25,6 +26,8 @@
                                             <th class="lpHeader" scope="col">Bewertungsmodus</th> 
                                             <th class="lpHeader" scope="col"></th>
                                         </tr>
+                                       </thead>
+                                       <tbody id="table">
                                         <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
                                             <tr id="lpRow<%= lp['id'] %>" scope="row">
                                                 <td class="lpInfoCell">
@@ -62,6 +65,7 @@
                                                 </td>
                                             </tr>
                                         <% count++;  }); %>
+                                    </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -96,4 +100,23 @@
     </div>
 <%}%>
 <div class="space"></div>
-
+<script>
+    function searchBox() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("searchIn");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("infoTab");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
