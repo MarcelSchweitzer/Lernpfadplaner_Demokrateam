@@ -364,6 +364,7 @@ document.addEventListener("dragover", (event) => {
 
 // handle dropable elements beeing dropped
 document.addEventListener("drop", (event) => {
+    
     let coordinates = { 'x': (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale() , 'y': (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale() };
 
     droppedTo = event.target;

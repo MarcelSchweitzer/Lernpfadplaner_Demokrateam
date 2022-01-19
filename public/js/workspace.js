@@ -53,7 +53,7 @@ class CanvasManager {
     
       // get width and height 
       let width = document.getElementById('wsImage' + index).clientWidth
-      let height = document.getElementById('wsImage' + index).clientWidth
+      let height = document.getElementById('wsImage' + index).clientHeight
   
       // hide original html object
       img.hide()
@@ -61,16 +61,18 @@ class CanvasManager {
       // if width & heigth > 0 -> load successfull, save to imagelist
       if(width > 0 && height > 0){
         this.images[index] = img
-        this.scale[session.getCurrentScenarioIndex()] = 1;
-        this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
-        this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
-        this.initposition[session.getCurrentScenarioIndex()] = null;
-        this.hoveredInteraction = null;
-        this.draggedInteraction = null;
-    
+
         success = true;
       }
+
     });
+
+    this.scale[session.getCurrentScenarioIndex()] = 1;
+    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
+    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
+    this.initposition[session.getCurrentScenarioIndex()] = null;
+    this.hoveredInteraction = null;
+    this.draggedInteraction = null;
   }
 
   getCurrentImage(){
@@ -199,6 +201,7 @@ function newCanv(p){
     p.mouseReleased = function () {
       canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
+      draggedInteraction = null;
     }
 
     p.mouseMoved = function (event) {
@@ -225,6 +228,7 @@ function newCanv(p){
     p.mouseClicked = function (event) {
       canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
+      draggedInteraction = null;
 
       // select interactivity by click
       if(canvasManager.getHover() != null){
