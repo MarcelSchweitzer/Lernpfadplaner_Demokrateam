@@ -245,6 +245,9 @@ header {
 .history{
     height: 100%;
     margin-top: 50px;
+}
+
+.card{
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -329,6 +332,7 @@ footer a:hover{
         width: 140px;
         padding: 11px 0;
         z-index: 700;
+        color: white;
     }
     .footer-img{
         display:flex;
@@ -525,6 +529,8 @@ footer a:hover{
 
 .interactivityPicker{
     margin: 5px;
+    overflow: scroll !important;
+    height: 75vh;
 }
 
 .lpTable{

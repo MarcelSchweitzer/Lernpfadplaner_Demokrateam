@@ -69,6 +69,9 @@ function canBeRead(root, calls){
                     <section>
                         <div class="sidepanel sidepanel-second">
                             <div class="rate-part">
+                                <hr>
+                                <p>Notizen</p>
+                                <hr>
                                 <div class="note" >
                                     <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
                                     <div class="noteMaximize">
@@ -184,6 +187,10 @@ function canBeRead(root, calls){
                                                             <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
                                                         </div>
                                                         <div class="form-group interactionItem">
+                                                            <label for="materialUrl">Material URL</label>
+                                                            <input type="text" class="form-control interSet interInp materialUrl" id="materialUrl">
+                                                        </div>
+                                                        <div class="form-group interactionItem">
                                                             <label for="evaluationHeurestic">Erreichbare Wertung</label>
                                                             <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
                                                         </div>
@@ -244,6 +251,7 @@ function canBeRead(root, calls){
                         <section class="right">
                             <div class="sidepanel">
                                 <div class="rate-part">
+                                    <hr>
                                     <p class="typ">Interaktionstypen</p>
                                     <hr>
                                     <div class="interactivityPicker">

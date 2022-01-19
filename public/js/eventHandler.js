@@ -296,6 +296,10 @@ document.addEventListener('input', (event) => {
     else if (id == 'y_coord') {
         updateInteractionProperty('y_coord', input.value)
     } 
+
+    else if (id == 'materialUrl') {
+        updateInteractionProperty('materialUrl', input.value)
+    } 
     
     else if (id == 'evaluationHeurestic') {
         updateInteractionProperty('evaluationHeurestic', input.value)
@@ -405,6 +409,7 @@ function refreshInteractivityInputs() {
         }
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
+        $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
         let behaDropID = session.getCurrentInteraction().behaviorSettings;
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
