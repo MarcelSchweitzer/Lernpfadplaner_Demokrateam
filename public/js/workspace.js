@@ -6,11 +6,20 @@ class CanvasManager {
     this.scale = 1;
     this.userOffsetX = 0;
     this.userOffsetY = 0;
+    let initposition = null;
   }
 
   setUserOffset(x, y){
     this.userOffsetX = x;
     this.userOffsetY = y;
+  }
+
+  setInitPosition(position){
+    this.initposition = position;
+  }
+
+  getInitPosition(){
+    return this.initposition;
   }
 
   getUserOffset(){
@@ -98,7 +107,8 @@ class CanvasManager {
   }
 
   resizeCanvas(){
-    this.p5Obj.resizeCanvas(document.getElementById(this.getWorkSpaceName()).clientWidth, document.getElementById(this.getWorkSpaceName()).clientHeight);
+    if(this.p5Obj)
+      this.p5Obj.resizeCanvas(document.getElementById(this.getWorkSpaceName()).clientWidth, document.getElementById(this.getWorkSpaceName()).clientHeight);
   }
 
 }
@@ -134,8 +144,21 @@ function newCanv(p){
     // handle drag events
 
     p.mouseDragged = function () {
-      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && draggedInteraction == null)
-        canvasManager.setUserOffset(p.mouseX, p.mouseY)
+      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && draggedInteraction == null){
+        let init = (canvasManager.getInitPosition() == null) ? {'x': p.mouseX, 'y': p.mouseY} : canvasManager.getInitPosition()
+        canvasManager.setUserOffset(-(init.x - p.mouseX), -(init.y - p.mouseY))
+      }
+    }
+
+    p.mousePressed = function () {
+      canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
+    }
+
+    p.mouseReleased = function () {
+      canvasManager.setInitPosition(null);
+    }
+    p.mouseClicked = function () {
+      canvasManager.setInitPosition(null);
     }
 
     p.mouseWheel = function (event) {
