@@ -53,7 +53,7 @@ class CanvasManager {
     
       // get width and height 
       let width = document.getElementById('wsImage' + index).clientWidth
-      let height = document.getElementById('wsImage' + index).clientWidth
+      let height = document.getElementById('wsImage' + index).clientHeight
   
       // hide original html object
       img.hide()
@@ -199,6 +199,7 @@ function newCanv(p){
     p.mouseReleased = function () {
       canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
+      draggedInteraction = null;
     }
 
     p.mouseMoved = function (event) {
@@ -225,6 +226,7 @@ function newCanv(p){
     p.mouseClicked = function (event) {
       canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
+      draggedInteraction = null;
 
       // select interactivity by click
       if(canvasManager.getHover() != null){

@@ -9,7 +9,6 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
             // the last scenario is opened by default
             if(session.ScenariosExist() && session.getProp('scenarios').length > 0){
                 session.openScenario(session.getProp('scenarios').length - 1);
-
             }
             createCanvas();
             loadWorkspaceBackgrounds();
