@@ -206,10 +206,10 @@ function newCanv(p){
 
         let hover = false
         for(let i = 0; i < session.getCurrentScenario().interactions.length; i++){
-          let leftBorder = session.getCurrentScenario().interactions[i].x_coord - ( 30 ) / 2;
-          let rightBorder = session.getCurrentScenario().interactions[i].x_coord + ( 30 ) / 2;
-          let topBorder = session.getCurrentScenario().interactions[i].y_coord - ( 30 ) / 2;
-          let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + ( 30 ) / 2;
+          let leftBorder = session.getCurrentScenario().interactions[i].x_coord - ( 40 ) / 2;
+          let rightBorder = session.getCurrentScenario().interactions[i].x_coord + ( 40 ) / 2;
+          let topBorder = session.getCurrentScenario().interactions[i].y_coord - ( 40 ) / 2;
+          let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + ( 40 ) / 2;
           let x = (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale();
           let y = (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale()
 
