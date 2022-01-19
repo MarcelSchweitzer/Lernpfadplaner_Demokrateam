@@ -64,8 +64,6 @@ class CanvasManager {
         this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
         this.initposition[session.getCurrentScenarioIndex()] = null;
     
-        console.log(this.scale)
-        console.log(this.userOffsetX)
         success = true;
       }
     });
@@ -142,7 +140,6 @@ function newCanv(p){
 
       // handle resizeEvents
       document.getElementById('defaultCanvas0').onresize = function(){
-        console.log(document.getElementById(this.getWorkSpaceId()).clientHeight)
         canvasManager.resizeCanvas(document.getElementById(this.getWorkSpaceId()).clientWidth, document.getElementById(this.getWorkSpaceId()).clientHeight);
       };
 
@@ -169,7 +166,6 @@ function newCanv(p){
     }
 
     p.mouseWheel = function (event) {
-      console.log(canvasManager.getScale())
       if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && canvasManager.getScale() > 0){
         canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
         return false;
