@@ -6,7 +6,7 @@ class CanvasManager {
     this.scale = 1;
     this.userOffsetX = 0;
     this.userOffsetY = 0;
-    let initposition = null;
+    this.initposition = null;
   }
 
   setUserOffset(x, y){
@@ -162,8 +162,8 @@ function newCanv(p){
     }
 
     p.mouseWheel = function (event) {
-      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
-        canvasManager.addToScale(event.delta * -0.0005)
+      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && canvasManager.getScale() > 0){
+        canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
         return false;
       }
     }

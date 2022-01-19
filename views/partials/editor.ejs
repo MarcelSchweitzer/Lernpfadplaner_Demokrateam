@@ -125,10 +125,9 @@ function canBeRead(root, calls){
                                                 </button>
                                                 
                                                 <button class="btn btn-light deleteScenario scenarioHeaderInput" 
-                                                data-toggle="modal" data-target="#loschen"
-                                                  >Löschen</button>
-                                                 <!-- loschen -->
-                                                <div class="modal fade" id="loschen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                data-toggle="modal" data-target="#delete" id="deleteScenario<%= count %>">Löschen</button>
+                                                 <!-- delete -->
+                                                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -137,16 +136,16 @@ function canBeRead(root, calls){
                                                         </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Sind Sie sicher, dass Sie <%= sc.title %> löschen möchten  ? </p>
+                                                            <p>Bist Du sicher, dass Du <%= sc.title %> löschen möchtest? </p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" id="deleteScenario<%= count %>" data-dismiss="modal">Löschen</button>
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Löschen</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
                                                         </div>
                                                     </div>
                                                     </div>
                                                 </div>
-                                                <!-- loschen -->
+                                                <!-- delete -->
                                             </div>
                                            
                                         </h5>

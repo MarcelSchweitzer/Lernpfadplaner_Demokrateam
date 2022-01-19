@@ -24,7 +24,7 @@ function isValidURL(url) {
   };
 
 function createCanvas(){
-    if(session.learningPathOpened() && session.ScenariosExist()){
+    if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentlearningPath().scenarios.length > 0){
         workspaceId = 'workspace' + session.getCurrentScenarioIndex();
         document.getElementById(workspaceId).innerHTML = "";
         new p5(newCanv, workspaceId)
