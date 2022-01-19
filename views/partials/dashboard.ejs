@@ -24,7 +24,7 @@
                                             <th class="lpHeader" scope="col">Interaktivitäten</th>  
                                             <th class="lpHeader" scope="col">Taxonomiestufe</th> 
                                             <th class="lpHeader" scope="col">Bewertungsmodus</th> 
-                                            <th class="lpHeader" scope="col"></th>
+                                            <th class="lpHeader" scope="col">Funktionen</th>
                                         </tr>
                                        </thead>
                                        <tbody id="table">
@@ -65,7 +65,6 @@
 
                                                     <button class="button btn btn-light deleteLp"
                                                             data-toggle="modal" data-target="#deleteLp">Löschen</button>
-                                                    <!-- delete -->
                                                     <div class="modal fade" id="deleteLp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -84,9 +83,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- delete -->
 
+                                                    <button class="button btn btn-light" id="showTreegraphDashboard">Baumansicht</button>
+                                                    <div id="treegraphNav" class="overlay">
+                                                        <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()"></a>
+                                                        <div class="overlay-content">
+                                                            <div id="treegraph">
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                 </td>
                                             </tr>

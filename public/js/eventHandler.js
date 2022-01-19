@@ -95,7 +95,11 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'showTreegraph') {
-        openTreegraphOverlay();
+        openTreegraphOverlay(session.getCurrentlearningPath());
+    }
+
+    else if (id == 'showTreegraphDashboard'){
+        forwardTreegraph();
     }
     
     else if (id == 'saveSettingsBtn') {
@@ -472,19 +476,22 @@ window.onresize = (event)=>{
     canvasManager.resizeCanvas();
 };
 
+function forwardTreegraph(){
+    document.getElementById("treegraphNav").style.display = "block";
+    createTreegraph(session.getCurrentlearningPath());
+}
+
 function openTreegraphOverlay(){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph();
+    createTreegraph(session.getCurrentlearningPath());
 }
 
 function closeTreegraphOverlay(){
     document.getElementById("treegraphNav").style.display = "none";
 }
 
-function createTreegraph(){
+function createTreegraph(lpData){
 
-    var lpData = session.getCurrentlearningPath();
-    console.log("SHOWING");
     console.log(lpData);
 
     var nodeList = [];
