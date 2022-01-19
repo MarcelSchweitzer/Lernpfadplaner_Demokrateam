@@ -61,16 +61,18 @@ class CanvasManager {
       // if width & heigth > 0 -> load successfull, save to imagelist
       if(width > 0 && height > 0){
         this.images[index] = img
-        this.scale[session.getCurrentScenarioIndex()] = 1;
-        this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
-        this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
-        this.initposition[session.getCurrentScenarioIndex()] = null;
-        this.hoveredInteraction = null;
-        this.draggedInteraction = null;
-    
+
         success = true;
       }
+
     });
+
+    this.scale[session.getCurrentScenarioIndex()] = 1;
+    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
+    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
+    this.initposition[session.getCurrentScenarioIndex()] = null;
+    this.hoveredInteraction = null;
+    this.draggedInteraction = null;
   }
 
   getCurrentImage(){
