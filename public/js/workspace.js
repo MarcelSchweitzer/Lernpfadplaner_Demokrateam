@@ -132,7 +132,7 @@ class CanvasManager {
     this.draggedInteraction = index;
   }
 
-  getHover(){
+  getDrag(){
     return this.draggedInteraction;
   }
 
@@ -168,9 +168,28 @@ function newCanv(p){
     // handle drag events
 
     p.mouseDragged = function () {
-      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && draggedInteraction == null){
-        let init = (canvasManager.getInitPosition() == null) ? {'x': p.mouseX, 'y': p.mouseY} : canvasManager.getInitPosition()
-        canvasManager.setUserOffset(-(init.x - p.mouseX), -(init.y - p.mouseY))
+      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
+
+        // select dragged element
+        if(canvasManager.getHover() != null && canvasManager.getDrag() == null){
+          canvasManager.setDrag(canvasManager.getHover());
+          session.openInteraction(canvasManager.getHover());
+          refreshInteractivityInputs();
+        }
+
+        // move dragged elemt
+        else if(canvasManager.getDrag() != null){
+          session.setInteractionProp('x_coord', p.mouseX);
+          session.setInteractionProp('y_coord', p.mouseY);
+          console.log("move "+ canvasManager.getDrag() + " to "+ p.mouseX);
+        }
+
+        // move background 
+        else if(draggedInteraction == null && canvasManager.getDrag() == null){
+          let init = (canvasManager.getInitPosition() == null) ? {'x': p.mouseX, 'y': p.mouseY} : canvasManager.getInitPosition()
+          canvasManager.setUserOffset(-(init.x - p.mouseX), -(init.y - p.mouseY))
+        }
+
       }
     }
 
@@ -180,6 +199,7 @@ function newCanv(p){
 
     p.mouseReleased = function () {
       canvasManager.setInitPosition(null);
+      canvasManager.setDrag(null);
     }
 
     p.mouseMoved = function (event) {
@@ -206,6 +226,7 @@ function newCanv(p){
     }
     p.mouseClicked = function (event) {
       canvasManager.setInitPosition(null);
+      canvasManager.setDrag(null);
 
       // select interactivity by click
       if(canvasManager.getHover() != null){
@@ -250,7 +271,22 @@ function newCanv(p){
 
         // draw cicles 
         for(i = 0; i < interactions.length; i++){
-          i == session.getCurrentInteractionIndex() ? p.stroke(205, 12, 30, 0.7) : p.stroke(12, 230, 30, 0.3);
+
+          // default color
+          p.stroke(12, 230, 30, 0.3);
+
+          // color for selected
+          if(i == session.getCurrentInteractionIndex())
+            p.stroke(205, 12, 30, 0.7)
+          
+          // color for hover
+          if(i == canvasManager.getHover())
+            p.stroke(120, 120, 30, 0.7)
+
+          // color for drag
+          if(i == canvasManager.getDrag())
+            p.stroke(205, 12, 30, 0.7)
+        
           p.strokeWeight(10);
           p.circle(interactions[i].x_coord, interactions[i].y_coord, 40);
         }
