@@ -116,7 +116,7 @@ function canBeRead(root, calls){
                                 <hr>
                                 <p>Übersicht</p>
                                 <hr>
-                                <button class="button btn btn-primary" id="showTreegraph">Baumansicht anzeigen</button>
+                                <button class="button btn btn-light" id="showTreegraph">Baumansicht anzeigen</button>
                                 <div id="treegraphNav" class="overlay">
                                     <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
                                     <div class="overlay-content">
@@ -199,56 +199,6 @@ function canBeRead(root, calls){
                                                 <label>Arbeitsbereich</label>
                                                 <div class="inner-material">
                                                     <div class="workspace" id="workspace<%= count %>"></div>
-                                                    <div class="interactionSettings">
-                                                        <div class="form-group interactionItem">
-                                                            <label class="coords" for="x_coord">X</label>
-                                                            <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord">
-
-                                                            <label class="coords" for="y_coord">Y</label>
-                                                            <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="materialUrl">Material URL</label>
-                                                            <input type="text" class="form-control interSet interInp materialUrl" id="materialUrl">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="evaluationHeurestic">Erreichbare Wertung</label>
-                                                            <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="behaviorSettings">Verhaltenseinstellungen</label>
-                                                            <select class="form-control interSet" id="behaviorSettings">
-                                                                <%
-                                                                behaviorModes = ['', 'Hover', 'Click'];
-                                                                behaviorModes.forEach(bm=> { %>
-                                                                <option id="<%= bm %>">
-                                                                    <%= bm %>
-                                                                </option>
-                                                                <% }); %>
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <label for="interactionTypeDrop">Interaktionstyp</label>
-                                                            <select class="form-control interSet" id="interactionTypeDrop">
-                                                            <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
-                                                                let count = 0;
-                                                                for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
-                                                                    <optgroup label=<%= key %>>
-                                                                    <% value.forEach(val=> { %>
-                                                                        <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
-                                                                            <%
-                                                                                if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
-                                                                            <%}%>>
-                                                                            <%= val %>
-                                                                        </option>
-                                                                    <% });}} %>
-                                                                    </optgroup>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group interactionItem">
-                                                            <button class="btn btn-light interSet" id="deleteInteractivity">Interaktion löschen</button>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,6 +249,63 @@ function canBeRead(root, calls){
                                 </div>
                             </div>
                         </section>
+                        <div class="sidepanel sidepanel-second">
+                            <div class="rate-part">
+                                <hr>
+                                <p>Interaktionseinstellungen</p>
+                                <hr>
+                                <div class="interactionSettings">
+                                    <div class="form-group interactionItem">
+                                        <label class="coords" for="x_coord">X</label>
+                                        <input type="text" class="form-control interSet interInp coords x_coord" id="x_coord">
+
+                                        <label class="coords" for="y_coord">Y</label>
+                                        <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
+                                    </div>
+                                    <div class="form-group interactionItem">
+                                        <label for="materialUrl">Material URL</label>
+                                        <input type="text" class="form-control interSet interInp materialUrl" id="materialUrl">
+                                    </div>
+                                    <div class="form-group interactionItem">
+                                        <label for="evaluationHeurestic">Erreichbare Wertung</label>
+                                        <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
+                                    </div>
+                                    <div class="form-group interactionItem">
+                                        <label for="behaviorSettings">Verhaltenseinstellungen</label>
+                                        <select class="form-control interSet" id="behaviorSettings">
+                                            <%
+                                            behaviorModes = ['', 'Hover', 'Click'];
+                                            behaviorModes.forEach(bm=> { %>
+                                            <option id="<%= bm %>">
+                                                <%= bm %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                    </div>
+                                    <div class="form-group interactionItem">
+                                        <label for="interactionTypeDrop">Interaktionstyp</label>
+                                        <select class="form-control interSet" id="interactionTypeDrop">
+                                        <% if(canBeRead(data, ['learningPath','interactivityTypes'])){
+                                            let count = 0;
+                                            for (let [key, value] of Object.entries(data.learningPath.interactivityTypes)){ %>
+                                                <optgroup label=<%= key %>>
+                                                <% value.forEach(val=> { %>
+                                                    <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity"
+                                                        <%
+                                                            if(canBeRead(data, ['learningPath', 'scenarios']) && canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions', 0]) && data.learningPath.scenarios[data.learningPath.scenarios.length - 1].interactions[0].category == key && data.learningPath.scenarios[data.learningPath.scenarios.length -1].interactions[0].interactionType == val){%>selected
+                                                        <%}%>>
+                                                        <%= val %>
+                                                    </option>
+                                                <% });}} %>
+                                                </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="form-group interactionItem">
+                                        <button class="btn btn-light interSet" id="deleteInteractivity">Interaktion löschen</button>
+                                    </div>
+                                </div>
+                           </div>
+                        <div>
                     </div>
                 </div>
             </div>

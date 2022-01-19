@@ -7,9 +7,6 @@ var unsavedChanges = false;
 // stores files that are to be imported
 let importFiles = []
 
-// stores if interactions are toggled
-let interactionToggle = false;
-
 // on startup
 $(document).ready(() => {
     updateUserName();
@@ -400,18 +397,6 @@ function refreshInteractivityList() {
 function refreshInteractivityInputs() {
     let speed = 40
     if (session.interactionOpened()) {
-        if(interactionToggle == false){
-            interactionToggle = true;
-            $( ".interactionSettings").animate({width: "20%"}, speed, 'swing');
-            $( ".workspace" ).animate({width: "80%"}, speed, 'swing');
-            $( ".p5Canvas" ).css({width: "100%"});
-            $( ".interactionItem").css({visibility: "visible"});
-            $( ".interactionItem").animate({width: "80%"}, 10, 'swing', ()=>{
-                setTimeout(()=>{
-                    canvasManager.resizeCanvas();
-                }, 20);
-            });
-        }
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
@@ -420,21 +405,6 @@ function refreshInteractivityInputs() {
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
-    }else{
-        if(interactionToggle == true){
-            interactionToggle = false;
-            $( ".interactionSettings" ).animate({width: "0px"}, speed, 'swing');
-            $( ".interactionItem" ).animate({width: "0px"}, 10, 'swing', ()=>{
-                $( ".interactionItem" ).css({visibility: "hidden"});
-            });
-            $( ".workspace" ).animate({width: "100%"}, speed, 'swing');
-            $( ".p5Canvas" ).animate({width: "100%"}, speed, 'swing', ()=>{
-                setTimeout(()=>{
-                    canvasManager.resizeCanvas();
-                }, 20);
-            });
-            $(".interInp").val('');
-        }
     }
 }
 
