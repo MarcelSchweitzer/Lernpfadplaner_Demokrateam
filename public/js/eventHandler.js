@@ -482,32 +482,43 @@ function closeTreegraphOverlay(){
 }
 
 function createTreegraph(){
-    var treeData = [
-        {
-            "name": "Top Level",
-            "parent": "null",
-            "children": [
-                {
-                    "name": "Level 2: A",
-                    "parent": "Top Level",
-                    "children": [
-                        {
-                            "name": "Son of A",
-                            "parent": "Level 2: A"
-                        },
-                        {
-                            "name": "Daughter of A",
-                            "parent": "Level 2: A"
-                        }
-                    ]
-                },
-                {
-                    "name": "Level 2: B",
-                    "parent": "Top Level"
+
+    var lpData = session.getCurrentlearningPath();
+    console.log("SHOWING");
+    console.log(lpData);
+
+    var nodeList = [];
+    var scenarioList = [];
+
+    for(var i=0; i < lpData.scenarios.length; i++){
+        if ("interactions" in lpData.scenarios[i]){
+            console.log("WORKINGGGG");
+            var interactList=[];
+            for(var j=0; j < lpData.scenarios[i].interactions.length; j++){
+                const interactDict = {
+                    "name": lpData.scenarios[i].interactions[j].interactionType
                 }
-            ]
+                interactList.push(interactDict);
+            }
+            const scenarioDict = {
+                "name": lpData.scenarios[i].title,
+                "children": interactList
+            }
+            scenarioList.push(scenarioDict);
+        } else {
+            const scenarioDict = {
+                "name": lpData.scenarios[i].title
+            }
+            scenarioList.push(scenarioDict);
         }
-    ];
+    }
+
+    var root = {"name": lpData.title, "parent": "null", "children": scenarioList}
+
+    nodeList.push(root);
+
+    console.log(root);
+
     let parent = document.getElementById("treegraph");
 
     let div = document.createElement("div");
@@ -534,7 +545,7 @@ function createTreegraph(){
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    root = treeData[0];
+    root = nodeList[0];
     root.x0 = height / 2;
     root.y0 = 0;
 
@@ -640,7 +651,5 @@ function createTreegraph(){
         }
         update(d);
     }
-
-    console.log("SHOWING");
 }
 
