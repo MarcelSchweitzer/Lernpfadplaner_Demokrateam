@@ -167,7 +167,7 @@ function newCanv(p){
 
     // handle drag events
 
-    p.mouseDragged = function () {
+    p.mouseDragged = function (event) {
       if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
         // select dragged element
@@ -179,9 +179,8 @@ function newCanv(p){
 
         // move dragged elemt
         else if(canvasManager.getDrag() != null){
-          session.setInteractionProp('x_coord', p.mouseX);
-          session.setInteractionProp('y_coord', p.mouseY);
-          console.log("move "+ canvasManager.getDrag() + " to "+ p.mouseX);
+          session.setInteractionProp('x_coord', (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale());
+          session.setInteractionProp('y_coord', (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale());
         }
 
         // move background 
@@ -203,7 +202,6 @@ function newCanv(p){
     }
 
     p.mouseMoved = function (event) {
-      console.log(canvasManager.getHover())
       if(session.interactionsExist()){
 
         let hover = false
