@@ -167,6 +167,8 @@ document.addEventListener('click', (event) => {
         let classListCollapse = document.getElementById(collapseID.replaceAll('#', '')).className.split(/\s+/);
         if(!classListCollapse.includes('collapsing')){
             if ((!session.scenarioOpened() || scenarioIndex != session.getCurrentScenarioIndex())){
+                let worspaceID = '#workspace' + scenarioIndex;
+                $(worspaceID).append( $("#defaultCanvas0") );
                 $('.openScenarioImg').attr("src","./img/arrows-fullscreen.svg");
                 $(imgID).attr("src","./img/arrows-collapse.svg");
                 $(collapseID).collapse('show');

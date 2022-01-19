@@ -1,29 +1,29 @@
 class CanvasManager {
   constructor() { 
-    this.images = []
     this.p5Obj = null;
     this.canvas = null
-    this.scale = 1;
-    this.userOffsetX = 0;
-    this.userOffsetY = 0;
-    this.initposition = null;
+    this.images = []
+    this.scale = [];
+    this.userOffsetX = [];
+    this.userOffsetY = [];
+    this.initposition = [session.getCurrentScenarioIndex()];
   }
 
   setUserOffset(x, y){
-    this.userOffsetX = x;
-    this.userOffsetY = y;
+    this.userOffsetX[session.getCurrentScenarioIndex()] = x;
+    this.userOffsetY[session.getCurrentScenarioIndex()] = y;
   }
 
   setInitPosition(position){
-    this.initposition = position;
+    this.initposition[session.getCurrentScenarioIndex()] = position;
   }
 
   getInitPosition(){
-    return this.initposition;
+    return this.initposition[session.getCurrentScenarioIndex()];
   }
 
   getUserOffset(){
-    return{'x': this.userOffsetX, 'y': this.userOffsetY}
+    return{'x': this.userOffsetX[session.getCurrentScenarioIndex()], 'y': this.userOffsetY[session.getCurrentScenarioIndex()]}
   }
 
   setP5(p){
@@ -59,6 +59,13 @@ class CanvasManager {
       // if width & heigth > 0 -> load successfull, save to imagelist
       if(width > 0 && height > 0){
         this.images[index] = img
+        this.scale[session.getCurrentScenarioIndex()] = 1;
+        this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
+        this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
+        this.initposition[session.getCurrentScenarioIndex()] = null;
+    
+        console.log(this.scale)
+        console.log(this.userOffsetX)
         success = true;
       }
     });
@@ -93,11 +100,11 @@ class CanvasManager {
   }
 
   addToScale(scale){
-    this.scale += scale;
+    this.scale[session.getCurrentScenarioIndex()] += scale;
   }
 
   getScale(){
-    return this.scale;
+    return this.scale[session.getCurrentScenarioIndex()];
   }
 
   printCurrentCanvas(format){
@@ -162,6 +169,7 @@ function newCanv(p){
     }
 
     p.mouseWheel = function (event) {
+      console.log(canvasManager.getScale())
       if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && canvasManager.getScale() > 0){
         canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
         return false;
