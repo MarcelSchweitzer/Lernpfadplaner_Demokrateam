@@ -5,6 +5,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
         replaceBody(data);
         fetchlearningPaths(() => {
             session.openlearningPath(lpid);
+            toggleSettingsButton();
 
             // the last scenario is opened by default
             if(session.ScenariosExist() && session.getCurrentLearningPath()['scenarios'].length > 0){
@@ -32,7 +33,6 @@ function getHomePage() {
 // request the settings page from the server
 
 function getSettingsPage(mode = null) {
-
     PleaseRotate.deactivate();
 
     if (mode == null && session.getCurrentLearningPathId() == null)
@@ -41,6 +41,7 @@ function getSettingsPage(mode = null) {
         mode = 'allSettings';
     $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
+        toggleSettingsButton()
     });
 }
 

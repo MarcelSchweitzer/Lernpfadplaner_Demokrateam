@@ -1,3 +1,5 @@
+const session = require("express-session");
+
 // stores currently dragged element
 var draggedInteraction = null;
 
@@ -496,6 +498,7 @@ window.onresize = (event) =>{
     toggleHeaderText();
 };
 
+// check if there is enough space to show text in header bar
 function toggleHeaderText(){
     screenSize = document.body.clientWidth;
     if(screenSize < 720){
@@ -512,6 +515,14 @@ function toggleHeaderText(){
         $("#userMessageDiv").addClass("col-4");
         $("#rightHeaderButtons").removeClass("col-4");
         $("#rightHeaderButtons").addClass("col-2");
+    }
+}
+
+function toggleSettingsButton(){
+    if(session.learningPathOpened()){
+        document.getElementById("lpSettingsBtn").style.visibility = "visible";
+    }else{
+        document.getElementById("lpSettingsBtn").style.visibility = "hidden";
     }
 }
 
