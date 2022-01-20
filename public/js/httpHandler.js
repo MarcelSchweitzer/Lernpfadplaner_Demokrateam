@@ -41,7 +41,6 @@ function getSettingsPage(mode = null) {
         mode = 'allSettings';
     $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
-        toggleSettingsButton()
     });
 }
 

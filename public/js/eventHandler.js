@@ -1,5 +1,3 @@
-const session = require("express-session");
-
 // stores currently dragged element
 var draggedInteraction = null;
 
@@ -50,6 +48,7 @@ document.addEventListener('click', (event) => {
             saveCurrentLp();
             learningPathToServer(session.getCurrentLearningPath(), () => {
                 session.closelearningPath();
+                toggleSettingsButton();
                 getHomePage();
             });
         } else {
