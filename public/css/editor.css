@@ -244,6 +244,7 @@
   margin-top: 40px;
   height: 90vh;
   overflow: scroll;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .categoryBox {

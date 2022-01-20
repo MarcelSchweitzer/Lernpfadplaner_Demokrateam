@@ -1,9 +1,9 @@
 // request edit patch from server
 function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
+        PleaseRotate.activate();
         replaceBody(data);
         fetchlearningPaths(() => {
-
             session.openlearningPath(lpid);
 
             // the last scenario is opened by default
@@ -19,6 +19,8 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
 
 function getHomePage() {
 
+    PleaseRotate.deactivate();
+
     // request index patch from server
     $.get('/home').done((data, status) => {
         replaceBody(data);
@@ -29,6 +31,7 @@ function getHomePage() {
 
 // request the settings page from the server
 function getSettingsPage(mode = null) {
+    PleaseRotate.deactivate();
     session.closeScenario();
     if (mode == null && session.getCurrentLearningPathId() == null)
         mode = 'userSettingsOnly';

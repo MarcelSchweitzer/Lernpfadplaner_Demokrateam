@@ -8,7 +8,6 @@
     <title>Lernpfadplaner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="css/main.css" type="text/css"></link>
-    
 </head>
 
 <body>
@@ -34,5 +33,27 @@
 <script src="js/workspace.js"></script>
 <script src="js/eventHandler.js" referrerpolicy="no-referrer"></script>
 <script src="js/httpHandler.js" referrerpolicy="no-referrer"></script>
+
+<style>
+    /* style the elements with CSS */
+    #pleaserotate-graphic{
+        fill: #000;
+    }
+
+    #pleaserotate-backdrop {
+        color: #000;
+        background-color: #fff;
+    }
+</style>
+
+<script>
+    PleaseRotateOptions = {
+        startOnPageLoad: true,
+        forcePortrait: false,
+        message: "Bitte drehe Dein Gerät, um den Editor anzuzeigen!",
+        allowClickBypass: false,
+    };
+</script>
+<script src="js/dependencies/pleaseRotate.js" referrerpolicy="no-referrer">PleaseRotate.deactivate();</script>
 
 </html>
