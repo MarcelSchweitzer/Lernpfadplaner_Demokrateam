@@ -34,7 +34,7 @@ function canBeRead(root, calls){
         <div class="row">
             <div class="col-2 sidecol">
                 <section class="left">
-                    <div class="sidepanel">
+                    <div class="sidepanel sidepanel-first">
                         <div class="taxonomy-part">
                             <hr>
                             <p>Taxonomiestufe</p>
@@ -63,7 +63,20 @@ function canBeRead(root, calls){
                                 </div>
                             </form>
                         </div>
+                        <div class="rate-part">
+                            <hr>
+                            <p>Übersicht</p>
+                            <hr>
+                            <button class="button btn btn-light" id="showTreegraph">Baumansicht anzeigen</button>
+                            <div id="treegraphNav" class="overlay">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
+                                <div class="overlay-content">
+                                    <div id="treegraph">
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </section>
@@ -110,27 +123,6 @@ function canBeRead(root, calls){
                         </div>
                     </div>
                 </section>
-
-                <section>
-                    <div class="sidepanel sidepanel-second">
-                        <div class="rate-part">
-                            <hr>
-                            <p>Übersicht</p>
-                            <hr>
-                            <button class="button btn btn-light" id="showTreegraph">Baumansicht anzeigen</button>
-                            <div id="treegraphNav" class="overlay">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
-                                <div class="overlay-content">
-                                    <div id="treegraph">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-
             </div>
             <div class="col-8 midCol">
                 <div class="material-group scenarios" id="accordion">
@@ -188,7 +180,7 @@ function canBeRead(root, calls){
                                         <input type="text" class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="lpResource<%= count %>">Material URL</label>
+                                        <label for="lpResource<%= count %>">Scenario URL</label>
                                         <div class="input-group">
                                             <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
                                         </div>
@@ -217,7 +209,7 @@ function canBeRead(root, calls){
             </div>
             <div class="col-2 sidecol">
                 <section class="right">
-                    <div class="sidepanel">
+                    <div class="sidepanel sidepanel-first">
                         <div class="rate-part">
                             <hr>
                             <p class="typ">Interaktionstypen</p>

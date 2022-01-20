@@ -4,16 +4,14 @@
 
 .sidepanel {
   width: 100%;
-  height: auto; /* I think , its better ?!*/
+  height: 35vh; /* I think , its better ?!*/
   margin-top: 60px;
   /* margin-bottom: 100px; */
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  overflow: scroll;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   /* position: fixed; 
   
   @Hadis
@@ -34,18 +32,16 @@
   scrollbar-width: none;
   padding-bottom: 20px;
 }
+
 .sidepanel-second {
-  width: 100%;
-  height: auto; /* I think , its better ?!*/
+  height: 50vh; /* I think , its better ?!*/
   margin-top: 20px;
   /* margin-bottom: 100px; */
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  overflow: scroll;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   /* position: fixed; */
   scrollbar-width: none;
   padding-bottom: 20px;
@@ -99,6 +95,18 @@
 .interactionItem {
   width: 80%;
   display: inline-block;
+}
+
+.interactivityPicker{
+  margin: 5px;
+  overflow: auto;
+  height: 30vh;
+}
+
+.interactivityList{
+  margin: 5px;
+  overflow: auto;
+  height: 30vh;
 }
 
 .note {
@@ -234,6 +242,8 @@
 
 .scenarios{
   margin-top: 40px;
+  height: 90vh;
+  overflow: scroll;
 }
 
 .categoryBox {
