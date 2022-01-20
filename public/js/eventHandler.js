@@ -321,6 +321,10 @@ document.addEventListener('input', (event) => {
     else if (id == 'behaviorSettings') {
         updateInteractionProperty('behaviorSettings', input.value)
     } 
+
+    else if (id == 'taxonomyLevelInt') {
+        updateInteractionProperty('taxonomyLevelInt', input.value)
+    } 
     
     else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
@@ -389,7 +393,7 @@ document.addEventListener("drop", (event) => {
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             category.trim()
             interactionType.trim()
-            session.addInteraction(coordinates, "", "", category, interactionType);
+            session.addInteraction(coordinates, "", "", category, interactionType,"");
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
@@ -418,6 +422,8 @@ function refreshInteractivityInputs() {
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
         let behaDropID = session.getCurrentInteraction().behaviorSettings;
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt;
+        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
     }

@@ -259,6 +259,16 @@ function canBeRead(root, calls){
                                 <input type="text" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
                             </div>
                             <div class="form-group interactionItem">
+                                <label for="taxonomyLevelInt">Taxonomiestufe</label>
+                                <select class="form-control interSet" id="taxonomyLevelInt">
+                                    <% taxnomyLevels=['', '1. Erinnern' , '2. Verstehen' , '3. Anwenden' , '4. Analysieren' , '5. Evaluieren' , '6. Kreeiren' ]; taxnomyLevels.forEach(taxLev=> { %>
+                                        <option id="<%= taxLev %>">
+                                            <%= taxLev %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group interactionItem">
                                 <label for="behaviorSettings">Verhaltenseinstellungen</label>
                                 <select class="form-control interSet" id="behaviorSettings">
                                     <%
