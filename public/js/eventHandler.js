@@ -9,7 +9,7 @@ let importFiles = []
 
 // on startup
 $(document).ready(() => {
-    updateUserName();
+    //updateUserName();
     fetchlearningPaths();
 });
 
@@ -262,7 +262,7 @@ document.addEventListener('input', (event) => {
         updateLpProperty('title', input.value);
     } else if (id == 'userNameInput') {
         changeUserName(input.value, () => {
-            updateUserName();
+            //updateUserName();
         });
     } 
     

@@ -31,6 +31,9 @@ function getHomePage() {
 
 // request the lp settings page from the server
 function getLpSettingsPage(mode = null) {
+
+    PleaseRotate.deactivate();
+
     if (mode == null)
         mode = 'lpSettingsOnly';
     $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
@@ -40,6 +43,9 @@ function getLpSettingsPage(mode = null) {
 
 // request the user settings page from the server
 function getUserSettingsPage(mode = null) {
+
+    PleaseRotate.deactivate();
+
     session.closeScenario();
     if(mode == null)
         mode = 'userSettingsOnly';
@@ -118,7 +124,7 @@ function changeUserName(newUserName, cb = noop) {
 // update the username shown in the header
 function updateUserName() {
     $.get('/whoami').done((data) => {
-        document.getElementById("usernameText").innerText = data.nickname;
+        document.getElementById("userSettingsBtn").innerText = data.nickname;
     });
 }
 
