@@ -21,7 +21,7 @@ function isValidURL(url) {
   };
 
 function createCanvas(){
-    if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentlearningPath().scenarios.length > 0){
+    if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
         workspaceId = 'workspace' + session.getCurrentScenarioIndex();
         document.getElementById(workspaceId).innerHTML = "";
         new p5(newCanv, workspaceId)
@@ -29,9 +29,9 @@ function createCanvas(){
 }
 
 function loadWorkspaceBackgrounds(){
-    if(session.ScenariosExist() && session.getCurrentlearningPath().scenarios.length > 0){
-        for(let i = 0; i < session.getCurrentlearningPath().scenarios.length; i++){
-            canvasManager.setImage(i, session.getCurrentlearningPath().scenarios[i].resource)
+    if(session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
+        for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
+            canvasManager.setImage(i, session.getCurrentLearningPath().scenarios[i].resource)
         }
     }
 }
@@ -45,7 +45,7 @@ document.addEventListener('click', (event) => {
     if (id == 'homeBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();
-            learningPathToServer(session.getCurrentlearningPath(), () => {
+            learningPathToServer(session.getCurrentLearningPath(), () => {
                 session.closelearningPath();
                 getHomePage();
             });
@@ -60,7 +60,7 @@ document.addEventListener('click', (event) => {
     
     else if (id == 'downloadButton') {
         if (session.learningPathOpened()) {
-            downloadlearningPaths([session.getCurrentlearningPath()], 'json');
+            downloadlearningPaths([session.getCurrentLearningPath()], 'json');
         } else {
             lpids = []
             for (lp of session.getlearningPaths())
@@ -71,16 +71,16 @@ document.addEventListener('click', (event) => {
     
     else if (id == 'exportButton') {
         if (session.learningPathOpened()) {
-            downloadlearningPaths([session.getCurrentlearningPath()], 'pdf');
+            downloadlearningPaths([session.getCurrentLearningPath()], 'pdf');
         }
     } 
     
     else if (id == 'exportImage') {
         if (session.learningPathOpened()) {
             if(classes.contains('png'))
-                downloadlearningPaths([session.getCurrentlearningPath()], 'png');
+                downloadlearningPaths([session.getCurrentLearningPath()], 'png');
             else if(classes.contains('jpg'))
-                downloadlearningPaths([session.getCurrentlearningPath()], 'jpg');
+                downloadlearningPaths([session.getCurrentLearningPath()], 'jpg');
         } else {
 
             
@@ -95,7 +95,7 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'showTreegraph') {
-        openTreegraphOverlay(session.getCurrentlearningPath());
+        openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
     else if (id == 'showTreegraphDashboard'){
@@ -114,8 +114,8 @@ document.addEventListener('click', (event) => {
     else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({ 'title': 'Neues Szenario' }, () => {
-                learningPathToServer(session.getCurrentlearningPath(), () => {
-                    getEditPage(session.getCurrentlearningPathId(), () => {
+                learningPathToServer(session.getCurrentLearningPath(), () => {
+                    getEditPage(session.getCurrentLearningPathId(), () => {
 
                         // scroll to the bottom
                         window.scrollTo(0, document.body.scrollHeight);
@@ -192,7 +192,7 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('deleteScenario')) {
         scenarioIndex = id.replaceAll('deleteScenario', '');
         session.deleteScenario(scenarioIndex);
-        learningPathToServer(session.getCurrentlearningPath(), () => {
+        learningPathToServer(session.getCurrentLearningPath(), () => {
             getEditPage();
         });
     }
@@ -212,7 +212,7 @@ document.addEventListener('click', (event) => {
         row.remove();
         
         deletelearningPath(lpID, () => {
-            if (session.getCurrentlearningPathId() == lpID)
+            if (session.getCurrentLearningPathId() == lpID)
                 session.closelearningPath()
             session.removelearningPath(lpID)
         })
@@ -284,7 +284,7 @@ document.addEventListener('input', (event) => {
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
         let interactivity = id.replaceAll('CB', '')
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-        let newList = session.getProp('interactivityTypes', category) == null ? [] : session.getProp('interactivityTypes', category);
+        let newList = session.getCurrentLearningPath()['interactivityTypes'][category] == null ? [] : session.getCurrentLearningPath()['interactivityTypes'][category];
         if (checked)
             newList.push(interactivity)
         else
@@ -429,7 +429,7 @@ function updateLpProperty(key, value, index = null, indexKey = null) {
 // save the currently opened learning path to the server
 function saveCurrentLp() {
     if (session.learningPathOpened()) {
-        learningPathToServer(session.getCurrentlearningPath(), () => {
+        learningPathToServer(session.getCurrentLearningPath(), () => {
             unsavedChanges = false;
         });
     }
@@ -478,12 +478,12 @@ window.onresize = (event)=>{
 
 function forwardTreegraph(){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentlearningPath());
+    createTreegraph(session.getCurrentLearningPath());
 }
 
 function openTreegraphOverlay(){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentlearningPath());
+    createTreegraph(session.getCurrentLearningPath());
 }
 
 function closeTreegraphOverlay(){

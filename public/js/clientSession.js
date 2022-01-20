@@ -16,16 +16,6 @@ class Session {
             this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey] = value;
     }
 
-    // get property of a learningPath 
-    getProp(key, index = null, indexKey = null) {
-        if (index === null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key];
-        else if (index !== null && indexKey === null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index];
-        else
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey];
-    }
-
     // find out if a property of a learningpath exists e.g propExists(['scenario', 3, 'interactions'])
     propExists(calls, root=this.learningPaths){
         if(calls.length == 1 && root[calls[0]])
@@ -138,7 +128,7 @@ class Session {
 
 
     // get Id of current (opened) learningPath
-    getCurrentlearningPathId() { return this.currentlearningPathId; }
+    getCurrentLearningPathId() { return this.currentlearningPathId; }
 
     // get a read only object representation by id 
     getlearningPathById(id) {
@@ -146,7 +136,7 @@ class Session {
     }
 
     // get a read only object representation of current lp 
-    getCurrentlearningPath() {
+    getCurrentLearningPath() {
         return this.getlearningPathById(this.currentlearningPathId);
     }
 

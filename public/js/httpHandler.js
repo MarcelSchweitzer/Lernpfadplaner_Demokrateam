@@ -1,5 +1,5 @@
 // request edit patch from server
-function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
+function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         replaceBody(data);
         fetchlearningPaths(() => {
@@ -7,8 +7,8 @@ function getEditPage(lpid = session.getCurrentlearningPathId(), cb = noop) {
             session.openlearningPath(lpid);
 
             // the last scenario is opened by default
-            if(session.ScenariosExist() && session.getProp('scenarios').length > 0){
-                session.openScenario(session.getProp('scenarios').length - 1);
+            if(session.ScenariosExist() && session.getCurrentLearningPath()['scenarios'].length > 0){
+                session.openScenario(session.getCurrentLearningPath()['scenarios'].length - 1);
             }
             createCanvas();
             loadWorkspaceBackgrounds();
@@ -30,11 +30,11 @@ function getHomePage() {
 // request the settings page from the server
 function getSettingsPage(mode = null) {
     session.closeScenario();
-    if (mode == null && session.getCurrentlearningPathId() == null)
+    if (mode == null && session.getCurrentLearningPathId() == null)
         mode = 'userSettingsOnly';
     else if (mode == null)
         mode = 'allSettings';
-    $.get('/settings', { 'lpid': session.getCurrentlearningPathId(), 'mode': mode }).done((data, status) => {
+    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
     });
 }
@@ -87,7 +87,7 @@ function fetchlearningPaths(cb = noop) {
 function downloadlearningPaths(lps, format) {
     if(format == "pdf" || format == "json"){
         var text = JSON.stringify(lps, null, 4);
-        var filename = session.learningPathOpened() ? session.getCurrentlearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
+        var filename = session.learningPathOpened() ? session.getCurrentLearningPath().title + '.' + format : 'Meine_Lernpfade.' + format;
     
         download(filename, text);
     }

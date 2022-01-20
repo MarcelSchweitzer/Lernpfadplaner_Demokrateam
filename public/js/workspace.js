@@ -267,7 +267,7 @@ function newCanv(p){
         );
       }
 
-      if(session.ScenariosExist() && session.getProp('scenarios').length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
+      if(session.ScenariosExist() && session.getCurrentLearningPath()['scenarios'].length > 0 && session.interactionsExist() && session.getCurrentScenario().interactions.length > 0){
 
         let interactions = session.getCurrentScenario().interactions
 
