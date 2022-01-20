@@ -29,14 +29,20 @@ function getHomePage() {
     fetchlearningPaths();
 }
 
-// request the settings page from the server
-function getSettingsPage(mode = null) {
-    PleaseRotate.deactivate();
+// request the lp settings page from the server
+function getLpSettingsPage(mode = null) {
+    if (mode == null)
+        mode = 'lpSettingsOnly';
+    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
+        replaceBody(data);
+    });
+}
+
+// request the user settings page from the server
+function getUserSettingsPage(mode = null) {
     session.closeScenario();
-    if (mode == null && session.getCurrentLearningPathId() == null)
+    if(mode == null)
         mode = 'userSettingsOnly';
-    else if (mode == null)
-        mode = 'allSettings';
     $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
         replaceBody(data);
     });
