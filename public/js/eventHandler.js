@@ -9,6 +9,7 @@ let importFiles = []
 
 // on startup
 $(document).ready(() => {
+    toggleHeaderText();
     updateUserName();
     fetchlearningPaths();
 });
@@ -490,9 +491,29 @@ window.onbeforeunload = function() {
     
 };
 
-window.onresize = (event)=>{
+window.onresize = (event) =>{
     canvasManager.resizeCanvas();
+    toggleHeaderText();
 };
+
+function toggleHeaderText(){
+    screenSize = document.body.clientWidth;
+    if(screenSize < 720){
+        document.getElementById("userMessage").style.visibility = "hidden";
+        document.getElementById("usernameText").style.visibility = "hidden";
+        $("#userMessageDiv").removeClass("col-4");
+        $("#userMessageDiv").addClass("col-2");
+        $("#rightHeaderButtons").removeClass("col-2");
+        $("#rightHeaderButtons").addClass("col-4");
+    }else{
+        document.getElementById("userMessage").style.visibility = "visible";
+        document.getElementById("usernameText").style.visibility = "visible";
+        $("#userMessageDiv").removeClass("col-2");
+        $("#userMessageDiv").addClass("col-4");
+        $("#rightHeaderButtons").removeClass("col-4");
+        $("#rightHeaderButtons").addClass("col-2");
+    }
+}
 
 function forwardTreegraph(){
     document.getElementById("treegraphNav").style.display = "block";

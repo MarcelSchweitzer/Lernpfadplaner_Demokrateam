@@ -534,3 +534,12 @@ footer a:hover {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+#pleaserotate-graphic{
+  fill: #000;
+}
+
+#pleaserotate-backdrop {
+  color: #000;
+  background-color: #fff;
+}
