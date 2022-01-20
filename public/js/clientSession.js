@@ -79,18 +79,6 @@ class Session {
             return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex]
     }
 
-    // set a scenario property
-    setScenarioProp(key, value, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key] = value;
-    }
-
-    // get a scenario property
-    getScenarioProp(key, index = this.currentScenarioIndex) {
-        if (this.learningPathOpened() && this.scenarioOpened() && index != null)
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex][key]
-    }
-
     // add a new interaction
     addInteraction(coordinates, category, interactionType, behaviorSettings='Click') {
         if (this.learningPathOpened() && this.scenarioOpened())
