@@ -6,7 +6,7 @@ class CanvasManager {
     this.scale = [];
     this.userOffsetX = [];
     this.userOffsetY = [];
-    this.initposition = [session.getCurrentScenarioIndex()];
+    this.initposition = [];
     this.hoveredInteraction = null;
     this.draggedInteraction = null;
   }
