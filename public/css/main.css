@@ -8,11 +8,6 @@ body {
     
 }
 
-.material-group {
-  padding-bottom: 30px;
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
-}
-
 #dropDiv {
     min-height: 250px;
 }
@@ -213,7 +208,7 @@ header {
 
 .colz-icon{
     cursor: pointer;
-    margin-right: 30px;
+    margin-right: 10px;
 }
 
 .colz-icon a img {
