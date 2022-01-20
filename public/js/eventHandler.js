@@ -54,8 +54,12 @@ document.addEventListener('click', (event) => {
         }
     }
     
-    else if (id == 'settingsBtn') {
-        getSettingsPage();
+    else if (id == 'lpSettingsBtn') {
+        getLpSettingsPage();
+    }
+
+    else if (id == 'userSettingsBtn') {
+        getUserSettingsPage();
     }
     
     else if (id == 'downloadButton') {
@@ -124,6 +128,10 @@ document.addEventListener('click', (event) => {
             });
         } 
     } 
+
+    else if (id == 'createCat'){
+
+    }
 
     else if (id == 'selectAllInter'){
         $(".interactivityInputCB").prop('checked', true)
