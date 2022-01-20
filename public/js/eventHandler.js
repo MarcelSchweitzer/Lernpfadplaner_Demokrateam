@@ -55,11 +55,11 @@ document.addEventListener('click', (event) => {
     }
     
     else if (id == 'lpSettingsBtn') {
-        getLpSettingsPage();
+        getSettingsPage(mode = 'lpSettingsOnly');
     }
 
     else if (id == 'userSettingsBtn') {
-        getUserSettingsPage();
+        getSettingsPage(mode = 'userSettingsOnly');
     }
     
     else if (id == 'downloadButton') {
