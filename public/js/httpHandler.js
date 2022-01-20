@@ -114,7 +114,7 @@ function changeUserName(newUserName, cb = noop) {
 // update the username shown in the header
 function updateUserName() {
     $.get('/whoami').done((data) => {
-        document.getElementById("userSettingsBtn").innerText = data.nickname;
+        document.getElementById("usernameText").innerText = data.nickname;
     });
 }
 

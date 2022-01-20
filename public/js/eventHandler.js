@@ -9,7 +9,7 @@ let importFiles = []
 
 // on startup
 $(document).ready(() => {
-    //updateUserName();
+    updateUserName();
     fetchlearningPaths();
 });
 
@@ -59,6 +59,10 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'userSettingsBtn') {
+        getSettingsPage(mode = 'userSettingsOnly');
+    }
+    
+    else if (id == 'usernameText') {
         getSettingsPage(mode = 'userSettingsOnly');
     }
     
@@ -262,7 +266,7 @@ document.addEventListener('input', (event) => {
         updateLpProperty('title', input.value);
     } else if (id == 'userNameInput') {
         changeUserName(input.value, () => {
-            //updateUserName();
+            updateUserName();
         });
     } 
     
