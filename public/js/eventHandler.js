@@ -192,7 +192,7 @@ document.addEventListener('click', (event) => {
                                             <div class="newInterInputs">
                                                 <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
                                                 <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
-                                                    <img class="button" src="img/plus-square.svg">
+                                                    +
                                                 </button>
                                             </div>
                                         </div>
