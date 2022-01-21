@@ -8,7 +8,7 @@ body {
 }
 
 #dropDiv {
-  min-height: 250px;
+  min-height: 120px;
 }
 
 ::-webkit-scrollbar {
@@ -472,9 +472,9 @@ footer a:hover {
   background-color: #1f2235 !important;
 }
 .form {
-  position: absolute;
-  width: 90%;
-  height: 100px;
+  /* position: absolute; */
+  width: 100%;
+  height: 50px;
   border: 4px dashed #fff;
 }
 .form p {
@@ -482,18 +482,38 @@ footer a:hover {
   height: 100%;
   color: #ffffff;
   display: flex;
-  padding-left: 5%;
+  flex-direction: column;
+ text-align: center;
+  padding-top:3.5%;
   align-items: center;
 }
-.form input {
+.fileDrop{
   position: absolute;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 50%;
   outline: none;
   opacity: 0;
 }
+.btn-outline-secondary{
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius:4px !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius:0px !important;;
+}
+.btn-outline-secondary:hover{
+  background-color:#fff !important;
+  color:#000;
+}
+.btn-outline-secondary img{
+  width:23px;
+  height:23px;
+  display:block;
+  padding:0px 4px 0px 0px;
+}
+.input-group-append button{
+  width:40px;}
 .sub {
   padding: 14px 0;
   width: 200px;
