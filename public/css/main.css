@@ -551,5 +551,9 @@ td, th {
 
 .tbBtn{
   margin: 5px;
-  width: 50px;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 40px;
+  text-align: center;
+  vertical-align: middle;
 }

@@ -201,19 +201,25 @@ document.addEventListener('click', (event) => {
 
     // open Threegraph from dashboard
     else if(classes.contains('showTreegraphDashboard')){
-        let lpIndex = id.replaceAll('showTreegraphDashboard', '')
-        openTreegraphOverlay(lpIndex);
+        let lpID = id.replaceAll('showTreegraphDashboard', '');
+        session.openLearningPath(lpID);
+        openTreegraphOverlay(lpID);
     }
 
-/*
+
 
     // download lp from dashboard
     else if(classes.contains('downLoadFromDashboard')){
-        let lpIndex = id.replaceAll('downLoadFromDashboard', '')
-        session.openLearningPath(lpIndex);
+        let lpID = id.replaceAll('downLoadFromDashboard', '');
+        session.openLearningPath(lpID);
     }
 
-*/
+    // download lp from dashboard
+    else if(classes.contains('settingsPageBtn')){
+        let lpID = id.replaceAll('settingsPageBtn', '');
+        session.openLearningPath(lpID);
+        getSettingsPage(mode = 'lpSettingsOnly');
+    }
 
     // handle open scenario buttons
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
@@ -637,9 +643,9 @@ function forwardTreegraph(){
     createTreegraph(session.getCurrentLearningPath());
 }
 
-function openTreegraphOverlay(index = session.getCurrentLearningPath()){
+function openTreegraphOverlay(){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getlearningPaths()[index]);
+    createTreegraph(session.getCurrentLearningPath());
 }
 
 function closeTreegraphOverlay(){
@@ -648,14 +654,11 @@ function closeTreegraphOverlay(){
 
 function createTreegraph(lpData){
 
-    console.log(lpData);
-
     var nodeList = [];
     var scenarioList = [];
 
     for(var i=0; i < lpData.scenarios.length; i++){
         if ("interactions" in lpData.scenarios[i]){
-            console.log("WORKINGGGG");
             var interactList=[];
             for(var j=0; j < lpData.scenarios[i].interactions.length; j++){
                 const interactDict = {
@@ -679,8 +682,6 @@ function createTreegraph(lpData){
     var root = {"name": lpData.title, "parent": "null", "children": scenarioList}
 
     nodeList.push(root);
-
-    console.log(root);
 
     let parent = document.getElementById("treegraph");
 
@@ -815,6 +816,26 @@ function createTreegraph(lpData){
         update(d);
     }
 }
+
+// searchbox
+function searchBox() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchIn");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("infoTab");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
 
 $('#categoryTabs a').on('click', function(e) {
     e.preventDefault()

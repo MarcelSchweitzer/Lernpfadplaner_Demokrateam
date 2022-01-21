@@ -18,30 +18,30 @@
                                     <table class="lpTable table" id="infoTab"> 
                                        <thead>
                                         <tr id="lpTableHeader">
-                                            <th class="lpHeader" scope="col">#</th>
-                                            <th class="lpHeader" scope="col">Titel</th>   
-                                            <th class="lpHeader" scope="col">Szenarien</th> 
-                                            <th class="lpHeader" scope="col">Interaktivitäten</th>  
-                                            <th class="lpHeader" scope="col">Taxonomiestufe</th> 
-                                            <th class="lpHeader" scope="col">Bewertungsmodus</th> 
-                                            <th class="lpHeader" scope="col"></th>
+                                            <th class="align-middle lpHeader" scope="col">#</th>
+                                            <th class="align-middle lpHeader" scope="col">Titel</th>   
+                                            <th class="align-middle lpHeader" scope="col">Szenarien</th> 
+                                            <th class="align-middle lpHeader" scope="col">Interaktivitäten</th>  
+                                            <th class="align-middle lpHeader" scope="col">Taxonomiestufe</th> 
+                                            <th class="align-middle lpHeader" scope="col">Bewertungsmodus</th> 
+                                            <th class="align-middle lpHeader" scope="col"></th>
                                         </tr>
                                        </thead>
                                        <tbody id="table">
                                         <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
                                             <tr id="lpRow<%= lp['id'] %>" scope="row">
-                                                <td class="lpInfoCell">
+                                                <td class="align-middle lpInfoCell">
                                                     <%= count %>
                                                 </td>
-                                                <td>
-                                                    <button class="button btn btn-light openLp" id="openLp<%= lp['id'] %>">
+                                                <td class="align-middle">
+                                                    <button class="button btn  btn-light openLp" id="openLp<%= lp['id'] %>">
                                                         <%= lp['title'] %>
                                                     </button>
                                                 </td>
                                                 <% 
                                                     let amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); 
                                                 %>
-                                                <td class="lpInfoCell">
+                                                <td class="align-middle lpInfoCell">
                                                         <%= amountScenarios %>
                                                 </td>
                                                 <% 
@@ -51,21 +51,50 @@
                                                             amountInter += amountThisScenario;
                                                         }
                                                 %>
-                                                <td class="lpInfoCell">
+                                                <td class="align-middle lpInfoCell">
                                                         <%= amountInter %>
                                                 </td>
-                                                <td class="lpInfoCell">
+                                                <td class="align-middle lpInfoCell">
                                                     <%= lp['taxonomyLevelID'] %>
                                                 </td>
-                                                <td class="lpInfoCell">
+                                                <td class="align-middle lpInfoCell">
                                                     <%= lp['evaluationModeID'] %>
                                                 </td>
                                                 <td class="deleteLpClass">
-
-
-                                                    <button class="button btn btn-light deleteLp tbBtn" data-toggle="modal" data-target="#deleteLp">
-                                                        <img class="button" src="img/trash.svg">
-                                                    </button>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                          <div class="col-sm-4">
+                                                            <button class="button btn btn-light showTreegraphDashboard tbBtn" id="showTreegraphDashboard<%= lp['id']%>">
+                                                                <img class="button" src="img/diagram-3.svg">
+                                                            </button>
+                                                            <div id="treegraphNav" class="overlay">
+                                                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()"></a>
+                                                                <div class="overlay-content">
+                                                                    <div id="treegraph">
+        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-sm-4">
+                                                            <button class="button btn btn-light downLoadFromDashboard tbBtn" id="downLoadFromDashboard<%= lp['id']%>" data-toggle="modal" data-target="#downloadPop">
+                                                                <img class="button" src="img/download.svg">
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <button class="button btn btn-light settingsPageBtn tbBtn" id="settingsPageBtn<%= lp['id']%>">
+                                                                    <img class="button" src="img/settings.svg">
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <button class="button btn btn-light deleteLp tbBtn" data-toggle="modal" data-target="#deleteLp">
+                                                                    <img class="button" src="img/trash.svg">
+                                                                </button>
+                                                            </div>
+                                                          </div>
+                                                    </div>
                                                     <div class="modal fade" id="deleteLp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -84,21 +113,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <button class="button btn btn-light showTreegraphDashboard tbBtn" id="showTreegraphDashboard<%= count %>">
-                                                        <img class="button" src="img/diagram-3.svg">
-                                                    </button>
-                                                    <div id="treegraphNav" class="overlay">
-                                                        <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()"></a>
-                                                        <div class="overlay-content">
-                                                            <div id="treegraph">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <button class="button btn btn-light downLoadFromDashboard tbBtn" data-toggle="modal" data-target="#downloadPop">
-                                                        <img class="button" src="img/download.svg">
-                                                    </button>
                                                 </td>
                                             </tr>
                                         <% count++;  }); %>
@@ -141,23 +155,3 @@
     </div>
 <%}%>
 <div class="space"></div>
-<script>
-    function searchBox() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("searchIn");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("infoTab");
-      tr = table.getElementsByTagName("tr");
-      for (i = 1; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
-      }
-    }
-    </script>

@@ -181,12 +181,6 @@ function canBeRead(root, calls){
                                         <label for="lpLearningGoal<%= count %>">Lernziel</label>
                                         <input type="text" class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>" value="<%= sc.learningGoal %>">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="lpResource<%= count %>">Scenario URL</label>
-                                        <div class="input-group">
-                                            <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
-                                        </div>
-                                    </div>
                                 </form>
                                 <div>
                                     <label>Arbeitsbereich</label>
@@ -194,6 +188,14 @@ function canBeRead(root, calls){
                                         <div class="workspace" id="workspace<%= count %>"></div>
                                     </div>
                                 </div>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="lpResource<%= count %>">Szenario-URL</label>
+                                        <div class="input-group">
+                                            <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
