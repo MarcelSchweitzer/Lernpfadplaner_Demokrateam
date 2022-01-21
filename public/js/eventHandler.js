@@ -177,6 +177,73 @@ document.addEventListener('click', (event) => {
         }
     }
 
+    // add Category Tab
+    else if(id == 'add-tab'){
+
+        // find unused name
+        let interactivityTypes = Object.keys(session.getCurrentLearningPath().interactivityTypes);
+        let newCatName = uniqueName("Neue Kategorie", interactivityTypes);
+        let categoryID = newCatName.replaceAll(" ", "");
+
+        // create new Interactivytytype for user 
+        session.setProp('interactivityTypes', [], newCatName);
+        unsavedChanges = true;
+
+        $('#addtabNav').before(`
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="` + newCatName + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                            <input type="text" class="form-control-sm" id="newCat" style="background-color:transparent; border:none" value="` + newCatName + `">
+                                        </a>
+                                    </li>
+                             `);
+        $('#lastTabContent').before(`
+                                        <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + newCatName + `-tab">
+                                            <div class="items">
+                                                <div id="lastCheckboxelement"></div>
+                                            </div>
+                                            <div class="newInterInputs">
+                                                <input type="text" class="form-control customInput" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
+                                                <button class="btn btn-light createBtn customInput" id="createInter-` + categoryID + `">Erstelle Interaktionstyp</button>
+                                            </div>
+                                        </div>
+                                  `);
+
+        // add eventlisteners
+        document.getElementById("createInter-" + categoryID).addEventListener("click", function() {
+
+            // read value from input
+            let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
+
+            // get current interactivities for this category
+            interactivityTypes = session.getCurrentLearningPath().interactivityTypes[newCatName];
+
+            if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
+                $("#lastCheckboxelement").before(`
+                    <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                        <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                        <br>
+                    `);
+
+
+                // get current interactivities for this category
+                interactivityTypes = session.getCurrentLearningPath().interactivityTypes[newCatName];
+
+                if(interactivityTypes.length > 0){
+                    interactivityTypes.push(newInteractionType)
+                } 
+                else{
+                    interactivityTypes = []
+                    interactivityTypes[0] = newInteractionType
+                }
+
+                session.setProp('interactivityTypes', interactivityTypes, newCatName);
+            }
+            else{
+                alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
+            }
+        });
+    }
+
     // handle open scenario buttons
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
         let scenarioIndex = id.replaceAll('openScenario', '')
@@ -237,6 +304,10 @@ document.addEventListener('click', (event) => {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
         refreshInteractivityInputs();
+    }
+
+    else if (classes.contains('createInter')) {
+        category = id.replaceAll('createInter-', '');
     }
 
 }, false);
@@ -348,7 +419,7 @@ document.addEventListener('input', (event) => {
         }
     }
 
-    else if ( id = 'importDrop'){
+    else if (id == 'importDrop'){
         for(let i = 0; i < document.querySelector('.fileDrop').files.length; i++){
             let fileReader = new FileReader();
 
@@ -413,7 +484,11 @@ function refreshInteractivityList() {
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
-            $('.interactivityList').append('<div class="interactivityListElem"> <button class="btn btn-light interactivityListItem" id="iaListItem' + i + '">' + inter.category + ' - ' + inter.interactionType + '</button></div>');
+            $('.interactivityList').append(`
+                                                <div class="interactivityListElem">
+                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category + ` - ` + inter.interactionType + `</button>
+                                                </div>
+                                          `);
         }
         refreshInteractivityInputs();
     }
@@ -709,3 +784,7 @@ function createTreegraph(lpData){
     }
 }
 
+$('#categoryTabs a').on('click', function(e) {
+    e.preventDefault()
+    $(this).tab('show')
+});

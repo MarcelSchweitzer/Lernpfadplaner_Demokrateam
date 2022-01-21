@@ -11,8 +11,8 @@
             </div>
             <div>
                 <div class="settingsItem" id="interactivityTypes">
-                    <label for="myTab">Interaktionstypen für diesen Lernpfad</label>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
+                    <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
                         <% if(data.availableInteractivityTypes){ 
                         let counter = 0;
                         for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
@@ -26,11 +26,27 @@
                                 </a>
                             </li>
                             <%counter++ } %>
+                            <li class="nav-item" id="addtabNav">
+                                <h4 class="nav-link" id="add-tab" role="button">
+                                    +
+                                </h4>
+                            </li>
                     </ul>
-                    <div class="tab-content" id="myTabContent">
+                    <div class="tab-content" id="categoryTabsContent">
                     <%
+                        function extendObj(dict1, dict2){
+                            for (const [key, value] of Object.entries(dict2)){
+                                if(!dict1[key]){
+                                    dict1[key] = value;
+                                }
+                            }
+                            return dict1;
+                        }
+
+                        console.log(extendObj(data.availableInteractivityTypes, data.learningPath.interactivityTypes))
+
                         counter = 0;
-                        for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
+                        for (let [key, value] of Object.entries(extendObj(data.availableInteractivityTypes, data.learningPath.interactivityTypes))){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
                         <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
@@ -42,17 +58,16 @@
                                 <label for="<%= val %>CB"><%= val %></label>
                                 <br>
                                 <% }); %>
-                            
                             </div>
-                    
+                            <div class="newInterInputs">
+                                <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
+                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">Erstelle Interaktionstyp</button>
+                            </div>
                         </div>
                         <%counter++} %>
+                        <div id="lastTabContent"></div>
                     </div>
                     <%} %>
-                </div>
-                <div class="settingsItem createCatInt">
-                    <input type="text" class="form-control-sm" id="newCat">
-                    <button class="button btn-light createBtn" id="createCat"> Erstelle Kategorie </button>
                 </div>
                 <div class="settingsItem resetBtns">
                     <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle auswählen </button>

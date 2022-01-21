@@ -45,12 +45,29 @@
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
+  min-height: 300px;
 }
+
 .tab-pane {
   display: flex;
   justify-content: space-between;
   columns: 90px 4;
 }
+
+.newInterInputs{
+  position: absolute;
+  text-align: center;
+  float: right;
+  right: 100px;
+  width: 200px;
+  z-index: 9999;
+}
+
+.customInput{
+  width: 200px;
+  margin: 5px;
+}
+
 .tab-pane label {
   font-size: 14px;
 }
