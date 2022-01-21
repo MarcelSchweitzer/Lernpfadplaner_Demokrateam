@@ -182,66 +182,31 @@ document.addEventListener('click', (event) => {
 
         // find unused name
         let interactivityTypes = Object.keys(session.getCurrentLearningPath().interactivityTypes);
-        let newCatName = uniqueName("Neue Kategorie", interactivityTypes);
-        let categoryID = newCatName.replaceAll(" ", "");
+        let newCatName = uniqueName("Neue_Kategorie", interactivityTypes);
+        let categoryID = newCatName.replaceAll(" ", "_");
 
         // create new Interactivytytype for user 
-        session.setProp('interactivityTypes', [], newCatName);
+        session.setProp('interactivityTypes', [], categoryID);
         unsavedChanges = true;
 
         $('#addtabNav').before(`
                                     <li class="nav-item">
-                                        <a class="nav-link" id="` + newCatName + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <input type="text" class="form-control-sm newCat" id="newCat" style="background-color:transparent; border:none" value="` + newCatName + `">
+                                        <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                            <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
                                     </li>
                              `);
         $('#lastTabContent').before(`
-                                        <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + newCatName + `-tab">
+                                        <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
                                             <div class="items">
-                                                <div id="lastCheckboxelement"></div>
+                                                <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
                                             <div class="newInterInputs">
-                                                <input type="text" class="form-control customInput" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn customInput" id="createInter-` + categoryID + `">Erstelle Interaktionstyp</button>
+                                                <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
+                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">Erstelle Interaktionstyp</button>
                                             </div>
                                         </div>
                                   `);
-
-        // add eventlisteners
-        document.getElementById("createInter-" + categoryID).addEventListener("click", function() {
-
-            // read value from input
-            let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
-
-            // get current interactivities for this category
-            interactivityTypes = session.getCurrentLearningPath().interactivityTypes[newCatName];
-
-            if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
-                $("#lastCheckboxelement").before(`
-                    <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
-                        <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                        <br>
-                    `);
-
-
-                // get current interactivities for this category
-                interactivityTypes = session.getCurrentLearningPath().interactivityTypes[newCatName];
-
-                if(interactivityTypes.length > 0){
-                    interactivityTypes.push(newInteractionType)
-                } 
-                else{
-                    interactivityTypes = []
-                    interactivityTypes[0] = newInteractionType
-                }
-
-                session.setProp('interactivityTypes', interactivityTypes, newCatName);
-            }
-            else{
-                alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
-            }
-        });
     }
 
     // handle open scenario buttons
@@ -267,6 +232,49 @@ document.addEventListener('click', (event) => {
             }
         }   
         refreshInteractivityList();
+    }
+
+    // create new interactionType
+    else if (classes.contains('createInter')){
+
+        for(const [key, value] of Object.entries(session.getCurrentLearningPath().interactivityTypes)){
+            categoryID = key
+            if(id == 'createInter-'+categoryID){
+
+                // read value from input
+                let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
+
+                // get current interactivities for this category
+                interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
+
+                if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
+                    lastElemID = '#lastCheckboxelement' + categoryID
+                    $(lastElemID).before(`
+                        <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                            <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                            <br>
+                        `);
+
+
+                    // get current interactivities for this category
+                    interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
+
+                    if(interactivityTypes.length > 0){
+                        interactivityTypes.push(newInteractionType)
+                    } 
+                    else{
+                        interactivityTypes = []
+                        interactivityTypes[0] = newInteractionType
+                    }
+
+                    session.setProp('interactivityTypes', interactivityTypes, categoryID);
+                    unsavedChanges = true;
+                }
+                else{
+                    alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
+                }
+            }
+        }
     }
 
     // handle delete scenario buttons
@@ -438,6 +446,16 @@ document.addEventListener('input', (event) => {
             fileReader.readAsText(document.querySelector('.fileDrop').files[i]);
         }
     }
+
+    // change category name
+    else if (classes.contains('changeCatName')){
+        let changeCategory = id.replaceAll('changeCatName', '')
+        let newCatName = input.value;
+        session.setProp('interactivityTypes', {newCatName:session.getCurrentLearningPath().interactivityTypes[changeCategory]}, changeCategory)
+        unsavedChanges = true;
+        console.log("change category name "+changeCategory + " to "+input.value)
+    }
+
 
 });
 

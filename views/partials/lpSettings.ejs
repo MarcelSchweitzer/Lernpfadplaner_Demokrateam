@@ -20,9 +20,8 @@
                             let active = first ? ' active' : '';
                             %>
                             <li class="nav-item">
-                                <a class="nav-link<%= active %>" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="<%= key %>" aria-selected="<%= first %>">
-                                    <% keyName = key.replace("_", " "); %>
-                                    <%= keyName %>
+                                <a class="nav-link" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                    <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
                                 </a>
                             </li>
                             <%counter++ } %>
@@ -52,16 +51,17 @@
                         <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
                         <%= key %>-tab">
                             <div class="items <%= key %> <%= active %>">
-                            <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
+                            <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].length > 0 && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
                             <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
                                 <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
                                 <label for="<%= val %>CB"><%= val %></label>
                                 <br>
                                 <% }); %>
+                                <div id="lastCheckboxelement<%= key %>"></div>
                             </div>
                             <div class="newInterInputs">
-                                <!--<input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">-->
-                                <!--<button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">Erstelle Interaktionstyp</button>-->
+                                <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
+                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">Erstelle Interaktionstyp</button>
                             </div>
                         </div>
                         <%counter++} %>
