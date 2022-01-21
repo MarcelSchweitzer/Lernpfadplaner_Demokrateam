@@ -4,7 +4,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
         PleaseRotate.activate();
         replaceBody(data);
         fetchlearningPaths(() => {
-            session.openlearningPath(lpid);
+            session.openLearningPath(lpid);
             toggleSettingsButton();
 
             // the last scenario is opened by default
@@ -62,7 +62,7 @@ function learningPathToServer(learningPath, cb = noop, newLp = false) {
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
         session.addlearningPath(data.content);
-        session.openlearningPath(data['learningPathID'])
+        session.openLearningPath(data['learningPathID'])
         return cb()
     });
 }

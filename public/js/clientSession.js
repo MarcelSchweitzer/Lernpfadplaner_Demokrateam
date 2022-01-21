@@ -47,7 +47,7 @@ class Session {
 
         // if deleted path is opened -> close
         if (this.currentlearningPathId == id)
-            this.closelearningPath();
+            this.closeLearningPath();
 
         this.learningPaths = rmById(this.learningPaths, id);
     }
@@ -150,12 +150,12 @@ class Session {
     }
 
     // open a learning path by id
-    openlearningPath(id) {
+    openLearningPath(id) {
         this.currentlearningPathId = id;
     }
 
     // close the current learning path
-    closelearningPath() {
+    closeLearningPath() {
         this.currentlearningPathId = null;
         this.currentScenarioIndex = null;
         this.currentInteractionIndex = null;

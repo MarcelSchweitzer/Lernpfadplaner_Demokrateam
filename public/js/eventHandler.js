@@ -47,7 +47,7 @@ document.addEventListener('click', (event) => {
         if (session.learningPathOpened()) {
             saveCurrentLp();
             learningPathToServer(session.getCurrentLearningPath(), () => {
-                session.closelearningPath();
+                session.closeLearningPath();
                 toggleSettingsButton();
                 getHomePage();
             });
@@ -205,11 +205,15 @@ document.addEventListener('click', (event) => {
         openTreegraphOverlay(lpIndex);
     }
 
+/*
+
     // download lp from dashboard
     else if(classes.contains('downLoadFromDashboard')){
         let lpIndex = id.replaceAll('downLoadFromDashboard', '')
         session.openLearningPath(lpIndex);
     }
+
+*/
 
     // handle open scenario buttons
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
@@ -298,7 +302,7 @@ document.addEventListener('click', (event) => {
         
         deletelearningPath(lpID, () => {
             if (session.getCurrentLearningPathId() == lpID)
-                session.closelearningPath()
+                session.closeLearningPath()
             session.removelearningPath(lpID)
         })
         
