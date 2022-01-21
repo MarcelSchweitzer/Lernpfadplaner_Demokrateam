@@ -192,7 +192,7 @@ document.addEventListener('click', (event) => {
         $('#addtabNav').before(`
                                     <li class="nav-item">
                                         <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
+                                            <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
                                     </li>
                              `);
@@ -237,43 +237,37 @@ document.addEventListener('click', (event) => {
     // create new interactionType
     else if (classes.contains('createInter')){
 
-        for(const [key, value] of Object.entries(session.getCurrentLearningPath().interactivityTypes)){
-            categoryID = key
-            if(id == 'createInter-'+categoryID){
+        // get Category
+        let categoryID = id.replaceAll('createInter-', '')
 
-                // read value from input
-                let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
+        // read value from input
+        let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
 
-                // get current interactivities for this category
-                interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
+        // get current interactivityTypes for this category
+        let interactivityTypes = []
 
-                if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
-                    lastElemID = '#lastCheckboxelement' + categoryID
-                    $(lastElemID).before(`
-                        <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
-                            <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                            <br>
-                        `);
+        // get current interactivities for this category
+        if(session.getCurrentLearningPath().interactivityTypes[categoryID])
+            interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
 
+        // check if name is valid
+        if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
+            lastElemID = '#lastCheckboxelement' + categoryID
+            $(lastElemID).before(`
+                <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                    <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                    <br>
+                `);
 
-                    // get current interactivities for this category
-                    interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
-
-                    if(interactivityTypes.length > 0){
-                        interactivityTypes.push(newInteractionType)
-                    } 
-                    else{
-                        interactivityTypes = []
-                        interactivityTypes[0] = newInteractionType
-                    }
-
-                    session.setProp('interactivityTypes', interactivityTypes, categoryID);
-                    unsavedChanges = true;
-                }
-                else{
-                    alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
-                }
-            }
+            // push to List
+            interactivityTypes.push(newInteractionType)
+            
+            // add to Learningpath
+            session.setProp('interactivityTypes', interactivityTypes, categoryID);
+            unsavedChanges = true;
+        }
+        else{
+            alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
         }
     }
 
@@ -377,8 +371,13 @@ document.addEventListener('input', (event) => {
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
         let interactivity = id.replaceAll('CB', '')
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-        let newList = session.getCurrentLearningPath()['interactivityTypes'][category] == null ? [] : session.getCurrentLearningPath()['interactivityTypes'][category];
-        if (checked)
+        let newList;
+        if(session.getCurrentLearningPath()['interactivityTypes'][category] && session.getCurrentLearningPath()['interactivityTypes'][category].length > 0)
+            newList = session.getCurrentLearningPath()['interactivityTypes'][category];
+        else
+            newList = []
+
+        if (checked && newList.length > 0)
             newList.push(interactivity)
         else
             newList = rmByValue(newList, interactivity)
@@ -449,14 +448,23 @@ document.addEventListener('input', (event) => {
 
     // change category name
     else if (classes.contains('changeCatName')){
-        let changeCategory = id.replaceAll('changeCatName', '')
+        let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
-        session.setProp('interactivityTypes', {newCatName:session.getCurrentLearningPath().interactivityTypes[changeCategory]}, changeCategory)
+
+        let newDict = {}
+        if(session.getCurrentLearningPath().interactivityTypes[changeCategory] && session.getCurrentLearningPath().interactivityTypes[changeCategory].length > 0)
+            newDict = session.getCurrentLearningPath().interactivityTypes[changeCategory]
+        else 
+            newDict = [];
+
+        session.setProp('interactivityTypes', newDict, changeCategory)
         unsavedChanges = true;
-        console.log("change category name "+changeCategory + " to "+input.value)
+
+        $('#' + id).prop('id', 'changeCatName-'+newCatName);
+        $('#createInter-' + changeCategory).prop('id', 'createInter-'+newCatName);
+        $('#newIntertypeName-' + changeCategory).prop('id', 'newIntertypeName-'+newCatName);
+    
     }
-
-
 });
 
 // fire on drag start 
@@ -576,7 +584,7 @@ function alertToUser(message, seconds = 5, color = 'black') {
 setInterval(function() {
     if (unsavedChanges)
         saveCurrentLp()
-}, 10000)
+}, 1000)
 
 window.onbeforeunload = function() {
     if(unsavedChanges){
