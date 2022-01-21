@@ -192,7 +192,7 @@ document.addEventListener('click', (event) => {
         $('#addtabNav').before(`
                                     <li class="nav-item">
                                         <a class="nav-link" id="` + newCatName + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <input type="text" class="form-control-sm" id="newCat" style="background-color:transparent; border:none" value="` + newCatName + `">
+                                            <input type="text" class="form-control-sm newCat" id="newCat" style="background-color:transparent; border:none" value="` + newCatName + `">
                                         </a>
                                     </li>
                              `);
