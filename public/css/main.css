@@ -543,3 +543,13 @@ footer a:hover {
   color: #000;
   background-color: #fff;
 }
+
+td, th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tbBtn{
+  margin: 5px;
+  width: 50px;
+}

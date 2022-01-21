@@ -103,14 +103,6 @@ document.addEventListener('click', (event) => {
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     }
-
-    else if (id == 'showTreegraph') {
-        openTreegraphOverlay(session.getCurrentLearningPath());
-    }
-
-    else if (id == 'showTreegraphDashboard'){
-        forwardTreegraph();
-    }
     
     else if (id == 'saveSettingsBtn') {
         if (session.learningPathOpened()) {
@@ -134,10 +126,6 @@ document.addEventListener('click', (event) => {
             });
         } 
     } 
-
-    else if (id == 'createCat'){
-
-    }
 
     else if (id == 'selectAllInter'){
         $(".interactivityInputCB").prop('checked', true)
@@ -203,10 +191,24 @@ document.addEventListener('click', (event) => {
                                             </div>
                                             <div class="newInterInputs">
                                                 <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">Erstelle Interaktionstyp</button>
+                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
+                                                    <img class="button" src="img/plus-square.svg">
+                                                </button>
                                             </div>
                                         </div>
                                   `);
+    }
+
+    // open Threegraph from dashboard
+    else if(classes.contains('showTreegraphDashboard')){
+        let lpIndex = id.replaceAll('showTreegraphDashboard', '')
+        openTreegraphOverlay(lpIndex);
+    }
+
+    // download lp from dashboard
+    else if(classes.contains('downLoadFromDashboard')){
+        let lpIndex = id.replaceAll('downLoadFromDashboard', '')
+        session.openLearningPath(lpIndex);
     }
 
     // handle open scenario buttons
@@ -631,9 +633,9 @@ function forwardTreegraph(){
     createTreegraph(session.getCurrentLearningPath());
 }
 
-function openTreegraphOverlay(){
+function openTreegraphOverlay(index = session.getCurrentLearningPath()){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentLearningPath());
+    createTreegraph(session.getlearningPaths()[index]);
 }
 
 function closeTreegraphOverlay(){

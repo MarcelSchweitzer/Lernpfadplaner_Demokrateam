@@ -24,7 +24,7 @@
                                             <th class="lpHeader" scope="col">Interaktivitäten</th>  
                                             <th class="lpHeader" scope="col">Taxonomiestufe</th> 
                                             <th class="lpHeader" scope="col">Bewertungsmodus</th> 
-                                            <th class="lpHeader" scope="col">Funktionen</th>
+                                            <th class="lpHeader" scope="col"></th>
                                         </tr>
                                        </thead>
                                        <tbody id="table">
@@ -63,8 +63,9 @@
                                                 <td class="deleteLpClass">
 
 
-                                                    <button class="button btn btn-light deleteLp"
-                                                            data-toggle="modal" data-target="#deleteLp">Löschen</button>
+                                                    <button class="button btn btn-light deleteLp tbBtn" data-toggle="modal" data-target="#deleteLp">
+                                                        <img class="button" src="img/trash.svg">
+                                                    </button>
                                                     <div class="modal fade" id="deleteLp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -84,7 +85,9 @@
                                                         </div>
                                                     </div>
 
-                                                    <button class="button btn btn-light" id="showTreegraphDashboard">Baumansicht</button>
+                                                    <button class="button btn btn-light showTreegraphDashboard tbBtn" id="showTreegraphDashboard<%= count %>">
+                                                        <img class="button" src="img/diagram-3.svg">
+                                                    </button>
                                                     <div id="treegraphNav" class="overlay">
                                                         <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()"></a>
                                                         <div class="overlay-content">
@@ -93,7 +96,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <button class="button btn btn-light downLoadFromDashboard tbBtn" data-toggle="modal" data-target="#downloadPop">
+                                                        <img class="button" src="img/download.svg">
+                                                    </button>
                                                 </td>
                                             </tr>
                                         <% count++;  }); %>
@@ -107,7 +112,9 @@
             </div>
             <div class="col-md-4">
                 <div class="start-btn">
-                    <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
+                    <button class="button btn btn-primary" type="create" id="createLpBtn">
+                        Neuen Lernpfad erstellen +
+                    </button>
                 </div>
                 <div class="form" id="dropDiv">
                     <input type="file" class="fileDrop" id="importDrop" multiple>
@@ -120,7 +127,9 @@
     <div class="welcome">
         <div class="welcomeItem">
             <div class="start-btn">
-                <button class="button btn btn-primary" type="create" id="createLpBtn">Neuen Lernpfad erstellen +</button>
+                <button class="button btn btn-primary" type="create" id="createLpBtn">
+                    Neuen Lernpfad erstellen +
+                </button>
             </div>
         </div>
         <div class="welcomeItem">
