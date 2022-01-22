@@ -209,7 +209,7 @@ document.addEventListener('click', (event) => {
     else if(classes.contains('showTreegraphDashboard')){
         let lpID = id.replaceAll('showTreegraphDashboard', '');
         session.openLearningPath(lpID);
-        forwardTreegraph(lpID);
+        forwardTreegraph(session.getCurrentLearningPath());
     }
 
     // download lp from dashboard
@@ -617,7 +617,7 @@ setInterval(function() {
 
 window.onbeforeunload = function() {
     if(unsavedChanges){
-        return "Deine Änderungen werden eventuell nicht gespeichert!";
+        return "Deine Änderunge werden eventuell nicht gespeichert!";
     }
     
 };
@@ -655,14 +655,18 @@ function toggleSettingsButton(){
     }
 }
 
-function forwardTreegraph(){
+function forwardTreegraph(lpID){
     document.getElementById("treegraphNavDashboard").style.display = "block";
-    createTreegraph(session.getCurrentLearningPath());
+    createTreegraph(lpID);
 }
 
-function openTreegraphOverlay(){
+function closeForwardTreegraph(){
+    document.getElementById("treegraphNavDashboard").style.display = "none";
+}
+
+function openTreegraphOverlay(lpID){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentLearningPath());
+    createTreegraph(lpID);
 }
 
 function closeTreegraphOverlay(){
