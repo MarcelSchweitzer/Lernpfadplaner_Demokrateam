@@ -12,23 +12,6 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   overflow: hidden;
-  /* position: fixed; 
-  
-  @Hadis
-  Sidepanels have to be fixed position:
-
-  If they scroll with the rest of the page, interactions cannot be dropped 
-  for > 10 scenarios 
-  
-  Same goes for the rest of the page - what if the user wants to take a not while having 20 scenarios?
-  We dont want him to have to scroll all the way up.
-
-  It might nice if its like a grid, where on the left side the two panels take like 40% vertical each
-  and the right side panel maybe 80%? 
-
-  It's important, that the user is able to scroll within the sidepanel.
-  
-  */
   scrollbar-width: none;
   padding-bottom: 20px;
 }

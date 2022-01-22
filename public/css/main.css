@@ -574,8 +574,3 @@ td, th {
   text-align: center;
   vertical-align: middle;
 }
-
-.interactionItem{
-  height: -moz-fit-content;
-  height: fit-content;
-}
