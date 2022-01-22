@@ -47,5 +47,13 @@
     };
 </script>
 <script src="js/dependencies/pleaseRotate.js" referrerpolicy="no-referrer">PleaseRotate.deactivate();</script>
+<script>
+  function copy() {
+  var copyText = document.getElementById("url");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+</script>
 
 </html>

@@ -192,7 +192,7 @@ function canBeRead(root, calls){
                                     <div class="form-group">
                                         
                                         <label for="lpResource<%= count %>">Szenario-URL</label>
-                                        <div class="input-group">
+                                        <div class="input-group copyBox">
                                             <input type="text" placeholder="URL" class="form-control lpResource" id="lpResource<%= count %>" value="<%= sc.resource %>">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary"  type="button">
@@ -262,11 +262,11 @@ function canBeRead(root, calls){
                                 <input type="text" class="form-control interSet interInp coords y_coord" id="y_coord">
                             </div>
                             <div class="form-group interactionItem">
-                               <form>
+                               <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
-                                <input type="text" class="form-control interSet interInp materialUrl" value="URL" id="Url">
+                                <input type="text" onclick="copy()" class="form-control text interSet interInp materialUrl"  id="url">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary"   type="button">
+                                    <button class="btn btn-outline-secondary" onclick="copy()" type="button">
                                         <img src="./img/copy.png" alt="copy to clipbord"/>
                                     </button>
                                   </div>
@@ -344,5 +344,7 @@ function canBeRead(root, calls){
             </div>
         </div>
     </div>
+
+   
  
   
