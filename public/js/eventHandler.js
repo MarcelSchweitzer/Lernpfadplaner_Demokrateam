@@ -166,6 +166,10 @@ document.addEventListener('click', (event) => {
         }
     }
 
+    else if(id == "showTreegraph"){
+        openTreegraphOverlay(session.getCurrentLearningPath());
+    }
+
     // add Category Tab
     else if(id == 'add-tab'){
 
@@ -205,10 +209,8 @@ document.addEventListener('click', (event) => {
     else if(classes.contains('showTreegraphDashboard')){
         let lpID = id.replaceAll('showTreegraphDashboard', '');
         session.openLearningPath(lpID);
-        openTreegraphOverlay(lpID);
+        forwardTreegraph(lpID);
     }
-
-
 
     // download lp from dashboard
     else if(classes.contains('downLoadFromDashboard')){
@@ -654,7 +656,7 @@ function toggleSettingsButton(){
 }
 
 function forwardTreegraph(){
-    document.getElementById("treegraphNav").style.display = "block";
+    document.getElementById("treegraphNavDashboard").style.display = "block";
     createTreegraph(session.getCurrentLearningPath());
 }
 
