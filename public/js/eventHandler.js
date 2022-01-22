@@ -166,6 +166,10 @@ document.addEventListener('click', (event) => {
         }
     }
 
+    else if(id == "showTreegraph"){
+        openTreegraphOverlay(session.getCurrentLearningPath());
+    }
+
     // add Category Tab
     else if(id == 'add-tab'){
 
@@ -205,10 +209,8 @@ document.addEventListener('click', (event) => {
     else if(classes.contains('showTreegraphDashboard')){
         let lpID = id.replaceAll('showTreegraphDashboard', '');
         session.openLearningPath(lpID);
-        openTreegraphOverlay(lpID);
+        forwardTreegraph(session.getCurrentLearningPath());
     }
-
-
 
     // download lp from dashboard
     else if(classes.contains('downLoadFromDashboard')){
@@ -615,7 +617,7 @@ setInterval(function() {
 
 window.onbeforeunload = function() {
     if(unsavedChanges){
-        return "Deine Änderungen werden eventuell nicht gespeichert!";
+        return "Deine Änderunge werden eventuell nicht gespeichert!";
     }
     
 };
@@ -653,14 +655,18 @@ function toggleSettingsButton(){
     }
 }
 
-function forwardTreegraph(){
-    document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentLearningPath());
+function forwardTreegraph(lpID){
+    document.getElementById("treegraphNavDashboard").style.display = "block";
+    createTreegraph(lpID);
 }
 
-function openTreegraphOverlay(){
+function closeForwardTreegraph(){
+    document.getElementById("treegraphNavDashboard").style.display = "none";
+}
+
+function openTreegraphOverlay(lpID){
     document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(session.getCurrentLearningPath());
+    createTreegraph(lpID);
 }
 
 function closeTreegraphOverlay(){
