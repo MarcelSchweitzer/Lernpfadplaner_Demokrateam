@@ -13,9 +13,9 @@
                 <div class="settingsItem" id="interactivityTypes">
                     <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
-                        <% if(data.availableInteractivityTypes){ 
+                        <% if(data.learningPath.availableInteractivityTypes){ 
                         let counter = 0;
-                        for (let [key, value] of Object.entries(data.availableInteractivityTypes)){ 
+                        for (let [key, value] of Object.entries(data.learningPath.availableInteractivityTypes)){ 
                             let first = counter == 0 ? true : false;
                             let active = first ? ' active' : '';
                             %>
@@ -42,10 +42,10 @@
                             return dict1;
                         }
 
-                        // console.log(extendObj(data.availableInteractivityTypes, data.learningPath.interactivityTypes))
+                        // console.log(extendObj(data.learningPath.availableInteractivityTypes, data.learningPath.interactivityTypes))
 
                         counter = 0;
-                        for (let [key, value] of Object.entries(extendObj(data.availableInteractivityTypes, data.learningPath.interactivityTypes))){ 
+                        for (let [key, value] of Object.entries(extendObj(data.learningPath.availableInteractivityTypes, data.learningPath.interactivityTypes))){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
                         <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="

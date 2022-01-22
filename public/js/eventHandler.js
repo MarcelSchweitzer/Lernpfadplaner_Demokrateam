@@ -12,6 +12,7 @@ $(document).ready(() => {
     toggleHeaderText();
     updateUserName();
     fetchlearningPaths();
+    alertToUser("Alte Lernpfad Dateien werden Fehler verursachen!", 10, "red");
 });
 
 function isValidURL(url) {
@@ -175,6 +176,7 @@ document.addEventListener('click', (event) => {
 
         // create new Interactivytytype for user 
         session.setProp('interactivityTypes', [], categoryID);
+        session.setProp('availableInteractivityTypes', [], categoryID);
         unsavedChanges = true;
 
         $('#addtabNav').before(`
@@ -259,8 +261,8 @@ document.addEventListener('click', (event) => {
         let interactivityTypes = []
 
         // get current interactivities for this category
-        if(session.getCurrentLearningPath().interactivityTypes[categoryID])
-            interactivityTypes = session.getCurrentLearningPath().interactivityTypes[categoryID];
+        if(session.getCurrentLearningPath().availableInteractivityTypes[categoryID])
+            interactivityTypes = session.getCurrentLearningPath().availableInteractivityTypes[categoryID];
 
         // check if name is valid
         if(newInteractionType != "" && !interactivityTypes.includes(newInteractionType)){
@@ -276,6 +278,7 @@ document.addEventListener('click', (event) => {
             
             // add to Learningpath
             session.setProp('interactivityTypes', interactivityTypes, categoryID);
+            session.setProp('availableInteractivityTypes', interactivityTypes, categoryID);
             unsavedChanges = true;
         }
         else{
@@ -463,19 +466,31 @@ document.addEventListener('input', (event) => {
         let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
 
-        let newDict = {}
-        if(session.getCurrentLearningPath().interactivityTypes[changeCategory] && session.getCurrentLearningPath().interactivityTypes[changeCategory].length > 0)
-            newDict = session.getCurrentLearningPath().interactivityTypes[changeCategory]
-        else 
-            newDict = [];
+        let newInter = session.getCurrentLearningPath().interactivityTypes
+        let newAvailableInter = session.getCurrentLearningPath().availableInteractivityTypes
 
-        session.setProp('interactivityTypes', newDict, changeCategory)
+        // new interactivityTypes
+        if(newInter[changeCategory]){
+            Object.defineProperty(newInter, newCatName,
+                Object.getOwnPropertyDescriptor(newInter, changeCategory));
+            delete newInter[changeCategory];
+            session.setProp('interactivityTypes', newInter)
+        }
+
+        // new available interactivityTypes
+        if(newAvailableInter[changeCategory]){
+            Object.defineProperty(newAvailableInter, newCatName,
+                Object.getOwnPropertyDescriptor(newAvailableInter, changeCategory));
+            delete newAvailableInter[changeCategory];
+            session.setProp('availableInteractivityTypes', newAvailableInter)
+        }
+
         unsavedChanges = true;
-
+        
         $('#' + id).prop('id', 'changeCatName-'+newCatName);
         $('#createInter-' + changeCategory).prop('id', 'createInter-'+newCatName);
         $('#newIntertypeName-' + changeCategory).prop('id', 'newIntertypeName-'+newCatName);
-    
+        $('#lastCheckboxelement' + changeCategory).prop('id', 'lastCheckboxelement'+newCatName);
     }
 });
 

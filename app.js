@@ -132,7 +132,8 @@ app.get('/create', (req, res) => {
                             'Wahr/Falsch-Fragen', 
                             'Multiple-Choice-Fragen'
                         ]
-                }
+                    },
+                    'availableInteractivityTypes': interactivityTypes
                 }
                 dbMan.insert('public.learningPath', {
                     'lpid': id,

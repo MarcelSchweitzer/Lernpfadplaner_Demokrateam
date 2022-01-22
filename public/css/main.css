@@ -261,10 +261,11 @@ header {
 .top-name {
   padding: 8px;
 }
-.deleteLpClass button {
+.tableBtn button {
   width: 100px;
   height: 38px;
   border-radius: 50%;
+  margin-left: 5px;
 }
 .space {
   width: 100%;
@@ -530,10 +531,6 @@ footer a:hover {
   margin: 5px;
 }
 
-.deleteLpClass {
-  margin-left: 5px;
-}
-
 .lpTable {
   width: 100%;
 }
@@ -576,4 +573,9 @@ td, th {
   border-radius: 40px;
   text-align: center;
   vertical-align: middle;
+}
+
+.interactionItem{
+  height: -moz-fit-content;
+  height: fit-content;
 }
