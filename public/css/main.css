@@ -567,7 +567,6 @@ td, th {
 }
 
 .tbBtn{
-  margin: 5px;
   max-width: 40px;
   max-height: 40px;
   border-radius: 40px;
@@ -646,4 +645,14 @@ td, th {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+}
+
+.dashIcon{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 100%;
 }

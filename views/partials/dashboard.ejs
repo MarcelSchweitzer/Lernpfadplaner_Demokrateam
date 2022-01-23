@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td class="tableBtn">
                                                     <button class="button btn btn-light showTreegraphDashboard tbBtn" id="showTreegraphDashboard<%= lp['id']%>">
-                                                        <img class="button" src="img/diagram-3.svg">
+                                                        <img class="button dashIcon showTreegraphDashboard" id="showTreegraphDashboard<%= lp['id']%>"" src="img/diagram-3.svg">
                                                     </button>
                                                     <div id="treegraphNavDashboard" class="overlay">
                                                         <a href="javascript:void(0)" class="closebtn" onclick="closeForwardTreegraph()">&times;</a>
@@ -93,17 +93,17 @@
                                                 </td>
                                                 <td class="tableBtn">
                                                     <button class="button btn btn-light downLoadFromDashboard tbBtn" id="downLoadFromDashboard<%= lp['id']%>" data-toggle="modal" data-target="#downloadPop">
-                                                        <img class="button" src="img/download.svg">
+                                                        <img class="button dashIcon downLoadFromDashboard" id="downLoadFromDashboard<%= lp['id']%>" src="img/download.svg">
                                                     </button>
                                                 </td>
                                                 <td class="tableBtn">
                                                     <button class="button btn btn-light settingsPageBtn tbBtn" id="settingsPageBtn<%= lp['id']%>">
-                                                        <img class="button" src="img/settings.svg">
+                                                        <img class="button dashIcon settingsPageBtn" id="settingsPageBtn<%= lp['id']%>" src="img/settings.svg">
                                                     </button>
                                                 </td>
                                                 <td class="tableBtn">
                                                     <button class="button btn btn-light deleteLp tbBtn" data-toggle="modal" data-target="#deleteLp">
-                                                        <img class="button" src="img/trash.svg">
+                                                        <img class="button dashIcon deleteLp" src="img/trash.svg">
                                                     </button>
                                                     <div class="modal fade" id="deleteLp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">

@@ -208,8 +208,7 @@ document.addEventListener('click', (event) => {
     // open Threegraph from dashboard
     else if(classes.contains('showTreegraphDashboard')){
         let lpID = id.replaceAll('showTreegraphDashboard', '');
-        session.openLearningPath(lpID);
-        forwardTreegraph(session.getCurrentLearningPath());
+        forwardTreegraph(lpID);
     }
 
     // download lp from dashboard
@@ -657,7 +656,7 @@ function toggleSettingsButton(){
 
 function forwardTreegraph(lpID){
     document.getElementById("treegraphNavDashboard").style.display = "block";
-    createTreegraph(lpID);
+    createTreegraph(session.getlearningPathById(lpID));
 }
 
 function closeForwardTreegraph(){
@@ -705,6 +704,7 @@ function createTreegraph(lpData){
     nodeList.push(root);
 
     let parent = document.getElementById("treegraph");
+    parent.innerHTML = "";
 
     let div = document.createElement("div");
 
