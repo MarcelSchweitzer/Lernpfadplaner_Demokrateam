@@ -858,6 +858,13 @@ function searchBox() {
     }
   }
 
+function copy() {
+    var copyText = document.getElementById("url");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+}
+
 $('#categoryTabs a').on('click', function(e) {
     e.preventDefault()
     $(this).tab('show')
