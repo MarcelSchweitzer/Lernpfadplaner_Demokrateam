@@ -87,17 +87,32 @@ function canBeRead(root, calls){
                         <div class="rate-part">
                             <hr>
                             <p>Notizen</p>
+                            <div class="tab">
+                                <button class="tablinks" onclick="openNotes(event, 'scenario')">Szenario</button>
+                                <button class="tablinks" onclick="openNotes(event, 'learningPath')">Lernpfad</button>
+                            </div>
                             <hr>
-                            <div class="note" >
-                                <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
-                                <div class="noteMaximize">
-                                    <a href="#" data-toggle="modal" data-target="#noteModal">
-                                        <img class="img-fluid button" src="img/maximize.png">
-                                    </a>
+                            <div id="scenario" class="tabcontent">
+                                <div class="note" >
+                                    <textarea class="form-control lpNotes" id="scenarioNotes"><%=data.learningPath.notes%></textarea>
+                                    <div class="noteMaximize">
+                                        <a href="#" data-toggle="modal" data-target="#scenarioNotesModal">
+                                            <img class="img-fluid button" src="img/maximize.png">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="learningPath" class="tabcontent">
+                                <div class="note" >
+                                    <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                                    <div class="noteMaximize">
+                                        <a href="#" data-toggle="modal" data-target="#noteModal">
+                                            <img class="img-fluid button" src="img/maximize.png">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="rate-part">
                             <div class="interactivity">
                                 <hr>
