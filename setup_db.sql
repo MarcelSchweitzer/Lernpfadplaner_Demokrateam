@@ -1,12 +1,3 @@
-CREATE DATABASE users
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-
--- \c users (conncect to database users)
-
 CREATE TABLE IF NOT EXISTS public.session (
     sid varchar NOT NULL COLLATE "default",
     sess json NOT NULL,
