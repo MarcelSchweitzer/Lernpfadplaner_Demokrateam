@@ -389,7 +389,15 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        canvasManager.setCurrentImage(input.value);
+        if (isValidImageURL(input.value)){
+            window.isVideo = false;
+            canvasManager.setCurrentImage(input.value);
+            console.log("CORRECT IMAGE");
+        } else {
+            window.isVideo = true;
+            canvasManager.setCurrentVideo(input.value);
+            console.log("WRONG IMAGE");
+        }
     }
     
     else if (classes.contains('interactivityInputCB')) {
@@ -892,4 +900,9 @@ function openNotes(evt, option) {
     }
     document.getElementById(option).style.display = "block";
     evt.currentTarget.className += " active";
+}
+
+function isValidImageURL(str){
+    if ( typeof str !== 'string' ) return false;
+    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
 }
