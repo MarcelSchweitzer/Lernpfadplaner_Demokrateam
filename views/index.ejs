@@ -8,6 +8,7 @@
     <title>Lernpfadplaner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="css/main.css" type="text/css"></link>
+  
 </head>
 
 <body>
@@ -21,7 +22,28 @@
                     <%- include('./partials/footer') %>
             </div>
         </div>
+       
     </div>
+  <!-- cookie -->
+<div class="fixed-bottom p-4">
+    <div class="toast bg-dark text-white w-100 mw-100" role="alert" data-autohide="false">
+        <div class="toast-body p-4 d-flex flex-column">
+            <h4>Cookie Warning</h4>
+            <p>
+            This website stores data such as cookies to enable site functionality including analytics and personalization. By using this website, you automatically accept that we use cookies. 
+            </p>
+            <div class="ml-auto flex-row">
+                <button type="button" class="btn btn-outline-light mr-3" id="btnDeny">
+                    Deny
+                </button>
+                <button type="button" class="btn btn-light" id="btnAccept">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- cookie -->
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" referrerpolicy="no-referrer"></script>
@@ -34,6 +56,7 @@
 <script src="js/workspace.js"></script>
 <script src="js/eventHandler.js" referrerpolicy="no-referrer"></script>
 <script src="js/httpHandler.js" referrerpolicy="no-referrer"></script>
+<script src="js/cookie.js"></script>
 
 
 <script>
