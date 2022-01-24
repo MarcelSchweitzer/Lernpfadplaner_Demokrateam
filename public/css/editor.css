@@ -416,15 +416,16 @@ header {
 }
 
 .scenarioControlls{
-  width: 50%;
   padding: 10px;
 }
 
 #scenarioLeftControlls{
+  width: 70%;
   justify-content: flex-start;
 }
 
 #scenarioRightControlls{
+  width: 30%;
   justify-content: flex-end;
   height: 100%;
 }
