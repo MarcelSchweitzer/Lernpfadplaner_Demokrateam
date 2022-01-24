@@ -21,6 +21,7 @@
                             %>
                             <li class="nav-item">
                                 <a class="nav-link" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                    <input type="checkbox">
                                     <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName-<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
                                 </a>
                             </li>
@@ -61,9 +62,7 @@
                             </div>
                             <div class="newInterInputs">
                                 <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
-                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">
-                                    +
-                                </button>
+                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">+</button>
                             </div>
                         </div>
                         <%counter++} %>
@@ -72,8 +71,8 @@
                     <%} %>
                 </div>
                 <div class="settingsItem resetBtns">
-                    <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle auswählen </button>
-                    <button class="button btn btn-light resetBtn" id="selectNoneInter"> Keine auswählen </button>
+                    <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle Kategorien auswählen </button>
+                    <button class="button btn btn-light resetBtn" id="selectNoneInter"> Keine Kategorie auswählen </button>
                 </div>
             </div>
         </div>
