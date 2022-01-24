@@ -5,14 +5,15 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body::-webkit-scrollbar{
+  display: none;
 }
 
 #dropDiv {
   min-height: 120px;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 * {

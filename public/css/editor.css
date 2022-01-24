@@ -24,7 +24,7 @@
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  overflow: hidden;
+  overflow: scroll;
   /* position: fixed; */
   scrollbar-width: none;
   padding-bottom: 20px;
@@ -80,16 +80,26 @@
   display: inline-block;
 }
 
+.sidepanel-first{
+  overflow: scroll;
+}
+
 .interactivityPicker{
   margin: 5px;
-  overflow: auto;
-  height: 30vh;
+}
+
+.interactivityPicker::-webkit-scrollbar{
+  display: none;
 }
 
 .interactivityList{
   margin: 5px;
   overflow: auto;
   height: 30vh;
+}
+
+.interactivityList::-webkit-scrollbar{
+  display: none;
 }
 
 .note {
@@ -226,12 +236,32 @@
 .scenarios{
   margin-top: 40px;
   height: 90vh;
-  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.scenarios::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scenarios::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px black; 
+  border-radius: 10px;
+}
+
+.scenarios::-webkit-scrollbar-thumb {
+  background: darkgray; 
+  border-radius: 10px;
+}
+
+.scenarios::-webkit-scrollbar-thumb:hover {
+  background:gray; 
 }
 
 .categoryBox {
   width: 100%;
   text-align: center;
+  height: inherit;
 }
 
 .interactivityBox {
