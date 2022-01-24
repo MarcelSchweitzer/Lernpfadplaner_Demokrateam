@@ -7,12 +7,12 @@ body {
   overflow-x: hidden;
 }
 
-#dropDiv {
-  min-height: 120px;
+body::-webkit-scrollbar{
+  display: none;
 }
 
-::-webkit-scrollbar {
-  display: none;
+#dropDiv {
+  min-height: 120px;
 }
 
 * {

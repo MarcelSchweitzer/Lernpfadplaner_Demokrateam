@@ -35,6 +35,19 @@ function canBeRead(root, calls){
             <div class="col-2 sidecol">
                 <section class="left">
                     <div class="sidepanel sidepanel-first">
+                        <div class="rate-part">
+                            <hr>
+                            <p>Notizen</p>
+                            <hr>
+                            <div class="note" >
+                                <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                                <div class="noteMaximize">
+                                    <a href="#" data-toggle="modal" data-target="#noteModal">
+                                        <img class="img-fluid button" src="img/maximize.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="taxonomy-part">
                             <hr>
                             <p>Taxonomiestufe</p>
@@ -84,19 +97,6 @@ function canBeRead(root, calls){
                 </section>
                 <section>
                     <div class="sidepanel sidepanel-second">
-                        <div class="rate-part">
-                            <hr>
-                            <p>Notizen</p>
-                            <hr>
-                            <div class="note" >
-                                <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
-                                <div class="noteMaximize">
-                                    <a href="#" data-toggle="modal" data-target="#noteModal">
-                                        <img class="img-fluid button" src="img/maximize.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="rate-part">
                             <div class="interactivity">
                                 <hr>
