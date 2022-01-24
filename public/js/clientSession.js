@@ -80,9 +80,9 @@ class Session {
     }
 
     // add a new interaction
-    addInteraction(coordinates, materialUrl, evaluationHeurestic, category, interactionType, behaviorSettings='Click', taxonomyLevelInt) {
+    addInteraction(coordinates, materialUrl, evaluationHeurestic, category, interactionType, taxonomyLevelInt, behaviorSettings='Click') {
         if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'materialUrl': materialUrl, 'evaluationHeurestic': evaluationHeurestic, 'category': category, 'behaviorSettings':behaviorSettings, 'interactionType': interactionType, 'taxonomyLevel': taxonomyLevelInt });
+            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'materialUrl': materialUrl, 'evaluationHeurestic': evaluationHeurestic, 'category': category, 'behaviorSettings':behaviorSettings, 'taxonomyLevelInt': taxonomyLevelInt, 'interactionType': interactionType, 'taxonomyLevel': taxonomyLevelInt });
     }
 
     // move interaction from indexOld to IndexNew

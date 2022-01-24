@@ -437,7 +437,11 @@ document.addEventListener('input', (event) => {
     } 
 
     else if (id == 'taxonomyLevelInt') {
-        updateInteractionProperty('taxonomyLevelInt', input.value)
+        console.log(input.value)
+        let elemId = $(input).find('option:selected').attr('id')
+        if(elemId != "noTaxonomy"){
+            updateInteractionProperty('taxonomyLevelInt', input.value)
+        }
     } 
     
     else if (id == 'interactionTypeDrop') {
