@@ -344,16 +344,6 @@ document.addEventListener('input', (event) => {
         updateLpProperty('notes', input.value);
         $("#lpNotes").val(input.value);
     }
-
-    if (id == 'scenarioNotes') {
-        updateLpProperty('notes', input.value);
-        $("#scenarioNotesModal").val(input.value);
-    }
-
-    else if (id == 'scenarioNotesModal') {
-        updateLpProperty('notes', input.value);
-        $("#scenarioNotes").val(input.value);
-    }
     
     else if (id == 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
@@ -385,7 +375,12 @@ document.addEventListener('input', (event) => {
         scenarioIndex = id.replaceAll('lpLearningGoal', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'learningGoal');
     }
-    
+
+    else if (classes.contains('lpNote')) {
+        scenarioIndex = id.replaceAll('lpNote', '');
+        updateLpProperty('scenarios', input.value, scenarioIndex, 'note');
+    }
+
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
@@ -887,20 +882,6 @@ $('#categoryTabs a').on('click', function(e) {
     e.preventDefault()
     $(this).tab('show')
 });
-
-function openNotes(evt, option) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(option).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
 function isValidImageURL(str){
     if ( typeof str !== 'string' ) return false;
