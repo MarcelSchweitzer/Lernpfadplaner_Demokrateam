@@ -209,7 +209,7 @@
   position: relative;
 }
 
-#lpNotes {
+.lpNotes {
   width: 100%;
   min-height: 100px;
   height: 100%;
@@ -336,11 +336,6 @@ header {
   width: 80%;
 }
 
-
-
-
-
-
 .overlay {
   height: 100%;
   width: 100%;
@@ -413,4 +408,27 @@ header {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
+}
+
+.scenarioControllWrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.scenarioControlls{
+  width: 50%;
+  padding: 10px;
+}
+
+#scenarioLeftControlls{
+  justify-content: flex-start;
+}
+
+#scenarioRightControlls{
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.lpNote{
+  height: 100%;
 }

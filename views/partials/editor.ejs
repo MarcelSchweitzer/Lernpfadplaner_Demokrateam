@@ -172,17 +172,23 @@ function canBeRead(root, calls){
                         <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
                             <div class="card-body">
                                 <form>
-                                    <div class="form-group">
-                                        <label for="lpDescription<%= count %>">Beschreibung</label>
-                                        <textarea class="form-control lpDescription" id="lpDescription<%= count %>"><%= sc.description %></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lpLearningGoal<%= count %>">Lernziel</label>
-                                        <textarea class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>"><%= sc.learningGoal %></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lpNote<%= count %>">Notizen</label>
-                                        <textarea class="form-control lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
+                                    <div class="scenarioControllWrapper">
+                                        <div class="scenarioControlls" id="scenarioLeftControlls">
+                                            <div class="form-group">
+                                                <label for="lpDescription<%= count %>">Beschreibung</label>
+                                                <textarea class="form-control lpDescription" id="lpDescription<%= count %>"><%= sc.description %></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lpLearningGoal<%= count %>">Lernziel</label>
+                                                <textarea class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>"><%= sc.learningGoal %></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="scenarioControlls" id="scenarioRightControlls">
+                                            <div class="note" >
+                                                <label for="lpNote<%= count %>">Szenario-Notizen</label>
+                                                <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                                 <div>
