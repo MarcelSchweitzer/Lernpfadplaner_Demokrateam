@@ -7,7 +7,7 @@
         
             <div class="settingsItem" id="title">
                 <label for="lpTitleInput">Titel</label>
-                <input type="text" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
+                <input type="text" onSubmit="return false;" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
             <div>
                 <div class="settingsItem" id="interactivityTypes">
@@ -22,7 +22,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
                                     <input type="checkbox">
-                                    <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName-<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
+                                    <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
                                 </a>
                             </li>
                             <%counter++ } %>
@@ -61,7 +61,7 @@
                                 <div id="lastCheckboxelement<%= key %>"></div>
                             </div>
                             <div class="newInterInputs">
-                                <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
+                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
                                 <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">+</button>
                             </div>
                         </div>

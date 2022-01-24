@@ -201,7 +201,7 @@ document.addEventListener('click', (event) => {
                                     <li class="nav-item">
                                         <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             <input type="checkbox">
-                                            <input type="text" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
+                                            <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
                                     </li>
                              `);
@@ -211,7 +211,7 @@ document.addEventListener('click', (event) => {
                                                 <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
                                             <div class="newInterInputs">
-                                                <input type="text" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
+                                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
                                                 <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
                                                     +
                                                 </button>
