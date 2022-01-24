@@ -81,10 +81,24 @@ document.addEventListener('click', (event) => {
     }
     
     else if (id == 'exportButton') {
+        /*
         if (session.learningPathOpened()) {
             downloadlearningPaths([session.getCurrentLearningPath()], 'pdf');
         }
-    } 
+        */
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#main': function (element, renderer) {
+                return true;
+            }
+        };
+        var source = window.document.getElementsByTagName("body")[0];
+        doc.fromHTML(source, 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        },
+            function (){ doc.save('sample-file.pdf');});
+    }
     
     else if (id == 'exportImage') {
         if (session.learningPathOpened()) {
