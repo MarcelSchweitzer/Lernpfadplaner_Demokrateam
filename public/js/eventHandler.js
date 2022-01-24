@@ -542,7 +542,7 @@ document.addEventListener("drop", (event) => {
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             category.trim()
             interactionType.trim()
-            session.addInteraction(coordinates, "", "", category, interactionType,"");
+            session.addInteraction(coordinates, "", "", category, interactionType, " ", " ");
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
@@ -583,6 +583,7 @@ function refreshInteractivityInputs() {
 }
 
 function updateInteractionProperty(key, value) {
+    console.log(key+"  "+value)
     unsavedChanges = true;
     session.setInteractionProp(key, value);
 }
