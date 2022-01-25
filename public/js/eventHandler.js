@@ -399,15 +399,7 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        if (isValidImageURL(input.value)){
-            window.isVideo = false;
-            canvasManager.setCurrentImage(input.value);
-            console.log("CORRECT IMAGE");
-        } else {
-            window.isVideo = true;
-            canvasManager.setCurrentVideo(input.value);
-            console.log("WRONG IMAGE");
-        }
+        canvasManager.setCurrentImage(input.value);
     }
     
     else if (classes.contains('interactivityInputCB')) {
