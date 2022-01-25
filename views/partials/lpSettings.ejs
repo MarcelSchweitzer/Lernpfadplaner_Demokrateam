@@ -21,7 +21,7 @@
                             %>
                             <li class="nav-item">
                                 <input type="checkbox" class="selectCategory" id="catCheck <%= key %>">
-                                <a class="nav-link" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                <a class="nav-link" draggable="false" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
                                     <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
                                 </a>
                             </li>
@@ -53,7 +53,7 @@
                         <%= key %>-tab">
                             <div class="items <%= key %> <%= active %>">
                             <% value.forEach(val=>{ checked = (data.learningPath.interactiontypes[key] && data.learningPath.interactiontypes[key].length > 0 && data.learningPath.interactiontypes[key].includes(val)) ? true : false; %>
-                            <input class="interactionInputCB <%= key %>" <% if (checked){ %> checked
+                            <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
                                 <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
                                 <label for="<%= val %>CB"><%= val %></label>
                                 <br>
