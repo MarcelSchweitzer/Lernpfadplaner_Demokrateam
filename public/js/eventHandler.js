@@ -143,7 +143,8 @@ document.addEventListener('click', (event) => {
     } 
 
     else if (id == 'selectAllInter'){
-        $(".interactionInputCB").prop('checked', true)
+        $(".interactionInputCB").prop('checked', true);
+        $(".selectCategory").prop('checked', true);
 
         session.setProp('interactionTypes', session.getCurrentLearningPath().availableinteractionTypes)
         unsavedChanges = true;
@@ -151,7 +152,8 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'selectNoneInter'){
-        $(".interactionInputCB").prop('checked', false)
+        $(".interactionInputCB").prop('checked', false);
+        $(".selectCategory").prop('checked', false);
         session.setProp('interactionTypes', {})
         unsavedChanges = true;
         saveCurrentLp();
@@ -173,7 +175,7 @@ document.addEventListener('click', (event) => {
     }
 
     // add Category Tab
-    else if(id == 'add-tab'){
+    else if(id == 'addTab'){
 
         // find unused name
         let interactionTypes = Object.keys(session.getCurrentLearningPath().interactionTypes);
@@ -188,7 +190,7 @@ document.addEventListener('click', (event) => {
         $('#addtabNav').before(`
                                     <li class="nav-item">
                                     <input type="checkbox" class="selectCategory" id="catCheck ` + categoryID + `">
-                                        <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                        <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" draggable="false" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
                                     </li>
@@ -272,7 +274,7 @@ document.addEventListener('click', (event) => {
         if(newInteractionType != "" && !interactionTypes.includes(newInteractionType)){
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
-                <input type="checkbox" class="interactionInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                <input type="checkbox" class="interactionInputCB ` + categoryID + `actCat"  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
                 `);
@@ -392,7 +394,7 @@ document.addEventListener('input', (event) => {
     
     else if (classes.contains('interactionInputCB')) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '').replaceAll('ActCat','');
+        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '').replaceAll('actCat','');
         let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
         let newList;
@@ -415,10 +417,10 @@ document.addEventListener('input', (event) => {
         let category = input.getAttribute("id").replaceAll('catCheck ', '');
 
         if(checked){
-            $("."+category+"ActCat").prop('checked', true)
+            $("."+category+"actCat").prop('checked', true)
         }
         else {
-            $("."+category+"ActCat").prop('checked', false)
+            $("."+category+"actCat").prop('checked', false)
         }
 
         let interactionTypes = session.getCurrentLearningPath().interactionTypes;
