@@ -392,7 +392,7 @@ document.addEventListener('input', (event) => {
     
     else if (classes.contains('interactionInputCB')) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '');
+        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '').replaceAll('ActCat','');
         let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
         let newList;
@@ -413,9 +413,8 @@ document.addEventListener('input', (event) => {
     else if(classes.contains('selectCategory')) {
         let checked = input.checked;
         let category = input.getAttribute("id").replaceAll('catCheck ', '');
-
-        // @ Hannah das Problem ist, hier nur die richtigen checkboxen anzusprechen, sonst werden die zwar gespeichert, aber die boxen nicht checked
-        $(".interactionInputCB").prop('checked', true)
+        
+        $("."+category+"ActCat").prop('checked', true)
 
         let interactionTypes = session.getCurrentLearningPath().interactionTypes;
 
