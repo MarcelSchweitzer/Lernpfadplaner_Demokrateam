@@ -413,12 +413,21 @@ document.addEventListener('input', (event) => {
     else if(classes.contains('selectCategory')) {
         let checked = input.checked;
         let category = input.getAttribute("id").replaceAll('catCheck ', '');
-        
-        $("."+category+"ActCat").prop('checked', true)
+
+        if(checked){
+            $("."+category+"ActCat").prop('checked', true)
+        }
+        else {
+            $("."+category+"ActCat").prop('checked', false)
+        }
 
         let interactionTypes = session.getCurrentLearningPath().interactionTypes;
+        
+        if(checked)
+            session.getCurrentLearningPath().interactionTypes[category] = session.getCurrentLearningPath().availableinteractionTypes[category];
+        else if (category in session.getCurrentLearningPath().interactionTypes)
+            delete session.getCurrentLearningPath().interactionTypes[category];
 
-        session.getCurrentLearningPath().interactionTypes[category] = session.getCurrentLearningPath().availableinteractionTypes[category];
 
         session.setProp('interactionTypes', interactionTypes)
         unsavedChanges = true;
