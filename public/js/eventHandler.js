@@ -201,8 +201,10 @@ document.addEventListener('click', (event) => {
                                                 <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
                                             <div class="newInterInputs">
-                                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
+                                                <button class="button btn btn-light interInp" id="selectAllInter"> Alle Kategorien auswählen </button>
+                                                <button class="button btn btn-light interInp" id="selectNoneInter"> Keine Kategorie auswählen </button>
+                                                <input type="text" onSubmit="return false;" class="form-control interInp newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
+                                                <button class="btn btn-light createBtn createInter interInp" id="createInter-` + categoryID + `">
                                                     +
                                                 </button>
                                             </div>
@@ -274,7 +276,7 @@ document.addEventListener('click', (event) => {
         if(newInteractionType != "" && !interactionTypes.includes(newInteractionType)){
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
-                <input type="checkbox" class="interactionInputCB ` + categoryID + `actCat"  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                <input type="checkbox" class="interactionInputCB ` + categoryID + `actCat" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
                 `);
@@ -286,6 +288,7 @@ document.addEventListener('click', (event) => {
             session.setProp('interactionTypes', interactionTypes, categoryID);
             session.setProp('availableinteractionTypes', interactionTypes, categoryID);
             unsavedChanges = true;
+            $(".newIntertypeName").val("");
         }
         else{
             alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');

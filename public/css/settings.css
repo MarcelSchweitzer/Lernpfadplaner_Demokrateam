@@ -29,12 +29,25 @@
   margin-bottom: 30px;
 }
 
-.resetBtns{
-  text-align: center;
-  justify-content: center;
+.tabWrap{
+  justify-content: space-between;
 }
 
-.resetBtn{
+.items{
+  width: 60%;
+  justify-content: flex-start;
+}
+
+.TabBtns{
+  text-align: center;
+  width: 40%;
+  justify-content: flex-end;
+}
+
+.interInp{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
   display: inline-block;
 }
 
@@ -52,20 +65,6 @@
   display: flex;
   justify-content: space-between;
   columns: 90px 4;
-}
-
-.newInterInputs{
-  position: absolute;
-  text-align: center;
-  float: right;
-  right: 100px;
-  width: 200px;
-  z-index: 9999;
-}
-
-.customInput{
-  width: 200px;
-  margin: 5px;
 }
 
 .tab-pane label {

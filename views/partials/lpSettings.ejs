@@ -49,7 +49,7 @@
                         for (let [key, value] of Object.entries(extendObj(data.learningPath.availableinteractionTypes, data.learningPath.interactionTypes))){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
-                        <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
+                        <div class="tabWrap tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
                         <%= key %>-tab">
                             <div class="items <%= key %> <%= active %>">
                             <% value.forEach(val=>{ checked = (data.learningPath.interactionTypes[key] && data.learningPath.interactionTypes[key].length > 0 && data.learningPath.interactionTypes[key].includes(val)) ? true : false; %>
@@ -60,19 +60,17 @@
                                 <% }); %>
                                 <div id="lastCheckboxelement<%= key %>"></div>
                             </div>
-                            <div class="newInterInputs">
-                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
-                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">+</button>
+                            <div class="settingsItem TabBtns">
+                                <button class="button btn btn-light interInp" id="selectAllInter"> Alle Kategorien auswählen </button>
+                                <button class="button btn btn-light interInp" id="selectNoneInter"> Keine Kategorie auswählen </button>
+                                <input type="text" onSubmit="return false;" class="form-control newIntertypeName interInp" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
+                                <button class="btn btn-light createBtn createInter interInp" id="createInter-<%= key %>">+</button>
                             </div>
                         </div>
                         <%counter++} %>
                         <div id="lastTabContent"></div>
                     </div>
                     <%} %>
-                </div>
-                <div class="settingsItem resetBtns">
-                    <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle Kategorien auswählen </button>
-                    <button class="button btn btn-light resetBtn" id="selectNoneInter"> Keine Kategorie auswählen </button>
                 </div>
             </div>
         </div>
