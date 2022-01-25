@@ -233,9 +233,9 @@ function canBeRead(root, calls){
                             <p class="typ">Interaktionstypen</p>
                             <hr>
                             <div class="interactivityPicker">
-                                <% if(canBeRead(data, ['learningPath', 'interactiontypes'])){
+                                <% if(canBeRead(data, ['learningPath', 'interactionTypes'])){
                                     let count = 0;
-                                        for (let [key, value] of Object.entries(data.learningPath.interactiontypes)){ %>
+                                        for (let [key, value] of Object.entries(data.learningPath.interactionTypes)){ %>
                                 <div class="categoryBox">
                                     <hr>
                                     <h6 class="interactivityCategory">
@@ -308,9 +308,9 @@ function canBeRead(root, calls){
                                 <label for="interactionTypeDrop">Interaktionstyp</label>
                                 <select class="form-control interSet" id="interactionTypeDrop">
                                     <option id="noInteractiontype" class="changeInteractivity"> </option>
-                                    <% if(canBeRead(data, ['learningPath','interactiontypes'])){
+                                    <% if(canBeRead(data, ['learningPath','interactionTypes'])){
                                         let count = 0;
-                                            for (let [key, value] of Object.entries(data.learningPath.interactiontypes)){ %>
+                                            for (let [key, value] of Object.entries(data.learningPath.interactionTypes)){ %>
                                     <optgroup label=<%= key %>>
                                         <% value.forEach(val=> { %>
                                             <option id="$$<%= key %>$$<%= val %>" class="changeInteractivity">

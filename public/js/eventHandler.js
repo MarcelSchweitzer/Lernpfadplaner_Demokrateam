@@ -151,14 +151,14 @@ document.addEventListener('click', (event) => {
             return {'category':category, 'interactivity':interactivity}
         }).get();
 
-        session.setProp('interactiontypes', session.getCurrentLearningPath().availableinteractiontypes)
+        session.setProp('interactionTypes', session.getCurrentLearningPath().availableinteractionTypes)
         unsavedChanges = true;
         saveCurrentLp();
     }
 
     else if (id == 'selectNoneInter'){
         $(".interactionInputCB").prop('checked', false)
-        session.setProp('interactiontypes', {})
+        session.setProp('interactionTypes', {})
         unsavedChanges = true;
         saveCurrentLp();
     }
@@ -182,13 +182,13 @@ document.addEventListener('click', (event) => {
     else if(id == 'add-tab'){
 
         // find unused name
-        let interactiontypes = Object.keys(session.getCurrentLearningPath().interactiontypes);
-        let newCatName = uniqueName("Neue_Kategorie", interactiontypes);
+        let interactionTypes = Object.keys(session.getCurrentLearningPath().interactionTypes);
+        let newCatName = uniqueName("Neue_Kategorie", interactionTypes);
         let categoryID = newCatName.replaceAll(" ", "_");
 
         // create new Interactivytytype for user 
-        session.setProp('interactiontypes', [], categoryID);
-        session.setProp('availableinteractiontypes', [], categoryID);
+        session.setProp('interactionTypes', [], categoryID);
+        session.setProp('availableinteractionTypes', [], categoryID);
         unsavedChanges = true;
 
         $('#addtabNav').before(`
@@ -267,15 +267,15 @@ document.addEventListener('click', (event) => {
         // read value from input
         let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
 
-        // get current interactiontypes for this category
-        let interactiontypes = []
+        // get current interactionTypes for this category
+        let interactionTypes = []
 
         // get current interactivities for this category
-        if(session.getCurrentLearningPath().availableinteractiontypes[categoryID])
-            interactiontypes = session.getCurrentLearningPath().availableinteractiontypes[categoryID];
+        if(session.getCurrentLearningPath().availableinteractionTypes[categoryID])
+            interactionTypes = session.getCurrentLearningPath().availableinteractionTypes[categoryID];
 
         // check if name is valid
-        if(newInteractionType != "" && !interactiontypes.includes(newInteractionType)){
+        if(newInteractionType != "" && !interactionTypes.includes(newInteractionType)){
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
                 <input type="checkbox" class="interactionInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
@@ -284,11 +284,11 @@ document.addEventListener('click', (event) => {
                 `);
 
             // push to List
-            interactiontypes.push(newInteractionType)
+            interactionTypes.push(newInteractionType)
             
             // add to Learningpath
-            session.setProp('interactiontypes', interactiontypes, categoryID);
-            session.setProp('availableinteractiontypes', interactiontypes, categoryID);
+            session.setProp('interactionTypes', interactionTypes, categoryID);
+            session.setProp('availableinteractionTypes', interactionTypes, categoryID);
             unsavedChanges = true;
         }
         else{
@@ -402,8 +402,8 @@ document.addEventListener('input', (event) => {
         let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
         let newList;
-        if(session.getCurrentLearningPath()['interactiontypes'][category] && session.getCurrentLearningPath()['interactiontypes'][category].length > 0)
-            newList = session.getCurrentLearningPath()['interactiontypes'][category];
+        if(session.getCurrentLearningPath()['interactionTypes'][category] && session.getCurrentLearningPath()['interactionTypes'][category].length > 0)
+            newList = session.getCurrentLearningPath()['interactionTypes'][category];
         else
             newList = []
 
@@ -411,7 +411,7 @@ document.addEventListener('input', (event) => {
             newList.push(interactivity)
         else
             newList = rmByValue(newList, interactivity)
-        session.setProp('interactiontypes', newList, category)
+        session.setProp('interactionTypes', newList, category)
         unsavedChanges = true;
         saveCurrentLp();
     } 
@@ -427,11 +427,11 @@ document.addEventListener('input', (event) => {
             return {'category':category, 'interactivity':interactivity}
         }).get();
 
-        let interactionTypes = session.getCurrentLearningPath().interactiontypes;
+        let interactionTypes = session.getCurrentLearningPath().interactionTypes;
 
-        session.getCurrentScenario().interactionTypes[category] = session.getCurrentScenario().availableinteractiontypes[category];
+        session.getCurrentLearningPath().interactionTypes[category] = session.getCurrentLearningPath().availableinteractionTypes[category];
 
-        session.setProp('interactiontypes', interactionTypes)
+        session.setProp('interactionTypes', interactionTypes)
         unsavedChanges = true;
         saveCurrentLp();
     }
@@ -505,23 +505,23 @@ document.addEventListener('input', (event) => {
         let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
 
-        let newInter = session.getCurrentLearningPath().interactiontypes
-        let newAvailableInter = session.getCurrentLearningPath().availableinteractiontypes
+        let newInter = session.getCurrentLearningPath().interactionTypes
+        let newAvailableInter = session.getCurrentLearningPath().availableinteractionTypes
 
-        // new interactiontypes
+        // new interactionTypes
         if(newInter[changeCategory]){
             Object.defineProperty(newInter, newCatName,
                 Object.getOwnPropertyDescriptor(newInter, changeCategory));
             delete newInter[changeCategory];
-            session.setProp('interactiontypes', newInter)
+            session.setProp('interactionTypes', newInter)
         }
 
-        // new available interactiontypes
+        // new available interactionTypes
         if(newAvailableInter[changeCategory]){
             Object.defineProperty(newAvailableInter, newCatName,
                 Object.getOwnPropertyDescriptor(newAvailableInter, changeCategory));
             delete newAvailableInter[changeCategory];
-            session.setProp('availableinteractiontypes', newAvailableInter)
+            session.setProp('availableinteractionTypes', newAvailableInter)
         }
 
         unsavedChanges = true;
