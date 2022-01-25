@@ -1,9 +1,9 @@
+
 class CanvasManager {
-  constructor() { 
+  constructor() {
     this.p5Obj = null;
     this.canvas = null
     this.images = [];
-    this.videos = [];
     this.scale = [];
     this.userOffsetX = [];
     this.userOffsetY = [];
@@ -41,61 +41,21 @@ class CanvasManager {
     this.setImage(session.getCurrentScenarioIndex(), path);
   }
 
-  setCurrentVideo(path){
-    this.setVideo(session.getCurrentScenarioIndex(), path);
-  }
-
-  setVideo(index, path){
-    let success;
-
-    if(this.videos[index])
-      this.videos[index].remove();
-
-    // load image ist hmtl object
-    let finalVid = this.p5Obj.createVideo(path, "", (vid)=>{
-      vid.id('wsVideo' + index)
-      // get width and height
-      let width = document.getElementById('wsVideo' + index).clientWidth
-      let height = document.getElementById('wsVideo' + index).clientHeight
-
-      // hide original html object
-      vid.hide()
-
-      // if width & heigth > 0 -> load successfull, save to imagelist
-      if(width > 0 && height > 0){
-        this.videos[index] = vid
-
-        success = true;
-      }
-
-    });
-
-    finalVid.loop();
-    finalVid.volume(0);
-
-    this.scale[session.getCurrentScenarioIndex()] = 1;
-    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
-    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
-    this.initposition[session.getCurrentScenarioIndex()] = null;
-    this.hoveredInteraction = null;
-    this.draggedInteraction = null;
-  }
-
   setImage(index, path){
 
-    let success; 
+    let success;
 
     if(this.images[index])
       this.images[index].remove();
-    
+
     // load image ist hmtl object
     this.p5Obj.createImg(path, "", (img)=>{
       img.id('wsImage' + index)
-    
-      // get width and height 
+
+      // get width and height
       let width = document.getElementById('wsImage' + index).clientWidth
       let height = document.getElementById('wsImage' + index).clientHeight
-  
+
       // hide original html object
       img.hide()
 
@@ -120,10 +80,6 @@ class CanvasManager {
     return this.images[session.getCurrentScenarioIndex()]
   }
 
-  getCurrentVideo(){
-    return this.videos[session.getCurrentScenarioIndex()]
-  }
-
   getImage(index){
     return images[index]
   }
@@ -141,11 +97,6 @@ class CanvasManager {
     let h = this.images[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
-
-  getVideoDimension(){
-    let w = this.videos[session.getCurrentScenarioIndex()].width
-    let h = this.videos[session.getCurrentScenarioIndex()].height
-    return {'width': w, 'height': h}  }
 
   getWorkspaceDimension(){
     let w = document.querySelector(this.getWorkSpaceId()).offsetWidth;
@@ -201,13 +152,8 @@ function newCanv(p){
     p.setup = function(){
 
       // create canvas
-      if (window.isVideo == true){
-        console.log("DOES IT WORK?");
-      } else {
-        console.log("IT DOESSS?");
-        let cnv = p.createCanvas(canvasManager.getWorkspaceDimension().width, canvasManager.getWorkspaceDimension().height);
-        canvasManager.setCanvas(cnv);
-      }
+      let cnv = p.createCanvas(canvasManager.getWorkspaceDimension().width, canvasManager.getWorkspaceDimension().height);
+      canvasManager.setCanvas(cnv);
 
       // no fill mode
       p.noFill();
@@ -219,6 +165,7 @@ function newCanv(p){
       document.getElementById('defaultCanvas0').onresize = function(){
         canvasManager.resizeCanvas(document.getElementById(this.getWorkSpaceId()).clientWidth, document.getElementById(this.getWorkSpaceId()).clientHeight);
       };
+
     }
 
     // handle drag events
@@ -239,7 +186,7 @@ function newCanv(p){
           session.setInteractionProp('y_coord', (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale());
         }
 
-        // move background 
+        // move background
         else if(draggedInteraction == null && canvasManager.getDrag() == null){
           let init = (canvasManager.getInitPosition() == null) ? {'x': p.mouseX, 'y': p.mouseY} : canvasManager.getInitPosition()
           canvasManager.setUserOffset(-(init.x - p.mouseX), -(init.y - p.mouseY))
@@ -303,7 +250,7 @@ function newCanv(p){
       // set FrameRate
       p.frameRate(60);
 
-      
+
       // draw background
       p.background(245);
 
@@ -314,20 +261,10 @@ function newCanv(p){
       // draw image
       if(canvasManager.getCurrentImage()){
         p.image(canvasManager.getCurrentImage(),
-        - canvasManager.getCurrentImage().width / 2,
-        - canvasManager.getCurrentImage().height / 2,
-        canvasManager.getImageDimension().width,
-        canvasManager.getImageDimension().height
-        );
-      }
-
-      // draw video
-      if(canvasManager.getCurrentVideo()){
-        p.video(canvasManager.getCurrentVideo(),
-            - canvasManager.getCurrentVideo().width / 2,
-            - canvasManager.getCurrentVideo().height / 2,
-            canvasManager.getVideoDimension().width,
-            canvasManager.getVideoDimension().height
+            - canvasManager.getCurrentImage().width / 2,
+            - canvasManager.getCurrentImage().height / 2,
+            canvasManager.getImageDimension().width,
+            canvasManager.getImageDimension().height
         );
       }
 
@@ -350,7 +287,7 @@ function newCanv(p){
           // color for selected
           if(i == session.getCurrentInteractionIndex())
             p.stroke(205, 12, 30, 0.7) // !!
-          
+
           // color for hover
           if(i == canvasManager.getHover())
             p.stroke(120, 120, 30, 0.7) // !!
@@ -358,7 +295,7 @@ function newCanv(p){
           // color for drag
           if(i == canvasManager.getDrag())
             p.stroke(205, 12, 30, 0.7) // !!
-         
+
           p.strokeWeight(10);
 
           // outer rect
