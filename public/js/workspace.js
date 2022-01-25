@@ -92,6 +92,13 @@ class CanvasManager {
     var player = document.getElementById("movie");
     player.load();
 
+    this.scale[session.getCurrentScenarioIndex()] = 1;
+    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
+    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
+    this.initposition[session.getCurrentScenarioIndex()] = null;
+    this.hoveredInteraction = null;
+    this.draggedInteraction = null;
+
   }
 
   getCurrentImage(){
@@ -117,6 +124,12 @@ class CanvasManager {
   getImageDimension(){
     let w = this.images[session.getCurrentScenarioIndex()].width
     let h = this.images[session.getCurrentScenarioIndex()].height
+    return {'width': w, 'height': h}
+  }
+
+  getVideoDimension(){
+    let w = this.videos[session.getCurrentScenarioIndex()].width
+    let h = this.videos[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
 
