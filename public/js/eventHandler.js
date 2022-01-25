@@ -150,14 +150,8 @@ document.addEventListener('click', (event) => {
             interactivity = interactivity.replace(/^\s+|\s+$/g, '');
             return {'category':category, 'interactivity':interactivity}
         }).get();
-        let interactionTypes = {}
-        for (const [key, value] of Object.entries(allBoxes)) {
-            if(!Array.isArray(interactionTypes[value['category']]))
-                interactionTypes[value['category']] = []
-            interactionTypes[value['category']].push(value['interactivity'])
-          }
 
-        session.setProp('interactiontypes', interactionTypes)
+        session.setProp('interactiontypes', session.getCurrentLearningPath().availableinteractiontypes)
         unsavedChanges = true;
         saveCurrentLp();
     }
