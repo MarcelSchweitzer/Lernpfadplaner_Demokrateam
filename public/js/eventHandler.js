@@ -421,7 +421,7 @@ document.addEventListener('input', (event) => {
         else
             newList = []
 
-        if (checked && newList.length > 0)
+        if (checked)
             newList.push(interactivity)
         else
             newList = rmByValue(newList, interactivity)

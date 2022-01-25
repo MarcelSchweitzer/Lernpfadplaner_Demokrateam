@@ -108,15 +108,13 @@ function canBeRead(root, calls){
                                             canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
                                         let count = 0;
                                     data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
-                                        <div class="interactivityList">
-                                            <div class="interactivityListElem">
-                                                <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
-                                                    <% catName=ia.category.replace("_", " " ); %>
-                                                    <%= catName %> -
-                                                    <%= ia.interactionType %>
-                                                </button>
-                                            </div>
-                                        </div>
+                                    <div class="interactivityListElem">
+                                        <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
+                                            <% catName=ia.category.replace("_", " " ); %>
+                                            <%= catName %> -
+                                            <%= ia.interactionType %>
+                                        </button>
+                                    </div>
                                     <% count++; }); %>
                                     <% } %>
                                 </div>
