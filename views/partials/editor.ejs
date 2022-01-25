@@ -268,7 +268,7 @@ function canBeRead(root, calls){
                             <div class="form-group interactionItem">
                                <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
-                                <input type="text" onSubmit="return false;" onclick="copy()" class="form-control text interSet interInp materialUrl"  id="url">
+                                <input type="text" onSubmit="return false;" onclick="copy()" class="form-control text interSet interInp materialUrl"  id="materialUrl">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" onclick="copy()" type="button">
                                         <img src="./img/copy.png" alt="copy to clipbord"/>
@@ -283,9 +283,10 @@ function canBeRead(root, calls){
                             <div class="form-group interactionItem">
                                 <label for="taxonomyLevelInt">Taxonomiestufe</label>
                                 <select class="form-control interSet" id="taxonomyLevelInt">
-                                    <option id="noTaxonomy" class="changeInteractivity"> </option>
                                     <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
-                                        <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
+                                        <option id="<%= taxLev.replaceAll(" ", "_")%>">
+                                            <%= taxLev %>
+                                        </option>
                                     <% }); } %>
                                 </select>
                             </div>
@@ -293,7 +294,7 @@ function canBeRead(root, calls){
                                 <label for="behaviorSettings">Verhaltenseinstellungen</label>
                                 <select class="form-control interSet" id="behaviorSettings">
                                     <%
-                                    behaviorModes = ['', 'Hover', 'Click'];
+                                    behaviorModes = [' ', 'Hover', 'Click'];
                                     behaviorModes.forEach(bm=> { %>
                                         <option id="<%= bm %>">
                                             <%= bm %>

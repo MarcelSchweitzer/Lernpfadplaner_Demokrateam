@@ -462,11 +462,7 @@ document.addEventListener('input', (event) => {
     } 
 
     else if (id == 'taxonomyLevelInt') {
-        console.log(input.value)
-        let elemId = $(input).find('option:selected').attr('id')
-        if(elemId != "noTaxonomy"){
-            updateInteractionProperty('taxonomyLevelInt', input.value)
-        }
+        updateInteractionProperty('taxonomyLevelInt', input.value)
     } 
     
     else if (id == 'interactionTypeDrop') {
@@ -598,10 +594,11 @@ function refreshInteractivityInputs() {
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
+        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt.replaceAll(" ", "_");
+        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
         let behaDropID = session.getCurrentInteraction().behaviorSettings;
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
-        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt;
-        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
+        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
     }
