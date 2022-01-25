@@ -7,7 +7,7 @@ const dbMan = require('./src/dbManager.js');
 const fstk = require('./src/fileSystemToolkit.js');
 const { stringify } = require('nodemon/lib/utils');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
-const interactivityTypes = fstk.readJson('./res/interactionTypes.json');
+const interactiontypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
 
 require('dotenv').config();
@@ -124,7 +124,7 @@ app.get('/create', (req, res) => {
                         'title': 'Neues Szenario',
                         'resource': 'img/example.jpg'
                     }],
-                    'interactivityTypes': { 
+                    'interactiontypes': { 
                         'Global': [
                             'Chat'
                         ],
@@ -133,7 +133,7 @@ app.get('/create', (req, res) => {
                             'Multiple-Choice-Fragen'
                         ]
                     },
-                    'availableInteractivityTypes': interactivityTypes
+                    'availableinteractiontypes': interactiontypes
                 }
                 dbMan.insert('public.learningPath', {
                     'lpid': id,
@@ -193,7 +193,7 @@ app.get('/settings', (req, res) => {
                     res.render('partials/settings', {
                         data: {
                             'lpSet': true,
-                            'availableInteractivityTypes': interactivityTypes,
+                            'availableinteractiontypes': interactiontypes,
                             'learningPath': _data[0]['content'],
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname']

@@ -10,12 +10,12 @@
                 <input type="text" onSubmit="return false;" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
             <div>
-                <div class="settingsItem" id="interactivityTypes">
+                <div class="settingsItem" id="interactiontypes">
                     <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
-                        <% if(data.learningPath.availableInteractivityTypes){ 
+                        <% if(data.learningPath.availableinteractiontypes){ 
                         let counter = 0;
-                        for (let [key, value] of Object.entries(data.learningPath.availableInteractivityTypes)){ 
+                        for (let [key, value] of Object.entries(data.learningPath.availableinteractiontypes)){ 
                             let first = counter == 0 ? true : false;
                             let active = first ? ' active' : '';
                             %>
@@ -43,16 +43,16 @@
                             return dict1;
                         }
 
-                        // console.log(extendObj(data.learningPath.availableInteractivityTypes, data.learningPath.interactivityTypes))
+                        // console.log(extendObj(data.learningPath.availableinteractiontypes, data.learningPath.interactiontypes))
 
                         counter = 0;
-                        for (let [key, value] of Object.entries(extendObj(data.learningPath.availableInteractivityTypes, data.learningPath.interactivityTypes))){ 
+                        for (let [key, value] of Object.entries(extendObj(data.learningPath.availableinteractiontypes, data.learningPath.interactiontypes))){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
                         <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
                         <%= key %>-tab">
                             <div class="items <%= key %> <%= active %>">
-                            <% value.forEach(val=>{ checked = (data.learningPath.interactivityTypes[key] && data.learningPath.interactivityTypes[key].length > 0 && data.learningPath.interactivityTypes[key].includes(val)) ? true : false; %>
+                            <% value.forEach(val=>{ checked = (data.learningPath.interactiontypes[key] && data.learningPath.interactiontypes[key].length > 0 && data.learningPath.interactiontypes[key].includes(val)) ? true : false; %>
                             <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
                                 <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
                                 <label for="<%= val %>CB"><%= val %></label>
