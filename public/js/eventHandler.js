@@ -201,8 +201,6 @@ document.addEventListener('click', (event) => {
                                                 <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
                                             <div class="newInterInputs">
-                                                <button class="button btn btn-light interInp" id="selectAllInter"> Alle Kategorien auswählen </button>
-                                                <button class="button btn btn-light interInp" id="selectNoneInter"> Keine Kategorie auswählen </button>
                                                 <input type="text" onSubmit="return false;" class="form-control interInp newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
                                                 <button class="btn btn-light createBtn createInter interInp" id="createInter-` + categoryID + `">
                                                     +
