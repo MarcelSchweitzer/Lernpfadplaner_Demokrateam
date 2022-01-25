@@ -4,6 +4,7 @@ class CanvasManager {
     this.p5Obj = null;
     this.canvas = null
     this.images = [];
+    this.videos = [];
     this.scale = [];
     this.userOffsetX = [];
     this.userOffsetY = [];
@@ -41,6 +42,10 @@ class CanvasManager {
     this.setImage(session.getCurrentScenarioIndex(), path);
   }
 
+  setCurrentVideo(path){
+    this.setVideo(session.getCurrentScenarioIndex(), path);
+  }
+
   setImage(index, path){
 
     let success;
@@ -76,8 +81,32 @@ class CanvasManager {
     this.draggedInteraction = null;
   }
 
+  setVideo(index, path){
+
+    let success;
+
+    if(this.videos[index])
+      this.videos[index].remove();
+
+    document.getElementById("workspace"+index).innerHTML='<video  id="movie" src="'+path+'" height="100%" width="100%" controls autoplay > </video>';
+    var player = document.getElementById("movie");
+    player.load();
+
+    this.scale[session.getCurrentScenarioIndex()] = 1;
+    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
+    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
+    this.initposition[session.getCurrentScenarioIndex()] = null;
+    this.hoveredInteraction = null;
+    this.draggedInteraction = null;
+
+  }
+
   getCurrentImage(){
     return this.images[session.getCurrentScenarioIndex()]
+  }
+
+  getCurrentVideo(){
+    return this.videos[session.getCurrentScenarioIndex()]
   }
 
   getImage(index){
@@ -95,6 +124,12 @@ class CanvasManager {
   getImageDimension(){
     let w = this.images[session.getCurrentScenarioIndex()].width
     let h = this.images[session.getCurrentScenarioIndex()].height
+    return {'width': w, 'height': h}
+  }
+
+  getVideoDimension(){
+    let w = this.videos[session.getCurrentScenarioIndex()].width
+    let h = this.videos[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
 
