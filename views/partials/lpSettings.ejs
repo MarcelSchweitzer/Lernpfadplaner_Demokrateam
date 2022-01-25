@@ -53,7 +53,7 @@
                         <%= key %>-tab">
                             <div class="items <%= key %> <%= active %>">
                             <% value.forEach(val=>{ checked = (data.learningPath.interactionTypes[key] && data.learningPath.interactionTypes[key].length > 0 && data.learningPath.interactionTypes[key].includes(val)) ? true : false; %>
-                            <input class="interactivityInputCB <%= key %>" <% if (checked){ %> checked
+                            <input class="interactionInputCB <%= key %>" <% if (checked){ %> checked
                                 <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
                                 <label for="<%= val %>CB"><%= val %></label>
                                 <br>
