@@ -143,9 +143,9 @@ document.addEventListener('click', (event) => {
     } 
 
     else if (id == 'selectAllInter'){
-        $(".interactivityInputCB").prop('checked', true)
-        let allBoxes = $(".interactivityInputCB").map(function() {
-            let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '')
+        $(".interactionInputCB").prop('checked', true)
+        let allBoxes = $(".interactionInputCB").map(function() {
+            let category = this.getAttribute("class").replaceAll('interactionInputCB ', '')
             let interactivity = this.id.replaceAll('CB', '')
             interactivity = interactivity.replace(/^\s+|\s+$/g, '');
             return {'category':category, 'interactivity':interactivity}
@@ -163,7 +163,7 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'selectNoneInter'){
-        $(".interactivityInputCB").prop('checked', false)
+        $(".interactionInputCB").prop('checked', false)
         session.setProp('interactiontypes', {})
         unsavedChanges = true;
         saveCurrentLp();
@@ -284,7 +284,7 @@ document.addEventListener('click', (event) => {
         if(newInteractionType != "" && !interactiontypes.includes(newInteractionType)){
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
-                <input type="checkbox" class="interactivityInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                <input type="checkbox" class="interactionInputCB  id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
                 `);
@@ -402,9 +402,9 @@ document.addEventListener('input', (event) => {
         canvasManager.setCurrentImage(input.value);
     }
     
-    else if (classes.contains('interactivityInputCB')) {
+    else if (classes.contains('interactionInputCB')) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
+        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '');
         let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
         let newList;
@@ -426,23 +426,16 @@ document.addEventListener('input', (event) => {
         let checked = input.checked;
         let category = input.getAttribute("id").replaceAll('catCheck ', '');
         
-        let allBoxes = $(".interactivityInputCB").map(function() {
-            let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '')
+        let allBoxes = $(".interactionInputCB").map(function() {
+            let category = this.getAttribute("class").replaceAll('interactionInputCB ', '')
             let interactivity = this.id.replaceAll('CB', '')
             interactivity = interactivity.replace(/^\s+|\s+$/g, '');
             return {'category':category, 'interactivity':interactivity}
         }).get();
 
         let interactionTypes = session.getCurrentLearningPath().interactiontypes;
-    
-        for (const [key, value] of Object.entries(allBoxes)) {
-            /*interactionTypes[value['category']] = []
-            if(key==category){
-                if (checked)
-                    interactionTypes[value['category']].push(value['interactivity'])
-            }*/
-            console.log(key + " " + value);
-          }
+
+        session.getCurrentScenario().interactionTypes[category] = session.getCurrentScenario().availableinteractiontypes[category];
 
         session.setProp('interactiontypes', interactionTypes)
         unsavedChanges = true;
