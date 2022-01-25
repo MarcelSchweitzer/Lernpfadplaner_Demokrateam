@@ -187,8 +187,8 @@ document.addEventListener('click', (event) => {
 
         $('#addtabNav').before(`
                                     <li class="nav-item">
+                                    <input type="checkbox" class="selectCategory" id="catCheck ` + categoryID + `">
                                         <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <input type="checkbox">
                                             <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
                                     </li>
