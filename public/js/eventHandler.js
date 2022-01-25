@@ -403,9 +403,9 @@ document.addEventListener('input', (event) => {
     }
     
     else if (classes.contains('interactivityInputCB')) {
-        let checked = input.checked
+        let checked = input.checked;
         let category = input.getAttribute("class").replaceAll('interactivityInputCB ', '');
-        let interactivity = id.replaceAll('CB', '')
+        let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
         let newList;
         if(session.getCurrentLearningPath()['interactivityTypes'][category] && session.getCurrentLearningPath()['interactivityTypes'][category].length > 0)
@@ -421,6 +421,33 @@ document.addEventListener('input', (event) => {
         unsavedChanges = true;
         saveCurrentLp();
     } 
+
+    else if(classes.contains('selectCategory')) {
+        let checked = input.checked;
+        let category = input.getAttribute("id").replaceAll('catCheck ', '');
+        
+        let allBoxes = $(".interactivityInputCB").map(function() {
+            let category = this.getAttribute("class").replaceAll('interactivityInputCB ', '')
+            let interactivity = this.id.replaceAll('CB', '')
+            interactivity = interactivity.replace(/^\s+|\s+$/g, '');
+            return {'category':category, 'interactivity':interactivity}
+        }).get();
+
+        let interactionTypes = session.getCurrentLearningPath().interactivityTypes;
+    
+        for (const [key, value] of Object.entries(allBoxes)) {
+            /*interactionTypes[value['category']] = []
+            if(key==category){
+                if (checked)
+                    interactionTypes[value['category']].push(value['interactivity'])
+            }*/
+            console.log(key + " " + value);
+          }
+
+        session.setProp('interactivityTypes', interactionTypes)
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
     
     else if (id == 'x_coord') {
         updateInteractionProperty('x_coord', input.value)
