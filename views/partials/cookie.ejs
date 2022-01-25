@@ -1,0 +1,87 @@
+
+<style>
+    #cookiePopup {
+       background: #1f2235;
+       width: 100%;
+       position: fixed;
+       color: #fff;
+       left: 0px;
+       bottom: 20px;
+       box-shadow: 0px 0px 15px #cccccc;
+       padding: 8px 10px;
+     }
+     #cookiePopup h4{
+         padding: 10px;
+         color: #fff;
+     }
+       #cookiePopup p{
+       padding: 10px;
+       text-align: left;
+       font-size: 15px;
+       color: #fff;
+     }
+     #cookiePopup button{
+       width: 100px;
+       border: navajowhite;
+       background: navajowhite;
+       padding: 5px;
+       float: right;
+       margin-bottom: 20px;
+       margin-right: 30px;
+       border-radius: 10px;
+       color: #000;
+     }
+   
+   </style>
+   <div id="cookiePopup">
+       <h4>Cookie Consent</h4>
+       <p>Our website uses cookies to provide your browsing experience and relavent informations.Before continuing to use our website, you agree & accept of our  <a href="#">Cookie Policy & Privacy</a></p>
+      <button id="acceptCookie">Accept</button> 
+     </div>
+     <script type="text/javascript">
+       var cookieName= "CodingStatus";
+       var cookieValue="Coding Tutorials";
+       var cookieExpireDays= 30;
+       let acceptCookie= document.getElementById("acceptCookie");
+       acceptCookie.onclick= function(){
+           createCookie(cookieName, cookieValue, cookieExpireDays);
+       }
+        let createCookie= function(cookieName, cookieValue, cookieExpireDays){
+         let currentDate = new Date();
+         currentDate.setTime(currentDate.getTime() + (cookieExpireDays*24*60*60*1000));
+         let expires = "expires=" + currentDate.toGMTString();
+         document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+         if(document.cookie){
+           document.getElementById("cookiePopup").style.display = "none";
+         }else{
+           alert("Unable to set cookie. Please allow all cookies site from cookie setting of your browser");
+         }
+       
+        }
+       let getCookie= function(cookieName){
+         let name = cookieName + "=";
+         let decodedCookie = decodeURIComponent(document.cookie);
+         let ca = decodedCookie.split(';');
+         for(let i = 0; i < ca.length; i++) {
+           let c = ca[i];
+           while (c.charAt(0) == ' ') {
+             c = c.substring(1);
+           }
+           if (c.indexOf(name) == 0) {
+             return c.substring(name.length, c.length);
+           }
+         }
+         return "";
+       }
+       let checkCookie= function(){
+           let check=getCookie(cookieName);
+           if(check==""){
+               document.getElementById("cookiePopup").style.display = "block";
+           }else{
+               
+               document.getElementById("cookiePopup").style.display = "none";
+           }
+       }
+       checkCookie();
+       </script> 
+   
