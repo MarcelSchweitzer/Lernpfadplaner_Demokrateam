@@ -392,7 +392,7 @@ document.addEventListener('input', (event) => {
         if (isValidImageURL(input.value) == true){
             canvasManager.setCurrentImage(input.value);
         } else {
-            playVideo(input.value);
+            canvasManager.setCurrentVideo(input.value);
         }
     }
     
@@ -912,14 +912,6 @@ $('#categoryTabs a').on('click', function(e) {
     e.preventDefault()
     $(this).tab('show')
 });
-
-function playVideo(url){
-    console.log("WORKING");
-    workspaceId = 'workspace' + session.getCurrentScenarioIndex();
-    document.getElementById(workspaceId).innerHTML='<video  id="movie" src="'+url+'" height="100%" width="100%" controls autoplay > </video>';
-    var player = document.getElementById("movie");
-    player.load();
-}
 
 function isValidImageURL(str){
     if ( typeof str !== 'string' ) return false;
