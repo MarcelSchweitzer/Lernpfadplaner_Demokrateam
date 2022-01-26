@@ -11,6 +11,24 @@ class CanvasManager {
     this.initposition = [];
     this.hoveredInteraction = null;
     this.draggedInteraction = null;
+    this.backgrounddragged = false;
+    this.dragTimeOut = false;
+  }
+
+  setBackgrounddragged(backgrounddragged){
+    this.backgrounddragged = backgrounddragged;
+  }
+
+  getBackgrounddragged(){
+    return this.backgrounddragged;
+  }
+
+  setDragTimeOut(dragTimeOut){
+    this.dragTimeOut = dragTimeOut;
+  }
+
+  getDragTimeOut(){
+    return this.dragTimeOut;
   }
 
   setUserOffset(x, y){
@@ -174,6 +192,10 @@ class CanvasManager {
     return this.draggedInteraction;
   }
 
+  inCanvas(){
+    return this.p5Obj.mouseX > 0 && this.p5Obj.mouseY > 0 && this.p5Obj.mouseX < this.p5Obj.width && this.p5Obj.mouseY < this.p5Obj.height
+  }
+
 }
 
 let canvasManager = new CanvasManager();
@@ -206,7 +228,7 @@ function newCanv(p){
     // handle drag events
 
     p.mouseDragged = function (event) {
-      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
+      if(canvasManager.inCanvas()){
 
         // select dragged element
         if(canvasManager.getHover() != null && canvasManager.getDrag() == null){
@@ -222,22 +244,35 @@ function newCanv(p){
         }
 
         // move background
-        else if(draggedInteraction == null && canvasManager.getDrag() == null){
-          let init = (canvasManager.getInitPosition() == null) ? {'x': p.mouseX, 'y': p.mouseY} : canvasManager.getInitPosition()
-          canvasManager.setUserOffset(-(init.x - p.mouseX), -(init.y - p.mouseY))
+        else if(draggedInteraction == null && canvasManager.getDrag() == null && canvasManager.getHover() == null){
+          if(!canvasManager.getDragTimeOut()){
+            canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
+            canvasManager.setBackgrounddragged(true);
+            canvasManager.setDragTimeOut(true);
+            setTimeout(()=>{
+              if(canvasManager.getInitPosition()){
+                let bgDeltaX = canvasManager.getInitPosition().x - p.mouseX;
+                let bgDeltaY = canvasManager.getInitPosition().y - p.mouseY;
+                console.log(bgDeltaX+" "+bgDeltaY)
+                canvasManager.setUserOffset(canvasManager.getUserOffset().x - bgDeltaX, canvasManager.getUserOffset().y - bgDeltaY);
+                canvasManager.setDragTimeOut(false);
+              }
+            }, 20);
+          }
         }
-
       }
     }
 
     p.mousePressed = function () {
-      canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
+
     }
 
     p.mouseReleased = function () {
-      canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
-      draggedInteraction = null;
+      canvasManager.setDrag(null);
+      canvasManager.setBackgrounddragged(false);
+      canvasManager.setInitPosition(null);
+      canvasManager.setDragTimeOut(false);
     }
 
     p.mouseMoved = function (event) {
@@ -264,7 +299,6 @@ function newCanv(p){
     p.mouseClicked = function (event) {
       canvasManager.setInitPosition(null);
       canvasManager.setDrag(null);
-      draggedInteraction = null;
 
       // select interactivity by click
       if(canvasManager.getHover() != null){
@@ -274,7 +308,7 @@ function newCanv(p){
     }
 
     p.mouseWheel = function (event) {
-      if(p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height && canvasManager.getScale() > 0){
+      if(canvasManager.inCanvas() && canvasManager.getScale() > 0){
         canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
         return false;
       }
