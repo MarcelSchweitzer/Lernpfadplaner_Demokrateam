@@ -249,7 +249,7 @@ function newCanv(p){
 
         // move background
        
-        else if(canvasManager.getDrag() == null && canvasManager.getHover() == null){
+        else if(draggedInteraction == null && canvasManager.getDrag() == null && canvasManager.getHover() == null){
           if(!canvasManager.getDragTimeOut()){
             canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
             canvasManager.setBackgrounddragged(true);

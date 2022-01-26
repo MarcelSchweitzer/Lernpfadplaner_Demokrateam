@@ -40,7 +40,6 @@ function loadWorkspaceBackgrounds(){
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
-    console.log(id)
     let classes = event.target.classList;
     let button = event.target;
 
