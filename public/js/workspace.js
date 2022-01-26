@@ -258,7 +258,6 @@ function newCanv(p){
               if(canvasManager.getInitPosition()){
                 let bgDeltaX = canvasManager.getInitPosition().x - p.mouseX;
                 let bgDeltaY = canvasManager.getInitPosition().y - p.mouseY;
-                console.log(bgDeltaX+" "+bgDeltaY)
                 canvasManager.setUserOffset(canvasManager.getUserOffset().x - bgDeltaX, canvasManager.getUserOffset().y - bgDeltaY);
                 canvasManager.setDragTimeOut(false);
               }
