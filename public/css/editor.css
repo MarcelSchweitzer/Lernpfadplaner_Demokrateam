@@ -4,9 +4,8 @@
 
 .sidepanel {
   width: 100%;
-  height: 35vh; /* I think , its better ?!*/
+  height: 35vh;
   margin-top: 60px;
-  /* margin-bottom: 100px; */
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -17,15 +16,13 @@
 }
 
 .sidepanel-second {
-  height: 50vh; /* I think , its better ?!*/
+  height: 50vh;
   margin-top: 20px;
-  /* margin-bottom: 100px; */
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   overflow: scroll;
-  /* position: fixed; */
   scrollbar-width: none;
   padding-bottom: 20px;
 }
@@ -104,7 +101,6 @@
 
 .note {
   padding: 10px 36px 0px 5px;
-  /* margin:40px; */
 }
 
 .note p {
@@ -204,7 +200,6 @@
 }
 
 .note {
-  /* height: 300px; */
   overflow: hidden;
   position: relative;
 }
@@ -271,7 +266,7 @@
   width: 100%;
 }
 
-.uebersichtBtn {
+.overviewBtn {
   width: 85%;
 }
 
@@ -337,10 +332,6 @@
 
 header {
   top: 0px;
-}
-
-#deleteInteractivity {
- 
 }
 
 .overlay {
@@ -461,7 +452,7 @@ header {
   width: 20%;
 }
 
-.copyBtn{
+.copyBtnMaterialUrl{
   border-color: rgb(82, 82, 82);
 }
 

@@ -12,7 +12,6 @@ $(document).ready(() => {
     toggleHeaderText();
     updateUserName();
     fetchlearningPaths();
-    alertToUser("Alte Lernpfad Dateien werden Fehler verursachen!", 10, "red");
 });
 
 function isValidURL(url) {
@@ -38,7 +37,7 @@ function loadWorkspaceBackgrounds(){
     }
 }
 
-// handle click events
+// handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
@@ -57,10 +56,12 @@ document.addEventListener('click', (event) => {
         }
     }
     
+
     else if (id == 'lpSettingsBtn') {
         getSettingsPage(mode = 'lpSettingsOnly');
     }
 
+    // open user settings page
     else if (id == 'userSettingsBtn') {
         getSettingsPage(mode = 'userSettingsOnly');
     }
@@ -69,6 +70,7 @@ document.addEventListener('click', (event) => {
         getSettingsPage(mode = 'userSettingsOnly');
     }
     
+    // download as json
     else if (id == 'downloadButton') {
         if (session.learningPathOpened()) {
             downloadlearningPaths([session.getCurrentLearningPath()], 'json');
@@ -80,12 +82,8 @@ document.addEventListener('click', (event) => {
         }
     }
     
+    // export as pdf
     else if (id == 'exportButton') {
-        /*
-        if (session.learningPathOpened()) {
-            downloadlearningPaths([session.getCurrentLearningPath()], 'pdf');
-        }
-        */
         var doc = new jsPDF();
         var specialElementHandlers = {
             '#main': function (element, renderer) {
@@ -99,23 +97,13 @@ document.addEventListener('click', (event) => {
         },
             function (){ doc.save('sample-file.pdf');});
     }
-    
-    else if (id == 'exportImage') {
-        if (session.learningPathOpened()) {
-            if(classes.contains('png'))
-                downloadlearningPaths([session.getCurrentLearningPath()], 'png');
-            else if(classes.contains('jpg'))
-                downloadlearningPaths([session.getCurrentLearningPath()], 'jpg');
-        } else {
 
-            
-        }
-    } 
-
-    else if (id == 'copyBtn'){
+    // copy material url
+    else if (id == 'copyBtnMaterialUrl'){
         copy("materialUrl");
     }
     
+    // create a new learning path
     else if (id == 'createLpBtn') {
         createLpOnServer(() => {
             fetchlearningPaths();
@@ -123,6 +111,7 @@ document.addEventListener('click', (event) => {
         });
     }
     
+    // Save button in settings page
     else if (id == 'saveSettingsBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();
@@ -146,6 +135,7 @@ document.addEventListener('click', (event) => {
         } 
     } 
 
+    // select all interactivities button
     else if (id == 'selectAllInter'){
         $(".interactionInputCB").prop('checked', true);
         $(".selectCategory").prop('checked', true);
@@ -155,6 +145,7 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
+    // select no interactivities button
     else if (id == 'selectNoneInter'){
         $(".interactionInputCB").prop('checked', false);
         $(".selectCategory").prop('checked', false);
@@ -163,6 +154,7 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
+    // delete interactivity button
     else if(id == 'deleteInteractivity'){
         if(session.interactionOpened()){
             session.deleteInteraction(session.getCurrentInteractionIndex());
@@ -174,6 +166,7 @@ document.addEventListener('click', (event) => {
         }
     }
 
+    // show treegrap in editor
     else if(id == "showTreegraph"){
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
@@ -662,7 +655,6 @@ window.onbeforeunload = function() {
     if(unsavedChanges){
         return "Deine Änderunge werden eventuell nicht gespeichert!";
     }
-    
 };
 
 window.onresize = (event) =>{
