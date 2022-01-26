@@ -111,6 +111,10 @@ document.addEventListener('click', (event) => {
             
         }
     } 
+
+    else if (id == 'copyBtn'){
+        copy("materialUrl");
+    }
     
     else if (id == 'createLpBtn') {
         createLpOnServer(() => {
@@ -605,7 +609,6 @@ function refreshInteractivityInputs() {
 }
 
 function updateInteractionProperty(key, value) {
-    console.log(key+"  "+value)
     unsavedChanges = true;
     session.setInteractionProp(key, value);
 }
@@ -899,11 +902,9 @@ function searchBox() {
     }
   }
 
-function copy() {
-    var copyText = document.getElementById("url");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    document.execCommand("copy");
+function copy(elementID) {
+    let copyText = document.getElementById(elementID).value;
+    navigator.clipboard.writeText(copyText)
 }
 
 $('#categoryTabs a').on('click', function(e) {

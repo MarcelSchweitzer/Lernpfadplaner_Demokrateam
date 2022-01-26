@@ -443,3 +443,26 @@ header {
 .lpNote {
   height: 100%;
 }
+
+#matWrap{
+  display: flex;
+  justify-content: center;
+}
+
+.materialUrl{
+  justify-content: flex-start;
+  border-top-right-radius:    0px 0px;
+  border-bottom-right-radius: 0px 0px;
+  width: 80%;
+}
+
+.input-group-append{
+  justify-content: flex-end;
+  width: 20%;
+}
+
+.copyBtn{
+  border-color: rgb(82, 82, 82);
+}
+
+

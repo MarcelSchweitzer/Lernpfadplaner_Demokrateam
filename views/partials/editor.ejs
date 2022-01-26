@@ -268,12 +268,14 @@ function canBeRead(root, calls){
                             <div class="form-group interactionItem">
                                <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
-                                <input type="text" onSubmit="return false;" onclick="copy()" class="form-control text interSet interInp materialUrl"  id="materialUrl">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" onclick="copy()" type="button">
-                                        <img src="./img/copy.png" alt="copy to clipbord"/>
-                                    </button>
-                                  </div>
+                                <div id="matWrap">
+                                    <input type="text" onSubmit="return false;" class="form-control text interSet interInp materialUrl"  id="materialUrl">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary copyBtn" onSubmit="return false;" id="copyBtn" type="button">
+                                            <img src="./img/copy.png" onSubmit="return false;" alt="copy to clipbord"/>
+                                        </button>
+                                      </div>
+                                </div>
                                 </form>
                             </div>
                             <div class="form-group interactionItem">
