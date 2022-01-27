@@ -243,8 +243,8 @@ function newCanv(p){
 
         // move dragged elemt
         else if(canvasManager.getDrag() != null){
-          session.setInteractionProp('x_coord', (event.offsetX - canvasManager.getCircleSize() / 2 - canvasManager.getUserOffset().x) / canvasManager.getScale());
-          session.setInteractionProp('y_coord', (event.offsetY - canvasManager.getCircleSize() / 2 - canvasManager.getUserOffset().y) / canvasManager.getScale());
+          session.setInteractionProp('x_coord', (event.offsetX - (canvasManager.getCircleSize() / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().x) / canvasManager.getScale());
+          session.setInteractionProp('y_coord', (event.offsetY - (canvasManager.getCircleSize() / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().y) / canvasManager.getScale());
         }
 
         // move background
