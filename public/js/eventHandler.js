@@ -189,7 +189,6 @@ document.addEventListener('click', (event) => {
 
     else if(classes.contains('selectAll')) {
         let category = id.replaceAll('catCheck ', '');
-        console.log(".interactionInputCB"+category)
         let interactionTypes = session.getCurrentLearningPath().interactionTypes[category];
 
         for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){
