@@ -134,25 +134,6 @@ document.addEventListener('click', (event) => {
         } 
     } 
 
-    // select all interactivities button
-    else if (id == 'selectAllInter'){
-        $(".interactionInputCB").prop('checked', true);
-        $(".selectCategory").prop('checked', true);
-
-        session.setProp('interactionTypes', session.getCurrentLearningPath().availableinteractionTypes)
-        unsavedChanges = true;
-        saveCurrentLp();
-    }
-
-    // select no interactivities button
-    else if (id == 'selectNoneInter'){
-        $(".interactionInputCB").prop('checked', false);
-        $(".selectCategory").prop('checked', false);
-        session.setProp('interactionTypes', {})
-        unsavedChanges = true;
-        saveCurrentLp();
-    }
-
     // delete interactivity button
     else if(id == 'deleteInteractivity'){
         if(session.interactionOpened()){
@@ -179,13 +160,11 @@ document.addEventListener('click', (event) => {
         let categoryID = newCatName.replaceAll(" ", "_");
 
         // create new Interactivytytype for user 
-        session.setProp('interactionTypes', [], categoryID);
-        session.setProp('availableinteractionTypes', [], categoryID);
+        session.setProp('interactionTypes', {}, categoryID);
         unsavedChanges = true;
 
         $('#addtabNav').before(`
                                     <li class="nav-item">
-                                    <input type="checkbox" class="selectCategory" id="catCheck ` + categoryID + `">
                                         <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" draggable="false" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
                                         </a>
@@ -196,14 +175,45 @@ document.addEventListener('click', (event) => {
                                             <div class="items">
                                                 <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
-                                            <div class="newInterInputs">
+                                            <div class="settingsItems">
+                                                <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck ` + categoryID + `"> Alle aus dieser Kategorie auswählen </button>
+                                                <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
                                                 <input type="text" onSubmit="return false;" class="form-control interInp newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn createInter interInp" id="createInter-` + categoryID + `">
+                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
                                                     +
                                                 </button>
                                             </div>
                                         </div>
                                   `);
+    }
+
+    else if(classes.contains('selectAll')) {
+        let category = id.replaceAll('catCheck ', '');
+        console.log(".interactionInputCB"+category)
+        let interactionTypes = session.getCurrentLearningPath().interactionTypes[category];
+
+        for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){
+            interactionTypes[interactionTypeName] = "true";
+        }
+
+        $(".interactionInputCB"+category).prop('checked', true)
+        session.setProp('interactionTypes', interactionTypes, category)
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
+
+    else if(classes.contains('selectNone')) {
+        let category = id.replaceAll('catUnCheck ', '');
+
+        let interactionTypes = session.getCurrentLearningPath().interactionTypes[category];
+
+        for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){
+            interactionTypes[interactionTypeName] = "false";
+        }
+        $(".interactionInputCB"+category).prop('checked', false)
+        session.setProp('interactionTypes', interactionTypes, category)
+        unsavedChanges = true;
+        saveCurrentLp();
     }
 
     // open Threegraph from dashboard
@@ -261,27 +271,22 @@ document.addEventListener('click', (event) => {
         let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
 
         // get current interactionTypes for this category
-        let interactionTypes = []
-
-        // get current interactivities for this category
-        if(session.getCurrentLearningPath().availableinteractionTypes[categoryID])
-            interactionTypes = session.getCurrentLearningPath().availableinteractionTypes[categoryID];
+        let interactionTypes = {}
 
         // check if name is valid
-        if(newInteractionType != "" && !interactionTypes.includes(newInteractionType)){
+        if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
-                <input type="checkbox" class="interactionInputCB ` + categoryID + `actCat" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                <input type="checkbox" class="interactionInputCB` + categoryID + `" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
                 `);
 
-            // push to List
-            interactionTypes.push(newInteractionType)
+            // add new interactiontype
+            interactionTypes[newInteractionType] = "true";
             
             // add to Learningpath
             session.setProp('interactionTypes', interactionTypes, categoryID);
-            session.setProp('availableinteractionTypes', interactionTypes, categoryID);
             unsavedChanges = true;
             $(".newIntertypeName").val("");
         }
@@ -325,10 +330,6 @@ document.addEventListener('click', (event) => {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
         refreshInteractivityInputs();
-    }
-
-    else if (classes.contains('createInter')) {
-        category = id.replaceAll('createInter-', '');
     }
 
 }, false);
@@ -396,47 +397,20 @@ document.addEventListener('input', (event) => {
     
     else if (classes.contains('interactionInputCB')) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('interactionInputCB ', '').replaceAll('actCat','');
+        let category = input.getAttribute("class").replaceAll('interactionInputCB', '')
         let interactivity = id.replaceAll('CB', '');
         interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-        let newList;
-        if(session.getCurrentLearningPath()['interactionTypes'][category] && session.getCurrentLearningPath()['interactionTypes'][category].length > 0)
-            newList = session.getCurrentLearningPath()['interactionTypes'][category];
-        else
-            newList = []
+        
+        interactionTypes = session.getCurrentLearningPath()['interactionTypes'][category];
 
         if (checked)
-            newList.push(interactivity)
+            interactionTypes[interactivity] = "true"
         else
-            newList = rmByValue(newList, interactivity)
-        session.setProp('interactionTypes', newList, category)
+            interactionTypes[interactivity] = "false"
+        session.setProp('interactionTypes', interactionTypes, category)
         unsavedChanges = true;
         saveCurrentLp();
     } 
-
-    else if(classes.contains('selectCategory')) {
-        let checked = input.checked;
-        let category = input.getAttribute("id").replaceAll('catCheck ', '');
-
-        if(checked){
-            $("."+category+"actCat").prop('checked', true)
-        }
-        else {
-            $("."+category+"actCat").prop('checked', false)
-        }
-
-        let interactionTypes = session.getCurrentLearningPath().interactionTypes;
-        
-        if(checked)
-            session.getCurrentLearningPath().interactionTypes[category] = session.getCurrentLearningPath().availableinteractionTypes[category];
-        else if (category in session.getCurrentLearningPath().interactionTypes)
-            delete session.getCurrentLearningPath().interactionTypes[category];
-
-
-        session.setProp('interactionTypes', interactionTypes)
-        unsavedChanges = true;
-        saveCurrentLp();
-    }
     
     else if (id == 'x_coord') {
         updateInteractionProperty('x_coord', input.value)
@@ -504,7 +478,6 @@ document.addEventListener('input', (event) => {
         let newCatName = input.value;
 
         let newInter = session.getCurrentLearningPath().interactionTypes
-        let newAvailableInter = session.getCurrentLearningPath().availableinteractionTypes
 
         // new interactionTypes
         if(newInter[changeCategory]){
@@ -514,20 +487,15 @@ document.addEventListener('input', (event) => {
             session.setProp('interactionTypes', newInter)
         }
 
-        // new available interactionTypes
-        if(newAvailableInter[changeCategory]){
-            Object.defineProperty(newAvailableInter, newCatName,
-                Object.getOwnPropertyDescriptor(newAvailableInter, changeCategory));
-            delete newAvailableInter[changeCategory];
-            session.setProp('availableinteractionTypes', newAvailableInter)
-        }
-
         unsavedChanges = true;
         
         $('#' + id).prop('id', 'changeCatName-'+newCatName);
         $('#createInter-' + changeCategory).prop('id', 'createInter-'+newCatName);
         $('#newIntertypeName-' + changeCategory).prop('id', 'newIntertypeName-'+newCatName);
+        $('#catCheck ' + changeCategory).prop('id', 'catCheck '+newCatName);
+        $('#catUnCheck ' + changeCategory).prop('id', 'catUnCheck '+newCatName);
         $('#lastCheckboxelement' + changeCategory).prop('id', 'lastCheckboxelement'+newCatName);
+        $('.interactionInputCB' + changeCategory).attr('class', 'interactionInputCB' + newCatName);
     }
 });
 

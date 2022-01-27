@@ -124,16 +124,7 @@ app.get('/create', (req, res) => {
                         'title': 'Neues Szenario',
                         'resource': 'img/example.jpg'
                     }],
-                    'interactionTypes': { 
-                        'Global': [
-                            'Chat'
-                        ],
-                        'Moodle' : [
-                            'Wahr/Falsch-Fragen', 
-                            'Multiple-Choice-Fragen'
-                        ]
-                    },
-                    'availableinteractionTypes': interactionTypes
+                    'interactionTypes': interactionTypes
                 }
                 dbMan.insert('public.learningPath', {
                     'lpid': id,
@@ -193,7 +184,6 @@ app.get('/settings', (req, res) => {
                     res.render('partials/settings', {
                         data: {
                             'lpSet': true,
-                            'availableinteractionTypes': interactionTypes,
                             'learningPath': _data[0]['content'],
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname']

@@ -13,16 +13,15 @@
                 <div class="settingsItem" id="interactionTypes">
                     <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
-                        <% if(data.learningPath.availableinteractionTypes){ 
+                        <% if(data.learningPath.interactionTypes){ 
                         let counter = 0;
-                        for (let [key, value] of Object.entries(data.learningPath.availableinteractionTypes)){ 
+                        for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.interactionTypes)){ 
                             let first = counter == 0 ? true : false;
                             let active = first ? ' active' : '';
                             %>
                             <li class="nav-item">
-                                <input type="checkbox" class="selectCategory" id="catCheck <%= key %>">
-                                <a class="nav-link" draggable="false" id="<%= key %>-tab" data-toggle="tab" href="#a<%= key %>" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                    <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= key %>" style="background-color:transparent; border:none" value="<%= key %>">
+                                <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                    <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= categoryName %>" style="background-color:transparent; border:none" value="<%= categoryName %>">
                                 </a>
                             </li>
                             <%counter++ } %>
@@ -34,45 +33,32 @@
                     </ul>
                     <div class="tab-content" id="categoryTabsContent">
                     <%
-                        function extendObj(dict1, dict2){
-                            for (const [key, value] of Object.entries(dict2)){
-                                if(!dict1[key]){
-                                    dict1[key] = value;
-                                }
-                            }
-                            return dict1;
-                        }
-
-                        // console.log(extendObj(data.learningPath.availableinteractionTypes, data.learningPath.interactionTypes))
-
                         counter = 0;
-                        for (let [key, value] of Object.entries(extendObj(data.learningPath.availableinteractionTypes, data.learningPath.interactionTypes))){ 
+                        for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.interactionTypes)){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
-                        <div class="tab-pane fade<%= showActive %>" id="a<%= key %>" role="tabpanel" aria-labelledby="
-                        <%= key %>-tab">
-                            <div class="items <%= key %> <%= active %>">
-                            <% value.forEach(val=>{ checked = (data.learningPath.interactionTypes[key] && data.learningPath.interactionTypes[key].length > 0 && data.learningPath.interactionTypes[key].includes(val)) ? true : false; %>
-                            <input class="interactionInputCB <%= key %>actCat" <% if (checked){ %> checked
-                                <% } %> type="checkbox" id="<%= val %>CB" name="<%= val %>">
-                                <label for="<%= val %>CB"><%= val %></label>
+                        <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="
+                        <%= categoryName %>-tab">
+                            <div class="items <%= categoryName %> <%= active %>">
+                            <% for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){ %>
+                            <input class="interactionInputCB<%= categoryName %>" <% if (interactionChecked == "true"){ %> checked
+                                <% } %> type="checkbox" id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                 <br>
-                                <% }); %>
-                                <div id="lastCheckboxelement<%= key %>"></div>
+                                <% } %>
+                                <div id="lastCheckboxelement<%= categoryName %>"></div>
                             </div>
-                            <div class="newInterInputs">
-                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= key %>" placeholder="Neuer Interaktionstyp">
-                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= key %>">+</button>
+                            <div class="settingsItems">
+                                <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
+                                <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
+                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= categoryName %>">+</button>
                             </div>
                         </div>
                         <%counter++} %>
                         <div id="lastTabContent"></div>
                     </div>
                     <%} %>
-                </div>
-                <div class="settingsItem resetBtns">
-                    <button class="button btn btn-light resetBtn" id="selectAllInter"> Alle Kategorien auswählen </button>
-                    <button class="button btn btn-light resetBtn" id="selectNoneInter"> Keine Kategorie auswählen </button>
                 </div>
             </div>
         </div>

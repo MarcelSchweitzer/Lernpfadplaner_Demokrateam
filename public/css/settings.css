@@ -24,20 +24,6 @@
   margin-bottom: 60px;
 }
 
-.settingsItem {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.resetBtns{
-  text-align: center;
-  justify-content: center;
-}
-
-.resetBtn{
-  display: inline-block;
-}
-
 .nav-item {
   font-size: 14px;
 }
@@ -52,15 +38,6 @@
   display: flex;
   justify-content: space-between;
   columns: 90px 4;
-}
-
-.newInterInputs{
-  position: absolute;
-  text-align: center;
-  float: right;
-  right: 100px;
-  width: 200px;
-  z-index: 9999;
 }
 
 .customInput{
