@@ -55,7 +55,6 @@ document.addEventListener('click', (event) => {
             getHomePage();
         }
     }
-    
 
     else if (id == 'lpSettingsBtn') {
         getSettingsPage(mode = 'lpSettingsOnly');
@@ -246,6 +245,7 @@ document.addEventListener('click', (event) => {
                 $(imgID).attr("src","./img/arrows-fullscreen.svg");
                 $(collapseID).collapse('hide');
                 session.closeScenario();
+                refreshInteractivityInputs();
             }
         }   
         refreshInteractivityList();
@@ -587,6 +587,7 @@ function refreshInteractivityList() {
 function refreshInteractivityInputs() {
     let speed = 40
     if (session.interactionOpened()) {
+        $(".interactionSettings").css("display", "inline");
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
@@ -598,6 +599,8 @@ function refreshInteractivityInputs() {
         $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
+    }else{
+        $(".interactionSettings").css("display", "none");
     }
 }
 
