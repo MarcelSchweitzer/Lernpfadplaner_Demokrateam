@@ -333,19 +333,11 @@ document.addEventListener('click', (event) => {
 
 }, false);
 
-/*function hasValueDeep(json, findValue) {
-    console.log("funktion wird aufgerufen");
-    const values = Object.values(json);
-    let hasValue = values.includes(findValue);
-    values.forEach(function(value) {
-        if (typeof value === "object") {
-            hasValue = hasValue || hasValueDeep(value, findValue);
-        }
-    })
-    return hasValue;
+//Funktion noch nicht fertig (und wahrscheinlich nicht an der richtigen Stelle)
+function highestExisTaxo(json) {
+    var highestTaxo = "";
+    return "4. Analysieren";
 }
-
-searchForTaxo*/
 
 document.addEventListener('input', (event) => {
     let id = event.target.getAttribute('id');
@@ -369,16 +361,9 @@ document.addEventListener('input', (event) => {
     else if (id == 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevelID', input.value);
         
-        /*if(hasValueDeep(session.getCurrentLearningPath()['scenarios'], "title"))
-            console.log("title gefunden");
-
-        var taxoToLow = false;
-        
-        if(input.value != "6. Kreeiren")
+        console.log(input.value);
+        if(input.value < highestExisTaxo(session.getCurrentLearningPath()['scenarios'])  && input.value != "")
             $("#taxToLow").modal("show");
-
-        if(taxoToLow)
-            $("#taxToLow").modal("show");    */
     }
     
     else if (id == 'lpTitleInput') {
@@ -459,7 +444,7 @@ document.addEventListener('input', (event) => {
     else if (id == 'taxonomyLevelInt') {
         updateInteractionProperty('taxonomyLevelInt', input.value)
 
-        if(input.value > session.getCurrentLearningPath()["taxonomyLevelID"])
+        if(input.value > session.getCurrentLearningPath()["taxonomyLevelID"] && session.getCurrentLearningPath()["taxonomyLevelID"] != "")
             $("#taxToHigh").modal("show");
     } 
     
