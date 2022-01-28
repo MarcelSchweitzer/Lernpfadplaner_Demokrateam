@@ -333,6 +333,20 @@ document.addEventListener('click', (event) => {
 
 }, false);
 
+/*function hasValueDeep(json, findValue) {
+    console.log("funktion wird aufgerufen");
+    const values = Object.values(json);
+    let hasValue = values.includes(findValue);
+    values.forEach(function(value) {
+        if (typeof value === "object") {
+            hasValue = hasValue || hasValueDeep(value, findValue);
+        }
+    })
+    return hasValue;
+}
+
+searchForTaxo*/
+
 document.addEventListener('input', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
@@ -354,6 +368,17 @@ document.addEventListener('input', (event) => {
     
     else if (id == 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevelID', input.value);
+        
+        /*if(hasValueDeep(session.getCurrentLearningPath()['scenarios'], "title"))
+            console.log("title gefunden");
+
+        var taxoToLow = false;
+        
+        if(input.value != "6. Kreeiren")
+            $("#taxToLow").modal("show");
+
+        if(taxoToLow)
+            $("#taxToLow").modal("show");    */
     }
     
     else if (id == 'lpTitleInput') {
@@ -433,6 +458,9 @@ document.addEventListener('input', (event) => {
 
     else if (id == 'taxonomyLevelInt') {
         updateInteractionProperty('taxonomyLevelInt', input.value)
+
+        if(input.value > session.getCurrentLearningPath()["taxonomyLevelID"])
+            $("#taxToHigh").modal("show");
     } 
     
     else if (id == 'interactionTypeDrop') {
