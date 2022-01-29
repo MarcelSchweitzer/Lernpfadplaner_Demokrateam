@@ -7,7 +7,7 @@ body {
   overflow-x: hidden;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
 }
 
@@ -223,10 +223,6 @@ header {
   padding-bottom: 5px;
 }
 
-.setting-section {
-  margin-top: 100px;
-}
-
 .colz-icon a:hover {
   transform: scale(1.5);
 }
@@ -262,7 +258,6 @@ header {
   padding: 8px;
 }
 .tableBtn button {
- 
   border-radius: 50%;
   margin-left: 5px;
 }
@@ -482,11 +477,11 @@ footer a:hover {
   color: #ffffff;
   display: flex;
   flex-direction: column;
- text-align: center;
-  padding-top:3.5%;
+  text-align: center;
+  padding-top: 3.5%;
   align-items: center;
 }
-.fileDrop{
+.fileDrop {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -495,24 +490,25 @@ footer a:hover {
   outline: none;
   opacity: 0;
 }
-.btn-outline-secondary{
+.btn-outline-secondary {
   border-top-right-radius: 4px !important;
-  border-bottom-right-radius:4px !important;
+  border-bottom-right-radius: 4px !important;
   border-top-left-radius: 0px !important;
-  border-bottom-left-radius:0px !important;;
+  border-bottom-left-radius: 0px !important;
 }
-.btn-outline-secondary:hover{
-  background-color:#fff !important;
-  color:#000;
+.btn-outline-secondary:hover {
+  background-color: #fff !important;
+  color: #000;
 }
-.btn-outline-secondary img{
-  width:23px;
-  height:23px;
-  display:block;
-  padding:0px 4px 0px 0px;
+.btn-outline-secondary img {
+  width: 23px;
+  height: 23px;
+  display: block;
+  padding: 0px 4px 0px 0px;
 }
-.input-group-append button{
-  width:40px;}
+.input-group-append button {
+  width: 40px;
+}
 .sub {
   padding: 14px 0;
   width: 200px;
@@ -550,7 +546,7 @@ footer a:hover {
   margin-bottom: 15px;
 }
 
-#pleaserotate-graphic{
+#pleaserotate-graphic {
   fill: #000;
 }
 
@@ -559,12 +555,13 @@ footer a:hover {
   background-color: #fff;
 }
 
-td, th {
+td,
+th {
   text-align: center;
   vertical-align: middle;
 }
 
-.tbBtn{
+.tbBtn {
   max-width: 40px;
   max-height: 40px;
   border-radius: 40px;
@@ -572,7 +569,7 @@ td, th {
   vertical-align: middle;
 }
 
-.interactionItem{
+.interactionItem {
   height: -moz-fit-content;
   height: fit-content;
 }
@@ -605,7 +602,8 @@ td, th {
   transition: 0.3s;
 }
 
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
   color: #f1f1f1;
 }
 
@@ -617,7 +615,9 @@ td, th {
 }
 
 @media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
+  .overlay a {
+    font-size: 20px;
+  }
   .overlay .closebtn {
     font-size: 40px;
     top: 15px;
@@ -645,7 +645,7 @@ td, th {
   stroke-width: 2px;
 }
 
-.dashIcon{
+.dashIcon {
   display: block;
   margin-left: auto;
   margin-right: auto;

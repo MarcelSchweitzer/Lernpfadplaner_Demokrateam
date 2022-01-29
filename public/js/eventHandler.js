@@ -39,7 +39,7 @@ function loadWorkspaceBackgrounds(){
 
 function generatePDF() {
     html2canvas(document.getElementById('main')).then(function(canvas){
-        
+
         var imgdata = canvas.toDataURL("image/png",1.0);
         var doc = new jsPDF('', 'pt', 'a4');
         doc.addImage(imgdata, 'JPEG', 0, 0, 595.28, 592.28/canvas.width * canvas.height );
@@ -379,6 +379,7 @@ document.addEventListener('input', (event) => {
     
     else if (id == 'lpTitleInput') {
         updateLpProperty('title', input.value);
+
     } else if (id == 'userNameInput') {
         changeUserName(input.value, () => {
             updateUserName();
