@@ -133,7 +133,7 @@ document.addEventListener('click', (event) => {
     
     else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
-            session.createScenario({ 'title': 'Neues Szenario' }, () => {
+            session.createScenario({ 'title': 'Neues Szenario' }, () => { //ändern
                 learningPathToServer(session.getCurrentLearningPath(), () => {
                     getEditPage(session.getCurrentLearningPathId(), () => {
 

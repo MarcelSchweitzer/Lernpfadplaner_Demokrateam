@@ -119,7 +119,7 @@ app.get('/create', (req, res) => {
                 const defaultProps = {
                     'id': id,
                     'title': name,
-                    'evaluationModeID': 'Keine Bewertung',
+                    'evaluationModeID': 'Keine Bewertung', //ändern
                     'scenarios': [{
                         'title': 'Neues Szenario',
                         'resource': 'img/example.jpg'

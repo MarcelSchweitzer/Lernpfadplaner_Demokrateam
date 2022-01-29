@@ -53,7 +53,7 @@ class Session {
     }
 
     // create scanario at any position
-    createScenario(props, cb = noop) {
+    createScenario(props, cb = noop) { //ändern
         this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, props);
         return cb()
     }
