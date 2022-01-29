@@ -16,37 +16,39 @@ How to install:
 
 Functions of datas:
 
+> To change the display on the pages, the css-files in public and the views have to be edited; to change / add / delete functonality of / to buttons or other elements and to change the processing of data in the jsons, the js-files in public have to be edited.
+
 - node_modules: ?
 - public
-- css
-- editor.css: for the workspace
-- main.css: for the home-page (not landing page) and the page for a open learningpath besides the workspace
-- settings.css: for the user-settings and the lp-settings
-- html
-- impressum.html: empty impressumpage, nowhere linked
-- img: images used
-- js
-- dependencies: ?
-- helpers: ?
-- clientSession.js: ?
-- coockie.js: ?
-- eventHandler.js: ?
-- httpHandler.js: ?
-- workspace.js: ?
+  - css
+    - editor.css: for the workspace
+    - main.css: for the home-page (not landing page) and the page for a open learningpath besides the workspace
+    - settings.css: for the user-settings and the lp-settings
+  - html
+    - impressum.html: empty impressumpage, nowhere linked
+  - img: images used
+  - js
+    - dependencies: ?
+    - helpers: ?
+    - clientSession.js: ?
+    - coockie.js: ?
+    - eventHandler.js: ?
+    - httpHandler.js: ?
+    - workspace.js: ?
 - res: hardcoded informations / words used in different places or combinations across the project
 - src: ?
 - views
-- partials
-- coockie.ejs: ?
-- dahboard.ejs: ?
-- editor.ejs: ?
-- footer.ejs: ?
-- header.ejs: ?
-- lpSettings.ejs: ?
-- settings.ejs: ?
-- userSettings.ejs: ?
-- index.ejs: ?
-- landing.ejs: ?
+  - partials
+    - coockie.ejs: ?
+    - dahboard.ejs: ?
+    - editor.ejs: ?
+    - footer.ejs: ?
+    - header.ejs: ?
+    - lpSettings.ejs: ?
+    - settings.ejs: ?
+    - userSettings.ejs: ?
+  - index.ejs: ?
+  - landing.ejs: ?
 - .env: ?
 - .gitignore: ?
 - app.js: ?
