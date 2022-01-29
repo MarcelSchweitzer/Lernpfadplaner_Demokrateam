@@ -340,14 +340,17 @@ footer a:hover {
   .profile-options {
     display: flex;
     justify-content: space-between;
+    text-align: center;
   }
-  .profile-details {
-    margin: 25px 0 0;
-  }
+
   .profile-options .highlighted-btn {
     margin: 0 !important;
   }
-  .profile-options,
+
+  .profile-details {
+    margin: 25px 0 0;
+  }
+
   .profile-details-role {
     text-align: center;
   }

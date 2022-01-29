@@ -379,8 +379,9 @@ document.addEventListener('input', (event) => {
     
     else if (id == 'lpTitleInput') {
         updateLpProperty('title', input.value);
-
-    } else if (id == 'userNameInput') {
+    } 
+    
+    else if (id == 'userNameInput') {
         changeUserName(input.value, () => {
             updateUserName();
         });

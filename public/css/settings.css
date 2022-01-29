@@ -1,39 +1,4 @@
-/*used where and how?*/
-.nav-link {
-  color: #1f2235;
-}
-
-.nav-link:hover {
-  color: #1f2235;
-}
-
-.profile-options button {
-  display: flex;
-  flex-direction: row;
-  display: block;
-  margin: 10px auto;
-  border: 2px solid linen !important;
-  background-color: #1f2235 !important;
-}
-
-/*used where and how?
-nothing changed when removed*/
-.settings::-webkit-scrollbar {
-  display: none;
-}
-
-.settings {
-  margin-bottom: 60px;
-}
-
-.setting-sec {
-  width: 100%;
-  height: 100%;
-}
-
-.tab-pane label {
-  font-size: 14px;
-}
+/*setings.ejs includes this stylesheet*/
 
 /*used in lpSettings.ejs and userSettings.ejs*/
 .setting-section {
@@ -43,6 +8,15 @@ nothing changed when removed*/
 /*used in settings.ejs*/
 .saveBtnDiv {
   margin-top: 50px;
+}
+
+.profile-options button {
+  display: flex;
+  flex-direction: row;
+  display: block;
+  margin: 10px auto;
+  border: 2px solid linen !important;
+  background-color: #1f2235 !important;
 }
 
 /*used in lpSettings.ejs*/
@@ -72,4 +46,8 @@ nothing changed when removed*/
 .newCat {
   text-align: center;
   width: auto;
+}
+
+.nav-link {
+  color: #1f2235;
 }

@@ -1,0 +1,20 @@
+code snippets that have seemingly not function are collected here in case we still need them
+
+
+> settings.css:
+.settings::-webkit-scrollbar {
+  display: none;
+}
+
+.settings {
+  margin-bottom: 60px;
+}
+
+.setting-sec {
+  width: 100%;
+  height: 100%;
+}
+
+.tab-pane label {
+  font-size: 14px;
+}
