@@ -3,12 +3,14 @@
 
 <div class="container-fluild">
     <div class="cover-background">
-        <div class="row setting-sec" >
+        <div class="row setting-sec">
         <img class="img-background" src="img/settings.png">
             <div class="col-md-12">
-                <% if(data.lpSet == true){ %>
+                <%//data.lpSet and data.userSet are set in the function app.get with the paramater '/settings' in app.ejs
+                //the function is called right before this content is loaded%>
+                <% if(data.lpSet == true){%>
                 <div>
-                    <%- include('./lpSettings') %>
+                    <%- include('./lpSettings') %> 
                 </div>
                 <% } %>
                 <% if(data.userSet == true){ %>
@@ -17,7 +19,7 @@
                 </div>
                 <% } %>
                 <div class="profile-options saveBtnDiv">
-                    <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button>
+                    <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button> <%//saveSettingsBtn id used in eventHandler to save the lp and get to the editor, if a lp is open, or to go to the home-page otherwise%>
                 </div>
             </div>
         </div>

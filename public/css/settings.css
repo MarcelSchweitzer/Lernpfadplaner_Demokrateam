@@ -1,4 +1,5 @@
-/*setings.ejs includes this stylesheet*/
+/*settings.ejs includes this stylesheet
+this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 
 /*used in lpSettings.ejs and userSettings.ejs*/
 .setting-section {
@@ -17,6 +18,15 @@
   margin: 10px auto;
   border: 2px solid linen !important;
   background-color: #1f2235 !important;
+}
+
+.row {
+  margin: 5px;
+}
+
+.space {
+  width: 100%;
+  height: 100px;
 }
 
 /*used in lpSettings.ejs*/

@@ -18,11 +18,17 @@ Functions of datas:
 
 > To change the display on the pages, the css-files in public and the views have to be edited; to change / add / delete functonality of / to buttons or other elements and to change the processing of data in the jsons, the js-files in public have to be edited.
 
+> not all classes are related to functions or external css, some are just for clarity
+
+> Bootstrap is used across the content
+
+> css for madie screen (diffrent screen sizes) is only defined in main.css but used for alls files, e.g. used in settings.ejs
+
 - node_modules: ?
 - public
   - css
     - editor.css: for the workspace
-    - main.css: for the home-page (not landing page) and the page for a open learningpath besides the workspace
+    - main.css: for the home-page, landing page and the editor page besides the workspace
     - settings.css: for the user-settings and the lp-settings and their settings framework
   - html
     - impressum.html: empty impressumpage, nowhere linked
