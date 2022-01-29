@@ -28,7 +28,7 @@ Functions of datas:
 - public
   - css
     - editor.css: for the workspace
-    - main.css: for the home-page, landing page and the editor page besides the workspace
+    - main.css: for the dashboard, landing page and the editor page besides the workspace
     - settings.css: for the user-settings and the lp-settings and their settings framework
   - html
     - impressum.html: empty impressumpage, nowhere linked

@@ -11,7 +11,7 @@ let importFiles = []
 $(document).ready(() => {
     toggleHeaderText();
     updateUserName();
-    fetchlearningPaths();
+    fetchLearningPaths();
 });
 
 function isValidURL(url) {
@@ -116,7 +116,7 @@ document.addEventListener('click', (event) => {
     // create a new learning path
     else if (id == 'createLpBtn') {
         createLpOnServer(() => {
-            fetchlearningPaths();
+            fetchLearningPaths();
             getSettingsPage(mode = 'lpSettingsOnly');
         });
     }

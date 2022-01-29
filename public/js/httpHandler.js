@@ -3,7 +3,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         PleaseRotate.activate();
         replaceBody(data);
-        fetchlearningPaths(() => {
+        fetchLearningPaths(() => {
             session.openLearningPath(lpid);
             toggleSettingsButton();
 
@@ -27,7 +27,7 @@ function getHomePage() {
         replaceBody(data);
     });
 
-    fetchlearningPaths();
+    fetchLearningPaths();
 }
 
 // request the settings page from the server
@@ -79,7 +79,7 @@ function deletelearningPath(lpid, cb = noop) {
 }
 
 // fetch all learningPaths that we have access to
-function fetchlearningPaths(cb = noop) {
+function fetchLearningPaths(cb = noop) {
     // fetch users learning paths from server
     $.get('/learningPaths').done((data) => {
         lps = JSON.parse(data)

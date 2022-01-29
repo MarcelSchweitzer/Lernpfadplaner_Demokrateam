@@ -37,6 +37,10 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   min-height: 300px;
 }
 
+.tab-pane label {
+  font-size: 14px;
+}
+
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
 .tab-pane {
   display: flex;
