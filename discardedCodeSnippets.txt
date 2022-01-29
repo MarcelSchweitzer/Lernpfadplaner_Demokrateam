@@ -1,4 +1,4 @@
-code snippets that have seemingly not function are collected here in case we still need them
+code snippets that have seemingly no function are collected here in case we still need them
 
 
 > settings.css:
