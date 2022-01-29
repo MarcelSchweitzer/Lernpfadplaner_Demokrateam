@@ -23,7 +23,7 @@ Functions of datas:
   - css
     - editor.css: for the workspace
     - main.css: for the home-page (not landing page) and the page for a open learningpath besides the workspace
-    - settings.css: for the user-settings and the lp-settings
+    - settings.css: for the user-settings and the lp-settings and their settings framework
   - html
     - impressum.html: empty impressumpage, nowhere linked
   - img: images used
@@ -44,9 +44,9 @@ Functions of datas:
     - editor.ejs: ?
     - footer.ejs: ?
     - header.ejs: ?
-    - lpSettings.ejs: ?
-    - settings.ejs: ?
-    - userSettings.ejs: ?
+    - lpSettings.ejs: settings for the active learningpath
+    - settings.ejs: framework of the setting pages lpSettings and userSettings
+    - userSettings.ejs: settings for the user of the active session
   - index.ejs: ?
   - landing.ejs: ?
 - .env: ?
