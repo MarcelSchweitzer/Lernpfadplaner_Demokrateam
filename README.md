@@ -24,6 +24,8 @@ Functions of datas:
 
 > css for madie screen (diffrent screen sizes) is only defined in main.css but used for alls files, e.g. used in settings.ejs
 
+> the information data holds is different on eyery page / for every .ejs and is configurated in app.js via the app.get function
+
 - node_modules: ?
 - public
   - css

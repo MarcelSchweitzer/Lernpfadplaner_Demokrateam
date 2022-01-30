@@ -117,14 +117,23 @@ app.get('/create', (req, res) => {
 
                 // default settings for new learningPaths
                 const defaultProps = {
-                    'id': id,
-                    'title': name,
-                    'evaluationModeID': 'Keine Bewertung', //ändern
+                    "id": id,
+                    "title": name,
+                    "evaluationModeID": 'Keine Bewertung',
+                    'taxonomyLevel': "",
+                    'notes': "",
+                    "lpSettings":{
+                        "activeTypes":{},
+                        "katIntCreated":{},
+                        "onlyIntCreated":{}
+                    },
                     'scenarios': [{
                         'title': 'Neues Szenario',
-                        'resource': 'img/example.jpg'
-                    }],
-                    'interactionTypes': interactionTypes
+                        'resource': 'img/example.jpg',
+                        "description": "",
+                        "learningGoal": "",
+                        "note": "",
+                    }]
                 }
                 dbMan.insert('public.learningPath', {
                     'lpid': id,
@@ -186,7 +195,8 @@ app.get('/settings', (req, res) => {
                             'lpSet': true,
                             'learningPath': _data[0]['content'],
                             'userSet': getUserSettings,
-                            'nickname': data[0]['nickname']
+                            'nickname': data[0]['nickname'],
+                            'interactionTypes':interactionTypes
                         }
                     });
                 } else {

@@ -3,6 +3,9 @@
         <div class="setting-section">
             <p class="top-name">
                 <h3>Lernpfad-Einstellungen</h3>
+                <%if (data.learningPath.lpSettings.katIntCreated) { %>
+                    <%=data.learningPath.lpSettings.katIntCreated.length  %>
+                <% } %>
             </p>
         
             <div class="settingsItem" id="title">
@@ -13,28 +16,42 @@
                 <div class="settingsItem" id="interactionTypes">
                     <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
-                        <% if(data.learningPath.interactionTypes){ 
-                        let counter = 0;
-                        for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.interactionTypes)){ 
-                            let first = counter == 0 ? true : false;
-                            let active = first ? ' active' : '';
-                            %>
-                            <li class="nav-item">
-                                <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                    <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= categoryName %>" style="background-color:transparent; border:none" value="<%= categoryName %>">
-                                </a>
-                            </li>
-                            <%counter++ } %>
-                            <li class="nav-item" id="addtabNav">
-                                <h4 class="nav-link" id="addTab" role="button">
+                        <% if(data.interactionTypes){ 
+                            let counter = 0;
+                            for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
+                                let first = counter == 0 ? true : false;
+                                let active = first ? ' active' : '';
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                        <% catName = categoryName.replace("_"," "); %>
+                                        <%= catName %>
+                                    </a>
+                                </li>
+                            <%counter++ }
+                        }%>
+                        <% if(data.learningPath.lpSettings.katIntCreated){
+                            let counter=0;
+                            for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.katIntCreated)){
+                                let first=counter==0 ? true : false;
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                        <% catName=categoryName.replace("_"," "); %>
+                                        <%= catName %>
+                                    </a>
+                                </li>
+                            <%counter++ }}%>
+                            <li class="nav-item" id="addTabNav">
+                                <h4 class="nav-link" id="addNewCat" role="button">
                                     +
                                 </h4>
                             </li>
                     </ul>
                     <div class="tab-content" id="categoryTabsContent">
-                    <%
+                    <% if(data.interactionTypes){
                         counter = 0;
-                        for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.interactionTypes)){ 
+                        for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
                             let showActive = counter == 0 ? ' show active' : '';
                             let active = counter == 0 ? ' active' : ''; %>
                         <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="
@@ -59,6 +76,24 @@
                         <div id="lastTabContent"></div>
                     </div>
                     <%} %>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="nameNewCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Neue Kategorie</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Wie soll die neue Kategorie heißen?</p>
+                        <input type="text" onSubmit="return false;" name="catNameGiven" class="form-control-sm" id="catNameGiven">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
                 </div>
             </div>
         </div>

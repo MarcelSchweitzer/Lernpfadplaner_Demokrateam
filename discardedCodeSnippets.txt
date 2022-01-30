@@ -33,3 +33,10 @@ under @media screen and (max-width: 810px)
   .profile-options.profile-details {
     margin: 25px 0 0;
   }
+
+>lpSettings,ejs
+<input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= categoryName %>" style="background-color:transparent; border:none" value="<%= categoryName %>">
+
+under else if(id == "addTab")
+  let interactionTypes = Object.keys(session.getCurrentLearningPath().lpSettings.katIntCreated);
+  let newCatName = uniqueName("Neue_Kategorie", interactionTypes);

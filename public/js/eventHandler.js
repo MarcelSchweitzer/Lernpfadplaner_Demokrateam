@@ -161,29 +161,34 @@ document.addEventListener('click', (event) => {
     }
 
     // show treegrap in editor
-    else if(id == "showTreegraph"){ //ändern
+    else if(id == "showTreegraph"){
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
-    // add Category Tab
-    else if(id == 'addTab'){
+    else if(id == "addNewCat"){
+        $("#nameNewCat").modal("show");
+    }
 
-        // find unused name
-        let interactionTypes = Object.keys(session.getCurrentLearningPath().interactionTypes);
-        let newCatName = uniqueName("Neue_Kategorie", interactionTypes);
+    // add Category Tab
+    else if(id == "addTab"){//ändern
+
+        // get name from input field in modal nameNewCat
+        var newCatName = document.getElementById("catNameGiven").value;
+        document.getElementById("catNameGiven").value = "";
         let categoryID = newCatName.replaceAll(" ", "_");
 
-        // create new Interactivytytype for user 
-        session.setProp('interactionTypes', {}, categoryID);
+        
+        // create new category for user 
+        session.setProp("lpSettings", {}, "katIntCreated" , categoryID);
         unsavedChanges = true;
 
-        $('#addtabNav').before(`
+        $('#addTabNav').before(`
                                     <li class="nav-item">
-                                        <a class="nav-link" id="` + categoryID + `-tab" data-toggle="tab" draggable="false" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-` + categoryID + `"  style="background-color:transparent; border:none" value="` + categoryID + `">
+                                        <a class="nav-link" draggable="false" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                            ` + newCatName + `
                                         </a>
                                     </li>
-                             `);
+                             `);/*
         $('#lastTabContent').before(`
                                         <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
                                             <div class="items">
@@ -198,7 +203,7 @@ document.addEventListener('click', (event) => {
                                                 </button>
                                             </div>
                                         </div>
-                                  `);
+                                  `);*/
     }
 
     else if(classes.contains('selectAll')) {
@@ -230,7 +235,7 @@ document.addEventListener('click', (event) => {
     }
 
     // open Threegraph from dashboard
-    else if(classes.contains('showTreegraphDashboard')){ //ändern
+    else if(classes.contains('showTreegraphDashboard')){
         let lpID = id.replaceAll('showTreegraphDashboard', '');
         forwardTreegraph(lpID);
     }
@@ -373,7 +378,7 @@ document.addEventListener('input', (event) => {
     } 
     
     else if (id == 'lpTaxonomyLevel') {//ändern
-        updateLpProperty('taxonomyLevelID', input.value);
+        updateLpProperty('taxonomyLevel', input.value);
         
         console.log(input.value);
         if(input.value < highestExisTaxo(session.getCurrentLearningPath()['scenarios'])  && input.value != "")
@@ -460,7 +465,7 @@ document.addEventListener('input', (event) => {
     else if (id == 'taxonomyLevelInt') {
         updateInteractionProperty('taxonomyLevelInt', input.value)
 
-        if(input.value > session.getCurrentLearningPath()["taxonomyLevelID"] && session.getCurrentLearningPath()["taxonomyLevelID"] != "")
+        if(input.value > session.getCurrentLearningPath()["taxonomyLevel"] && session.getCurrentLearningPath()["taxonomyLevel"] != "")
             $("#taxToHigh").modal("show");
     } 
     
