@@ -206,6 +206,19 @@ document.addEventListener('click', (event) => {
                                   `);*/
     }
 
+    else if(id == "deleteCreated"){
+        session.setProp("lpSettings","{}","katIntCreated");
+        session.setProp("lpSettings","{}","onlyIntCreated");
+    }
+
+    else if(id == "resetLpSettings"){
+        session.setProp("lpSettings",{
+                        "activeDefaultTypes":{},
+                        "katIntCreated":{},
+                        "onlyIntCreated":{}
+                    })
+    }
+
     else if(classes.contains('selectAll')) {//ändern
         let category = id.replaceAll('catCheck ', '');
         let interactionTypes = session.getCurrentLearningPath().interactionTypes[category];
@@ -425,22 +438,27 @@ document.addEventListener('input', (event) => {
         }
     }
     
-    else if (classes.contains('defaultIntInputCB')) {
+    else if (classes.contains("defaultIntInputCB")) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('defaultIntInputCB', '')
-        let interactivity = id.replaceAll('CB', '');
-        console.log(category + " " + interactivity);
+        let category = input.getAttribute("class").replaceAll('defaultIntInputCB ', '')
+        let interactionType = id.replaceAll('CB', '');
+        
         activeDefaultTypes = session.getCurrentLearningPath()["lpSettings"]["activeDefaultTypes"];
-        console.log(activeDefaultTypes);
+        
         if (checked) {
-            if (activeDefaultTypes[category])
-                activeDefaultTypes[category] = interactivity;
-            else {
-                activeDefaultTypes = "hallo";
-            }
+            if(!activeDefaultTypes[category]) 
+                activeDefaultTypes[category] = [];
+            if(!activeDefaultTypes[category].includes(interactionType))
+                activeDefaultTypes[category].push(interactionType);
+        } else {
+            for(var i = 0; i < activeDefaultTypes[category].length; i++)
+                if (activeDefaultTypes[category][i] === interactionType)
+                    activeDefaultTypes[category].splice(i,1);
+            session.cleanActiveCats();
         }
             
-        session.setProp('lpSettings', activeDefaultTypes, "activeDefaultTypes")
+        session.setProp('lpSettings', activeDefaultTypes, "activeDefaultTypes");
+
         unsavedChanges = true;
         saveCurrentLp();
     } 

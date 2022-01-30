@@ -57,10 +57,11 @@
                                     <div class="items <%= categoryName %> <%= active %>">
                                         <% for (let interactionTypeName of interactionTypes){
                                             var checked = "";
-                                            if (data.learningPath.lpSettings.activeDefaultTypes){
-
+                                            if (data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
+                                                if (data.learningPath.lpSettings.activeDefaultTypes[categoryName].includes(interactionTypeName)){
+                                                    checked = "checked";}
                                             }%>
-                                            <input class="defaultIntInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                            <input class="defaultIntInputCB <%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                             <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                             <br>
                                         <% } %>
@@ -75,6 +76,10 @@
                                 </div>
                                 <%counter++}}  %>
                         <div id="lastTabContent"></div>
+                    </div>
+                    <div>
+                        <button class="btn btn-light resLpSettingsBtn interSet" data-toggle="modal" data-target="#resLpSettings">Einstellungen zurücksetzen</button>
+                        <button class="btn btn-light delCreatedBtn interSet" data-toggle="modal" data-target="#delCreated">Eigene Kategorien und Interaktionen entfernen</button>
                     </div>
                 </div>
             </div>
@@ -92,6 +97,40 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delCreated" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light deleteCreated" id="delCreated"
+                            data-dismiss="modal">Eigene Kategorien und Interaktionen entfernen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="resLpSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light resetLpSettings" id="resLpSettings"
+                            data-dismiss="modal">Einstellungen zurücksetzen</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
