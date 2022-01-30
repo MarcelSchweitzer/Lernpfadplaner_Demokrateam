@@ -92,7 +92,8 @@ document.addEventListener('click', (event) => {
         }
     }
     
-    // export as pdf
+    // export as pdf - @wassim, this code gets to run, when the button is clicked
+    // if yout have onClick as well, you cannot controll which one is ran first, js has a non-blocking event loop
     else if (id == 'exportButton') {
         var doc = new jsPDF();
         var specialElementHandlers = {
@@ -106,6 +107,8 @@ document.addEventListener('click', (event) => {
             'elementHandlers': specialElementHandlers
         },
             function (){ doc.save('sample-file.pdf');});
+        
+        generatePDF();
     }
 
     // copy material url
