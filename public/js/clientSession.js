@@ -205,7 +205,6 @@ class Session {
         for(let [categoryName, interactionTypes] of Object.entries(activeCats)){
                 if(interactionTypes.length === 0){
                     delete activeCats[categoryName];
-                    console.log(categoryName + " löschen");
                 }
         }
 
