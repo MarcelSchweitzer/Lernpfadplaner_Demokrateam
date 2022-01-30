@@ -34,11 +34,11 @@ npm start
 - node_modules: contains third-party dependencies
 - public
   - css
-    - editor.css: for the workspace
-    - main.css: for the dashboard, landing page and the editor page besides the workspace
+    - editor.css: for the editor page
+    - main.css: for the dashboard and landing page
     - settings.css: for the user-settings and the lp-settings and their settings framework
   - html
-    - impressum.html: empty impressumpage, nowhere linked
+    - impressum.html: # TODO ( write impressum, link not functional - covered?)
   - img: images used
   - js
     - dependencies: 
@@ -59,18 +59,18 @@ npm start
   - uniqueIdentifiers.js: helper functions for finding unique names and ids (server side differs from client side)
 - views: 
   - partials: views to be rendered at specific user events
-    - cookie.ejs: ?
-    - dahboard.ejs: ?
-    - editor.ejs: ?
-    - footer.ejs: ?
-    - header.ejs: ?
+    - cookie.ejs: the cookie banner
+    - dahboard.ejs: the dashboard body
+    - editor.ejs: the editor body
+    - footer.ejs: the footer
+    - header.ejs: the header
     - lpSettings.ejs: settings for the active learningpath
     - settings.ejs: framework of the setting pages lpSettings and userSettings
     - userSettings.ejs: settings for the user of the active session
-  - index.ejs: ?
-  - landing.ejs: ?
+  - index.ejs: the framework containing partials
+  - landing.ejs: the landing page
 - .env: Information about the server side environment
-- .gitignore: ?
+- .gitignore
 - app.js: Server side code
 - package-lock.json: information about the project and its dependencies
 - package.json: information about the project and its dependencies
