@@ -179,7 +179,7 @@ document.addEventListener('click', (event) => {
 
         
         // create new category for user 
-        session.setProp("lpSettings", {}, "katIntCreated" , categoryID);
+        session.setProp("lpSettings", [], "katIntCreated" , categoryID);
         unsavedChanges = true;
 
         $('#addTabNav').before(`
@@ -206,7 +206,7 @@ document.addEventListener('click', (event) => {
                                   `);*/
     }
 
-    else if(classes.contains('selectAll')) {
+    else if(classes.contains('selectAll')) {//ändern
         let category = id.replaceAll('catCheck ', '');
         let interactionTypes = session.getCurrentLearningPath().interactionTypes[category];
 
@@ -214,7 +214,7 @@ document.addEventListener('click', (event) => {
             interactionTypes[interactionTypeName] = "true";
         }
 
-        $(".interactionInputCB"+category).prop('checked', true)
+        $(".defaultIntInputCB"+category).prop('checked', true)
         session.setProp('interactionTypes', interactionTypes, category)
         unsavedChanges = true;
         saveCurrentLp();
@@ -228,7 +228,7 @@ document.addEventListener('click', (event) => {
         for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){
             interactionTypes[interactionTypeName] = "false";
         }
-        $(".interactionInputCB"+category).prop('checked', false)
+        $(".defaultIntInputCB"+category).prop('checked', false)
         session.setProp('interactionTypes', interactionTypes, category)
         unsavedChanges = true;
         saveCurrentLp();
@@ -292,10 +292,10 @@ document.addEventListener('click', (event) => {
         let interactionTypes = {}
 
         // check if name is valid
-        if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){
+        if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){//ändern
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
-                <input type="checkbox" class="interactionInputCB` + categoryID + `" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
+                <input type="checkbox" class="defaultIntInputCB` + categoryID + `" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
                 `);
@@ -425,19 +425,22 @@ document.addEventListener('input', (event) => {
         }
     }
     
-    else if (classes.contains('interactionInputCB')) {
+    else if (classes.contains('defaultIntInputCB')) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('interactionInputCB', '')
+        let category = input.getAttribute("class").replaceAll('defaultIntInputCB', '')
         let interactivity = id.replaceAll('CB', '');
-        interactivity = interactivity.replace(/^\s+|\s+$/g, '');
-        
-        interactionTypes = session.getCurrentLearningPath()['interactionTypes'][category];
-
-        if (checked)
-            interactionTypes[interactivity] = "true"
-        else
-            interactionTypes[interactivity] = "false"
-        session.setProp('interactionTypes', interactionTypes, category)
+        console.log(category + " " + interactivity);
+        activeDefaultTypes = session.getCurrentLearningPath()["lpSettings"]["activeDefaultTypes"];
+        console.log(activeDefaultTypes);
+        if (checked) {
+            if (activeDefaultTypes[category])
+                activeDefaultTypes[category] = interactivity;
+            else {
+                activeDefaultTypes = "hallo";
+            }
+        }
+            
+        session.setProp('lpSettings', activeDefaultTypes, "activeDefaultTypes")
         unsavedChanges = true;
         saveCurrentLp();
     } 
@@ -506,7 +509,7 @@ document.addEventListener('input', (event) => {
     }
 
     // change category name
-    else if (classes.contains('changeCatName')){
+    else if (classes.contains('changeCatName')){ //ändern
         let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
 
@@ -528,7 +531,7 @@ document.addEventListener('input', (event) => {
         $('#catCheck ' + changeCategory).prop('id', 'catCheck '+newCatName);
         $('#catUnCheck ' + changeCategory).prop('id', 'catUnCheck '+newCatName);
         $('#lastCheckboxelement' + changeCategory).prop('id', 'lastCheckboxelement'+newCatName);
-        $('.interactionInputCB' + changeCategory).attr('class', 'interactionInputCB' + newCatName);
+        $('.defaultIntInputCB' + changeCategory).attr('class', 'defaultIntInputCB' + newCatName);
     }
 });
 

@@ -34,14 +34,15 @@ under @media screen and (max-width: 810px)
     margin: 25px 0 0;
   }
 
->lpSettings,ejs
+> lpSettings,ejs
 <input type="text" onSubmit="return false;" class="form-control-sm newCat changeCatName" id="changeCatName-<%= categoryName %>" style="background-color:transparent; border:none" value="<%= categoryName %>">
 
+
+> eventHandler.js
 under else if(id == "addTab")
   let interactionTypes = Object.keys(session.getCurrentLearningPath().lpSettings.katIntCreated);
   let newCatName = uniqueName("Neue_Kategorie", interactionTypes);
 
 
-
-
-
+under else if (classes.contains('DefaultIntInputCB')
+  interactivity = interactivity.replace(/^\s+|\s+$/g, '');

@@ -123,7 +123,7 @@ app.get('/create', (req, res) => {
                     'taxonomyLevel': "",
                     'notes': "",
                     "lpSettings":{
-                        "activeTypes":{},
+                        "activeDefaultTypes":{},
                         "katIntCreated":{},
                         "onlyIntCreated":{}
                     },
