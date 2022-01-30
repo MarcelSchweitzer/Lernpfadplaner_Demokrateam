@@ -62,6 +62,12 @@
                                         <% } %>
                                         <div id="lastCheckboxelement<%= categoryName %>"></div>
                                     </div>
+                                    <div class="settingsItems">
+                                        <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
+                                        <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                        <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
+                                        <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= categoryName %>">+</button>
+                                    </div>
                                 </div>
                                 <%counter++}}  %>
                         <div id="lastTabContent"></div>
