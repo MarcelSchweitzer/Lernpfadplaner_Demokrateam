@@ -19,11 +19,10 @@
                         <% if(data.interactionTypes){ 
                             let counter = 0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
-                                let first = counter == 0 ? true : false;
-                                let active = first ? ' active' : '';
+                                let active = (counter == 0 ? "active" : "");
                                 %>
                                 <li class="nav-item">
-                                    <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                    <a class="nav-link <%= active %>" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
                                         <% catName = categoryName.replace("_"," "); %>
                                         <%= catName %>
                                     </a>
@@ -33,7 +32,6 @@
                         <% if(data.learningPath.lpSettings.katIntCreated){
                             let counter=0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.katIntCreated)){
-                                let first=counter==0 ? true : false;
                                 %>
                                 <li class="nav-item">
                                     <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -49,33 +47,25 @@
                             </li>
                     </ul>
                     <div class="tab-content" id="categoryTabsContent">
-                    <% if(data.interactionTypes){
-                        counter = 0;
-                        for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
-                            let showActive = counter == 0 ? ' show active' : '';
-                            let active = counter == 0 ? ' active' : ''; %>
-                        <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="
-                        <%= categoryName %>-tab">
-                            <div class="items <%= categoryName %> <%= active %>">
-                            <% for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){ %>
-                            <input class="interactionInputCB<%= categoryName %>" <% if (interactionChecked == "true"){ %> checked
-                                <% } %> type="checkbox" id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                <br>
-                                <% } %>
-                                <div id="lastCheckboxelement<%= categoryName %>"></div>
-                            </div>
-                            <div class="settingsItems">
-                                <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
-                                <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
-                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
-                                <button class="btn btn-light createBtn customInput createInter" id="createInter-<%= categoryName %>">+</button>
-                            </div>
-                        </div>
-                        <%counter++} %>
+                        <% if(data.interactionTypes){
+                            counter = 0;
+                            for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
+                                let showActive = (counter == 0 ? "show active" : "");
+                                let active = (counter == 0 ? "active" : "");
+                                %>
+                                <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby=" <%= categoryName %>-tab">
+                                    <div class="items <%= categoryName %> <%= active %>">
+                                        <% for (let [interactionTypeName, interactionChecked] of Object.entries(interactionTypes)){ %>
+                                            <input class="interactionInputCB<%= categoryName %>" <% if (interactionChecked == "true"){ %> checked <% } %> type="checkbox" id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                            <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                            <br>
+                                        <% } %>
+                                        <div id="lastCheckboxelement<%= categoryName %>"></div>
+                                    </div>
+                                </div>
+                                <%counter++}}  %>
                         <div id="lastTabContent"></div>
                     </div>
-                    <%} %>
                 </div>
             </div>
         </div>
