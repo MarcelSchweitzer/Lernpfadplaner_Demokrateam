@@ -161,7 +161,7 @@ document.addEventListener('click', (event) => {
     }
 
     // show treegrap in editor
-    else if(id == "showTreegraph"){
+    else if(id == "showTreegraph"){ //ändern
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
@@ -230,7 +230,7 @@ document.addEventListener('click', (event) => {
     }
 
     // open Threegraph from dashboard
-    else if(classes.contains('showTreegraphDashboard')){
+    else if(classes.contains('showTreegraphDashboard')){ //ändern
         let lpID = id.replaceAll('showTreegraphDashboard', '');
         forwardTreegraph(lpID);
     }
@@ -372,7 +372,7 @@ document.addEventListener('input', (event) => {
         updateLpProperty('evaluationModeID', input.value);
     } 
     
-    else if (id == 'lpTaxonomyLevel') {
+    else if (id == 'lpTaxonomyLevel') {//ändern
         updateLpProperty('taxonomyLevelID', input.value);
         
         console.log(input.value);
