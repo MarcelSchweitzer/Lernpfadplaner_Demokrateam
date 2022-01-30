@@ -1,5 +1,7 @@
 # Lernpfadplaner - Demokrateam
 
+<a href="https://github.com/ag-gipp/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
+
 ## Getting Started
 
 * navigate to https://nodejs.org/ and install node.js version 16.13.1 on your machine
@@ -46,13 +48,17 @@ npm start
       - uniqueIdentifiers.js: helper functions for finding unique names and ids
     - clientSession.js: 
     - cookie.js: contains code responsibly for the cookie banner
-    - eventHandler.js: contains globaly scoped code for eventhandling
+    - eventHandler.js: contains globaly scoped code for event handling
     - httpHandler.js: contains globaly scoped code for server interaction
     - workspace.js: responsible for the workspace area
-- res: hardcoded informations / words used in different places or combinations across the project
-- src: ?
-- views
-  - partials
+- res: hardcoded information / words used in different places or combinations across the project
+- src: server side modules
+  - dbManager.js: handles database requests 
+  - fileSystemToolkit.js: provides functions for importing textfiles (containing static data)
+  - psqlStore: handles cookies beeing stored in the database 
+  - uniqueIdentifiers.js: helper functions for finding unique names and ids (server side differs from client side)
+- views: 
+  - partials: views to be rendered at specific user events
     - cookie.ejs: ?
     - dahboard.ejs: ?
     - editor.ejs: ?
@@ -63,11 +69,11 @@ npm start
     - userSettings.ejs: settings for the user of the active session
   - index.ejs: ?
   - landing.ejs: ?
-- .env: ?
+- .env: Information about the server side environment
 - .gitignore: ?
-- app.js: ?
-- package-lock.json: ?
-- package.json: ?
+- app.js: Server side code
+- package-lock.json: information about the project and its dependencies
+- package.json: information about the project and its dependencies
 - setup_db.swl: SQL expression to setup a database locally working with your localhost
 
 ## License
