@@ -131,7 +131,8 @@ app.get('/create', (req, res) => {
                     'notes': "",
                     "lpSettings":{
                         "activeDefaultTypes": defaultCategories,
-                        "createdTypes":{}
+                        "createdTypes":{},
+                        "ignoreWarnings": false
                     },
                     'scenarios': [{
                         'title': 'Neues Szenario',
