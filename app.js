@@ -117,6 +117,11 @@ app.get('/create', (req, res) => {
                 let id = uniqueLpId()
                 let name = unique.uniqueName('Neuer Lernpfad', names);
 
+                var defaultCategories = {};
+                for(let categoryNames of Object.keys(interactionTypes)){
+                    defaultCategories[categoryNames] = [];
+                }
+
                 // default settings for new learningPaths
                 const defaultProps = {
                     "id": id,
@@ -125,14 +130,7 @@ app.get('/create', (req, res) => {
                     'taxonomyLevel': "",
                     'notes': "",
                     "lpSettings":{
-                        "activeDefaultTypes":{
-                            "Global": [],
-                            "H5P":[],
-                            "Moodle": [],
-                            "ILIAS": [],
-                            "Adobe_Captivate": [],
-                            "3D_Vista": []
-                        },
+                        "activeDefaultTypes": defaultCategories,
                         "createdTypes":{}
                     },
                     'scenarios': [{
