@@ -115,6 +115,8 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border-top-right-radius: 0px 0px;
   border-bottom-right-radius: 0px 0px;
   width: 65%;
+  border-color: rgb(255, 255, 255);
+  border-width: 4px;
 }
 
 .createNewInt{
@@ -122,5 +124,6 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border-bottom-right-radius: 10px 10px;
   background-color: white;
   border-color: rgb(255, 255, 255);
+  border-width: 0px;
   width: 35%;
 }
