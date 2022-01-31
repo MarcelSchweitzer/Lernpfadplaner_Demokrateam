@@ -2,6 +2,7 @@
 function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     $.get('/editor', { 'lpid': lpid }).done((data, status) => {
         PleaseRotate.activate();
+        document.getElementById('exportButton').disabled = false;
         replaceBody(data);
         fetchLearningPaths(() => {
             session.openLearningPath(lpid);
@@ -22,6 +23,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
 function getHomePage() {
 
     PleaseRotate.deactivate();
+    document.getElementById('exportButton').disabled = true;
 
     // request index patch from server
     $.get('/home').done((data, status) => {
@@ -44,6 +46,7 @@ function getLandingPage() {
 
 function getSettingsPage(mode = null) {
     PleaseRotate.deactivate();
+    document.getElementById('exportButton').disabled = true;
 
     if (mode == null && session.getCurrentLearningPathId() == null)
         mode = 'userSettingsOnly';
