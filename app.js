@@ -9,6 +9,7 @@ const { stringify } = require('nodemon/lib/utils');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactionTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
+const cookieText = fstk.readFile('./res/cookieText.txt')
 
 require('dotenv').config();
 
@@ -60,7 +61,8 @@ app.get('/', (req, res) => {
                 data: {
                     learningPaths: _data,
                     uId: data[0]['uid'],
-                    nickname: data[0]['nickname']
+                    nickname: data[0]['nickname'],
+                    cookieText: cookieText
                 }
             });
         });

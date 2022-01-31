@@ -25,6 +25,7 @@ function eraseCookie(name) {
 
 $('#denyCookie').click(()=>{
     eraseCookie('allowCookies')
+    getLandingPage();
 })
 
 $('#allowCookie').click(()=>{

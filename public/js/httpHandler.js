@@ -30,6 +30,15 @@ function getHomePage() {
     fetchLearningPaths();
 }
 
+function getLandingPage() {
+
+    // request landing page from the server
+
+    var pageURL = $(location).attr("href");
+    dashboardUrl = pageURL.toString().concat("get_started");
+    window.location.replace(dashboardUrl);
+}
+
 // request the settings page from the server
 
 function getSettingsPage(mode = null) {
