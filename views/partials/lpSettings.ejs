@@ -6,13 +6,13 @@
             </p>
         
             <div class="settingsItem" id="title">
-                <label for="lpTitleInput">Titel</label>
+                <label class="settingsHeading" for="lpTitleInput">Titel</label>
                 <input type="text" onSubmit="return false;" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
             <br>
             <div>
                 <div class="settingsItem" id="interactionTypes">
-                    <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
+                    <label class="settingsHeading" for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
                         <% if(data.interactionTypes){ 
                             let counter = 0;
@@ -110,9 +110,30 @@
                     </div>
                 </div>
             </div>
+            <div class="settingsItem" id="remainingSettings">
+                <p class="settingsHeading">Weitere Einstellungen</p>
+                <%let WarnSettingChecked = (data.learningPath.lpSettings.ignoreWarnings ? "checked" : "" ) %>
+                <input type="checkbox" class="checkIgnoWar" id="ignoreWarnings" name="ignoreWarnings" <%= WarnSettingChecked %>>
+                <label for="ignoreWarnings">Warnungen und Abfragen werden ignoriert</label>
+            </div>
         </div>
-        <div class="modal fade" id="nameNewCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalIgnoWar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Möchtest du wirklich alle Warnungen und Sicherheits-Abfragen abstellen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" id="setIgnoWarnings" data-dismiss="modal">Alles abstellen</button>
+                        <button type="button" class="btn btn-light" id="uncheckIgnoWarnings" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="nameNewCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

@@ -507,12 +507,22 @@ document.addEventListener('click', (event) => {
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
+    else if(id == "setIgnoWarnings"){
+        session.getCurrentLearningPath().lpSettings.ignoreWarnings = true;
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
+
+    else if(id == "uncheckIgnoWarnings"){
+         $("#ignoreWarnings").prop("checked", false);
+    }
+
     else if(id == "addNewCat"){
         $("#nameNewCat").modal("show");
     }
 
     // add Category Tab
-    else if(id == "addTab"){//ändern
+    else if(id == "addTab"){
 
         // get name from input field in modal nameNewCat
         let allCatNames = Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes).concat(Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes));
@@ -787,6 +797,17 @@ document.addEventListener('input', (event) => {
         changeUserName(input.value, () => {
             updateUserName();
         });
+    } 
+    
+    else if (id == "ignoreWarnings") {
+        if (input.checked)
+            $("#modalIgnoWar").modal("show");
+        else {
+            session.getCurrentLearningPath().lpSettings.ignoreWarnings = false;
+            unsavedChanges = true;
+            saveCurrentLp();
+        }
+
     } 
     
     else if (classes.contains('lpTitleInput')) {

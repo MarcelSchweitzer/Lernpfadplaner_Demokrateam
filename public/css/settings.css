@@ -41,6 +41,10 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   font-size: 14px;
 }
 
+.settingsHeading {
+  font-size: 20px;
+}
+
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
 .tab-pane {
   display: flex;
