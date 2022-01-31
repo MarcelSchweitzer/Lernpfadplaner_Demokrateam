@@ -363,7 +363,7 @@ function loadWorkspaceBackgrounds(){
     }
 }
 
-function generatePDF(learningPath) {
+function generatePDF(scenarios, title) {
 
     // height for sections
     const sectionHeight = 200;
@@ -372,7 +372,7 @@ function generatePDF(learningPath) {
 
     var doc = new jsPDF('', 'pt', 'a4');
     doc.setFontSize(15)
-    for(let i = 0; i < learningPath.scenarios.length; i++){
+    for(let i = 0; i < scenarios.length; i++){
         canvasManager.scaleToZero(i);
         setTimeout(()=>{
         
@@ -382,9 +382,9 @@ function generatePDF(learningPath) {
                 doc.addImage(imgdata, 'png', 0, sectionHeight * i, dinA4, dinA4/canvas.width * canvas.height);
         
         
-                doc.text(15, sectionHeight * i + offset + dinA4/canvas.width * canvas.height, JSON.stringify(learningPath.scenarios[i], null, 4)); 
-                if(i == learningPath.scenarios.length - 1 ){
-                    doc.save(learningPath.title+".pdf");
+                doc.text(15, sectionHeight * i + offset + dinA4/canvas.width * canvas.height, JSON.stringify(scenarios[i], null, 4)); 
+                if(i == scenarios.length - 1 ){
+                    doc.save(title+".pdf");
                     }
                 });
         }, 50);
@@ -440,7 +440,12 @@ document.addEventListener('click', (event) => {
     }
 
     else if (id == 'exportButton') {       
-        generatePDF(session.getCurrentLearningPath());
+        generatePDF(session.getCurrentLearningPath().scenarios, session.getCurrentLearningPath().title);
+    }
+
+    else if(classes.contains('printScenario')) {
+        let scenarioIndex = id.replaceAll('printScenario', '');      
+        generatePDF([session.getCurrentLearningPath().scenarios[scenarioIndex]], session.getCurrentLearningPath().scenarios[scenarioIndex].title);
     }
 
     else if(id == 'fullScreenBtn'){

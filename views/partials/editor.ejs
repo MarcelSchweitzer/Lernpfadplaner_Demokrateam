@@ -203,8 +203,8 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                             <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
                                                 <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg">
                                             </button>
-                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="printScenario">
-                                                <img class="button dashIcon scenarioBtnImg" id="printScenario" src="img/download.svg">
+                                            <button class="btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
+                                                <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
                                             </button>
                                         </div>
                                     </div>
