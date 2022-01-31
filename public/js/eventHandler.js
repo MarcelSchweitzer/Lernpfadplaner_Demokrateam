@@ -460,7 +460,13 @@ document.addEventListener('click', (event) => {
     
     else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
-            session.createScenario({ 'title': 'Neues Szenario' }, () => { //ändern
+            session.createScenario({
+                        'title': 'Neues Szenario',
+                        'resource': "",
+                        "description": "",
+                        "learningGoal": "",
+                        "note": "",
+                    }, () => { //ändern
                 learningPathToServer(session.getCurrentLearningPath(), () => {
                     getEditPage(session.getCurrentLearningPathId(), () => {
 
