@@ -745,8 +745,11 @@ document.addEventListener('click', (event) => {
             $(lastElemID).before(`
                 <input class="createdIntInputCB ` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                <button class="button btn-light intDelBtn">
-                    <img class="button dashIcon" src="img/trash.svg">
+                <button class="button btn-light intChangeBtn">
+                    <img class="button delIntIcon" src="img/trash.svg">
+                </button>
+                <button class="button btn-light intChangeBtn">
+                    <img class="button nameIntIcon" src="img/edit.png">
                 </button>
                 <br>
                 `);
