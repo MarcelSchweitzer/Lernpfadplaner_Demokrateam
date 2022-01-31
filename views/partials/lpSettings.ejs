@@ -29,7 +29,7 @@
                         <% if(data.learningPath.lpSettings.createdTypes){
                             let counter=0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
-                                defaultCatNames = Object.keys(data.interactionTypes);
+                                let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
                                     <li class="nav-item">
                                         <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -85,7 +85,7 @@
                         <% if(data.learningPath.lpSettings.createdTypes){
                             counter=0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
-                                defaultCatNames = Object.keys(data.interactionTypes);
+                                let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
                                     <div class="tab-pane fade" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="<%= categoryName %>-tab">
                                         <div class="items <%= categoryName %>">
