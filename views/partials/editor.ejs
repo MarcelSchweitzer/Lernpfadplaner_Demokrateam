@@ -43,21 +43,6 @@ function canBeRead(root, calls){
 
 <div class="container-fluid">
     <div class="cover-background">
-        <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="noteModalLabel">Notizen</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea class="form-control lpNotesModal" id="lpNotesModal"><%=data.learningPath.notes%></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-2 sidecol">
                 <section class="left">
@@ -119,7 +104,6 @@ function canBeRead(root, calls){
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
                 <section>
@@ -149,7 +133,9 @@ function canBeRead(root, calls){
                         </div>
                     </div>
                 </section>
+
             </div>
+
             <div class="col-8 midCol">
                 <div class="material-group scenarios" id="scenarios">
                     <% if(canBeRead(data, ['learningPath','scenarios'])){
@@ -276,7 +262,8 @@ function canBeRead(root, calls){
                                         </div>
                                     <% } %>
                                 </div>
-                            <% }} %>
+                                <% }} %>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -352,62 +339,75 @@ function canBeRead(root, calls){
                                     data-toggle="modal" data-target="#deleteInteract">
                                     <img class="button" src="img/trash.svg">
                                 </button>
-                                <div class="modal fade" id="deleteInteract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header"> 
-                                            </div>
-                                            <div class="modal-body">
-                                                <p    style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="taxToHigh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            </div>
-                                            <div class="modal-body">
-                                                <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
-                                                <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe dieser Interaktivität liegt über der Taxonomiestufe des Lernpfades.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Okay</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="taxToLow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            </div>
-                                            <div class="modal-body">
-                                                <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
-                                                <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe des Lernpfades liegt unter der
-                                                    Taxonomiestufe einer oder mehrerer Interaktivitäten.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Okay</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="noteModalLabel">Notizen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control lpNotesModal" id="lpNotesModal"><%=data.learningPath.notes%></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="taxToHigh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
+                        <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe dieser Interaktivität liegt über der
+                            Taxonomiestufe des Lernpfades.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="taxToLow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
+                        <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe des Lernpfades liegt unter der
+                            Taxonomiestufe einer oder mehrerer Interaktivitäten.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteInteract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+</div>
    
  
   
