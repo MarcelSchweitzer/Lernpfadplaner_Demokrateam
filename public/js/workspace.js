@@ -95,12 +95,6 @@ class CanvasManager {
 
       this.scale[index] = 1;
       this.scaleToZero(index)
-      this.userOffsetX[index] = img.width / 2 * this.scale[index];
-      if(img.width * this.scale[index] < this.canvas.width)
-        this.userOffsetX[index] = this.userOffsetX[index] + ( (this.canvas.width - img.width * this.scale[index]) / 2 )
-      this.userOffsetY[index] = img.height / 2 * this.scale[index];
-      if(img.height * this.scale[index] < this.canvas.height)
-        this.userOffsetY[index] = this.userOffsetY[index] + ( (this.canvas.height - img.height * this.scale[index]) / 2 )
       this.initposition[index] = null;
       this.hoveredInteraction = null;
       this.draggedInteraction = null;
@@ -184,6 +178,12 @@ class CanvasManager {
       this.scale[index] = this.canvas.width / this.images[index].width;
     if(this.images[index].height > this.canvas.height && this.canvas.height / this.images[index].height < this.scale[index])
       this.scale[index] = this.canvas.height / this.images[index].height;
+    this.userOffsetX[index] = this.images[index].width / 2 * this.scale[index];
+    if(this.images[index].width * this.scale[index] < this.canvas.width)
+      this.userOffsetX[index] = this.userOffsetX[index] + ( (this.canvas.width - this.images[index].width * this.scale[index]) / 2 )
+    this.userOffsetY[index] = this.images[index].height / 2 * this.scale[index];
+    if(this.images[index].height * this.scale[index] < this.canvas.height)
+      this.userOffsetY[index] = this.userOffsetY[index] + ( (this.canvas.height - this.images[index].height * this.scale[index]) / 2 )
   }
   
   printCurrentCanvas(format){

@@ -195,6 +195,9 @@ function canBeRead(root, calls){
                                             <div class="note" >
                                                 <label for="lpNote<%= count %>">Szenario-Notizen</label>
                                                 <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
+                                                <button class="btn btn-link resetZoomBtn" onSubmit="return false;" id="resetZoomBtn">
+                                                    Skalierung zurücksetzen
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

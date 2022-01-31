@@ -424,6 +424,10 @@ document.addEventListener('click', (event) => {
     else if (id == 'usernameText') {
         getSettingsPage(mode = 'userSettingsOnly');
     }
+
+    else if(id == 'resetZoomBtn'){
+        canvasManager.scaleToZero(session.getCurrentScenarioIndex());
+    }
     
     // download as json
     else if (id == 'downloadButton') {

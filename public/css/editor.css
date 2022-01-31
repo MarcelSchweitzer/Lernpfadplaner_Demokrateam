@@ -456,4 +456,12 @@ header {
   border-color: rgb(82, 82, 82);
 }
 
+#resetZoomBtn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  justify-content: center;
+  border-color: black;
+}
+
 
