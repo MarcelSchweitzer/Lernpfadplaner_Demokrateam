@@ -67,7 +67,7 @@
                                         if(data.learningPath.lpSettings.createdTypes[categoryName]){
                                             for (let [interactionTypeName, active] of Object.entries(data.learningPath.lpSettings.createdTypes[categoryName])){
                                                 let checked = (active ? "checked" : true);%>
-                                                <input class="defaultInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                                <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                                 <button class="button btn-light intChangeBtn">
                                                     <img class="button delIntIcon" src="img/trash.svg">
@@ -100,7 +100,7 @@
                                         <div class="items <%= categoryName %>">
                                             <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
                                                 var checked = (active ? "checked" : "");%>
-                                                <input class="createdIntInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                                <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                                 <button class="button btn-light intChangeBtn">
                                                     <img class="button delIntIcon" src="img/trash.svg">
