@@ -108,16 +108,19 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .flexInput{
-  width: 50%;
   justify-content: center;
 }
 
 .newIntertypeName{
   border-top-right-radius: 0px 0px;
   border-bottom-right-radius: 0px 0px;
+  width: 65%;
 }
 
 .createNewInt{
   border-top-right-radius: 10px 10px;
   border-bottom-right-radius: 10px 10px;
+  background-color: white;
+  border-color: rgb(255, 255, 255);
+  width: 35%;
 }
