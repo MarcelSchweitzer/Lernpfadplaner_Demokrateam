@@ -457,12 +457,12 @@ header {
 }
 
 .scenarioButtonWrap{
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
 .scenarioBtn{
-  margin-top: 10px;
   margin-bottom: 10px;
   height: 30px;
   width: 30%;

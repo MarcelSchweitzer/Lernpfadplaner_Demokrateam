@@ -370,9 +370,13 @@ function generatePDF(scenarios, title) {
     const offset = 20; 
     const dinA4 = 592.28;
 
-    var doc = new jsPDF('', 'pt', 'a4');
+    var doc = new jsPDF('p', 'pt', 'a4');
     doc.setFontSize(15)
     for(let i = 0; i < scenarios.length; i++){
+        if (i > 0) {
+            doc.addPage();
+        }
+        doc.setPage(i+1);
         canvasManager.scaleToZero(i);
         setTimeout(()=>{
         
@@ -449,7 +453,6 @@ document.addEventListener('click', (event) => {
     }
 
     else if( id == 'fullScreenBtn' ){
-        // else go fullscreen
         if (
             document.fullscreenElement ||
             document.webkitFullscreenElement ||
