@@ -528,22 +528,22 @@ document.addEventListener('click', (event) => {
                                             ` + newCatName + `
                                         </a>
                                     </li>
-                             `);/*
+                             `);
         $('#lastTabContent').before(`
                                         <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
-                                            <div class="items">
+                                            <div class="items ` + categoryID + `" active>
                                                 <div id="lastCheckboxelement` + categoryID + `"></div>
                                             </div>
                                             <div class="settingsItems">
                                                 <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck ` + categoryID + `"> Alle aus dieser Kategorie auswählen </button>
                                                 <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
-                                                <input type="text" onSubmit="return false;" class="form-control interInp newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
+                                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
                                                 <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-` + categoryID + `">
                                                     +
                                                 </button>
                                             </div>
                                         </div>
-                                  `);*/
+                                  `);
     }
 
     else if(id == "deleteCreated"){

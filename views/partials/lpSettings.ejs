@@ -51,7 +51,7 @@
                                 let showActive = (counter == 0 ? "show active" : "");
                                 let active = (counter == 0 ? "active" : "");
                                 %>
-                                <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby=" <%= categoryName %>-tab">
+                                <div class="tab-pane fade<%= showActive %>" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="<%= categoryName %>-tab">
                                     <div class="items <%= categoryName %> <%= active %>">
                                         <% for (let interactionTypeName of interactionTypes){
                                             var checked = "";
@@ -87,7 +87,7 @@
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
                                 defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
-                                    <div class="tab-pane fade" id="a<%= categoryName %>" role="tabpanel" aria-labelledby=" <%= categoryName %>-tab">
+                                    <div class="tab-pane fade" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="<%= categoryName %>-tab">
                                         <div class="items <%= categoryName %>">
                                             <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
                                                 var checked = (active ? "checked" : "");%>
