@@ -124,8 +124,7 @@ app.get('/create', (req, res) => {
                     'notes': "",
                     "lpSettings":{
                         "activeDefaultTypes":{},
-                        "katIntCreated":{},
-                        "onlyIntCreated":{}
+                        "createdTypes":{}
                     },
                     'scenarios': [{
                         'title': 'Neues Szenario',

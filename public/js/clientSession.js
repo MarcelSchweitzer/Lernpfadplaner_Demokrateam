@@ -198,19 +198,6 @@ class Session {
     interactionOpened() {
         return this.currentInteractionIndex != null;
     }
-
-    cleanActiveCats(){
-        var activeCats = this.learningPaths[this.getLpIndexById(this.currentlearningPathId)]["lpSettings"]["activeDefaultTypes"];
-
-        for(let [categoryName, interactionTypes] of Object.entries(activeCats)){
-                if(interactionTypes.length === 0){
-                    delete activeCats[categoryName];
-                }
-        }
-
-
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)]["lpSettings"]["activeDefaultTypes"] = activeCats;
-    }
 }
 
 const session = new Session();

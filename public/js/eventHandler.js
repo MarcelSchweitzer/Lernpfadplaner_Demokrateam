@@ -387,6 +387,18 @@ function generatePDF(learningPath) {
     }
 }
 
+function catIsDefault(categoryName) {
+    var isDefault = false;
+    console.log("Überprüfung für " + categoryName);
+    for([category] of Object.entries(data.interactionTypes)){
+        console.log("  " + category);
+        if(categoryName === category)
+            isDefault = true;
+        console.log("  " + isDefault);
+    }
+    return isDefault;
+}
+
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
@@ -497,13 +509,17 @@ document.addEventListener('click', (event) => {
     else if(id == "addTab"){//ändern
 
         // get name from input field in modal nameNewCat
-        var newCatName = document.getElementById("catNameGiven").value;
+        //let allCatNames = Object.keys(session.getCurrentLearningPath().createdTypes) +  Object.keys(data.interactionTypes);
+        console.log(Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes));
+        //console.log(Object.keys(textToArray('../../res/taxonomyLevels.txt')));
+        //let newCatName = uniqueName(document.getElementById("catNameGiven").value, allCatNames);
+        let newCatName = document.getElementById("catNameGiven").value;
+
         document.getElementById("catNameGiven").value = "";
         let categoryID = newCatName.replaceAll(" ", "_");
 
-        
         // create new category for user 
-        session.setProp("lpSettings", [], "katIntCreated" , categoryID);
+        session.setProp("lpSettings", {}, "createdTypes" , categoryID);
         unsavedChanges = true;
 
         $('#addTabNav').before(`
@@ -522,7 +538,7 @@ document.addEventListener('click', (event) => {
                                                 <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck ` + categoryID + `"> Alle aus dieser Kategorie auswählen </button>
                                                 <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
                                                 <input type="text" onSubmit="return false;" class="form-control interInp newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn customInput createInter" id="createInter-` + categoryID + `">
+                                                <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-` + categoryID + `">
                                                     +
                                                 </button>
                                             </div>
@@ -531,15 +547,13 @@ document.addEventListener('click', (event) => {
     }
 
     else if(id == "deleteCreated"){
-        session.setProp("lpSettings","{}","katIntCreated");
-        session.setProp("lpSettings","{}","onlyIntCreated");
+        session.setProp("lpSettings","{}","createdTypes")
     }
 
     else if(id == "resetLpSettings"){
         session.setProp("lpSettings",{
                         "activeDefaultTypes":{},
-                        "katIntCreated":{},
-                        "onlyIntCreated":{}
+                        "createdTypes":{}
                     })
     }
 
@@ -617,37 +631,48 @@ document.addEventListener('click', (event) => {
     }
 
     // create new interactionType
-    else if (classes.contains('createInter')){
+    else if (classes.contains('createNewInt')){
 
         // get Category
-        let categoryID = id.replaceAll('createInter-', '')
+        let category = id.replaceAll('createNewInt-', '')
 
         // read value from input
-        let newInteractionType = document.getElementById("newIntertypeName-" + categoryID).value;
+        let newInteractionType = document.getElementById("newIntertypeName-" + category).value;
 
         // get current interactionTypes for this category
-        let interactionTypes = {}
+        createdTypes = session.getCurrentLearningPath()["lpSettings"]["createdTypes"];
+
+        if(!createdTypes[category])
+            createdTypes[category] = {};
+        createdTypes[category][newInteractionType] = true;
 
         // check if name is valid
-        if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){//ändern
+        /*if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){//ändern
             lastElemID = '#lastCheckboxelement' + categoryID
             $(lastElemID).before(`
                 <input type="checkbox" class="defaultIntInputCB` + categoryID + `" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
                     <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <br>
-                `);
+                `);*/
 
             // add new interactiontype
-            interactionTypes[newInteractionType] = "true";
+            //interactionTypes[newInteractionType] = "true";
             
             // add to Learningpath
-            session.setProp('interactionTypes', interactionTypes, categoryID);
-            unsavedChanges = true;
-            $(".newIntertypeName").val("");
-        }
-        else{
+        lastElemID = '#lastCheckboxelement' + category;
+        $(lastElemID).before(`
+                <input class="createdIntInputCB ` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
+                <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                <br>
+                `);
+        
+        session.setProp('lpSettings', createdTypes, "createdTypes");
+
+        unsavedChanges = true;
+        $(".newIntertypeName").val("");
+        /*else{
             alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
-        }
+        }*/
     }
 
     // handle delete scenario buttons
@@ -761,7 +786,7 @@ document.addEventListener('input', (event) => {
         let category = input.getAttribute("class").replaceAll('defaultIntInputCB ', '')
         let interactionType = id.replaceAll('CB', '');
         
-        activeDefaultTypes = session.getCurrentLearningPath()["lpSettings"]["activeDefaultTypes"];
+        activeDefaultTypes = session.getCurrentLearningPath().lpSettings.activeDefaultTypes;
         
         if (checked) {
             if(!activeDefaultTypes[category]) 
@@ -769,13 +794,31 @@ document.addEventListener('input', (event) => {
             if(!activeDefaultTypes[category].includes(interactionType))
                 activeDefaultTypes[category].push(interactionType);
         } else {
-            for(var i = 0; i < activeDefaultTypes[category].length; i++)
+            for(var i = 0; i < activeDefaultTypes[category].length; i++){
                 if (activeDefaultTypes[category][i] === interactionType)
-                    activeDefaultTypes[category].splice(i,1);
-            session.cleanActiveCats();
+                    activeDefaultTypes[category].splice(i,1)
+            }
         }
             
         session.setProp('lpSettings', activeDefaultTypes, "activeDefaultTypes");
+        
+        unsavedChanges = true;
+        saveCurrentLp();
+    } 
+    
+    else if (classes.contains("createdIntInputCB")) {
+        let checked = input.checked;
+        let category = input.getAttribute("class").replaceAll('createdIntInputCB ', '')
+        let interactionType = id.replaceAll('CB', '');
+
+        createdIntInCat = session.getCurrentLearningPath().lpSettings.createdTypes[category];
+        
+        if (checked)
+            createdIntInCat[interactionType] = true;
+        else
+            createdIntInCat[interactionType] = false;
+            
+        session.setProp('lpSettings', createdIntInCat, "createdTypes", category);
 
         unsavedChanges = true;
         saveCurrentLp();
@@ -862,7 +905,7 @@ document.addEventListener('input', (event) => {
         unsavedChanges = true;
         
         $('#' + id).prop('id', 'changeCatName-'+newCatName);
-        $('#createInter-' + changeCategory).prop('id', 'createInter-'+newCatName);
+        $('#createNewInt-' + changeCategory).prop('id', 'createNewInt-'+newCatName);
         $('#newIntertypeName-' + changeCategory).prop('id', 'newIntertypeName-'+newCatName);
         $('#catCheck ' + changeCategory).prop('id', 'catCheck '+newCatName);
         $('#catUnCheck ' + changeCategory).prop('id', 'catUnCheck '+newCatName);
