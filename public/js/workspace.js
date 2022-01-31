@@ -328,8 +328,22 @@ function newCanv(p){
     }
 
     p.mouseWheel = function (event) {
+
+      const factor = 10;
+
       if(canvasManager.inCanvas() && canvasManager.getScale() > 0){
         canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
+        if(event.delta < 0){
+          canvasManager.setUserOffset(
+            canvasManager.getUserOffset().x + ((p.width / 2 - p.mouseX) * canvasManager.getScale() / factor),
+            canvasManager.getUserOffset().y + ((p.height / 2 - p.mouseY) * canvasManager.getScale() / factor)
+          )
+        }else{
+          canvasManager.setUserOffset(
+            canvasManager.getUserOffset().x - ((p.width / 2 - p.mouseX) * canvasManager.getScale() / factor),
+            canvasManager.getUserOffset().y - ((p.height / 2 - p.mouseY) * canvasManager.getScale() / factor)
+          )
+        }
         return false;
       }
     }

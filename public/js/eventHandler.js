@@ -468,7 +468,7 @@ document.addEventListener('click', (event) => {
         if (session.learningPathOpened()) {
             session.createScenario({
                         'title': 'Neues Szenario',
-                        'resource': "",
+                        'resource': "img/example.jpg",
                         "description": "",
                         "learningGoal": "",
                         "note": "",
