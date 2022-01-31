@@ -69,8 +69,11 @@
                                                 let checked = (active ? "checked" : true);%>
                                                 <input class="createdIntInputCB <%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                <button class="button btn-light intDelBtn">
-                                                    <img class="button dashIcon" src="img/trash.svg">
+                                                <button class="button btn-light intChangeBtn">
+                                                    <img class="button delIntIcon" src="img/trash.svg">
+                                                </button>
+                                                <button class="button btn-light intChangeBtn">
+                                                    <img class="button nameIntIcon" src="img/edit.png">
                                                 </button>
                                                 <br>
                                         <%} } %>
@@ -97,8 +100,11 @@
                                                 var checked = (active ? "checked" : "");%>
                                                 <input class="createdIntInputCB <%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                <button class="button btn-light intDelBtn">
-                                                    <img class="button dashIcon" src="img/trash.svg">
+                                                <button class="button btn-light intChangeBtn">
+                                                    <img class="button delIntIcon" src="img/trash.svg">
+                                                </button>
+                                                <button class="button btn-light intChangeBtn">
+                                                    <img class="button nameIntIcon" src="img/edit.png">
                                                 </button>
                                                 <br>
                                             <% } %>
@@ -130,7 +136,7 @@
                         <h5 class="modal-title"></h5>
                     </div>
                     <div class="modal-body">
-                        <p>Möchtest Du wirklich alle Warnungen und Sicherheitsabfragen ignorieren?</p>
+                        <p class="modalText">Möchtest Du wirklich alle Warnungen und Sicherheitsabfragen abstellen?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="setIgnoWarnings" data-dismiss="modal">Ja</button>
@@ -146,7 +152,7 @@
                         <h5 class="modal-title">Neue Kategorie</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Wie soll die neue Kategorie heißen?</p>
+                        <p class="modalText">Wie soll die neue Kategorie heißen?</p>
                         <input type="text" onSubmit="return false;" name="catNameGiven" class="form-control" id="catNameGiven">
                     </div>
                     <div class="modal-footer">
