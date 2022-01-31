@@ -1,4 +1,3 @@
-
 class CanvasManager {
   constructor() {
     this.p5Obj = null;
@@ -233,7 +232,7 @@ function newCanv(p){
     // handle drag events
 
     p.mouseDragged = function (event) {
-
+      if(canvasManager.inCanvas()){
         // select dragged element
         if(canvasManager.getHover() != null && canvasManager.getDrag() == null){
           canvasManager.setDrag(canvasManager.getHover());
@@ -248,7 +247,7 @@ function newCanv(p){
         }
 
         // move background
-       
+      
         else if(draggedInteraction == null && canvasManager.getDrag() == null && canvasManager.getHover() == null){
           if(!canvasManager.getDragTimeOut()){
             canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
@@ -264,11 +263,7 @@ function newCanv(p){
             }, 20);
           }
         }
-      
-    }
-
-    p.mousePressed = function () {
-
+      }
     }
 
     p.mouseReleased = function () {
@@ -280,34 +275,38 @@ function newCanv(p){
     }
 
     p.mouseMoved = function (event) {
-      if(session.interactionsExist()){
+      if(canvasManager.inCanvas()){
+        if(session.interactionsExist()){
 
-        let hover = false
-        for(let i = 0; i < session.getCurrentScenario().interactions.length; i++){
-          let leftBorder = session.getCurrentScenario().interactions[i].x_coord - 5;
-          let rightBorder = session.getCurrentScenario().interactions[i].x_coord + 5 + ( canvasManager.getCircleSize() ); // !!
-          let topBorder = session.getCurrentScenario().interactions[i].y_coord - 5; // !!
-          let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + 5 + ( canvasManager.getCircleSize() ) ; // !!
-          let x = (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale();
-          let y = (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale()
+          let hover = false
+          for(let i = 0; i < session.getCurrentScenario().interactions.length; i++){
+            let leftBorder = session.getCurrentScenario().interactions[i].x_coord - 5;
+            let rightBorder = session.getCurrentScenario().interactions[i].x_coord + 5 + ( canvasManager.getCircleSize() ); // !!
+            let topBorder = session.getCurrentScenario().interactions[i].y_coord - 5; // !!
+            let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + 5 + ( canvasManager.getCircleSize() ) ; // !!
+            let x = (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale();
+            let y = (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale()
 
-          if(x > leftBorder && x < rightBorder && y > topBorder && y < bottomBorder){
-            canvasManager.setHover(i)
-            hover = true
+            if(x > leftBorder && x < rightBorder && y > topBorder && y < bottomBorder){
+              canvasManager.setHover(i)
+              hover = true
+            }
           }
+          if(!hover)
+            canvasManager.setHover(null)
         }
-        if(!hover)
-          canvasManager.setHover(null)
       }
     }
     p.mouseClicked = function (event) {
-      canvasManager.setInitPosition(null);
-      canvasManager.setDrag(null);
-
-      // select interactivity by click
-      if(canvasManager.getHover() != null){
-        session.openInteraction(canvasManager.getHover());
-        refreshInteractivityInputs();
+      if(canvasManager.inCanvas()){
+        canvasManager.setInitPosition(null);
+        canvasManager.setDrag(null);
+  
+        // select interactivity by click
+        if(canvasManager.getHover() != null){
+          session.openInteraction(canvasManager.getHover());
+          refreshInteractivityInputs();
+        }
       }
     }
 
@@ -379,5 +378,4 @@ function newCanv(p){
       }
     }
   }
-
 }

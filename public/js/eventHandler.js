@@ -38,14 +38,25 @@ function loadWorkspaceBackgrounds(){
 }
 
 function generatePDF() {
-    html2canvas(document.getElementById('main')).then(function(canvas){
 
-        var imgdata = canvas.toDataURL("image/png",1.0);
-        var doc = new jsPDF('', 'pt', 'a4');
-        doc.addImage(imgdata, 'JPEG', 0, 0, 595.28, 592.28/canvas.width * canvas.height );
-        doc.save("Lernpfad.pdf");
-    });
+    // height for sections
+    const sectionHeight = 2000;
+    const offset = 20; 
 
+    var doc = new jsPDF('', 'pt', 'a4');
+    for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
+        html2canvas(document.getElementById('workspace' + i)).then(function(canvas){
+
+            var imgdata = canvas.toDataURL();
+            console.log(imgdata)
+            doc.setFontSize(40)
+            doc.text(15, sectionHeight * i + offset, "TEST TEST TEST") // JSON.stringify(session.getCurrentLearningPath().scenarios[0])
+            doc.addImage(imgdata, 'png', sectionHeight * i + offset, 0, 595.28, 592.28/canvas.width * canvas.height );
+            if(i == session.getCurrentLearningPath().scenarios.length - 1 ){
+                doc.save(session.getCurrentLearningPath().title+".pdf");
+             }
+        });
+    }
 }
 
 // handle button click events
@@ -555,8 +566,8 @@ document.addEventListener('input', (event) => {
 
 // fire on drag start 
 document.addEventListener("dragstart", (event) => {
-    draggedInteraction = event.target;
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened()) {
+    if(event.target.classList.contains("interactivityBox")){
+        draggedInteraction = event.target;
         draggedInteraction.style.opacity = .5;
     }
 }, false);
