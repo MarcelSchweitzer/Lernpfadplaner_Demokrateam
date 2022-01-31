@@ -683,8 +683,13 @@ document.addEventListener('click', (event) => {
         if(!createdTypes[category])
             createdTypes[category] = {};
 
+        var defaultInterTypes = [];
+        var allElemOfCategory = document.getElementsByClassName("defaultIntInputCB " + category);
+        for(let interactionID of allElemOfCategory){
+            defaultInterTypes.push(interactionID.name);
+        }
         // check if name is valid
-        if(newInteractionType != "" && ! Object.keys(createdTypes[category]).includes(newInteractionType)){
+        if(newInteractionType != "" && ! Object.keys(createdTypes[category]).includes(newInteractionType) && ! defaultInterTypes.includes(newInteractionType)){
 
             // add new interactiontype
             createdTypes[category][newInteractionType] = true;
