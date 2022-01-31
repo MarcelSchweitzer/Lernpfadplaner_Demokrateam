@@ -9,6 +9,7 @@
                 <label for="lpTitleInput">Titel</label>
                 <input type="text" onSubmit="return false;" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
+            <br>
             <div>
                 <div class="settingsItem" id="interactionTypes">
                     <label for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
@@ -73,8 +74,8 @@
                                         <div id="lastCheckboxelement<%= categoryName %>"></div>
                                     </div>
                                     <div class="settingsItems">
-                                        <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
-                                        <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                        <button class="btn btn-light checkAllBtn customInput selectAllDefaultCat" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
+                                        <button class="btn btn-light checkAllBtn customInput selectNoneDefaultCat" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
                                         <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
                                         <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-<%= categoryName %>">+</button>
                                     </div>
@@ -98,19 +99,14 @@
                                             <div id="lastCheckboxelement<%= categoryName %>"></div>
                                         </div>
                                         <div class="settingsItems">
-                                            <button class="btn btn-light checkAllBtn customInput selectAll" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
-                                            <button class="btn btn-light checkAllBtn customInput selectNone" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                            <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
+                                            <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
                                             <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
                                             <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-<%= categoryName %>">+</button>
                                         </div>
                                     </div>
                             <%}counter++}} %>
                                 <div id="lastTabContent"></div>
-
-                    </div>
-                    <div>
-                        <button class="btn btn-light resLpSettingsBtn interSet" data-toggle="modal" data-target="#resLpSettings">Einstellungen zurücksetzen</button>
-                        <button class="btn btn-light delCreatedBtn interSet" data-toggle="modal" data-target="#delCreated">Eigene Kategorien und Interaktionen entfernen</button>
                     </div>
                 </div>
             </div>
@@ -128,40 +124,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="delCreated" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light deleteCreated" id="delCreated"
-                            data-dismiss="modal">Eigene Kategorien und Interaktionen entfernen</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="resLpSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light resetLpSettings" id="resLpSettings"
-                            data-dismiss="modal">Einstellungen zurücksetzen</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
