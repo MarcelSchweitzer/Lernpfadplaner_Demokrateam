@@ -604,7 +604,7 @@ document.addEventListener('click', (event) => {
         let category = id.replaceAll('catCheck ', '');
 
         var defaultInterTypes = [];
-        var allElemOfCategory = document.getElementsByClassName("defaultIntInputCB " + category);
+        var allElemOfCategory = document.getElementsByClassName("defaultInputCB" + category);
         for(let interactionID of allElemOfCategory){
             defaultInterTypes.push(interactionID.name);
         }
@@ -615,10 +615,10 @@ document.addEventListener('click', (event) => {
                 interactionTypes[interactionTypeName] = true;
             }
             session.setProp('lpSettings', interactionTypes, "createdTypes", category);
-            $(".createdIntInputCB "+category).prop("checked", true);
+            $(".createdIntInputCB"+category).prop("checked", true);
         }
-        
-        $(".defaultIntInputCB "+category).prop('checked', true);
+        classname = ".defaultInputCB"+category
+        $(classname).prop("checked", true);
         session.setProp('lpSettings', defaultInterTypes, "activeDefaultTypes", category)
         unsavedChanges = true;
         saveCurrentLp();
@@ -633,7 +633,7 @@ document.addEventListener('click', (event) => {
             interactionTypes[interactionTypeName] = true;
         }
 
-        $(".createdIntInputCB "+category).prop("checked", true);
+        $(".createdIntInputCB"+category).prop("checked", true);
         session.setProp('lpSettings', interactionTypes, "createdTypes", category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -650,10 +650,10 @@ document.addEventListener('click', (event) => {
                 interactionTypes[interactionTypeName] = false;
             }
             session.setProp('lpSettings', interactionTypes, "createdTypes", category);
-            $(".createdIntInputCB "+category).prop("checked", false);
+            $(".createdIntInputCB"+category).prop("checked", false);
         }
 
-        $(".defaultIntInputCB "+category).prop('checked', false);
+        $(".defaultInputCB"+category).prop('checked', false);
         session.setProp('lpSettings', defaultInterTypes, "activeDefaultTypes", category)
         unsavedChanges = true;
         saveCurrentLp();
@@ -668,7 +668,7 @@ document.addEventListener('click', (event) => {
             interactionTypes[interactionTypeName] = false;
         }
 
-        $(".createdIntInputCB "+category).prop("checked", false);
+        $(".createdIntInputCB"+category).prop("checked", false);
         session.setProp('lpSettings', interactionTypes, "createdTypes", category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -735,7 +735,7 @@ document.addEventListener('click', (event) => {
             createdTypes[category] = {};
 
         var defaultInterTypes = [];
-        var allElemOfCategory = document.getElementsByClassName("defaultIntInputCB " + category);
+        var allElemOfCategory = document.getElementsByClassName("defaultInputCB" + category);
         for(let interactionID of allElemOfCategory){
             defaultInterTypes.push(interactionID.name);
         }
@@ -746,7 +746,7 @@ document.addEventListener('click', (event) => {
             createdTypes[category][newInteractionType] = true;
             lastElemID = '#lastCheckboxelement' + category;
             $(lastElemID).before(`
-                <input class="createdIntInputCB ` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
+                <input class="createdIntInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                 <button class="button btn-light intChangeBtn">
                     <img class="button delIntIcon" src="img/trash.svg">
@@ -887,7 +887,7 @@ document.addEventListener('input', (event) => {
     
     else if (classes.contains("defaultIntInputCB")) {
         let checked = input.checked;
-        let category = input.getAttribute("class").replaceAll('defaultIntInputCB ', '')
+        let category = input.getAttribute("class").replaceAll('defaultInputCB', '')
         let interactionType = id.replaceAll('CB', '');
         
         activeDefaultTypes = session.getCurrentLearningPath().lpSettings.activeDefaultTypes;
@@ -1012,7 +1012,7 @@ document.addEventListener('input', (event) => {
         $('#catCheck ' + changeCategory).prop('id', 'catCheck '+newCatName);
         $('#catUnCheck ' + changeCategory).prop('id', 'catUnCheck '+newCatName);
         $('#lastCheckboxelement' + changeCategory).prop('id', 'lastCheckboxelement'+newCatName);
-        $('.defaultIntInputCB' + changeCategory).attr('class', 'defaultIntInputCB' + newCatName);
+        $('.defaultInputCB' + changeCategory).attr('class', 'defaultIntInputCB' + newCatName);
     }
 });
 
