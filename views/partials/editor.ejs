@@ -16,29 +16,30 @@ function canBeRead(root, calls){
 
 // create one object with all active Interaction createdTypes
 
-    // add all active default Types
-    var activeTypes = data.learningPath.lpSettings.activeDefaultTypes;
+// add all active default Types
+var activeTypes = data.learningPath.lpSettings.activeDefaultTypes;
 
-    // add all active created interaction Types to the connected categories
-    for(let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
-        // if category is not a default category add the category to activeTypes
-        if(!data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
-            activeTypes[categoryName] = [];    
-        }
-
-        //add every active interaction Type to the connected category
-        for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
-            if(active){
-                activeTypes[categoryName].push(interactionTypeName);
-            }
-        }
+// add all active created interaction Types to the connected categories
+for(let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
+    // if category is not a default category add the category to activeTypes
+    if(!data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
+        activeTypes[categoryName] = [];    
     }
 
-    // filter out all empty categories
-    for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
-        if(interactionTypes.length === 0)
-            delete activeTypes[categoryName];
+    //add every active interaction Type to the connected category
+    for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
+        if(active){
+            activeTypes[categoryName].push(interactionTypeName);
+        }
     }
+}
+
+// filter out all empty categories
+for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
+    if(interactionTypes.length === 0)
+        delete activeTypes[categoryName];
+}
+
 %>
 
 <div class="container-fluid">
@@ -194,8 +195,16 @@ function canBeRead(root, calls){
                                         <div class="note" >
                                             <label for="lpNote<%= count %>">Szenario-Notizen</label>
                                             <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
-                                            <button class="btn btn-link resetZoomBtn" onSubmit="return false;" id="resetZoomBtn">
-                                                Skalierung zurücksetzen
+                                        </div>
+                                        <div class="scenarioButtonWrap">
+                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="resetZoomBtn">
+                                                <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg">
+                                            </button>
+                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
+                                                <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg">
+                                            </button>
+                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="printScenario">
+                                                <img class="button dashIcon scenarioBtnImg" id="printScenario" src="img/download.svg">
                                             </button>
                                         </div>
                                     </div>

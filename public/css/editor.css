@@ -456,12 +456,23 @@ header {
   border-color: rgb(82, 82, 82);
 }
 
-#resetZoomBtn{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 100%;
+.scenarioButtonWrap{
+  display: flex;
   justify-content: center;
-  border-color: black;
 }
 
+.scenarioBtn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 30px;
+  width: 30%;
+}
+
+#resetZoomBtn{
+  justify-content: flex-start;
+}
+
+#fullScreenBtn{
+  justify-content: flex-end;
+}
 

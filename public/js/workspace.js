@@ -15,6 +15,11 @@ class CanvasManager {
     this.dragTimeOut = false;
   }
 
+  toggleFullScreen(){
+    let fs = this.p5Obj.fullscreen();
+    this.p5Obj.fullscreen(!fs);
+  }
+
   getCircleSize(){
     return this.circleSize;
   }

@@ -443,6 +443,10 @@ document.addEventListener('click', (event) => {
         generatePDF(session.getCurrentLearningPath());
     }
 
+    else if(id == 'fullScreenBtn'){
+        canvasManager.toggleFullScreen();
+    }
+
     // copy material url
     else if (id == 'copyBtnMaterialUrl'){
         copy("materialUrl");
