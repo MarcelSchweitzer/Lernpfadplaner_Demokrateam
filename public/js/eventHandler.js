@@ -12,6 +12,12 @@ $(document).ready(() => {
     toggleHeaderText();
     updateUserName();
     fetchLearningPaths();
+    if (!getCookie('allowCookies')){
+        $('#CookieBanner').modal({
+            backdrop: 'static',
+            keyboard: false
+        }).modal('show');
+    }
 });
 
 function isValidImageURL(str){

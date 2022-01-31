@@ -7,6 +7,7 @@ function setCookie(name,value,days) {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
+
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -22,20 +23,10 @@ function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-function cookieConsent() {
-    if (!getCookie('allowCookies')) {
-        $('.toast').toast('show')
-    }
-}
-
-$('#btnDeny').click(()=>{
+$('#denyCookie').click(()=>{
     eraseCookie('allowCookies')
-    $('.toast').toast('hide')
 })
 
-$('#btnAccept').click(()=>{
+$('#allowCookie').click(()=>{
     setCookie('allowCookies','1',7)
-    $('.toast').toast('hide')
 })
-
-cookieConsent()
