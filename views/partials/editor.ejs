@@ -164,7 +164,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
-                                                    <p style="margin-left: 160px;">Bist Du sicher? </p>
+                                                    <p  class="textInModal">Bist Du sicher? </p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light deleteScenario" id="deleteScenario<%= count %>" data-dismiss="modal">Löschen</button>
@@ -374,10 +374,11 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header"></div>
+                    <div class="modal-header">
+                        <p class="HeaderInModal">Warnung</p>
+                    </div>
                     <div class="modal-body">
-                        <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
-                        <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe dieser Interaktivität liegt über der
+                        <p class="textInModal">Die Taxonomiestufe dieser Interaktivität liegt über der
                             Taxonomiestufe des Lernpfades.</p>
                     </div>
                     <div class="modal-footer">
@@ -390,10 +391,11 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header"></div>
+                    <div class="modal-header">
+                        <p class="HeaderInModal">Warnung</p>
+                    </div>
                     <div class="modal-body">
-                        <p style="font-size: 20px;    font-weight: 500;">Warnung:</p>
-                        <p style="font-size: 16px;    font-weight: 500;">Die Taxonomiestufe des Lernpfades liegt unter der
+                        <p class="textInModal">Die Taxonomiestufe des Lernpfades liegt unter der
                             Taxonomiestufe einer oder mehrerer Interaktivitäten.</p>
                     </div>
                     <div class="modal-footer">
@@ -407,7 +409,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 <div class="modal-content">
                     <div class="modal-header"></div>
                     <div class="modal-body">
-                        <p style="font-size: 20px;    font-weight: 500;">Bist Du sicher? </p>
+                        <p class="textInModal">Bist Du sicher? </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>

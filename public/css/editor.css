@@ -22,6 +22,18 @@
   padding-bottom: 20px;
 }
 
+.textInModal {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.HeaderInModal {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
 .midCol {
   overflow-y: auto;
   margin-top: 20px;
@@ -228,7 +240,7 @@
   height: 90vh;
 }
 
-.scrollable{
+.scrollable {
   overflow-x: hidden;
 }
 
@@ -257,7 +269,6 @@
 .scrollable::-webkit-scrollbar-thumb:hover {
   background: gray;
 }
-
 
 .categoryBox {
   width: 100%;
@@ -438,49 +449,48 @@ header {
   height: 100%;
 }
 
-#matWrap{
+#matWrap {
   display: flex;
   justify-content: center;
 }
 
-.materialUrl{
+.materialUrl {
   justify-content: flex-start;
-  border-top-right-radius:    0px 0px;
+  border-top-right-radius: 0px 0px;
   border-bottom-right-radius: 0px 0px;
   width: 80%;
 }
 
-.input-group-append{
+.input-group-append {
   justify-content: flex-end;
   width: 20%;
 }
 
-.copyBtnMaterialUrl{
+.copyBtnMaterialUrl {
   border-color: rgb(82, 82, 82);
 }
 
-.scenarioButtonWrap{
+.scenarioButtonWrap {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-.scenarioBtn{
+.scenarioBtn {
   margin-bottom: 10px;
   height: 30px;
   width: 30%;
 }
 
-#resetZoomBtn{
+#resetZoomBtn {
   justify-content: flex-start;
 }
 
-#fullScreenBtn{
+#fullScreenBtn {
   justify-content: flex-end;
 }
 
-#fullScreenWrap{
+#fullScreenWrap {
   position: absolute;
   z-index: 9999;
 }
-
