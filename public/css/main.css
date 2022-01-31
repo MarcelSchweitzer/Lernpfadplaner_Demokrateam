@@ -184,6 +184,10 @@ header {
   cursor: pointer;
 }
 
+#userSettingsBtn{
+  cursor: pointer;
+}
+
 .user {
   padding: 5px 10px;
   background-color: red;
