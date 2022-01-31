@@ -18,6 +18,10 @@ class CanvasManager {
   toggleFullScreen(){
     let fs = this.p5Obj.fullscreen();
     this.p5Obj.fullscreen(!fs);
+    $( "#main" ).append( $( this.getWorkSpaceId() ) );
+    let w = window.innerWidth;
+    let h = window.innerHeight;  
+    this.canvas.size(w,h);
   }
 
   getCircleSize(){
