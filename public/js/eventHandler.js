@@ -444,7 +444,7 @@ document.addEventListener('click', (event) => {
     }
 
     else if(classes.contains('printScenario')) {
-        let scenarioIndex = id.replaceAll('printScenario', '');      
+        let scenarioIndex = id.replaceAll('printScenario', '');
         generatePDF([session.getCurrentLearningPath().scenarios[scenarioIndex]], session.getCurrentLearningPath().scenarios[scenarioIndex].title);
     }
 
@@ -519,7 +519,7 @@ document.addEventListener('click', (event) => {
     }
 
     else if(id == "uncheckIgnoWarnings"){
-         $("#ignoreWarnings").prop("checked", false);
+        $("#ignoreWarnings").prop("checked", false);
     }
 
     else if(id == "addNewCat"){
@@ -583,7 +583,7 @@ document.addEventListener('click', (event) => {
             session.setProp('lpSettings', interactionTypes, "createdTypes", category);
             $(".createdIntInputCB "+category).prop("checked", true);
         }
-
+        
         $(".defaultIntInputCB "+category).prop('checked', true);
         session.setProp('lpSettings', defaultInterTypes, "activeDefaultTypes", category)
         unsavedChanges = true;
@@ -714,6 +714,9 @@ document.addEventListener('click', (event) => {
             $(lastElemID).before(`
                 <input class="createdIntInputCB ` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                <button class="button btn-light intDelBtn">
+                    <img class="button dashIcon" src="img/trash.svg">
+                </button>
                 <br>
                 `);
 
