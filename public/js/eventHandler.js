@@ -369,9 +369,17 @@ function generatePDF(learningPath) {
     for(let i = 0; i < learningPath.scenarios.length; i++){
         html2canvas(document.getElementById('workspace' + i)).then(function(canvas){
 
+            // not working, position seems to be overwriting older iterations, only last scenario ist visible
+
+            let tmpScale = canvasManager.getScale(i);
+            canvasManager.scaleToZero(i); // not working - timeout maybe?
+
             var imgdata = canvas.toDataURL();
             doc.addImage(imgdata, 'png', 0, sectionHeight * i, dinA4, dinA4/canvas.width * canvas.height );
-            doc.text(15, sectionHeight * i + offset + dinA4/canvas.width * canvas.height, JSON.stringify(learningPath.scenarios[i], null, 4)); // not working, position seems to be overwriting older iterations
+
+            canvasManager.setScale(tmpScale, i)
+
+            doc.text(15, sectionHeight * i + offset + dinA4/canvas.width * canvas.height, JSON.stringify(learningPath.scenarios[i], null, 4)); 
             if(i == learningPath.scenarios.length - 1 ){
                 doc.save(learningPath.title+".pdf");
                 }

@@ -93,14 +93,18 @@ class CanvasManager {
         success = true;
       }
 
-    });
+      // this.userOffsetX[index] = img.width / 2;
+      // this.userOffsetY[index] = img.heigth / 2;
 
-    this.scale[session.getCurrentScenarioIndex()] = 1;
-    this.userOffsetX[session.getCurrentScenarioIndex()] = 0;
-    this.userOffsetY[session.getCurrentScenarioIndex()] = 0;
-    this.initposition[session.getCurrentScenarioIndex()] = null;
-    this.hoveredInteraction = null;
-    this.draggedInteraction = null;
+      this.scale[index] = 1;
+      this.scaleToZero(index)
+      this.userOffsetX[index] = img.width / 2 * this.scale[index];
+      this.userOffsetY[index] = img.height / 2 * this.scale[index];
+      this.initposition[index] = null;
+      this.hoveredInteraction = null;
+      this.draggedInteraction = null;
+      
+    });
   }
 
   setVideo(index, path){
@@ -165,10 +169,22 @@ class CanvasManager {
     this.scale[session.getCurrentScenarioIndex()] += scale;
   }
 
-  getScale(){
-    return this.scale[session.getCurrentScenarioIndex()];
+  getScale(index = session.getCurrentScenarioIndex()){
+    return this.scale[index];
   }
 
+  setScale(scale, index = session.getCurrentScenarioIndex()){
+    this.scale[index] = scale;
+  }
+
+  scaleToZero(index){
+
+    if(this.images[index].width > this.canvas.width)
+      this.scale[index] = this.canvas.width / this.images[index].width;
+    if(this.images[index].height > this.canvas.height && this.canvas.height / this.images[index].height < this.scale[index])
+      this.scale[index] = this.canvas.height / this.images[index].height;
+  }
+  
   printCurrentCanvas(format){
     if(session.scenarioOpened()){
       this.p5Obj.saveCanvas(this.canvas, session.getCurrentScenario().title, format);
