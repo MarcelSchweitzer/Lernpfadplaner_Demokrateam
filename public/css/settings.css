@@ -101,3 +101,13 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 .nav-link {
   color: #1f2235;
 }
+
+.newTypeWrap{
+  display: flex;
+  justify-content: center;
+}
+
+.flexInput{
+  width: 50%;
+  justify-content: center;
+}
