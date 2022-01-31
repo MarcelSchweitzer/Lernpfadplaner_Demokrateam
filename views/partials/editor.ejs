@@ -13,7 +13,34 @@ function canBeRead(root, calls){
     }
     return false
 }
+
+// create one object with all active Interaction createdTypes
+
+    // add all active default Types
+    var activeTypes = data.learningPath.lpSettings.activeDefaultTypes;
+
+    // add all active created interaction Types to the connected categories
+    for(let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
+        // if category is not a default category add the category to activeTypes
+        if(!data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
+            activeTypes[categoryName] = [];    
+        }
+
+        //add every active interaction Type to the connected category
+        for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
+            if(active){
+                activeTypes[categoryName].push(interactionTypeName);
+            }
+        }
+    }
+
+    // filter out all empty categories
+    for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
+        if(interactionTypes.length === 0)
+            delete activeTypes[categoryName];
+    }
 %>
+
 <div class="container-fluid">
     <div class="cover-background">
         <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
@@ -124,7 +151,7 @@ function canBeRead(root, calls){
                 </section>
             </div>
             <div class="col-8 midCol">
-                <div class="material-group scenarios" id="scenarios">
+                <div class="material-group scenarios" id="szenarios">
                     <% if(canBeRead(data, ['learningPath','scenarios'])){
                         let count = 0;
                     data.learningPath.scenarios.forEach(sc=>{
@@ -164,7 +191,7 @@ function canBeRead(root, calls){
 
                             </h5>
                         </div>
-                        <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenarios">
+                        <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenario">
                             <div class="card-body">
                                 <form>
                                     <div class="scenarioControllWrapper">
@@ -230,9 +257,9 @@ function canBeRead(root, calls){
                             <p class="typ">Interaktionstypen</p>
                             <hr>
                             <div class="interactivityPicker">
-                                <% if(canBeRead(data, ['learningPath', 'interactionTypes'])){
+                                <% if(Object.keys(activeTypes).length !== 0){
                                     let count = 0;
-                                    for (let [category, interactiontypes] of Object.entries(data.learningPath.interactionTypes)){ %>
+                                    for (let [category, interactionTypes] of Object.entries(activeTypes)){ %>
                                 <div class="categoryBox">
                                     <hr>
                                     <h6 class="interactivityCategory">
@@ -240,16 +267,16 @@ function canBeRead(root, calls){
                                         <%= catName %>
                                     </h6>
                                     <hr>
-                                    <% for (let [interactionTypeName, interactionTypeChecked] of Object.entries(interactiontypes)){ %>
+                                    <% for (let interactionTypeName of interactionTypes){ %>
                                         <div class="interactivityBox" id="<%= category %>$$<%= interactionTypeName %>" draggable="true">
                                             <p class="selectedInteractivity">
                                                 <%= interactionTypeName %>
                                             </p>
                                             <span class="tooltiptext"> <%= interactionTypeName %> </span>
                                         </div>
-                                    <% }}} %>
+                                    <% } %>
                                 </div>
-                            </div>
+                            <% }} %>
                         </div>
                     </div>
                 </section>
@@ -308,11 +335,11 @@ function canBeRead(root, calls){
                                 <label for="interactionTypeDrop">Interaktionstyp</label>
                                 <select class="form-control interSet" id="interactionTypeDrop">
                                     <option id="noInteractiontype" class="changeInteractivity"> </option>
-                                    <% if(canBeRead(data, ['learningPath','interactionTypes'])){
+                                    <% if(Object.keys(activeTypes).length !== 0){
                                         let count = 0;
-                                            for (let [category, interactiontypes] of Object.entries(data.learningPath.interactionTypes)){ %>
+                                            for (let [category, interactionTypes] of Object.entries(activeTypes)){ %>
                                     <optgroup label=<%= category %>>
-                                        <% for (let [interactionTypeName, interactionTypeChecked] of Object.entries(interactiontypes)){ %>
+                                        <% for (let interactionTypeName of interactionTypes){ %>
                                             <option id="$$<%= category %>$$<%= interactionTypeName %>" class="changeInteractivity">
                                                 <%= interactionTypeName %>
                                             </option>
