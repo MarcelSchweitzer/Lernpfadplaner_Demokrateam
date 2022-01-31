@@ -67,9 +67,9 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                             <hr>
                             <form>
                                 <div class="form-group col-12">
-                                    <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevelID%>">
+                                    <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
                                         <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
-                                            <option <% if(taxLev == data.learningPath.taxonomyLevelID){ %> selected <%}%> > <%= taxLev %> </option>
+                                            <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
                                         <% }); } %>
                                     </select>
                                 </div>
