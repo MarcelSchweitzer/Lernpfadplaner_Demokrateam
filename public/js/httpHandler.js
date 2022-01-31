@@ -13,6 +13,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
             }
             createCanvas();
             loadWorkspaceBackgrounds();
+            document.getElementById("scenarios").scrollTo(0, document.getElementById("scenarios").scrollHeight);
             return cb()
         });
     });

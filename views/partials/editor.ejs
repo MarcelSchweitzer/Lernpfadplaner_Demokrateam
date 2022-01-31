@@ -124,7 +124,7 @@ function canBeRead(root, calls){
                 </section>
             </div>
             <div class="col-8 midCol">
-                <div class="material-group scenarios" id="accordion">
+                <div class="material-group scenarios" id="scenarios">
                     <% if(canBeRead(data, ['learningPath','scenarios'])){
                         let count = 0;
                     data.learningPath.scenarios.forEach(sc=>{
@@ -164,7 +164,7 @@ function canBeRead(root, calls){
 
                             </h5>
                         </div>
-                        <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#accordion">
+                        <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenarios">
                             <div class="card-body">
                                 <form>
                                     <div class="scenarioControllWrapper">

@@ -477,7 +477,7 @@ document.addEventListener('click', (event) => {
                     getEditPage(session.getCurrentLearningPathId(), () => {
 
                         // scroll to the bottom
-                        window.scrollTo(0, document.body.scrollHeight);
+                        document.getElementById("scenarios").scrollTo(0, document.getElementById("scenarios").scrollHeight);
                     });
                 });
             });

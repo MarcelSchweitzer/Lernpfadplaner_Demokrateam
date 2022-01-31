@@ -19,9 +19,10 @@ body::-webkit-scrollbar {
   box-sizing: border-box;
 }
 #main {
-  min-height: 100vh;
+  height: 80%;
   position: relative;
 }
+
 .image-cover {
   display: flex;
   align-items: center;
