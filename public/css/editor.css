@@ -28,6 +28,10 @@
   font-weight: 500;
 }
 
+.interactivityListItem {
+  max-width: 100%;
+}
+
 .HeaderInModal {
   text-align: center;
   font-size: 24px;
