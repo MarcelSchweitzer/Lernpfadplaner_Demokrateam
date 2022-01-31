@@ -69,6 +69,9 @@
                                                 let checked = (active ? "checked" : true);%>
                                                 <input class="createdIntInputCB <%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                <button class="button btn-light intDelBtn">
+                                                    <img class="button dashIcon" src="img/trash.svg">
+                                                </button>
                                                 <br>
                                         <%} } %>
                                         <div id="lastCheckboxelement<%= categoryName %>"></div>
@@ -94,6 +97,9 @@
                                                 var checked = (active ? "checked" : "");%>
                                                 <input class="createdIntInputCB <%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                 <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                <button class="button btn-light intDelBtn">
+                                                    <img class="button dashIcon" src="img/trash.svg">
+                                                </button>
                                                 <br>
                                             <% } %>
                                             <div id="lastCheckboxelement<%= categoryName %>"></div>
