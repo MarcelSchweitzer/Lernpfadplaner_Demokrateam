@@ -393,18 +393,6 @@ function generatePDF(learningPath) {
     }
 }
 
-function catIsDefault(categoryName) {
-    var isDefault = false;
-    console.log("Überprüfung für " + categoryName);
-    for([category] of Object.entries(data.interactionTypes)){
-        console.log("  " + category);
-        if(categoryName === category)
-            isDefault = true;
-        console.log("  " + isDefault);
-    }
-    return isDefault;
-}
-
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
@@ -515,11 +503,8 @@ document.addEventListener('click', (event) => {
     else if(id == "addTab"){//ändern
 
         // get name from input field in modal nameNewCat
-        //let allCatNames = Object.keys(session.getCurrentLearningPath().createdTypes) +  Object.keys(data.interactionTypes);
-        console.log(Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes));
-        //console.log(Object.keys(textToArray('../../res/taxonomyLevels.txt')));
-        //let newCatName = uniqueName(document.getElementById("catNameGiven").value, allCatNames);
-        let newCatName = document.getElementById("catNameGiven").value;
+        let allCatNames = Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes).concat(Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes));
+        let newCatName = uniqueName(document.getElementById("catNameGiven").value, allCatNames);
 
         document.getElementById("catNameGiven").value = "";
         let categoryID = newCatName.replaceAll(" ", "_");
@@ -550,6 +535,8 @@ document.addEventListener('click', (event) => {
                                             </div>
                                         </div>
                                   `);
+
+        saveCurrentLp();
     }
 
     else if(id == "deleteCreated"){
@@ -646,39 +633,32 @@ document.addEventListener('click', (event) => {
         let newInteractionType = document.getElementById("newIntertypeName-" + category).value;
 
         // get current interactionTypes for this category
-        createdTypes = session.getCurrentLearningPath()["lpSettings"]["createdTypes"];
+        createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
         if(!createdTypes[category])
             createdTypes[category] = {};
-        createdTypes[category][newInteractionType] = true;
 
         // check if name is valid
-        /*if(newInteractionType != "" && ! Object.keys(interactionTypes).includes(newInteractionType)){//ändern
-            lastElemID = '#lastCheckboxelement' + categoryID
-            $(lastElemID).before(`
-                <input type="checkbox" class="defaultIntInputCB` + categoryID + `" id="` + newInteractionType + `CB" name="` + newInteractionType + `" checked>
-                    <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                    <br>
-                `);*/
+        if(newInteractionType != "" && ! Object.keys(createdTypes[category]).includes(newInteractionType)){
 
             // add new interactiontype
-            //interactionTypes[newInteractionType] = "true";
-            
-            // add to Learningpath
-        lastElemID = '#lastCheckboxelement' + category;
-        $(lastElemID).before(`
+            createdTypes[category][newInteractionType] = true;
+            lastElemID = '#lastCheckboxelement' + category;
+            $(lastElemID).before(`
                 <input class="createdIntInputCB ` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                 <br>
                 `);
-        
-        session.setProp('lpSettings', createdTypes, "createdTypes");
 
-        unsavedChanges = true;
-        $(".newIntertypeName").val("");
-        /*else{
+            session.setProp('lpSettings', createdTypes, "createdTypes");
+            unsavedChanges = true;
+
+            saveCurrentLp();
+        } else {
             alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
-        }*/
+        }
+
+        $(".newIntertypeName").val("");
     }
 
     // handle delete scenario buttons
@@ -795,8 +775,6 @@ document.addEventListener('input', (event) => {
         activeDefaultTypes = session.getCurrentLearningPath().lpSettings.activeDefaultTypes;
         
         if (checked) {
-            if(!activeDefaultTypes[category]) 
-                activeDefaultTypes[category] = [];
             if(!activeDefaultTypes[category].includes(interactionType))
                 activeDefaultTypes[category].push(interactionType);
         } else {
