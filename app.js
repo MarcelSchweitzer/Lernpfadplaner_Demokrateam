@@ -123,7 +123,14 @@ app.get('/create', (req, res) => {
                     'taxonomyLevel': "",
                     'notes': "",
                     "lpSettings":{
-                        "activeDefaultTypes":{},
+                        "activeDefaultTypes":{
+                            "Global": [],
+                            "H5P":[],
+                            "Moodle": [],
+                            "ILIAS": [],
+                            "Adobe_Captivate": [],
+                            "3D_Vista": []
+                        },
                         "createdTypes":{}
                     },
                     'scenarios': [{
