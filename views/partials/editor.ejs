@@ -47,7 +47,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
         <div class="row">
             <div class="col-2 sidecol">
                 <section class="left">
-                    <div class="sidepanel sidepanel-first">
+                    <div class="sidepanel sidepanel-first scrollable">
                         <div class="rate-part">
                             <hr>
                             <p>Notizen</p>
@@ -108,7 +108,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                     </div>
                 </section>
                 <section>
-                    <div class="sidepanel sidepanel-second">
+                    <div class="sidepanel sidepanel-second scrollable">
                         <div class="rate-part">
                             <div class="interactivity">
                                 <hr>
@@ -138,7 +138,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
             </div>
 
             <div class="col-8 midCol">
-                <div class="material-group scenarios" id="scenarios">
+                <div class="material-group scenarios scrollable" id="scenarios">
                     <% if(canBeRead(data, ['learningPath','scenarios'])){
                         let count = 0;
                     data.learningPath.scenarios.forEach(sc=>{
@@ -247,7 +247,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
             </div>
             <div class="col-2 sidecol">
                 <section class="right">
-                    <div class="sidepanel sidepanel-first">
+                    <div class="sidepanel sidepanel-first scrollable">
                         <div class="rate-part">
                             <hr>
                             <p class="typ">Interaktionstypen</p>
@@ -277,7 +277,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         </div>
                     </div>
                 </section>
-                <div class="sidepanel sidepanel-second">
+                <div class="sidepanel sidepanel-second scrollable">
                     <div class="rate-part">
                         <hr>
                         <p>Interaktivitätseinstellungen</p>
