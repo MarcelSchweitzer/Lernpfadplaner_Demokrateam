@@ -14,12 +14,332 @@ $(document).ready(() => {
     fetchLearningPaths();
 });
 
-function isValidURL(url) {
-    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-    if(res==null)
-        alertToUser("Bild konnte nicht geladen werden!")
-    return (res != null)
-  };
+function isValidImageURL(str){
+    if ( typeof str !== 'string' ) return false;
+    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
+}
+
+//Funktion noch nicht fertig (und wahrscheinlich nicht an der richtigen Stelle)
+function highestExisTaxo(json) {
+    var highestTaxo = "";
+    return "4. Analysieren";
+}
+
+function refreshInteractivityList() {
+    $('.interactivityList').html('');
+    if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
+        for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
+            inter = session.getCurrentScenario().interactions[i];
+            $('.interactivityList').append(`
+                                                <div class="interactivityListElem">
+                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category + ` - ` + inter.interactionType + `</button>
+                                                </div>
+                                          `);
+        }
+        refreshInteractivityInputs();
+    }
+}
+
+function refreshInteractivityInputs() {
+    let speed = 40
+    if (session.interactionOpened()) {
+        $(".interactionSettings").css("display", "inline");
+        $(".x_coord").val(session.getCurrentInteraction().x_coord);
+        $(".y_coord").val(session.getCurrentInteraction().y_coord);
+        $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
+        $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
+        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt.replaceAll(" ", "_");
+        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
+        let behaDropID = session.getCurrentInteraction().behaviorSettings;
+        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
+        $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
+    }else{
+        $(".interactionSettings").css("display", "none");
+    }
+}
+
+function updateInteractionProperty(key, value) {
+    unsavedChanges = true;
+    session.setInteractionProp(key, value);
+}
+
+// update a learning path property
+function updateLpProperty(key, value, index = null, indexKey = null) {
+    unsavedChanges = true;
+    session.setProp(key, value, index, indexKey)
+}
+
+// save the currently opened learning path to the server
+function saveCurrentLp() {
+    if (session.learningPathOpened()) {
+        learningPathToServer(session.getCurrentLearningPath(), () => {
+            unsavedChanges = false;
+        });
+    }
+}
+
+function importLP(learningPaths) {
+    for(let i = 0; i < learningPaths.length; i++){
+        for(let j = 0; j < learningPaths[i].length; j++){
+            session.addlearningPath(learningPaths[i][j])
+            learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
+            }, true);
+        }
+    }
+    setTimeout(() => {
+        getHomePage();
+    }, 1000);
+}
+
+// alert a message to the user
+function alertToUser(message, seconds = 5, color = 'black') {
+    userMess = document.getElementById("userMessage")
+    userMess.innerText = message;
+    userMess.style.color = color;
+    setTimeout(() => {
+        userMess.innerText = "";
+        userMess.style.color = 'black';
+    }, seconds * 1000)
+}
+
+// check if there is enough space to show text in header bar
+function toggleHeaderText(){
+    screenSize = document.body.clientWidth;
+    if(screenSize < 720){
+        document.getElementById("userMessage").style.visibility = "hidden";
+        document.getElementById("usernameText").style.visibility = "hidden";
+        $("#userMessageDiv").removeClass("col-4");
+        $("#userMessageDiv").addClass("col-2");
+        $("#rightHeaderButtons").removeClass("col-2");
+        $("#rightHeaderButtons").addClass("col-4");
+    }else{
+        document.getElementById("userMessage").style.visibility = "visible";
+        document.getElementById("usernameText").style.visibility = "visible";
+        $("#userMessageDiv").removeClass("col-2");
+        $("#userMessageDiv").addClass("col-4");
+        $("#rightHeaderButtons").removeClass("col-4");
+        $("#rightHeaderButtons").addClass("col-2");
+    }
+}
+
+function toggleSettingsButton(){
+    if(session.learningPathOpened()){
+        document.getElementById("lpSettingsBtn").style.visibility = "visible";
+    }else{
+        document.getElementById("lpSettingsBtn").style.visibility = "hidden";
+    }
+}
+
+function forwardTreegraph(lpID){
+    document.getElementById("treegraphNavDashboard").style.display = "block";
+    createTreegraph(session.getlearningPathById(lpID));
+}
+
+function closeForwardTreegraph(){
+    document.getElementById("treegraphNavDashboard").style.display = "none";
+}
+
+function openTreegraphOverlay(lpID){
+    document.getElementById("treegraphNav").style.display = "block";
+    createTreegraph(lpID);
+}
+
+function closeTreegraphOverlay(){
+    document.getElementById("treegraphNav").style.display = "none";
+}
+
+function createTreegraph(lpData){
+
+    var nodeList = [];
+    var scenarioList = [];
+
+    for(var i=0; i < lpData.scenarios.length; i++){
+        if ("interactions" in lpData.scenarios[i]){
+            var interactList=[];
+            for(var j=0; j < lpData.scenarios[i].interactions.length; j++){
+                const interactDict = {
+                    "name": lpData.scenarios[i].interactions[j].interactionType
+                }
+                interactList.push(interactDict);
+            }
+            const scenarioDict = {
+                "name": lpData.scenarios[i].title,
+                "children": interactList
+            }
+            scenarioList.push(scenarioDict);
+        } else {
+            const scenarioDict = {
+                "name": lpData.scenarios[i].title
+            }
+            scenarioList.push(scenarioDict);
+        }
+    }
+
+    var root = {"name": lpData.title, "parent": "null", "children": scenarioList}
+
+    nodeList.push(root);
+
+    let parent = document.getElementById("treegraph");
+    parent.innerHTML = "";
+
+    let div = document.createElement("div");
+
+    parent.appendChild(div);
+
+    var margin = {top: 20, right: 120, bottom: 20, left: 120},
+        width = 960 - margin.right - margin.left,
+        height = 500 - margin.top - margin.bottom;
+
+    var i = 0,
+        duration = 750,
+        root;
+
+    var tree = d3.layout.tree()
+        .size([height, width]);
+
+    var diagonal = d3.svg.diagonal()
+        .projection(function(d) { return [d.y, d.x]; });
+
+    var svg = d3.select(div).append("svg")
+        .attr("width", width + margin.right + margin.left)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    root = nodeList[0];
+    root.x0 = height / 2;
+    root.y0 = 0;
+
+    update(root);
+
+    d3.select(self.frameElement).style("height", "500px");
+
+    function update(source) {
+
+        // Compute the new tree layout.
+        var nodes = tree.nodes(root).reverse(),
+            links = tree.links(nodes);
+
+        // Normalize for fixed-depth.
+        nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+        // Update the nodes…
+        var node = svg.selectAll("g.node")
+            .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+        // Enter any new nodes at the parent's previous position.
+        var nodeEnter = node.enter().append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+            .on("click", click);
+
+        nodeEnter.append("circle")
+            .attr("r", 1e-6)
+            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+        nodeEnter.append("text")
+            .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+            .attr("dy", ".35em")
+            .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+            .text(function(d) { return d.name; })
+            .style("fill-opacity", 1e-6);
+
+        // Transition nodes to their new position.
+        var nodeUpdate = node.transition()
+            .duration(duration)
+            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+        nodeUpdate.select("circle")
+            .attr("r", 10)
+            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+        nodeUpdate.select("text")
+            .style("fill-opacity", 1);
+
+        // Transition exiting nodes to the parent's new position.
+        var nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+            .remove();
+
+        nodeExit.select("circle")
+            .attr("r", 1e-6);
+
+        nodeExit.select("text")
+            .style("fill-opacity", 1e-6);
+
+        // Update the links…
+        var link = svg.selectAll("path.link")
+            .data(links, function(d) { return d.target.id; });
+
+        // Enter any new links at the parent's previous position.
+        link.enter().insert("path", "g")
+            .attr("class", "link")
+            .attr("d", function(d) {
+                var o = {x: source.x0, y: source.y0};
+                return diagonal({source: o, target: o});
+            });
+
+        // Transition links to their new position.
+        link.transition()
+            .duration(duration)
+            .attr("d", diagonal);
+
+        // Transition exiting nodes to the parent's new position.
+        link.exit().transition()
+            .duration(duration)
+            .attr("d", function(d) {
+                var o = {x: source.x, y: source.y};
+                return diagonal({source: o, target: o});
+            })
+            .remove();
+
+        // Stash the old positions for transition.
+        nodes.forEach(function(d) {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
+    }
+
+// Toggle children on click.
+    function click(d) {
+        if (d.children) {
+            d._children = d.children;
+            d.children = null;
+        } else {
+            d.children = d._children;
+            d._children = null;
+        }
+        update(d);
+    }
+}
+
+// searchbox
+function searchBox() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchIn");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("infoTab");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+
+function copy(elementID) {
+    let copyText = document.getElementById(elementID).value;
+    navigator.clipboard.writeText(copyText)
+}
 
 function createCanvas(){
     if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
@@ -37,24 +357,24 @@ function loadWorkspaceBackgrounds(){
     }
 }
 
-function generatePDF() {
+function generatePDF(learningPath) {
 
     // height for sections
-    const sectionHeight = 2000;
+    const sectionHeight = 200;
     const offset = 20; 
+    const dinA4 = 592.28;
 
     var doc = new jsPDF('', 'pt', 'a4');
-    for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
+    doc.setFontSize(15)
+    for(let i = 0; i < learningPath.scenarios.length; i++){
         html2canvas(document.getElementById('workspace' + i)).then(function(canvas){
 
             var imgdata = canvas.toDataURL();
-            console.log(imgdata)
-            doc.setFontSize(40)
-            doc.text(15, sectionHeight * i + offset, "TEST TEST TEST") // JSON.stringify(session.getCurrentLearningPath().scenarios[0])
-            doc.addImage(imgdata, 'png', sectionHeight * i + offset, 0, 595.28, 592.28/canvas.width * canvas.height );
-            if(i == session.getCurrentLearningPath().scenarios.length - 1 ){
-                doc.save(session.getCurrentLearningPath().title+".pdf");
-             }
+            doc.addImage(imgdata, 'png', 0, sectionHeight * i, dinA4, dinA4/canvas.width * canvas.height );
+            doc.text(15, sectionHeight * i + offset + dinA4/canvas.width * canvas.height, JSON.stringify(learningPath.scenarios[i], null, 4)); // not working, position seems to be overwriting older iterations
+            if(i == learningPath.scenarios.length - 1 ){
+                doc.save(learningPath.title+".pdf");
+                }
         });
     }
 }
@@ -102,24 +422,9 @@ document.addEventListener('click', (event) => {
             downloadlearningPaths(session.getlearningPaths(), 'json');
         }
     }
-    
-    // export as pdf - @wassim, this code gets to run, when the button is clicked
-    // if yout have onClick as well, you cannot controll which one is ran first, js has a non-blocking event loop
-    else if (id == 'exportButton') {
-        var doc = new jsPDF();
-        var specialElementHandlers = {
-            '#main': function (element, renderer) {
-                return true;
-            }
-        };
-        var source = window.document.getElementsByTagName("body")[0];
-        doc.fromHTML(source, 15, 15, {
-            'width': 170,
-            'elementHandlers': specialElementHandlers
-        },
-            function (){ doc.save('sample-file.pdf');});
-        
-        generatePDF();
+
+    else if (id == 'exportButton') {       
+        generatePDF(session.getCurrentLearningPath());
     }
 
     // copy material url
@@ -376,12 +681,6 @@ document.addEventListener('click', (event) => {
 
 }, false);
 
-//Funktion noch nicht fertig (und wahrscheinlich nicht an der richtigen Stelle)
-function highestExisTaxo(json) {
-    var highestTaxo = "";
-    return "4. Analysieren";
-}
-
 document.addEventListener('input', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
@@ -602,90 +901,10 @@ document.addEventListener("drop", (event) => {
     draggedInteraction = null;
 }, false);
 
-function refreshInteractivityList() {
-    $('.interactivityList').html('');
-    if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
-        for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
-            inter = session.getCurrentScenario().interactions[i];
-            $('.interactivityList').append(`
-                                                <div class="interactivityListElem">
-                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category + ` - ` + inter.interactionType + `</button>
-                                                </div>
-                                          `);
-        }
-        refreshInteractivityInputs();
-    }
-}
-
-function refreshInteractivityInputs() {
-    let speed = 40
-    if (session.interactionOpened()) {
-        $(".interactionSettings").css("display", "inline");
-        $(".x_coord").val(session.getCurrentInteraction().x_coord);
-        $(".y_coord").val(session.getCurrentInteraction().y_coord);
-        $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
-        $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
-        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt.replaceAll(" ", "_");
-        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
-        let behaDropID = session.getCurrentInteraction().behaviorSettings;
-        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
-        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
-        let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
-        $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
-    }else{
-        $(".interactionSettings").css("display", "none");
-    }
-}
-
-function updateInteractionProperty(key, value) {
-    unsavedChanges = true;
-    session.setInteractionProp(key, value);
-}
-
-// update a learning path property
-function updateLpProperty(key, value, index = null, indexKey = null) {
-    unsavedChanges = true;
-    session.setProp(key, value, index, indexKey)
-}
-
-// save the currently opened learning path to the server
-function saveCurrentLp() {
-    if (session.learningPathOpened()) {
-        learningPathToServer(session.getCurrentLearningPath(), () => {
-            unsavedChanges = false;
-        });
-    }
-}
-
-function importLP(learningPaths) {
-    for(let i = 0; i < learningPaths.length; i++){
-        for(let j = 0; j < learningPaths[i].length; j++){
-            session.addlearningPath(learningPaths[i][j])
-            learningPathToServer(session.getlearningPathById(learningPaths[i][j].id), ()=>{
-            }, true);
-        }
-    }
-    setTimeout(() => {
-        getHomePage();
-    }, 1000);
-}
-
-// alert a message to the user
-function alertToUser(message, seconds = 5, color = 'black') {
-    userMess = document.getElementById("userMessage")
-    userMess.innerText = message;
-    userMess.style.color = color;
-    setTimeout(() => {
-        userMess.innerText = "";
-        userMess.style.color = 'black';
-    }, seconds * 1000)
-}
-
-// autosave every ten seconds
-setInterval(function() {
-    if (unsavedChanges)
-        saveCurrentLp()
-}, 1000)
+$('#categoryTabs a').on('click', function(e) {
+    e.preventDefault()
+    $(this).tab('show')
+});
 
 window.onbeforeunload = function() {
     if(unsavedChanges){
@@ -698,249 +917,8 @@ window.onresize = (event) =>{
     toggleHeaderText();
 };
 
-// check if there is enough space to show text in header bar
-function toggleHeaderText(){
-    screenSize = document.body.clientWidth;
-    if(screenSize < 720){
-        document.getElementById("userMessage").style.visibility = "hidden";
-        document.getElementById("usernameText").style.visibility = "hidden";
-        $("#userMessageDiv").removeClass("col-4");
-        $("#userMessageDiv").addClass("col-2");
-        $("#rightHeaderButtons").removeClass("col-2");
-        $("#rightHeaderButtons").addClass("col-4");
-    }else{
-        document.getElementById("userMessage").style.visibility = "visible";
-        document.getElementById("usernameText").style.visibility = "visible";
-        $("#userMessageDiv").removeClass("col-2");
-        $("#userMessageDiv").addClass("col-4");
-        $("#rightHeaderButtons").removeClass("col-4");
-        $("#rightHeaderButtons").addClass("col-2");
-    }
-}
-
-function toggleSettingsButton(){
-    if(session.learningPathOpened()){
-        document.getElementById("lpSettingsBtn").style.visibility = "visible";
-    }else{
-        document.getElementById("lpSettingsBtn").style.visibility = "hidden";
-    }
-}
-
-function forwardTreegraph(lpID){
-    document.getElementById("treegraphNavDashboard").style.display = "block";
-    createTreegraph(session.getlearningPathById(lpID));
-}
-
-function closeForwardTreegraph(){
-    document.getElementById("treegraphNavDashboard").style.display = "none";
-}
-
-function openTreegraphOverlay(lpID){
-    document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(lpID);
-}
-
-function closeTreegraphOverlay(){
-    document.getElementById("treegraphNav").style.display = "none";
-}
-
-function createTreegraph(lpData){
-
-    var nodeList = [];
-    var scenarioList = [];
-
-    for(var i=0; i < lpData.scenarios.length; i++){
-        if ("interactions" in lpData.scenarios[i]){
-            var interactList=[];
-            for(var j=0; j < lpData.scenarios[i].interactions.length; j++){
-                const interactDict = {
-                    "name": lpData.scenarios[i].interactions[j].interactionType
-                }
-                interactList.push(interactDict);
-            }
-            const scenarioDict = {
-                "name": lpData.scenarios[i].title,
-                "children": interactList
-            }
-            scenarioList.push(scenarioDict);
-        } else {
-            const scenarioDict = {
-                "name": lpData.scenarios[i].title
-            }
-            scenarioList.push(scenarioDict);
-        }
-    }
-
-    var root = {"name": lpData.title, "parent": "null", "children": scenarioList}
-
-    nodeList.push(root);
-
-    let parent = document.getElementById("treegraph");
-    parent.innerHTML = "";
-
-    let div = document.createElement("div");
-
-    parent.appendChild(div);
-
-    var margin = {top: 20, right: 120, bottom: 20, left: 120},
-        width = 960 - margin.right - margin.left,
-        height = 500 - margin.top - margin.bottom;
-
-    var i = 0,
-        duration = 750,
-        root;
-
-    var tree = d3.layout.tree()
-        .size([height, width]);
-
-    var diagonal = d3.svg.diagonal()
-        .projection(function(d) { return [d.y, d.x]; });
-
-    var svg = d3.select(div).append("svg")
-        .attr("width", width + margin.right + margin.left)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    root = nodeList[0];
-    root.x0 = height / 2;
-    root.y0 = 0;
-
-    update(root);
-
-    d3.select(self.frameElement).style("height", "500px");
-
-    function update(source) {
-
-        // Compute the new tree layout.
-        var nodes = tree.nodes(root).reverse(),
-            links = tree.links(nodes);
-
-        // Normalize for fixed-depth.
-        nodes.forEach(function(d) { d.y = d.depth * 180; });
-
-        // Update the nodes…
-        var node = svg.selectAll("g.node")
-            .data(nodes, function(d) { return d.id || (d.id = ++i); });
-
-        // Enter any new nodes at the parent's previous position.
-        var nodeEnter = node.enter().append("g")
-            .attr("class", "node")
-            .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-            .on("click", click);
-
-        nodeEnter.append("circle")
-            .attr("r", 1e-6)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
-        nodeEnter.append("text")
-            .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
-            .attr("dy", ".35em")
-            .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-            .text(function(d) { return d.name; })
-            .style("fill-opacity", 1e-6);
-
-        // Transition nodes to their new position.
-        var nodeUpdate = node.transition()
-            .duration(duration)
-            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-
-        nodeUpdate.select("circle")
-            .attr("r", 10)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
-        nodeUpdate.select("text")
-            .style("fill-opacity", 1);
-
-        // Transition exiting nodes to the parent's new position.
-        var nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-            .remove();
-
-        nodeExit.select("circle")
-            .attr("r", 1e-6);
-
-        nodeExit.select("text")
-            .style("fill-opacity", 1e-6);
-
-        // Update the links…
-        var link = svg.selectAll("path.link")
-            .data(links, function(d) { return d.target.id; });
-
-        // Enter any new links at the parent's previous position.
-        link.enter().insert("path", "g")
-            .attr("class", "link")
-            .attr("d", function(d) {
-                var o = {x: source.x0, y: source.y0};
-                return diagonal({source: o, target: o});
-            });
-
-        // Transition links to their new position.
-        link.transition()
-            .duration(duration)
-            .attr("d", diagonal);
-
-        // Transition exiting nodes to the parent's new position.
-        link.exit().transition()
-            .duration(duration)
-            .attr("d", function(d) {
-                var o = {x: source.x, y: source.y};
-                return diagonal({source: o, target: o});
-            })
-            .remove();
-
-        // Stash the old positions for transition.
-        nodes.forEach(function(d) {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
-    }
-
-// Toggle children on click.
-    function click(d) {
-        if (d.children) {
-            d._children = d.children;
-            d.children = null;
-        } else {
-            d.children = d._children;
-            d._children = null;
-        }
-        update(d);
-    }
-}
-
-// searchbox
-function searchBox() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchIn");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("infoTab");
-    tr = table.getElementsByTagName("tr");
-    for (i = 1; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[1];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }       
-    }
-  }
-
-function copy(elementID) {
-    let copyText = document.getElementById(elementID).value;
-    navigator.clipboard.writeText(copyText)
-}
-
-$('#categoryTabs a').on('click', function(e) {
-    e.preventDefault()
-    $(this).tab('show')
-});
-
-function isValidImageURL(str){
-    if ( typeof str !== 'string' ) return false;
-    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
-}
+// autosave every ten seconds
+setInterval(function() {
+    if (unsavedChanges)
+        saveCurrentLp()
+}, 1000)

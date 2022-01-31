@@ -98,10 +98,6 @@ function downloadlearningPaths(lps, format) {
         download(filename, text);
     }
 
-    else if (format == "png" || format == "jpg"){
-        canvasManager.printCurrentCanvas(format);
-    }
-
 }
 
 // push a change of username to the server
