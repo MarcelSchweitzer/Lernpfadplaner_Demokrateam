@@ -885,7 +885,7 @@ document.addEventListener('input', (event) => {
         }
     }
     
-    else if (classes.contains("defaultInputCB")) {
+    else if (classes.value.startsWith("defaultInputCB")) {
         let checked = input.checked;
         let category = input.getAttribute("class").replaceAll('defaultInputCB', '')
         let interactionType = id.replaceAll('CB', '');
@@ -908,7 +908,7 @@ document.addEventListener('input', (event) => {
         saveCurrentLp();
     } 
     
-    else if (classes.contains("createdInputCB")) {
+    else if (classes.value.startsWith("createdInputCB")) {
         let checked = input.checked;
         let category = input.getAttribute("class").replaceAll('createdInputCB', '')
         let interactionType = id.replaceAll('CB', '');
