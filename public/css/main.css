@@ -269,14 +269,17 @@ footer {
   clear: both;
   z-index: 9999;
 }
+
 footer a {
   color: #000;
   padding-left: 15px;
 }
+
 footer a:hover {
   text-decoration: none;
   color: #000;
 }
+
 .footer-parent {
   height: 17.8%;
   width: 100%;
@@ -284,21 +287,26 @@ footer a:hover {
   display: flex;
   justify-content: center;
 }
+
 .footer-img {
   width: 100%;
   height: 100%;
   max-width: 1920px;
 }
+
 .footer-img img {
   max-width: 100%;
   height: 130px;
 }
+
 .sidebar {
   width: 25%;
 }
+
 .center-part {
   width: 50%;
 }
+
 @media screen and (max-width: 1024px) {
   .info-box {
     width: 340px;
@@ -338,6 +346,7 @@ footer a:hover {
     text-align: center;
   }
 }
+
 @media screen and (min-width: 740px) and (max-width: 768px) {
   .landing {
     display: flex;
@@ -364,6 +373,7 @@ footer a:hover {
     margin: 0% 0%;
   }
 }
+
 @media screen and (max-width: 575px) {
   .info-box {
     width: 350px;
@@ -383,6 +393,7 @@ footer a:hover {
     width: 100%;
   }
 }
+
 @media screen and (max-width: 412px) {
   .info-box {
     width: 290px;
@@ -451,12 +462,14 @@ footer a:hover {
   border: 2px solid #ff5823 !important;
   background-color: #1f2235 !important;
 }
+
 .form {
   /* position: absolute; */
   width: 100%;
   height: 50px;
   border: 4px dashed #fff;
 }
+
 .form p {
   width: 100%;
   height: 100%;
@@ -467,6 +480,7 @@ footer a:hover {
   padding-top: 3.5%;
   align-items: center;
 }
+
 .fileDrop {
   position: absolute;
   margin: 0;
@@ -476,25 +490,30 @@ footer a:hover {
   outline: none;
   opacity: 0;
 }
+
 .btn-outline-secondary {
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
 }
+
 .btn-outline-secondary:hover {
   background-color: #fff !important;
   color: #000;
 }
+
 .btn-outline-secondary img {
   width: 23px;
   height: 23px;
   display: block;
   padding: 0px 4px 0px 0px;
 }
+
 .input-group-append button {
   width: 40px;
 }
+
 .sub {
   padding: 14px 0;
   width: 200px;
@@ -541,8 +560,7 @@ footer a:hover {
   background-color: #fff;
 }
 
-td,
-th {
+td, th {
   text-align: center;
   vertical-align: middle;
 }
