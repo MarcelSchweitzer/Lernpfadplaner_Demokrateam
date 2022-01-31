@@ -15,15 +15,6 @@ class CanvasManager {
     this.dragTimeOut = false;
   }
 
-  toggleFullScreen(){
-    let fs = this.p5Obj.fullscreen();
-    this.p5Obj.fullscreen(!fs);
-    $( '#fullScreenWrap' ).append( $( this.getWorkSpaceId() ) );
-    let w = window.innerWidth;
-    let h = window.innerHeight;  
-    this.p5Obj.resizeCanvas(w,h);
-  }
-
   getCircleSize(){
     return this.circleSize;
   }

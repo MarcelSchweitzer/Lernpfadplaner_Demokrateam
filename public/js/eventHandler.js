@@ -448,8 +448,39 @@ document.addEventListener('click', (event) => {
         generatePDF([session.getCurrentLearningPath().scenarios[scenarioIndex]], session.getCurrentLearningPath().scenarios[scenarioIndex].title);
     }
 
-    else if(id == 'fullScreenBtn'){
-        canvasManager.toggleFullScreen();
+    else if( id == 'fullScreenBtn' ){
+        // else go fullscreen
+        if (
+            document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            document.mozFullScreenElement ||
+            document.msFullscreenElement
+        ) {
+            if (document.exitFullscreen) {
+            document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+            }
+        } else {
+            element = $( canvasManager.getWorkSpaceId() ).get(0);
+            if (element.requestFullscreen) {
+            element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+            }
+        }
+        setTimeout(() => {
+            canvasManager.scaleToZero( session.getCurrentScenarioIndex() );
+        }, 200);
+
     }
 
     // copy material url
