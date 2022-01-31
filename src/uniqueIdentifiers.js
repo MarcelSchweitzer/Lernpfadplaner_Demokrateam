@@ -31,7 +31,7 @@ function uniqueName(schema, listOfNames) {
 function createUserName() {
     let randIndex = Math.floor(Math.random() * (animalNameList.length - 1));
     let animal = animalNameList[randIndex];
-    animal = 'Anonyme ' + animal;
+    animal = 'Anonyme ' + animal + ' ';
     return animal
 }
 
