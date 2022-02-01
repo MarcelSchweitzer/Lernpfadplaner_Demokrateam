@@ -958,10 +958,10 @@ document.addEventListener('click', (event) => {
     }
 
     else if (classes.contains('intRenameModalBtn')) {
-        category = button.getAttribute("name");
-        interactionType = id;
+        let category = button.getAttribute("name");
+        let interactionType = id;
         
-        catInCreate = session.getCurrentLearningPath().lpSettings.createdTypes[category];
+        var catInCreate = session.getCurrentLearningPath().lpSettings.createdTypes[category];
 
         let newIntName = document.getElementById("newIntNameGiven").value
 
@@ -999,6 +999,9 @@ document.addEventListener('click', (event) => {
                     <br>
                 </div>
                 `)
+
+            unsavedChanges = true;
+            saveCurrentLp();
         } else {
             alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
         }
@@ -1007,9 +1010,6 @@ document.addEventListener('click', (event) => {
 
         $(".intRenameModalBtn").attr("id", "interactionTypeNameBtn");
         $(".intRenameModalBtn").attr("name", "categoryNameBtn");
-
-        unsavedChanges = true;
-        saveCurrentLp();
     }
 
     else if (classes.contains('intRenameDismiss')){
@@ -1048,12 +1048,29 @@ document.addEventListener('click', (event) => {
     }
 
     else if (classes.contains('catRenameModalBtn')) {
-        console.log("lösche " + document.getElementById("newCatNameGiven").value)
+        let category = id;
+        let newCategory = document.getElementById("newCatNameGiven").value;
+
+        createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
+
+        if(newCategory != "" && ! Object.keys(createdTypes).includes(newCategory) && ! Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(newCategory)){
+            createdTypes[newCategory] = createdTypes[category];
+
+            delete createdTypes[category];
+
+            session.setProp("lpSettings",createdTypes,"createdTypes");
+
+            unsavedChanges = true;
+            saveCurrentLp();
+        } else {
+            alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
+        }
+
         document.getElementById("newCatNameGiven").value = "";
 
         $(".catRenameModalBtn").attr("id", "categoryNameBtn");
     }
-
+    
     else if (classes.contains('catRenameDismiss')){
         document.getElementById("newCatNameGiven").value = "";
 
