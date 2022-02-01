@@ -71,10 +71,10 @@
                                                         let checked = (active ? "checked" : true);%>
                                                         <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                         <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                        <button class="button btn-light intChangeBtn">
+                                                        <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
                                                             <img class="button delIntIcon" src="img/trash.svg">
                                                         </button>
-                                                        <button class="button btn-light intChangeBtn">
+                                                        <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>">
                                                             <img class="button nameIntIcon" src="img/edit.png">
                                                         </button>
                                                         <br>
@@ -108,10 +108,10 @@
                                                         var checked = (active ? "checked" : "");%>
                                                         <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                         <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                        <button class="button btn-light intChangeBtn">
+                                                        <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
                                                             <img class="button delIntIcon" src="img/trash.svg">
                                                         </button>
-                                                        <button class="button btn-light intChangeBtn">
+                                                        <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>">
                                                             <img class="button nameIntIcon" src="img/edit.png">
                                                         </button>
                                                         <br>

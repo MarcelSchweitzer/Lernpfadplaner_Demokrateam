@@ -798,7 +798,7 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('createNewInt')){
 
         // get Category
-        let category = id.replaceAll('createNewInt-', '')
+        let category = id.replaceAll('createNewInt-', '');
 
         // read value from input
         let newInteractionType = document.getElementById("newIntertypeName-" + category).value;
@@ -823,10 +823,10 @@ document.addEventListener('click', (event) => {
             $(lastElemID).before(`
                 <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                <button class="button btn-light intChangeBtn">
+                <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
                     <img class="button delIntIcon" src="img/trash.svg">
                 </button>
-                <button class="button btn-light intChangeBtn">
+                <button class="button btn-light intChangeBtn intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `">
                     <img class="button nameIntIcon" src="img/edit.png">
                 </button>
                 <br>
@@ -841,6 +841,19 @@ document.addEventListener('click', (event) => {
         }
 
         $(".newIntertypeName").val("");
+    }
+
+    else if (classes.contains('intDelBtn')) {
+        console.log("hallo?")
+        let category = classes[5];
+        let interactionType = id.replaceAll('delCreInt', '');
+
+        console.log(category);
+        console.log(interactionType);
+    }
+
+    else if (classes.contains('intRenameBtn')) {
+        
     }
 
     // handle delete scenario buttons
