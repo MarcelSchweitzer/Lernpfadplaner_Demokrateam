@@ -692,6 +692,10 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
+    else if(id == "catNameDismiss"){
+        document.getElementById("catNameGiven").value = "";
+    }
+
     else if(classes.contains('selectAllDefaultCat')) {
         let category = id.replaceAll('catCheck ', '');
 
@@ -823,7 +827,7 @@ document.addEventListener('click', (event) => {
         // get current interactionTypes for this category
         createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
-        if(!createdTypes[category])
+        if(!createdTypes[category] && newInteractionType != "")
             createdTypes[category] = {};
 
         var defaultInterTypes = [];
@@ -840,7 +844,7 @@ document.addEventListener('click', (event) => {
             $(lastElemID).before(`
                 <div id="div` + category + `` + newInteractionType + `">
                     <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
-                    <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                    <label id="` + newInteractionType + `CBlabel" for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
                         <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `" src="img/trash.svg">
                     </button>
@@ -881,6 +885,9 @@ document.addEventListener('click', (event) => {
 
     else if (classes.contains('intDelModalBtn')) {
         deleteIntType(button.getAttribute("name"), id);
+        
+        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intDelModalBtn").attr("name", "categoryNameBtn");
     }
 
     else if (classes.contains('intRenameBtn')) {   
@@ -890,8 +897,55 @@ document.addEventListener('click', (event) => {
             var category = classes[4];
         
         let interactionType = id.replaceAll('renameCreInt', '');
+
+        $(".intRenameModalBtn").attr("id", interactionType);
+        $(".intRenameModalBtn").attr("name", category);
+        $("#renameIntModal").modal("show");
+    }
+
+    else if (classes.contains('intRenameModalBtn')) {
+        category = button.getAttribute("name");
+        interactionType = id;
         
-        console.log("modal sollte kommen mit " + category + " " + interactionType);
+        catInCreate = session.getCurrentLearningPath().lpSettings.createdTypes[category];
+
+        let newIntName = document.getElementById("newIntNameGiven").value
+
+        var defaultInterTypes = [];
+        var allElemOfCategory = document.getElementsByClassName("defaultInputCB" + category);
+        for(let interactionID of allElemOfCategory){
+            defaultInterTypes.push(interactionID.name);
+        }
+        
+        if(newIntName != "" && ! Object.keys(catInCreate).includes(newIntName) && ! defaultInterTypes.includes(newIntName)){
+            catInCreate[newIntName]
+            if(catInCreate[interactionType])
+                catInCreate[newIntName] = true;
+            else
+                catInCreate[newIntName] = false;
+
+            delete catInCreate[interactionType];
+
+            console.log("ids / classes von allen betroffenen objekten und inhalt label müssen noch geändert werden");
+        } else {
+            alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
+        }
+
+        document.getElementById("newIntNameGiven").value = "";
+        session.setProp("lpSettings",catInCreate,"createdTypes",category);
+
+        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intDelModalBtn").attr("name", "categoryNameBtn");
+
+        unsavedChanges = true;
+        saveCurrentLp();
+    }
+
+    else if (classes.contains('intRenameDismiss')){
+        document.getElementById("newIntNameGiven").value = "";
+
+        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intDelModalBtn").attr("name", "categoryNameBtn");
     }
 
     // handle delete scenario buttons

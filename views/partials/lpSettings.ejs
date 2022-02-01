@@ -71,7 +71,7 @@
                                                         let checked = (active ? "checked" : true);%>
                                                         <div id="div<%= categoryName %><%= interactionTypeName %>">
                                                             <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                                            <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                            <label id="<%= interactionTypeName %>CBlabel" for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                                             <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
                                                                 <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
                                                             </button>
@@ -110,7 +110,7 @@
                                                         var checked = (active ? "checked" : "");%>
                                                         <div id="div<%= categoryName %><%= interactionTypeName %>">
                                                             <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                                            <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                            <label id="<%= interactionTypeName %>CBlabel" for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                                             <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
                                                                 <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
                                                             </button>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-light" id="catNameDismiss" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
             </div>
@@ -192,6 +192,24 @@
                         <button type="button" class="btn btn-light intDelModalBtn"
                             id="interactionTypeNameBtn" name="categoryNameBtn" data-dismiss="modal">Löschen</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="renameIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p class="modalText">Wie soll der Interaktionstyp ab sofort heißen?</p>
+                        <input type="text" onSubmit="return false;" name="newIntNameGiven" class="form-control" id="newIntNameGiven">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light intRenameModalBtn" id="interactionTypeNameBtn"
+                            name="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
+                        <button type="button" class="btn btn-light intRenameDismiss" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
             </div>
