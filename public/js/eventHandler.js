@@ -479,7 +479,17 @@ function deleteIntType(category, interactionType) {
 }
 
 function deleteCatType(category) {
-    console.log("hallo")
+    var createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
+
+    delete createdTypes[category];
+
+    $("#" + category + "Nav").remove();
+    $("#a" + category).remove();
+
+    session.setProp("lpSettings", createdTypes, "createdTypes");
+    unsavedChanges = false;
+    saveCurrentLp();
+    
 }
 
 function changeSettingsComplete(newSettings){
@@ -692,7 +702,7 @@ document.addEventListener('click', (event) => {
         unsavedChanges = true;
 
         $('#addTabNav').before(`
-                                    <li class="nav-item ` + categoryID + `Nav">
+                                    <li class="nav-item" id= "` + categoryID + `Nav">
                                         <a class="nav-link" draggable="false" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             ` + newCatName + `
                                         </a>
@@ -995,8 +1005,8 @@ document.addEventListener('click', (event) => {
 
         document.getElementById("newIntNameGiven").value = "";
 
-        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
-        $(".intDelModalBtn").attr("name", "categoryNameBtn");
+        $(".intRenameModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intRenameModalBtn").attr("name", "categoryNameBtn");
 
         unsavedChanges = true;
         saveCurrentLp();
@@ -1005,8 +1015,8 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('intRenameDismiss')){
         document.getElementById("newIntNameGiven").value = "";
 
-        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
-        $(".intDelModalBtn").attr("name", "categoryNameBtn");
+        $(".intRenameModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intRenameModalBtn").attr("name", "categoryNameBtn");
     }
 
     else if (classes.contains('catDelBtn')) {
@@ -1023,12 +1033,33 @@ document.addEventListener('click', (event) => {
     else if (classes.contains('catDelModalBtn')) {
         deleteCatType(id);
         
-        $(".intDelModalBtn").attr("id", "categoryNameBtn");
+        $(".catDelModalBtn").attr("id", "categoryNameBtn");
     }
 
     else if (classes.contains('catDelDismiss')) {
-        $(".intDelModalBtn").attr("id", "categoryNameBtn");
+        $(".catDelModalBtn").attr("id", "categoryNameBtn");
     }
+
+    else if (classes.contains('catRenameBtn')) {
+        let category = id.replaceAll('catRename', '');
+
+        $(".catRenameModalBtn").attr("id", category);
+        $("#renameCatModal").modal("show");
+    }
+
+    else if (classes.contains('catRenameModalBtn')) {
+        console.log("lösche " + document.getElementById("newCatNameGiven").value)
+        document.getElementById("newCatNameGiven").value = "";
+
+        $(".catRenameModalBtn").attr("id", "categoryNameBtn");
+    }
+
+    else if (classes.contains('catRenameDismiss')){
+        document.getElementById("newCatNameGiven").value = "";
+
+        $(".catRenameModalBtn").attr("id", "categoryNameBtn");
+    }
+
 
     // handle delete scenario buttons
     else if (classes.contains('deleteScenario')) {

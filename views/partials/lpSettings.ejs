@@ -32,7 +32,7 @@
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
                                 let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
-                                    <li class="nav-item <%= categoryName %>Nav">
+                                    <li class="nav-item" id= "<%= categoryName %>Nav">
                                         <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             <% catName=categoryName.replace("_"," "); %>
                                             <%= catName %>
