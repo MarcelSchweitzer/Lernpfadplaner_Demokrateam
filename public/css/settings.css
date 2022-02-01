@@ -91,6 +91,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 .newTypeWrap{
   display: flex;
   justify-content: center;
+  width: 150px;
 }
 
 .flexInput{

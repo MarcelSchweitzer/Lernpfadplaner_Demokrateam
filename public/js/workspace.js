@@ -329,19 +329,20 @@ function newCanv(p){
 
     p.mouseWheel = function (event) {
 
-      const factor = 10;
+      const zoomFactor = -0.0005;
+      const offsetFactor = 10;
 
       if(canvasManager.inCanvas() && canvasManager.getScale() > 0){
-        canvasManager.addToScale(event.delta * -0.0005 * canvasManager.getScale())
+        canvasManager.addToScale(event.delta * zoomFactor * Math.sqrt(canvasManager.getScale()))
         if(event.delta < 0){
           canvasManager.setUserOffset(
-            canvasManager.getUserOffset().x + ((p.width / 2 - p.mouseX) * canvasManager.getScale() / factor),
-            canvasManager.getUserOffset().y + ((p.height / 2 - p.mouseY) * canvasManager.getScale() / factor)
+            canvasManager.getUserOffset().x + ((p.width / 2 - p.mouseX) * canvasManager.getScale() / offsetFactor),
+            canvasManager.getUserOffset().y + ((p.height / 2 - p.mouseY) * canvasManager.getScale() / offsetFactor)
           )
         }else{
           canvasManager.setUserOffset(
-            canvasManager.getUserOffset().x - ((p.width / 2 - p.mouseX) * canvasManager.getScale() / factor),
-            canvasManager.getUserOffset().y - ((p.height / 2 - p.mouseY) * canvasManager.getScale() / factor)
+            canvasManager.getUserOffset().x - (p.width * canvasManager.getScale() / 2 * offsetFactor),
+            canvasManager.getUserOffset().y - (p.height * canvasManager.getScale() / 2 * offsetFactor) 
           )
         }
         return false;

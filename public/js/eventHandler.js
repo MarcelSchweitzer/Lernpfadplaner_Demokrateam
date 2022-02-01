@@ -583,16 +583,22 @@ document.addEventListener('click', (event) => {
                              `);
         $('#lastTabContent').before(`
                                         <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
-                                            <div class="items ` + categoryID + `" active>
-                                                <div id="lastCheckboxelement` + categoryID + `"></div>
+                                            <div class="tabWrap">
+                                                <div class="itemWrap">
+                                                    <div class="items ` + categoryID + `" active>
+                                                        <div id="lastCheckboxelement` + categoryID + `"></div>
+                                                    </div>
+                                                    <div class="newTypeWrap">
+                                                        <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-` + categoryID + `" placeholder="Interaktionstyp">
+                                                        <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-` + categoryID + `">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="settingsItems">
                                                 <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + categoryID + `"> Alle aus dieser Kategorie auswählen </button>
                                                 <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
-                                                <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-` + categoryID + `" placeholder="Neuer Interaktionstyp">
-                                                <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-` + categoryID + `">
-                                                    +
-                                                </button>
                                             </div>
                                         </div>
                                   `);

@@ -81,7 +81,7 @@
                                                 <%} } %>
                                                 <div id="lastCheckboxelement<%= categoryName %>"></div>
                                                 <div class="newTypeWrap">
-                                                    <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
+                                                    <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-<%= categoryName %>" placeholder="Interaktionstyp">
                                                     <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-<%= categoryName %>">+</button>
                                                 </div>
                                             </div>                                        
@@ -101,30 +101,36 @@
                                 let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
                                     <div class="tab-pane fade" id="a<%= categoryName %>" role="tabpanel" aria-labelledby="<%= categoryName %>-tab">
-                                        <div class="items <%= categoryName %>">
-                                            <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
-                                                var checked = (active ? "checked" : "");%>
-                                                <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                                <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                <button class="button btn-light intChangeBtn">
-                                                    <img class="button delIntIcon" src="img/trash.svg">
-                                                </button>
-                                                <button class="button btn-light intChangeBtn">
-                                                    <img class="button nameIntIcon" src="img/edit.png">
-                                                </button>
-                                                <br>
-                                            <% } %>
-                                            <div id="lastCheckboxelement<%= categoryName %>"></div>
+                                        <div class="tabWrap">
+                                            <div class="itemWrap">
+                                                <div class="items <%= categoryName %>">
+                                                    <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
+                                                        var checked = (active ? "checked" : "");%>
+                                                        <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                                        <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                        <button class="button btn-light intChangeBtn">
+                                                            <img class="button delIntIcon" src="img/trash.svg">
+                                                        </button>
+                                                        <button class="button btn-light intChangeBtn">
+                                                            <img class="button nameIntIcon" src="img/edit.png">
+                                                        </button>
+                                                        <br>
+                                                    <% } %>
+                                                    <div id="lastCheckboxelement<%= categoryName %>"></div>
+                                                </div>
+                                                <div class="newTypeWrap">
+                                                    <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-<%= categoryName %>" placeholder="Interaktionstyp">
+                                                    <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-<%= categoryName %>">+</button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="settingsItems">
                                             <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
                                             <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
-                                            <input type="text" onSubmit="return false;" class="form-control customInput newIntertypeName" id="newIntertypeName-<%= categoryName %>" placeholder="Neuer Interaktionstyp">
-                                            <button class="btn btn-light createBtn customInput createNewInt" id="createNewInt-<%= categoryName %>">+</button>
                                         </div>
                                     </div>
                             <%}counter++}} %>
-                                <div id="lastTabContent"></div>
+                            <div id="lastTabContent"></div>
                     </div>
                 </div>
             </div>
