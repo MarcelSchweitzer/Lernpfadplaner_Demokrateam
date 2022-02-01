@@ -750,6 +750,14 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
+    else if(classes.contains('catDelBtn')){
+        alert('delete Cat')
+    }
+
+    else if(classes.contains('catRenameBtn')){
+        alert('rename Cat')
+    }
+
     else if(classes.contains('selectAllCreatedCat')) {
         let category = id.replaceAll('catCheck ', '');
 

@@ -33,11 +33,11 @@
                                 let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
                                     <li class="nav-item">
+                                        <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                            <% catName=categoryName.replace("_"," "); %>
+                                            <%= catName %>
+                                        </a>
                                         <div class="catNavWrapper">
-                                            <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                                <% catName=categoryName.replace("_"," "); %>
-                                                <%= catName %>
-                                            </a>
                                             <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel<%= categoryName %>">
                                                 <img class="button delIntIcon catDelBtn" id="catDel<%= categoryName %>" src="img/trash.svg">
                                             </button>

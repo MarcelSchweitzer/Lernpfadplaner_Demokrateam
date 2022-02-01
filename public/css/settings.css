@@ -82,6 +82,8 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 
 .nav-item {
   font-size: 14px;
+  display: flex;
+  justify-content: center;
 }
 
 .newCat {
