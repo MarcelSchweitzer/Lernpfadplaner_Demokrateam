@@ -452,6 +452,17 @@ function generatePDF(scenarios, title, index = null) {
     }
 }
 
+function deleteOpenInteraction() {
+    if(session.interactionOpened()){
+        session.deleteInteraction(session.getCurrentInteractionIndex());
+        session.closeInteraction();
+        if(session.interactionsExist && session.getCurrentScenario().interactions.length > 0)
+            session.openInteraction(session.getCurrentScenario().interactions.length - 1)
+        refreshInteractivityList();
+        unsavedChanges = true;
+    }
+}
+
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
@@ -586,16 +597,17 @@ document.addEventListener('click', (event) => {
         } 
     } 
 
-    // delete interactivity button
+    // delete interactivity button in modal
     else if(id == 'deleteInteractivity'){
-        if(session.interactionOpened()){
-            session.deleteInteraction(session.getCurrentInteractionIndex());
-            session.closeInteraction();
-            if(session.interactionsExist && session.getCurrentScenario().interactions.length > 0)
-                session.openInteraction(session.getCurrentScenario().interactions.length - 1)
-            refreshInteractivityList();
-            unsavedChanges = true;
-        }
+        deleteOpenInteraction();
+    }
+
+    // delete interactivity button in activity-Settings
+    else if(id == 'delOpenInt'){
+        if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
+            deleteOpenInteraction();
+        else
+            $("#deleteInteract").modal("show");
     }
 
     // show treegrap in editor
@@ -833,6 +845,7 @@ document.addEventListener('click', (event) => {
 
     // handle delete scenario buttons
     else if (classes.contains('deleteScenario')) {
+        console.log("wirklich?")
         scenarioIndex = id.replaceAll('deleteScenario', '');
         session.deleteScenario(scenarioIndex);
         learningPathToServer(session.getCurrentLearningPath(), () => {

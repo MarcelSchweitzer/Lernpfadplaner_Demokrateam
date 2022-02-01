@@ -345,8 +345,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </select>
                             </div>
                             <div class="form-group interactionItem">
-                                <button class="btn btn-light deleteIntBtn interSet"
-                                    data-toggle="modal" data-target="#deleteInteract">
+                                <button class="btn btn-light deleteIntBtn interSet" id="delOpenInt">
                                     <img class="button" src="img/trash.svg">
                                 </button>
                             </div>
@@ -412,7 +411,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <p class="textInModal">Bist Du sicher? </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light deleteScenario" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
+                        <button type="button" class="btn btn-light" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
