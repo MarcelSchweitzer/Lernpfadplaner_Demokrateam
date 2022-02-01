@@ -386,11 +386,11 @@ function generatePDF(scenarios, title, index = null) {
 
         // alway begin new page for new lp
         doc.setPage(page);
-        index = (index == null) ? i : index;
-        canvasManager.scaleToZero(index);
+        let ind = (index == null) ? i : index;
+        canvasManager.scaleToZero(i);
         setTimeout(()=>{
         
-            html2canvas(document.getElementById('workspace' + index)).then(function(canvas){
+            html2canvas(document.getElementById('workspace' + ind)).then(function(canvas){
 
                 var imgdata = canvas.toDataURL();
                 doc.addImage(imgdata, 'png', 0, 0, dinA4X, dinA4X/canvas.width * canvas.height);
