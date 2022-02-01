@@ -334,6 +334,10 @@
   width: 100%;
 }
 
+.lpTitleInput {
+  margin-right: 22px;
+}
+
 .scenarioHeaderInput {
   width: 30%;
 }
