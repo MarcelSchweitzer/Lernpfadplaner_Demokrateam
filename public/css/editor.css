@@ -507,8 +507,11 @@ header {
 }
 
 hr.rounded {
-  border-top: 5px solid #bbb;
+  border-top: 2px solid #bbb;
   border-radius: 5px;
+}
+hr.dotted {
+  border-top: 3px dotted #bbb;
 }
 
 .accordionWrap {
