@@ -69,6 +69,15 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   text-align: center;
 }
 
+.catContent {
+  justify-content: center;
+}
+
+.catNavWrapper {
+  justify-content: center;
+  display: flex;
+}
+
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
 
 .nav-item {
@@ -84,21 +93,21 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   color: #1f2235;
 }
 
-.tab-pane{
+.tab-pane {
   width: 100%;
 }
 
-.newTypeWrap{
+.newTypeWrap {
   display: flex;
   justify-content: center;
   width: 150px;
 }
 
-.flexInput{
+.flexInput {
   justify-content: center;
 }
 
-.newIntertypeName{
+.newIntertypeName {
   border-top-right-radius: 0px 0px;
   border-bottom-right-radius: 0px 0px;
   width: 65%;
@@ -110,7 +119,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border-color: rgb(255, 255, 255);
 }
 
-.createNewInt{
+.createNewInt {
   border-top-right-radius: 10px 10px;
   border-bottom-right-radius: 10px 10px;
   background-color: white;
@@ -119,7 +128,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   width: 35%;
 }
 
-.itemWrap{
+.itemWrap {
   display: block;
   flex-wrap: wrap;
   padding: 10px;
@@ -133,7 +142,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   columns: 90px 4;
 }
 
-.settingsItems{
+.settingsItems {
   margin: 20px;
   width: 100%;
   bottom: 0px;

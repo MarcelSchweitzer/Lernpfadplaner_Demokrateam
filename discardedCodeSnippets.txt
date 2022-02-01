@@ -46,3 +46,14 @@ under else if(id == "addTab")
 
 under else if (classes.contains('DefaultIntInputCB')
   interactivity = interactivity.replace(/^\s+|\s+$/g, '');
+
+  
+                                    <div class="catNavWrapper">
+
+                                    
+                                    <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel<%= categoryName %>">
+                                        <img class="button delIntIcon catDelBtn" id="catDel<%= categoryName %>" src="img/trash.svg">
+                                    </button>
+                                    <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename<%= categoryName %>">
+                                        <img class="button nameIntIcon catRenameBtn" id="catRename<%= categoryName %>" src="img/edit.png">
+                                    </button>

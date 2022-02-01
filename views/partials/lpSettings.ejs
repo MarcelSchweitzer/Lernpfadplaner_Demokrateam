@@ -20,7 +20,7 @@
                                 let active = (counter == 0 ? "active" : "");
                                 %>
                                 <li class="nav-item">
-                                    <a class="nav-link <%= active %>" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                    <a class="nav-link catContent" <%= active %> draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
                                         <% catName = categoryName.replace("_"," "); %>
                                         <%= catName %>
                                     </a>
@@ -33,10 +33,18 @@
                                 let defaultCatNames = Object.keys(data.interactionTypes);
                                 if(!defaultCatNames.includes(categoryName)){%>
                                     <li class="nav-item">
-                                        <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            <% catName=categoryName.replace("_"," "); %>
-                                            <%= catName %>
-                                        </a>
+                                        <div class="catNavWrapper">
+                                            <a class="nav-link" draggable="false" id="<%= categoryName %>-tab" data-toggle="tab" href="#a<%= categoryName %>" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                                <% catName=categoryName.replace("_"," "); %>
+                                                <%= catName %>
+                                            </a>
+                                            <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel<%= categoryName %>">
+                                                <img class="button delIntIcon catDelBtn" id="catDel<%= categoryName %>" src="img/trash.svg">
+                                            </button>
+                                            <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename<%= categoryName %>">
+                                                <img class="button nameIntIcon catRenameBtn" id="catRename<%= categoryName %>" src="img/edit.png">
+                                            </button>
+                                        </div>
                                     </li>
                             <%}counter++ }}%>
                             <li class="nav-item" id="addTabNav">
@@ -144,6 +152,7 @@
                 <%let WarnSettingChecked = (data.learningPath.lpSettings.ignoreWarnings ? "checked" : "" ) %>
                 <input type="checkbox" class="checkIgnoWar" id="ignoreWarnings" name="ignoreWarnings" <%= WarnSettingChecked %>>
                 <label for="ignoreWarnings">Warnungen ignorieren</label>
+                <button class="btn btn-light customInput" id="reserSettingsBtn">Einstellungen zurücksetzen</button>
             </div>
         </div>
         <div class="modal fade" id="modalIgnoWar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -210,6 +219,22 @@
                         <button type="button" class="btn btn-light intRenameModalBtn" id="interactionTypeNameBtn"
                             name="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
                         <button type="button" class="btn btn-light intRenameDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalResetSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modalText">Bist Du sicher?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" id="resetSettings" data-dismiss="modal">Ja</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
             </div>

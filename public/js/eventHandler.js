@@ -478,6 +478,27 @@ function deleteIntType(category, interactionType) {
     saveCurrentLp();
 }
 
+function changeSettingsComplete(newSettings){
+    $.ajax({
+        url: session.setProp("lpSettings", newSettings),
+        success: function(){
+        getSettingsPage(mode = 'lpSettingsOnly');}
+    })
+}
+
+function resetSettings(){
+    var defaultCategories = {};
+    for(let categoryNames of Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes)){
+        defaultCategories[categoryNames] = [];}
+
+    var defaultSettings = {}
+    defaultSettings["activeDefaultTypes"] = defaultCategories;
+    defaultSettings["createdTypes"] = {};
+    defaultSettings["ignoreWarnings"] = false;
+    
+    changeSettingsComplete(defaultSettings);
+}
+
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
@@ -634,6 +655,17 @@ document.addEventListener('click', (event) => {
         session.getCurrentLearningPath().lpSettings.ignoreWarnings = true;
         unsavedChanges = true;
         saveCurrentLp();
+    }
+
+    else if(id == "reserSettingsBtn"){
+        if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
+            resetSettings();
+        else
+            $("#modalResetSettings").modal("show");
+    }
+
+    else if(id == "resetSettings"){
+        resetSettings();
     }
 
     else if(id == "uncheckIgnoWarnings"){
