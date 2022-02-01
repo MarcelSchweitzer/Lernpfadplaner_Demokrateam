@@ -154,10 +154,12 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
                                     <div class="accordionWrap">
-                                        <button class="btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
+                                        <button class="button btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
                                             <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
                                         </button>
-                                        <button class="btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>"><img class="button" src="img/trash.svg"></button>
+                                        <button class="button btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>">
+                                            <img class="button dashIcon" src="img/trash.svg">
+                                        </button>
                                     </div>
                                     <!-- delete -->
                                     <div class="modal fade" id="delete<%= count %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
