@@ -1,4 +1,4 @@
-# Lernpfadplaner - Demokrateam
+# Lernpfadplaner - Demokrateam ![project logo](https://github.com/ag-gipp/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon.png?raw=true)
 
 <a href="https://github.com/ag-gipp/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
 
@@ -76,7 +76,7 @@ npm start
 - app.js: Server side code
 - package-lock.json: information about the project and its dependencies
 - package.json: information about the project and its dependencies
-- setup_db.swl: SQL expression to setup a database locally working with your localhost
+- setup_db.sql: SQL expression to setup a database locally working with your localhost
 
 ## License
 
