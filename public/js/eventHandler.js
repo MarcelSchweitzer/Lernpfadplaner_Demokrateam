@@ -483,8 +483,16 @@ function deleteCatType(category) {
 
     delete createdTypes[category];
 
+    let active = ($("#" + category + "-tab").hasClass("active"))
+
     $("#" + category + "Nav").remove();
     $("#a" + category).remove();
+
+    if(active){
+        $("#Global-tab").addClass("active");
+        $("#aGlobal").removeClass("fade").addClass("fadeshow").addClass("active");
+        $("#Globalact").addClass("active");
+    }
 
     session.setProp("lpSettings", createdTypes, "createdTypes");
     unsavedChanges = false;
@@ -720,7 +728,7 @@ document.addEventListener('click', (event) => {
                                         <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
                                             <div class="tabWrap">
                                                 <div class="itemWrap">
-                                                    <div class="items` + categoryID + `"  id="` + categoryID + `act">
+                                                    <div class="items ` + categoryID + `" id="` + categoryID + `act">
                                                         <div id="lastCheckboxelement` + categoryID + `"></div>
                                                     </div>
                                                     <div class="newTypeWrap">
@@ -736,7 +744,18 @@ document.addEventListener('click', (event) => {
                                                 <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
                                             </div>
                                         </div>
-                                  `);
+                                `);
+
+        //let actCatTab = ($(".fadeshow").attr("id")).replaceAll("a","");
+
+        //$("#" + actCatTab + "-tab").removeClass("active");
+        //$("#a" + actCatTab).addClass("fade").removeClass("fadeshow").removeClass("active");
+        //$("#" + actCatTab + "act").removeClass("active");
+
+        /*
+        $("#" + categoryID + "-tab").addClass("active");
+        $("#a" + categoryID).removeClass("fade").addClass("fadeshow").addClass("active");
+        $("#" + categoryID + "act").addClass("active");*/
 
         saveCurrentLp();
     }
@@ -1062,6 +1081,9 @@ document.addEventListener('click', (event) => {
 
             session.setProp("lpSettings",createdTypes,"createdTypes");
 
+            //wenn id: category-tab die klasse hat
+            let active = ($("#" + category + "-tab").hasClass("active"))
+
             $("#" + category + "Nav").remove();
             $("#a" + category).remove();
 
@@ -1081,10 +1103,10 @@ document.addEventListener('click', (event) => {
                                         </li>
                                 `);
             $('#lastTabContent').before(`
-                                            <div class="tab-pane fadeshow active" id="a` + newCatID + `" role="tabpanel" aria-labelledby="` + newCatID + `-tab">
+                                            <div class="tab-pane fade" id="a` + newCatID + `" role="tabpanel" aria-labelledby="` + newCatID + `-tab">
                                                 <div class="tabWrap">
                                                     <div class="itemWrap">
-                                                        <div class="items ` + newCatID + ` active" id="` + newCatID + `act">
+                                                        <div class="items ` + newCatID + `" id="` + newCatID + `act">
                                                             <div id="lastCheckboxelement` + newCatID + `"></div>
                                                         </div>
                                                         <div class="newTypeWrap">
@@ -1120,6 +1142,12 @@ document.addEventListener('click', (event) => {
                                                         </div>
                     `);
                 }
+            }
+
+            if(active){
+                $("#" + newCatID + "-tab").addClass("active");
+                $("#a" + newCatID).removeClass("fade").addClass("fadeshow").addClass("active");
+                $("#" + newCatID + "act").addClass("active");
             }
 
             unsavedChanges = true;
