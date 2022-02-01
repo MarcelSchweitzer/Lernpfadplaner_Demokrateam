@@ -76,6 +76,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 .catNavWrapper {
   justify-content: center;
   display: flex;
+  vertical-align: center;
 }
 
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
@@ -84,6 +85,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   font-size: 14px;
   display: flex;
   justify-content: center;
+  vertical-align: center;
 }
 
 .newCat {
