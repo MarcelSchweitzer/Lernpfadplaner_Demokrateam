@@ -341,8 +341,8 @@ function newCanv(p){
           )
         }else{
           canvasManager.setUserOffset(
-            canvasManager.getUserOffset().x - (p.width * canvasManager.getScale() / 2 * offsetFactor),
-            canvasManager.getUserOffset().y - (p.height * canvasManager.getScale() / 2 * offsetFactor) 
+            canvasManager.getUserOffset().x - (this.images[session.getCurrentScenarioIndex()].width * canvasManager.getScale() / 2 * offsetFactor),
+            canvasManager.getUserOffset().y - (this.images[session.getCurrentScenarioIndex()].height * canvasManager.getScale() / 2 * offsetFactor) 
           )
         }
         return false;
