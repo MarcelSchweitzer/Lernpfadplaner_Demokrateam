@@ -470,8 +470,6 @@ function deleteIntType(category, interactionType) {
 
     if(Object.keys(createdTypes[category]).length === 0 && Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(category))
         delete createdTypes[category];
-
-    console.log(category + " " + interactionType);
     
     $("#div" + category + interactionType).remove();
 
@@ -844,7 +842,7 @@ document.addEventListener('click', (event) => {
             $(lastElemID).before(`
                 <div id="div` + category + `` + newInteractionType + `">
                     <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
-                    <label id="` + newInteractionType + `CBlabel" for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                    <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                     <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
                         <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `" src="img/trash.svg">
                     </button>
@@ -853,7 +851,7 @@ document.addEventListener('click', (event) => {
                     </button>
                     <br>
                 </div>
-                `);
+                `)
 
             session.setProp('lpSettings', createdTypes, "createdTypes");
             unsavedChanges = true;
@@ -926,13 +924,30 @@ document.addEventListener('click', (event) => {
 
             delete catInCreate[interactionType];
 
-            console.log("ids / classes von allen betroffenen objekten und inhalt label müssen noch geändert werden");
+            session.setProp("lpSettings",catInCreate,"createdTypes",category);
+
+            let checked = (catInCreate[newIntName] ? "checked" : "");
+
+            $("#div" + category + interactionType).remove();
+            lastElemID = '#lastCheckboxelement' + category;
+            $(lastElemID).before(`
+                <div id="div` + category + `` + newIntName + `">
+                    <input class="createdInputCB` + category + `" type="checkbox" ` + checked + ` id="` + newIntName + `CB" name="` + newIntName + `">
+                    <label for="` + newIntName + `CB">` + newIntName + `</label>
+                    <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newIntName + `">
+                        <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newIntName + `" src="img/trash.svg">
+                    </button>
+                    <button class="button btn-light intChangeBtn intRenameBtn ` + category + `" id="renameCreInt` + newIntName + `">
+                        <img class="button nameIntIcon intRenameBtn ` + category + `" id="renameCreInt` + newIntName + `" src="img/edit.png">
+                    </button>
+                    <br>
+                </div>
+                `)
         } else {
             alertToUser('Name bereits verwendet oder ungültig!', 3, 'red');
         }
 
         document.getElementById("newIntNameGiven").value = "";
-        session.setProp("lpSettings",catInCreate,"createdTypes",category);
 
         $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
         $(".intDelModalBtn").attr("name", "categoryNameBtn");
