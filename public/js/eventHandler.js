@@ -479,11 +479,8 @@ function deleteIntType(category, interactionType) {
 }
 
 function changeSettingsComplete(newSettings){
-    $.ajax({
-        url: session.setProp("lpSettings", newSettings),
-        success: function(){
-        getSettingsPage(mode = 'lpSettingsOnly');}
-    })
+    session.setProp("lpSettings", newSettings),
+    getSettingsPage(mode = 'lpSettingsOnly');
 }
 
 function resetSettings(){
@@ -680,7 +677,7 @@ document.addEventListener('click', (event) => {
     else if(id == "addTab"){
 
         // get name from input field in modal nameNewCat
-        let allCatNames = Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes).concat(Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes));
+        let allCatNames = Object.keys(session.getCurrentLearningPath().lpSettings.createdTypes).concat(Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes)).concat("");
         let newCatName = uniqueName(document.getElementById("catNameGiven").value, allCatNames);
 
         document.getElementById("catNameGiven").value = "";
