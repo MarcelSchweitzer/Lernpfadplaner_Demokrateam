@@ -505,3 +505,13 @@ header {
 .canvasBtn{
   display: none;
 }
+
+hr.rounded {
+  border-top: 5px solid #bbb;
+  border-radius: 5px;
+}
+
+.accordionWrap {
+  display: flex;
+  width: 20%;
+}

@@ -153,14 +153,17 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
-
-                                    <button class="btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>"><img class="button" src="img/trash.svg"></button>
+                                    <div class="accordionWrap">
+                                        <button class="btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
+                                            <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
+                                        </button>
+                                        <button class="btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>"><img class="button" src="img/trash.svg"></button>
+                                    </div>
                                     <!-- delete -->
                                     <div class="modal fade" id="delete<%= count %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header"> 
-                                                </div>
+                                                <div class="modal-header"></div>
                                                 <div class="modal-body">
                                                     <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
                                                     <p  class="textInModal">Bist Du sicher? </p>
@@ -174,7 +177,6 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     </div>
                                     <!-- delete -->
                                 </div>
-
                             </h5>
                         </div>
                         <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenarios">
@@ -195,23 +197,21 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                             <label for="lpNote<%= count %>">Szenario-Notizen</label>
                                             <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
                                         </div>
-                                        <div class="scenarioButtonWrap">
-                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="resetZoomBtn">
-                                                <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg">
-                                            </button>
-                                            <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
-                                                <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg">
-                                            </button>
-                                            <button class="btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
-                                                <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
+                                <hr class="rounded">
                                 <div>
                                     <label>Arbeitsbereich</label>
                                     <div class="inner-material">
                                         <div class="workspace" id="workspace<%= count %>"></div>
+                                    </div>
+                                    <div class="scenarioButtonWrap">
+                                        <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="resetZoomBtn">
+                                            <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg">
+                                        </button>
+                                        <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
+                                            <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg">
+                                        </button>
                                     </div>
                                 </div>
                                 <form>
