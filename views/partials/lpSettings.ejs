@@ -239,5 +239,34 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="delCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p class="modalText">Bist Du sicher?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light catDelModalBtn" id="interactionTypeNameBtn" data-dismiss="modal">Löschen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="renameCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p class="modalText">Wie soll die Kategorie ab sofort heißen?</p>
+                        <input type="text" onSubmit="return false;" name="newCatNameGiven" class="form-control" id="newCatNameGiven">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light catRenameModalBtn" id="interactionTypeNameBtn" data-dismiss="modal">Bestätigen</button>
+                        <button type="button" class="btn btn-light catRenameDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
