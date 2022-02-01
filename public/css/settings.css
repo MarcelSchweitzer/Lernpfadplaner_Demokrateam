@@ -29,14 +29,6 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   height: 100px;
 }
 
-/*used in lpSettings.ejs*/
-.tab-content {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  min-height: 300px;
-}
-
 .tab-pane label {
   font-size: 14px;
 }
@@ -78,19 +70,9 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
-.tab-pane {
-  display: flex;
-  justify-content: space-between;
-  columns: 90px 4;
-}
 
 .nav-item {
   font-size: 14px;
-}
-
-.customInput {
-  width: 200px;
-  margin: 5px;
 }
 
 .newCat {
@@ -100,6 +82,10 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 
 .nav-link {
   color: #1f2235;
+}
+
+.tab-pane{
+  width: 100%;
 }
 
 .newTypeWrap{
@@ -119,6 +105,10 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border-width: 4px;
 }
 
+.newIntertypeName:focus {
+  border-color: rgb(255, 255, 255);
+}
+
 .createNewInt{
   border-top-right-radius: 10px 10px;
   border-bottom-right-radius: 10px 10px;
@@ -126,4 +116,32 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border-color: rgb(255, 255, 255);
   border-width: 0px;
   width: 35%;
+}
+
+.itemWrap{
+  display: block;
+  flex-wrap: wrap;
+  padding: 10px;
+  min-height: 300px;
+  width: 100%;
+}
+
+.items {
+  display: block;
+  justify-content: space-between;
+  columns: 90px 4;
+}
+
+.settingsItems{
+  margin: 20px;
+  width: 100%;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.customInput {
+  width: 200px;
+  margin: 5px;
+  justify-content: center;
 }
