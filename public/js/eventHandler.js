@@ -25,10 +25,15 @@ function isValidImageURL(str){
     return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
 }
 
-//Funktion noch nicht fertig (und wahrscheinlich nicht an der richtigen Stelle)
-function highestExisTaxo(json) {
+function highestExisTaxo(scenarios) {
     var highestTaxo = "";
-    return "4. Analysieren";
+    for(var i = 0; i < scenarios.length; i++){
+        for(var j = 0; j < scenarios[i].interactions.length; j++){
+            highestTaxo = (scenarios[i].interactions[j].taxonomyLevelInt > highestTaxo ? scenarios[i].interactions[j].taxonomyLevelInt : highestTaxo);
+        }
+    }
+    return highestTaxo;
+
 }
 
 function refreshInteractivityList() {
@@ -884,12 +889,13 @@ document.addEventListener('input', (event) => {
         updateLpProperty('evaluationModeID', input.value);
     } 
     
-    else if (id == 'lpTaxonomyLevel') {//ändern
+    else if (id == 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevel', input.value);
         
-        console.log(input.value);
-        if(input.value < highestExisTaxo(session.getCurrentLearningPath()['scenarios'])  && input.value != "")
-            $("#taxToLow").modal("show");
+        if(!session.getCurrentLearningPath().lpSettings.ignoreWarnings){
+            if(input.value < highestExisTaxo(session.getCurrentLearningPath().scenarios)  && input.value != "")
+                $("#taxToLow").modal("show");
+        }
     }
     
     else if (id == 'lpTitleInput') {
@@ -1007,8 +1013,10 @@ document.addEventListener('input', (event) => {
     else if (id == 'taxonomyLevelInt') {
         updateInteractionProperty('taxonomyLevelInt', input.value)
 
-        if(input.value > session.getCurrentLearningPath()["taxonomyLevel"] && session.getCurrentLearningPath()["taxonomyLevel"] != "")
-            $("#taxToHigh").modal("show");
+        if(!session.getCurrentLearningPath().lpSettings.ignoreWarnings){
+            if(input.value > session.getCurrentLearningPath().taxonomyLevel && session.getCurrentLearningPath().taxonomyLevel != "")
+                $("#taxToHigh").modal("show");
+        }
     } 
     
     else if (id == 'interactionTypeDrop') {
