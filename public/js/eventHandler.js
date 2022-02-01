@@ -18,7 +18,14 @@ $(document).ready(() => {
             keyboard: false
         }).modal('show');
     }
+    changeurl("lernpfadplaner.de")
 });
+
+function changeurl(url)
+{
+ window.history.pushState("data","Title",url);
+ document.title=url;
+}
 
 function isValidImageURL(str){
     if ( typeof str !== 'string' ) return false;
