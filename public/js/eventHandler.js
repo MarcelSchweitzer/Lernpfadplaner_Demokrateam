@@ -471,6 +471,10 @@ function deleteIntType(category, interactionType) {
     if(Object.keys(createdTypes[category]).length === 0 && Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(category))
         delete createdTypes[category];
 
+    console.log(category + " " + interactionType);
+    
+    $("#div" + category + interactionType).remove();
+
     session.setProp("lpSettings", createdTypes, "createdTypes");
     unsavedChanges = false;
     saveCurrentLp();
@@ -834,15 +838,17 @@ document.addEventListener('click', (event) => {
             createdTypes[category][newInteractionType] = true;
             lastElemID = '#lastCheckboxelement' + category;
             $(lastElemID).before(`
-                <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
-                <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
-                <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
-                    <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `" src="img/trash.svg">
-                </button>
-                <button class="button btn-light intChangeBtn intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `">
-                    <img class="button nameIntIcon intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `" src="img/edit.png">
-                </button>
-                <br>
+                <div id="div` + category + `` + newInteractionType + `">
+                    <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
+                    <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
+                    <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
+                        <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `" src="img/trash.svg">
+                    </button>
+                    <button class="button btn-light intChangeBtn intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `">
+                        <img class="button nameIntIcon intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `" src="img/edit.png">
+                    </button>
+                    <br>
+                </div>
                 `);
 
             session.setProp('lpSettings', createdTypes, "createdTypes");
@@ -866,8 +872,15 @@ document.addEventListener('click', (event) => {
 
         if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
             deleteIntType(category, interactionType);
-        else
-            console.log("modal sollte hier noch kommen :)")
+        else {
+            $(".intDelModalBtn").attr("id", interactionType);
+            $(".intDelModalBtn").attr("name", category);
+            $("#delIntModal").modal("show");
+        }
+    }
+
+    else if (classes.contains('intDelModalBtn')) {
+        deleteIntType(button.getAttribute("name"), id);
     }
 
     else if (classes.contains('intRenameBtn')) {   
@@ -1206,7 +1219,7 @@ document.addEventListener("fullscreenchange", function( event ) {
 });
 
 window.onresize = (event) =>{
-    
+
     canvasManager.resizeCanvas();
     toggleHeaderText();
 };

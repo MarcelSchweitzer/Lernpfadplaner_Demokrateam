@@ -69,15 +69,17 @@
                                                 if(data.learningPath.lpSettings.createdTypes[categoryName]){
                                                     for (let [interactionTypeName, active] of Object.entries(data.learningPath.lpSettings.createdTypes[categoryName])){
                                                         let checked = (active ? "checked" : true);%>
-                                                        <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                                        <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                        <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
-                                                            <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
-                                                        </button>
-                                                        <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>">
-                                                            <img class="button nameIntIcon intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>" src="img/edit.png">
-                                                        </button>
-                                                        <br>
+                                                        <div id="div<%= categoryName %><%= interactionTypeName %>">
+                                                            <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                                            <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                            <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
+                                                                <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
+                                                            </button>
+                                                            <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>">
+                                                                <img class="button nameIntIcon intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>" src="img/edit.png">
+                                                            </button>
+                                                            <br>
+                                                        </div>
                                                 <%} } %>
                                                 <div id="lastCheckboxelement<%= categoryName %>"></div>
                                                 <div class="newTypeWrap">
@@ -106,16 +108,18 @@
                                                 <div class="items <%= categoryName %>">
                                                     <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
                                                         var checked = (active ? "checked" : "");%>
-                                                        <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
-                                                        <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
-                                                        <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
-                                                            <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
-                                                        </button>
-                                                        <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>"
-                                                            id="renameCreInt<%= interactionTypeName %>">
-                                                            <img class="button nameIntIcon intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>" src="img/edit.png">
-                                                        </button>
-                                                        <br>
+                                                        <div id="div<%= categoryName %><%= interactionTypeName %>">
+                                                            <input class="createdInputCB<%= categoryName %>" type="checkbox" <%=checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
+                                                            <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                            <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
+                                                                <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg">
+                                                            </button>
+                                                            <button class="button btn-light intChangeBtn intRenameBtn <%= categoryName %>"
+                                                                id="renameCreInt<%= interactionTypeName %>">
+                                                                <img class="button nameIntIcon intRenameBtn <%= categoryName %>" id="renameCreInt<%= interactionTypeName %>" src="img/edit.png">
+                                                            </button>
+                                                            <br>
+                                                        </div>
                                                     <% } %>
                                                     <div id="lastCheckboxelement<%= categoryName %>"></div>
                                                 </div>
@@ -170,6 +174,23 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p class="modalText">Bist Du sicher?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light intDelModalBtn"
+                            id="interactionTypeNameBtn" name="categoryNameBtn" data-dismiss="modal">Löschen</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
