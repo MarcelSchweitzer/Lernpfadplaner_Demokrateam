@@ -1,7 +1,6 @@
 body {
   box-sizing: border-box;
   background: radial-gradient(rgba(71, 130, 211, 0.59) 0%, #e5e5ec 100%);
-  min-height: 100vh;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -20,8 +19,6 @@ body::-webkit-scrollbar {
   box-sizing: border-box;
 }
 #main {
-  min-height: 100%;
-  position: relative;
 }
 
 .image-cover {
