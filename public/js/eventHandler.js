@@ -463,6 +463,19 @@ function deleteOpenInteraction() {
     }
 }
 
+function deleteIntType(category, interactionType) {
+    var createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
+
+    delete createdTypes[category][interactionType];
+
+    if(Object.keys(createdTypes[category]).length === 0 && Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(category))
+        delete createdTypes[category];
+
+    session.setProp("lpSettings", createdTypes, "createdTypes");
+    unsavedChanges = false;
+    saveCurrentLp();
+}
+
 // handle button click events
 document.addEventListener('click', (event) => {
     let id = event.target.getAttribute('id');
@@ -824,10 +837,10 @@ document.addEventListener('click', (event) => {
                 <input class="createdInputCB` + category + `" type="checkbox" checked id="` + newInteractionType + `CB" name="` + newInteractionType + `">
                 <label for="` + newInteractionType + `CB">` + newInteractionType + `</label>
                 <button class="button btn-light intChangeBtn intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `">
-                    <img class="button delIntIcon" src="img/trash.svg">
+                    <img class="button delIntIcon intDelBtn ` + category + `" id="delCreInt` + newInteractionType + `" src="img/trash.svg">
                 </button>
                 <button class="button btn-light intChangeBtn intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `">
-                    <img class="button nameIntIcon" src="img/edit.png">
+                    <img class="button nameIntIcon intRenameBtn ` + category + `" id="renameCreInt` + newInteractionType + `" src="img/edit.png">
                 </button>
                 <br>
                 `);
@@ -844,16 +857,28 @@ document.addEventListener('click', (event) => {
     }
 
     else if (classes.contains('intDelBtn')) {
-        console.log("hallo?")
-        let category = classes[5];
+        if(classes[2] === 'intDelBtn')
+            var category = classes[3];
+        else
+            var category = classes[4];
+        
         let interactionType = id.replaceAll('delCreInt', '');
 
-        console.log(category);
-        console.log(interactionType);
+        if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
+            deleteIntType(category, interactionType);
+        else
+            console.log("modal sollte hier noch kommen :)")
     }
 
-    else if (classes.contains('intRenameBtn')) {
+    else if (classes.contains('intRenameBtn')) {   
+        if(classes[2] === 'intRenameBtn')
+            var category = classes[3];
+        else
+            var category = classes[4];
         
+        let interactionType = id.replaceAll('renameCreInt', '');
+        
+        console.log("modal sollte kommen mit " + category + " " + interactionType);
     }
 
     // handle delete scenario buttons
