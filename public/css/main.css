@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
   box-sizing: border-box;
 }
 #main {
-  min-height: 100px;
+  min-height: 100%;
   position: relative;
 }
 
