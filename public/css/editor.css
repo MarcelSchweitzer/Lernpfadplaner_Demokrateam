@@ -514,4 +514,9 @@ hr.rounded {
 .accordionWrap {
   display: flex;
   width: 20%;
+  padding-top: 10px;
+}
+
+.delScen {
+  height:30px !important
 }

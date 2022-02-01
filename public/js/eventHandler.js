@@ -720,7 +720,7 @@ document.addEventListener('click', (event) => {
                                         <div class="tab-pane fade" id="a` + categoryID + `" role="tabpanel" aria-labelledby="` + categoryID + `-tab">
                                             <div class="tabWrap">
                                                 <div class="itemWrap">
-                                                    <div class="items ` + categoryID + `" active>
+                                                    <div class="items` + categoryID + `"  id="` + categoryID + `act">
                                                         <div id="lastCheckboxelement` + categoryID + `"></div>
                                                     </div>
                                                     <div class="newTypeWrap">
@@ -1049,16 +1049,78 @@ document.addEventListener('click', (event) => {
 
     else if (classes.contains('catRenameModalBtn')) {
         let category = id;
+
         let newCategory = document.getElementById("newCatNameGiven").value;
+        let newCatID = newCategory.replaceAll(" ", "_");
 
         createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
-        if(newCategory != "" && ! Object.keys(createdTypes).includes(newCategory) && ! Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(newCategory)){
-            createdTypes[newCategory] = createdTypes[category];
+        if(newCatID != "" && ! Object.keys(createdTypes).includes(newCatID) && ! Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(newCatID)){
+            createdTypes[newCatID] = createdTypes[category];
 
             delete createdTypes[category];
 
             session.setProp("lpSettings",createdTypes,"createdTypes");
+
+            $("#" + category + "Nav").remove();
+            $("#a" + category).remove();
+
+            $('#addTabNav').before(`
+                                        <li class="nav-item" id= "` + newCatID + `Nav">
+                                            <a class="nav-link" draggable="false" id="` + newCatID + `-tab" data-toggle="tab" href="#a` + newCatID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                                ` + newCategory + `
+                                            </a>
+                                            <div class="catNavWrapper">
+                                                <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel` + newCatID + `">
+                                                    <img class="button delIntIcon catDelBtn" id="catDel` + newCatID + `" src="img/trash.svg">
+                                                </button>
+                                                <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename` + newCatID + `">
+                                                    <img class="button nameIntIcon catRenameBtn" id="catRename` + newCatID + `" src="img/edit.png">
+                                                </button>
+                                            </div>
+                                        </li>
+                                `);
+            $('#lastTabContent').before(`
+                                            <div class="tab-pane fadeshow active" id="a` + newCatID + `" role="tabpanel" aria-labelledby="` + newCatID + `-tab">
+                                                <div class="tabWrap">
+                                                    <div class="itemWrap">
+                                                        <div class="items ` + newCatID + ` active" id="` + newCatID + `act">
+                                                            <div id="lastCheckboxelement` + newCatID + `"></div>
+                                                        </div>
+                                                        <div class="newTypeWrap">
+                                                            <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-` + newCatID + `" placeholder="Interaktionstyp">
+                                                            <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-` + newCatID + `">
+                                                                +
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="settingsItems">
+                                                    <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + newCatID + `"> Alle aus dieser Kategorie auswählen </button>
+                                                    <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + newCatID + `"> Keine aus dieser Kategorie auswählen </button>
+                                                </div>
+                                            </div>
+                                    `);
+
+            if(Object.keys(createdTypes[newCatID]).length > 0){
+                for(let [interactionType, active] of Object.entries(createdTypes[newCatID])){
+                    var checked = (active ? "checked" : "")
+                    $('#lastCheckboxelement' + newCatID).before(`
+                                                    <div id="div` + newCatID + `` + interactionType + `">
+                                                            <input class="createdInputCB` + newCatID + `" type="checkbox" ` + checked + ` id="` + interactionType + `CB" name="` + interactionType + `">
+                                                            <label for="` + interactionType + `CB">` + interactionType + `</label>
+                                                            <button class="button btn-light intChangeBtn intDelBtn ` + newCatID + `" id="delCreInt` + interactionType + `">
+                                                                <img class="button delIntIcon intDelBtn ` + newCatID + `" id="delCreInt` + interactionType + `" src="img/trash.svg">
+                                                            </button>
+                                                            <button class="button btn-light intChangeBtn intRenameBtn ` + newCatID + `"
+                                                                id="renameCreInt` + interactionType + `">
+                                                                <img class="button nameIntIcon intRenameBtn ` + newCatID + ` id="renameCreInt` + interactionType + `" src="img/edit.png">
+                                                            </button>
+                                                            <br>
+                                                        </div>
+                    `);
+                }
+            }
 
             unsavedChanges = true;
             saveCurrentLp();
