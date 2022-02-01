@@ -688,10 +688,18 @@ document.addEventListener('click', (event) => {
         unsavedChanges = true;
 
         $('#addTabNav').before(`
-                                    <li class="nav-item">
+                                    <li class="nav-item ` + categoryID + `Nav">
                                         <a class="nav-link" draggable="false" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
                                             ` + newCatName + `
                                         </a>
+                                        <div class="catNavWrapper">
+                                            <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel` + categoryID + `">
+                                                <img class="button delIntIcon catDelBtn" id="catDel` + categoryID + `" src="img/trash.svg">
+                                            </button>
+                                            <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename` + categoryID + `">
+                                                <img class="button nameIntIcon catRenameBtn" id="catRename` + categoryID + `" src="img/edit.png">
+                                            </button>
+                                        </div>
                                     </li>
                              `);
         $('#lastTabContent').before(`
