@@ -335,7 +335,7 @@ function newCanv(p){
     p.mouseWheel = function (event) {
 
       const zoomFactor = -0.0005;
-      const offsetFactor = 10;
+      const offsetFactor = 25;
 
       if(canvasManager.inCanvas() && canvasManager.getScale() > 0){
         canvasManager.addToScale(event.delta * zoomFactor * Math.sqrt(canvasManager.getScale()))
