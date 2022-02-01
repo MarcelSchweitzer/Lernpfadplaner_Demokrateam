@@ -247,7 +247,7 @@ function newCanv(p){
       const resetZoomBtn = p.createButton('').id("resetZoomBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 10).size(100, 40);
       const resetZoomImg = p.createImg('img/aspect-ratio.svg').id("resetZoomBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(resetZoomBtn);
       const fullScreenBtn = p.createButton('').id("fullScreenBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 70).size(100, 40);
-      const fullScreenImg = p.createImg('img/arrows-fullscreen (1).svg').id("fullScreenBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(fullScreenBtn)
+      const fullScreenImg = p.createImg('img/fullscreen-exit.svg').id("fullScreenBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(fullScreenBtn)
 
     }
 
