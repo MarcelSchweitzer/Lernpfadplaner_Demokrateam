@@ -29,7 +29,7 @@ body::-webkit-scrollbar {
 }
 
 .image-cover img {
-  width: 100%;
+  width: 80%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -374,7 +374,7 @@ footer a:hover {
     z-index: 700;
   }
   .image-cover img {
-    width: 100%;
+    width: 80%;
     margin: 0% 0%;
   }
 }
