@@ -1170,7 +1170,18 @@ window.onbeforeunload = function() {
     }
 };
 
+document.addEventListener("fullscreenchange", function( event ) {
+    if (document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement )
+        $(".canvasBtn").css("display", "block");
+    else
+        $(".canvasBtn").css("display", "none");
+});
+
 window.onresize = (event) =>{
+    
     canvasManager.resizeCanvas();
     toggleHeaderText();
 };

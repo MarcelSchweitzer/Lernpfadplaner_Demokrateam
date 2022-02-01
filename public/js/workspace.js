@@ -241,8 +241,13 @@ function newCanv(p){
 
       // handle resizeEvents
       document.getElementById('defaultCanvas0').onresize = function(){
-        canvasManager.resizeCanvas(document.getElementById(this.getWorkSpaceId()).clientWidth, document.getElementById(this.getWorkSpaceId()).clientHeight);
+        canvasManager.resizeCanvas(document.getElementById(canvasManager.getWorkSpaceId()).clientWidth, document.getElementById(canvasManager.getWorkSpaceId()).clientHeight);
       };
+
+      const resetZoomBtn = p.createButton('').id("resetZoomBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 10).size(100, 40);
+      const resetZoomImg = p.createImg('img/aspect-ratio.svg').id("resetZoomBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(resetZoomBtn);
+      const fullScreenBtn = p.createButton('').id("fullScreenBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 70).size(100, 40);
+      const fullScreenImg = p.createImg('img/arrows-fullscreen (1).svg').id("fullScreenBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(fullScreenBtn)
 
     }
 
@@ -339,6 +344,8 @@ function newCanv(p){
             canvasManager.getUserOffset().x + ((p.width / 2 - p.mouseX) * canvasManager.getScale() / offsetFactor),
             canvasManager.getUserOffset().y + ((p.height / 2 - p.mouseY) * canvasManager.getScale() / offsetFactor)
           )
+        }else{
+
         }
         return false;
       }
