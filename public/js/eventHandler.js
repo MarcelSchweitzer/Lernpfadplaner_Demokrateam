@@ -478,6 +478,10 @@ function deleteIntType(category, interactionType) {
     saveCurrentLp();
 }
 
+function deleteCatType(category) {
+    console.log("hallo")
+}
+
 function changeSettingsComplete(newSettings){
     session.setProp("lpSettings", newSettings),
     getSettingsPage(mode = 'lpSettingsOnly');
@@ -755,14 +759,6 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
-    else if(classes.contains('catDelBtn')){
-        alert('delete Cat')
-    }
-
-    else if(classes.contains('catRenameBtn')){
-        alert('rename Cat')
-    }
-
     else if(classes.contains('selectAllCreatedCat')) {
         let category = id.replaceAll('catCheck ', '');
 
@@ -933,6 +929,11 @@ document.addEventListener('click', (event) => {
         $(".intDelModalBtn").attr("name", "categoryNameBtn");
     }
 
+    else if (classes.contains('intDelDismiss')) {
+        $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
+        $(".intDelModalBtn").attr("name", "categoryNameBtn");
+    }
+
     else if (classes.contains('intRenameBtn')) {   
         if(classes[2] === 'intRenameBtn')
             var category = classes[3];
@@ -1006,6 +1007,27 @@ document.addEventListener('click', (event) => {
 
         $(".intDelModalBtn").attr("id", "interactionTypeNameBtn");
         $(".intDelModalBtn").attr("name", "categoryNameBtn");
+    }
+
+    else if (classes.contains('catDelBtn')) {
+        let category = id.replaceAll('catDel', '');
+
+        if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
+            deleteCatType(category);
+        else {
+            $(".catDelModalBtn").attr("id", category);
+            $("#delCatModal").modal("show");
+        }
+    }
+
+    else if (classes.contains('catDelModalBtn')) {
+        deleteCatType(id);
+        
+        $(".intDelModalBtn").attr("id", "categoryNameBtn");
+    }
+
+    else if (classes.contains('catDelDismiss')) {
+        $(".intDelModalBtn").attr("id", "categoryNameBtn");
     }
 
     // handle delete scenario buttons
