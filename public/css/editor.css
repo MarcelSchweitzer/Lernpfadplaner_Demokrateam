@@ -339,7 +339,7 @@
 }
 
 .scenarioHeaderInput {
-  width: 30%;
+  width: 33%;
 }
 
 .interactivityListElem {
@@ -513,7 +513,7 @@ hr.rounded {
 
 .accordionWrap {
   display: flex;
-  width: 20%;
+  width: 34%;
   padding-top: 10px;
 }
 

@@ -153,7 +153,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
-                                    <div class="accordionWrap">
+                                    <div class="accordionWrap scenarioHeaderInput">
                                         <button class="button btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
                                             <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
                                         </button>
