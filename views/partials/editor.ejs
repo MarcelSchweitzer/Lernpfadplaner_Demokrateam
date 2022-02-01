@@ -154,8 +154,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
 
-                                    <button class="btn btn-light scenarioHeaderInput"
-                                            data-toggle="modal" data-target="#delete<%= count %>"><img class="button" src="img/trash.svg"></button>
+                                    <button class="btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>"><img class="button" src="img/trash.svg"></button>
                                     <!-- delete -->
                                     <div class="modal fade" id="delete<%= count %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">

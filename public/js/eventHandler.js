@@ -845,12 +845,25 @@ document.addEventListener('click', (event) => {
 
     // handle delete scenario buttons
     else if (classes.contains('deleteScenario')) {
-        console.log("wirklich?")
         scenarioIndex = id.replaceAll('deleteScenario', '');
         session.deleteScenario(scenarioIndex);
         learningPathToServer(session.getCurrentLearningPath(), () => {
             getEditPage();
         });
+    }
+
+    else if (classes.contains('delScen')) {
+        scenarioIndex = id.replaceAll('delScen', '');
+
+        if(session.getCurrentLearningPath().lpSettings.ignoreWarnings){
+            session.deleteScenario(scenarioIndex);
+            learningPathToServer(session.getCurrentLearningPath(), () => {
+                getEditPage();
+            });
+        }
+        else {
+            $("#delete"+scenarioIndex).modal("show");
+        }
     }
 
     // handle open learningPath buttons
