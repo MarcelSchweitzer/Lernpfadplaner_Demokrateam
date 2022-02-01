@@ -345,7 +345,10 @@ function newCanv(p){
             canvasManager.getUserOffset().y + ((p.height / 2 - p.mouseY) * canvasManager.getScale() / offsetFactor)
           )
         }else{
-
+          canvasManager.setUserOffset(
+            canvasManager.getUserOffset().x - ((p.width / 2 - p.mouseX) * canvasManager.getScale() / offsetFactor),
+            canvasManager.getUserOffset().y - ((p.height / 2 - p.mouseY) * canvasManager.getScale() / offsetFactor)
+          )
         }
         return false;
       }
