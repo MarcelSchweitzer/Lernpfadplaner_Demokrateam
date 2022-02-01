@@ -746,16 +746,18 @@ document.addEventListener('click', (event) => {
                                         </div>
                                 `);
 
-        //let actCatTab = ($(".fadeshow").attr("id")).replaceAll("a","");
+        
+        let actCatTab = ($(".nav-link.active").attr("id")).slice(0, -4);
 
-        //$("#" + actCatTab + "-tab").removeClass("active");
-        //$("#a" + actCatTab).addClass("fade").removeClass("fadeshow").removeClass("active");
-        //$("#" + actCatTab + "act").removeClass("active");
+        console.log(actCatTab);
 
-        /*
+        $("#" + actCatTab + "-tab").removeClass("active");
+        $("#a" + actCatTab).addClass("fade").removeClass("fadeshow").removeClass("active");
+        $("#" + actCatTab + "act").removeClass("active");
+
         $("#" + categoryID + "-tab").addClass("active");
         $("#a" + categoryID).removeClass("fade").addClass("fadeshow").addClass("active");
-        $("#" + categoryID + "act").addClass("active");*/
+        $("#" + categoryID + "act").addClass("active");
 
         saveCurrentLp();
     }
