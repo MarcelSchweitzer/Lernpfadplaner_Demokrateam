@@ -9,7 +9,6 @@ let importFiles = []
 
 // on startup
 $(document).ready(() => {
-    toggleHeaderText();
     updateUserName();
     fetchLearningPaths();
     if (!getCookie('allowCookies')){
@@ -115,31 +114,13 @@ function alertToUser(message, seconds = 5, color = 'black') {
     }, seconds * 1000)
 }
 
-// check if there is enough space to show text in header bar
-function toggleHeaderText(){
-    screenSize = document.body.clientWidth;
-    if(screenSize < 720){
-        document.getElementById("userMessage").style.visibility = "hidden";
-        document.getElementById("usernameText").style.visibility = "hidden";
-        $("#userMessageDiv").removeClass("col-4");
-        $("#userMessageDiv").addClass("col-2");
-        $("#rightHeaderButtons").removeClass("col-2");
-        $("#rightHeaderButtons").addClass("col-4");
-    }else{
-        document.getElementById("userMessage").style.visibility = "visible";
-        document.getElementById("usernameText").style.visibility = "visible";
-        $("#userMessageDiv").removeClass("col-2");
-        $("#userMessageDiv").addClass("col-4");
-        $("#rightHeaderButtons").removeClass("col-4");
-        $("#rightHeaderButtons").addClass("col-2");
-    }
-}
-
 function toggleSettingsButton(){
     if(session.learningPathOpened()){
         document.getElementById("lpSettingsBtn").style.visibility = "visible";
+        document.getElementById("lpSettingsBtnHover").style.visibility = "visible";
     }else{
         document.getElementById("lpSettingsBtn").style.visibility = "hidden";
+        document.getElementById("lpSettingsBtnHover").style.visibility = "hidden";
     }
 }
 
@@ -537,7 +518,7 @@ document.addEventListener('click', (event) => {
         }
     }
 
-    else if (id == 'lpSettingsBtn') {
+    else if (id == 'lpSettingsBtn' || id == 'lpSettingsBtnHover') {
         getSettingsPage(mode = 'lpSettingsOnly');
     }
 
@@ -1501,7 +1482,6 @@ document.addEventListener("fullscreenchange", function( event ) {
 window.onresize = (event) =>{
 
     canvasManager.resizeCanvas();
-    toggleHeaderText();
 };
 
 // autosave every ten seconds

@@ -1,30 +1,43 @@
 <header>
-    <div class="row head">
-        <div class="col-5" style="padding:0px;">
+    <div class="headerWrap">
+        <div class="headerButtonsLeft" id="headerButtonsLeft"">
             <div class="home">
-              <img type="image" class="button save-icon" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg">
-              <img type="image" class="button user-icon" id="userSettingsBtn" src="img/user.svg" alt="user.svg">
+              <div class="hoverBtnWrap">
+                <img type="image" class="button headerButtonImg img-no-hover" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg">
+                <img type="image" class="button headerButtonImg img-hover" id="homeBtn" src="img/favicon/favicon-round-hover.svg" alt="home.svg">
+              </div>
+              <div class="hoverBtnWrap">
+                <img type="image" class="button headerButtonImg img-no-hover" id="userSettingsBtn" src="img/user.svg" alt="user.svg">
+                <img type="image" class="button headerButtonImg img-hover" id="userSettingsBtn" src="img/user-hover.svg" alt="user.svg">
+              </div>
               <a href="#" id="usernameText" class="button headerText">
                 <%= data.nickname %>
               </a>
             </div>
         </div>
-        <div class="col-1" style="padding:0px;">
-        </div>
-        <div class="col-4" id="userMessageDiv" style="padding:0px;">
+        <div class="userMessageDiv" id="userMessageDiv">
           <a href="#" id="userMessage" class="headerText"></a> 
         </div>
-        <div class="col-2" id="rightHeaderButtons" style="padding:0px;">
+        <div class="headerButtonsRight" id="headerButtonsRight">
             <div class="colz-icon">
-              <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"> 
-                <img type="link" href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam" src="img/github.svg" alt="github.svg" > 
-              </a>
-              <a href="#" data-toggle="modal" data-target="#downloadPop">
-                  <img class="button" src="img/download-header.svg">
-              </a>
-              <a href="#"> 
-                <img type="image" class="button setting-icon" id="lpSettingsBtn" src="img/settings.svg" alt="settings.svg" style="visibility:hidden"> 
-              </a>
+
+                <div class="hoverBtnWrap">
+                  <!--<a href="#">-->
+                  <img type="image" class="button headerButtonImg img-no-hover" id="lpSettingsBtn" src="img/settings.svg" alt="settings.svg" style="visibility:hidden"> 
+                  <img type="image" class="button headerButtonImg img-hover" id="lpSettingsBtnHover" src="img/settings-hover.svg" alt="settings.svg" style="visibility:hidden"> 
+                </div> 
+
+                <div class="hoverBtnWrap" data-toggle="modal" data-target="#downloadPop">
+                  <!--<a href="#" data-toggle="modal" data-target="#downloadPop">-->     
+                    <img class="button headerButtonImg img-no-hover" src="img/download-header.svg">
+                    <img class="button headerButtonImg img-hover" src="img/download-header-hover.svg">
+                </div>
+
+                <div class="hoverBtnWrap">
+                  <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-no-hover" src="img/github.svg" alt="github.svg"></a> 
+                  <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-hover" src="img/github-hover.svg" alt="github.svg"></a>
+                </div>
+
             </div>
         </div>
     </div>

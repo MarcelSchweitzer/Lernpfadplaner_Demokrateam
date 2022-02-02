@@ -182,25 +182,11 @@ header {
   height: 20px;
   float: left;
 }
-#homeBtn {
-  width: 30px;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-#userSettingsBtn{
-  cursor: pointer;
-}
 
 .user {
   padding: 5px 10px;
   background-color: red;
   border-radius: 10px;
-}
-
-.user-icon {
-  height: 30px;
-  margin: 8px;
 }
 
 .colz-icon {
@@ -209,21 +195,7 @@ header {
 }
 
 .colz-icon a img {
-  width: 30px;
-  float: right;
-  margin: 8px;
   cursor: pointer;
-}
-
-.setting-icon {
-  width: 35px;
-  float: left;
-  margin-right: 10px;
-  padding-bottom: 5px;
-}
-
-.colz-icon a:hover {
-  transform: scale(1.5);
 }
 
 .col-md-6 {
@@ -334,6 +306,12 @@ footer a:hover {
     display: flex;
     align-items: flex-end;
   }
+
+  .headerText{
+    display: none;
+    width: 0px;
+  }
+  
 }
 
 @media screen and (max-width: 810px) {
@@ -353,6 +331,10 @@ footer a:hover {
 
   .profile-details-role {
     text-align: center;
+  }
+
+  .userMessageDiv{
+    width: none;
   }
 }
 
@@ -421,21 +403,8 @@ footer a:hover {
   .import-btn {
     width: 250px;
   }
-  .colz-icon {
-    margin-right: 10px;
-  }
-  .colz-icon a img {
-    width: 20px;
-    margin: 5px;
-  }
   .home a {
     font-size: 12px;
-  }
-  .head img {
-    width: 20px;
-  }
-  #homeBtn {
-    width: 20px;
   }
   .form {
     margin: 10% 0%;
@@ -668,3 +637,58 @@ td, th {
   height: 100%;
 }
 
+.hoverBtnWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.img-hover {
+  display: none;
+}
+
+.img-no-hover {
+  display: inline;
+}
+
+.hoverBtnWrap:hover .img-hover {
+  display: inline;
+}
+
+.hoverBtnWrap:hover .img-no-hover{
+  display: none;
+}
+
+.headerButtonImg{
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.headerWrap{
+  width: 100%;
+  margin-top: 7.5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerButtonsLeft{
+  justify-content: left;
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.userMessageDiv{
+  justify-content: center;
+  width: auto;
+}
+
+.headerButtonsRight{
+  justify-content: end;
+  width: 150px;
+  display: flex;
+  justify-content: right;
+  padding-right: 0px;
+}

@@ -157,8 +157,8 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         <button class="button btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
                                             <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
                                         </button>
-                                        <button class="button btn btn-light scenarioHeaderInput delScen" id="delScen<%= count %>">
-                                            <img class="button dashIcon" src="img/trash.svg">
+                                        <button class="button btn btn-light scenarioHeaderInput rightScenarioHBtn delScen" id="delScen<%= count %>">
+                                            <img class="button dashIcon delScen" src="img/trash.svg" id="delScen<%= count %>">
                                         </button>
                                     </div>
                                     <!-- delete -->
@@ -287,7 +287,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <hr>
                         <div class="interactionSettings">
                             <div class="form-group interactionItem">
-                                <label for="hotSpotSize" class="form-label">Hotspot Größe</label>
+                                <label for="hotSpotSize" class="form-label">Hotspot-Größe</label>
                                 <input type="range" class="form-range hotSpotSize slider" id="hotSpotSize" min="10" max="250" step="1">
                             </div>
                             <div class="form-group interactionItem">
