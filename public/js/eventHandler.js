@@ -646,7 +646,7 @@ document.addEventListener('click', (event) => {
             $("#deleteInteract").modal("show");
     }
 
-    // show treegrap in editor
+    // show treegraph in editor
     else if(id == "showTreegraph"){
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
@@ -677,10 +677,10 @@ document.addEventListener('click', (event) => {
 
     else if(id == 'stealSettingsConfirm'){
         let stealID = $('#stealSettingsDrop').children(":selected").attr("id").replaceAll('steal', '');
-        console.log(stealID)
-
         session.setProp('lpSettings', session.getlearningPathById(stealID)['lpSettings']);
-        getSettingsPage(mode = 'lpSettingsOnly')
+        learningPathToServer(session.getCurrentLearningPath(), ()=>{
+            getSettingsPage(mode = 'lpSettingsOnly');
+        })
     }
 
     else if(id == "resetSettings"){
@@ -740,8 +740,8 @@ document.addEventListener('click', (event) => {
                                                 </div>
                                             </div>
                                             <div class="settingsItems">
-                                                <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + categoryID + `"> Alle aus dieser Kategorie auswählen </button>
-                                                <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + categoryID + `"> Keine aus dieser Kategorie auswählen </button>
+                                                <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + categoryID + `"> Alle aus ` + categoryID + ` auswählen </button>
+                                                <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + categoryID + `"> Keine aus ` + categoryID + ` auswählen </button>
                                             </div>
                                         </div>
                                 `);
@@ -1120,8 +1120,8 @@ document.addEventListener('click', (event) => {
                                                     </div>
                                                 </div>
                                                 <div class="settingsItems">
-                                                    <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + newCatID + `"> Alle aus dieser Kategorie auswählen </button>
-                                                    <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + newCatID + `"> Keine aus dieser Kategorie auswählen </button>
+                                                    <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + newCatID + `"> Alle aus ` + newCatID + ` auswählen </button>
+                                                    <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + newCatID + `"> Keine aus ` + newCatID + ` auswählen </button>
                                                 </div>
                                             </div>
                                     `);

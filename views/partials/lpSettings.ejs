@@ -18,11 +18,12 @@ function canBeRead(root, calls){
             <p class="top-name">
                 <h3>Lernpfad-Einstellungen</h3>
             </p>
+            <br><hr><br>
             <div class="settingsItem">
                 <label class="settingsHeading" for="lpTitleInput">Titel</label>
                 <input type="text" onSubmit="return false;" class="form-control setItemCenter" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
-            <br>
+            <br><hr><br>
             <div class="settingsItem">
                 <label class="settingsHeading" for="lpTaxonomyLevel">Taxonomiestufe</label>
                 <select class="form-control setItemCenter" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
@@ -31,7 +32,7 @@ function canBeRead(root, calls){
                     <% }); } %>
                 </select>
             </div>
-            <br>
+            <br><hr><br>
             <div class="settingsItem">
                 <label class="settingsHeading" for="lpEvaluationMode">Bewertungsmodus</label>
                 <select class="form-control setItemCenter" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
@@ -40,7 +41,7 @@ function canBeRead(root, calls){
                     <% }); } %>
                 </select>
             </div>
-            <br>
+            <br><hr><br>
             <div>
                 <div class="settingsItem" id="interactionTypes">
                     <label class="settingsHeading" for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
@@ -169,8 +170,8 @@ function canBeRead(root, calls){
                                             </div>
                                         </div>
                                         <div class="settingsItems">
-                                            <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
-                                            <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                            <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck <%= categoryName %>"> Alle aus <%= categoryName %> auswählen </button>
+                                            <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck <%= categoryName %>"> Keine <%= categoryName %> Kategorie auswählen </button>
                                         </div>
                                     </div>
                             <%}counter++}} %>
@@ -178,15 +179,17 @@ function canBeRead(root, calls){
                     </div>
                 </div>
             </div>
+            <br><hr><br>
             <div class="settingsItem" id="remainingSettings">
                 <p class="settingsHeading">Weitere Einstellungen</p>
                 <%let WarnSettingChecked = (data.learningPath.lpSettings.ignoreWarnings ? "checked" : "" ) %>
                 <input type="checkbox" class="checkIgnoWar" id="ignoreWarnings" name="ignoreWarnings" <%= WarnSettingChecked %>>
                 <label for="ignoreWarnings">Warnungen ignorieren</label>
-                <div class="settingsItems">
+            </div>
+            <br><hr><br>
+            <div class="settingsItem settingsItems">
                     <button class="btn btn-light customInput" id="stealSettingsBtn">Einstellungen übernehmen</button>
                     <button class="btn btn-light customInput" id="resetSettingsBtn">Einstellungen zurücksetzen</button>
-                </div>
             </div>
         </div>
         <div class="modal fade" id="modalIgnoWar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -70,7 +70,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .catContent {
-  justify-content: center;
+  display: flex;
 }
 
 .catNavWrapper {
