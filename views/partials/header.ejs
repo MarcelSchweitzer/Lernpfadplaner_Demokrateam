@@ -1,19 +1,17 @@
 <header>
     <div class="headerWrap">
-        <div class="headerButtonsLeft" id="headerButtonsLeft"">
-            <div class="home">
-              <div class="hoverBtnWrap">
-                <img type="image" class="button headerButtonImg img-no-hover" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg">
-                <img type="image" class="button headerButtonImg img-hover" id="homeBtn" src="img/favicon/favicon-round-hover.svg" alt="home.svg">
-              </div>
-              <div class="hoverBtnWrap">
-                <img type="image" class="button headerButtonImg img-no-hover" id="userSettingsBtn" src="img/user.svg" alt="user.svg">
-                <img type="image" class="button headerButtonImg img-hover" id="userSettingsBtn" src="img/user-hover.svg" alt="user.svg">
-              </div>
-              <a href="#" id="usernameText" class="button headerText">
-                <%= data.nickname %>
-              </a>
+        <div class="headerButtonsLeft" id="headerButtonsLeft">
+            <div class="hoverBtnWrap">
+              <img type="image" class="button headerButtonImg img-no-hover" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg">
+              <img type="image" class="button headerButtonImg img-hover" id="homeBtn" src="img/favicon/favicon-round-hover.svg" alt="home.svg">
             </div>
+            <div class="hoverBtnWrap">
+              <img type="image" class="button headerButtonImg img-no-hover" id="userSettingsBtn" src="img/user.svg" alt="user.svg">
+              <img type="image" class="button headerButtonImg img-hover" id="userSettingsBtn" src="img/user-hover.svg" alt="user.svg">
+            </div>
+            <a href="#" id="usernameText" class="button headerText">
+              <%= data.nickname %>
+            </a>
         </div>
         <div class="userMessageDiv" id="userMessageDiv">
           <a href="#" id="userMessage" class="headerText"></a> 
