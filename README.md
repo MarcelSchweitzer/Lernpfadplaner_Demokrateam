@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ![project logo](https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon-meta-app.svg?raw=true) ![project logo](https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon.png?raw=true)
+=======
+![project logo](https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon.svg?raw=true)
+>>>>>>> 5f640a5219aaca6302b6d292707e0c0c6178bb33
 # Lernpfadplaner - Demokrateam 
 
 <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
