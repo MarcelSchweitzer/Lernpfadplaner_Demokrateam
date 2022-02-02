@@ -94,6 +94,7 @@ body::-webkit-scrollbar {
 
 #usernameText{
   color: #000;
+  font-size: 12px;
 }
 
 .start-btn button {
@@ -179,7 +180,7 @@ body::-webkit-scrollbar {
 header {
   position: fixed;
   width: 100%;
-  height: 50px;
+  height: 40px;
   z-index: 1;
   box-shadow: 0 8px 6px -6px rgba(83, 83, 83, 0.473);
   background-color: #f7f7f7;
@@ -286,8 +287,8 @@ footer a:hover {
 }
 
 .dropImg{
-  width: 60px;
-  height: 60px;
+  width: 45px;
+  height: 45px;
 }
 
 .footer-img img {
@@ -675,8 +676,8 @@ td, th {
 }
 
 .headerButtonImg{
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   margin-left: 8px;
 }
