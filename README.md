@@ -1,6 +1,6 @@
-
 ![project logo](https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon-meta-app.svg?raw=true) ![project logo](https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/public/img/favicon/favicon.svg?raw=true)
-# Lernpfadplaner - Demokrateam 
+
+# Lernpfadplaner - Demokrateam
 
 <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
 
@@ -25,8 +25,11 @@ npm start
 
 ## Manual
 
-> Change the project color: Search & Replace '5bb9fc' with your color of choice 
+> Change the project color: Search & Replace '5bb9fc' with your color of choice
 
+> https://google.github.io/styleguide/htmlcssguide.html
+
+> https://github.com/airbnb/javascript
 
 ## Folder structure:
 
@@ -34,7 +37,7 @@ npm start
 - public
   - css
     - editor.css: for the editor page
-    - main.css: for the dashboard and landing page
+    - main.css: for the dashboard, landing page, the cookies and overall used css
     - settings.css: for the user-settings and the lp-settings and their settings framework
   - html
     - impressum.html: # TODO ( write impressum, link not functional - covered?)

@@ -1,31 +1,31 @@
 .sidepanel {
-  width: 100%;
-  height: 35vh;
-  margin-top: 60px;
   background-color: #f7f7f7;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0,
+    rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+  height: 35vh;
+  margin-top: 60px;
   overflow: hidden;
-  padding-bottom: 20px;
   overflow-x: hidden;
+  padding-bottom: 20px;
+  width: 100%;
 }
 
 .sidepanel-second {
-  height: 50vh;
-  margin-top: 20px;
   background-color: #f7f7f7;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0,
+    rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+  height: 50vh;
+  margin-top: 20px;
   overflow: scroll;
   padding-bottom: 20px;
 }
 
 .textInModal {
-  text-align: center;
   font-size: 20px;
   font-weight: 500;
+  text-align: center;
 }
 
 .interactivityListItem {
@@ -33,59 +33,59 @@
 }
 
 .HeaderInModal {
-  text-align: center;
   font-size: 24px;
   font-weight: 600;
+  text-align: center;
 }
 
 .midCol {
-  overflow-y: auto;
   margin-top: 20px;
+  overflow-y: auto;
   width: 65%;
 }
 
 .inner-material {
-  width: 100%;
-  height: 500px;
   border: 1px solid #f7f7f7;
+  height: 500px;
+  width: 100%;
 }
 
 .workspace {
-  height: 100%;
-  width: 100%;
-  float: left;
-  display: inline;
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+  display: inline;
+  height: 100%;
+  float: left;
+  width: 100%;
 }
 
 .p5Canvas {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
 .coords {
   display: inline;
-  width: 30%;
   margin-left: 5%;
+  width: 30%;
 }
 
 .interactionSettings {
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
-  float: left;
-  display: none;
-  text-align: center;
   background-color: #ffffff;
+  display: none;
+  float: left;
+  height: 100%;
+  overflow-y: auto;
   padding-top: 15px;
+  text-align: center;
+  width: 100%;
 }
 
 .interactionItem {
-  width: 80%;
   display: inline-block;
+  width: 80%;
 }
 
 .sidepanel-first {
@@ -110,7 +110,7 @@
 }
 
 .note {
-  padding: 10px 36px 0px 5px;
+  padding: 10px 36px 0 5px;
 }
 
 .note p {
@@ -119,10 +119,10 @@
 }
 
 .note img {
-  width: 40%;
   display: block;
   margin: 10px auto;
   opacity: 0.7;
+  width: 40%;
 }
 
 .note img:hover {
@@ -135,8 +135,8 @@
 }
 
 .script {
-  width: 30px;
   padding-right: 10px;
+  width: 30px;
 }
 
 .taxonomy-part {
@@ -160,17 +160,17 @@
 }
 
 .rate:not(:checked) > label {
+  color: #ccc;
+  cursor: pointer;
   float: right;
-  width: 1em;
+  font-size: 30px;
   overflow: hidden;
   white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-  color: #ccc;
+  width: 1em;
 }
 
 .rate:not(:checked) > label:before {
-  content: "★ ";
+  content: '★ ';
 }
 
 .rate > input:checked ~ label {
@@ -197,16 +197,16 @@
 /* text on notes */
 
 .noteContainer {
+  color: rgb(66, 66, 66);
   position: relative;
   text-align: center;
-  color: rgb(66, 66, 66);
 }
 
 .interactivityCategory {
-  text-decoration: none;
-  font-weight: bold;
   color: #000;
+  font-weight: bold;
   padding: 5px;
+  text-decoration: none;
 }
 
 .note {
@@ -215,32 +215,32 @@
 }
 
 .lpNotes {
-  width: 100%;
-  min-height: 150px;
+  background-image: url(/img/post-it.png);
+  background-size: cover;
+  box-sizing: content-box;
   height: 100%;
+  min-height: 150px;
   overflow-y: auto;
   padding-right: 17px;
-  box-sizing: content-box;
-  background-image: url("/img/post-it.png");
-  background-size: cover;
+  width: 100%;
 }
 
 .noteMaximize {
-  width: 50px;
-  position: absolute;
   bottom: 10px;
+  position: absolute;
   right: 10px;
+  width: 50px;
 }
 
 #lpNotesModal {
-  height: 470px;
-  background-image: url("/img/post-it.png");
+  background-image: url(/img/post-it.png);
   background-size: cover;
+  height: 470px;
 }
 
 .scenarios {
-  margin-top: 40px;
   height: 90vh;
+  margin-top: 40px;
 }
 
 .scrollable {
@@ -248,7 +248,7 @@
 }
 
 .card.scenario {
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .scrollable::-webkit-scrollbar {
@@ -260,8 +260,8 @@
 }
 
 .scrollable::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px black;
   border-radius: 2px;
+  box-shadow: inset 0 0 5px black;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
@@ -274,9 +274,9 @@
 }
 
 .categoryBox {
-  width: 100%;
-  text-align: center;
   height: inherit;
+  text-align: center;
+  width: 100%;
 }
 
 .deleteIntBtn {
@@ -288,49 +288,51 @@
 }
 
 .interactivityBox {
-  border-radius: 10px;
-  border: 1px solid black;
-  height: 30px;
-  font-size: 16px;
-  text-align: center;
-  vertical-align: middle;
   background-color: transparent;
-  width: 90%;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 30px;
   margin: 5px 10px;
   overflow: hidden;
-  cursor: pointer;
-  text-overflow: ellipsis;
   padding: 2px;
+  text-align: center;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  width: 90%;
 }
 
 .selectedInteractivity {
-  text-overflow: ellipsis;
   font-size: 14px;
+  text-overflow: ellipsis;
   padding: 2px;
 }
 
 .inputImg button {
-  color: white;
   background-color: #6da5f8;
+  color: white;
   height: 38px;
 }
 
 .sidepanel {
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
 }
+
 @media screen and (max-width: 575px) {
   .col-2 {
     width: 100%;
   }
+
   .col-8 {
     width: 100%;
   }
 }
 
 .scenarioContr {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
@@ -345,14 +347,14 @@
 .interactivityListElem {
   border-radius: 10px;
   height: auto;
-  width: 90%;
   margin: 5px 10px;
-  text-align: center;
   padding: 2px;
+  text-align: center;
+  width: 90%;
 }
 
 header {
-  top: 0px;
+  top: 0;
 }
 
 .node {
@@ -376,9 +378,9 @@ header {
 }
 
 .tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
   background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  overflow: hidden;
 }
 
 .scenarioControllWrapper {
@@ -396,9 +398,9 @@ header {
 }
 
 #scenarioRightControlls {
-  width: 30%;
   justify-content: flex-end;
   height: 100%;
+  width: 30%;
 }
 
 .lpNote {
@@ -411,9 +413,9 @@ header {
 }
 
 .materialUrl {
+  border-bottom-right-radius: 0 0;
+  border-top-right-radius: 0 0;
   justify-content: flex-start;
-  border-top-right-radius: 0px 0px;
-  border-bottom-right-radius: 0px 0px;
   width: 80%;
 }
 
@@ -427,14 +429,14 @@ header {
 }
 
 .scenarioButtonWrap {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .scenarioBtn {
-  margin-bottom: 10px;
   height: 30px;
+  margin-bottom: 10px;
   width: 30%;
 }
 
@@ -451,28 +453,29 @@ header {
   z-index: 9999;
 }
 
-.canvasBtn{
+.canvasBtn {
   display: none;
 }
 
 hr.rounded {
-  border-top: 2px solid #bbb;
   border-radius: 5px;
+  border-top: 2px solid #bbb;
 }
+
 hr.dotted {
   border-top: 3px dotted #bbb;
 }
 
 .accordionWrap {
   display: flex;
-  width: 34%;
   padding-top: 10px;
+  width: 34%;
 }
 
 .rightScenarioHBtn {
-  height:30px;
+  height: 30px;
 }
 
-.setItemCenter{
+.setItemCenter {
   width: 400px;
 }

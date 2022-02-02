@@ -12,12 +12,12 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .profile-options button {
-  display: flex;
-  flex-direction: row;
-  display: block;
-  margin: 10px auto;
-  border: 2px solid linen !important;
   background-color: #1f2235 !important;
+  border: 2px solid linen !important;
+  display: flex;
+  display: block;
+  flex-direction: row;
+  margin: 10px auto;
 }
 
 .row {
@@ -25,8 +25,8 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .space {
-  width: 100%;
   height: 100px;
+  width: 100%;
 }
 
 .tab-pane label {
@@ -38,35 +38,35 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .intChangeBtn {
-  max-width: 30px;
-  height: 20px;
   border-radius: 40px;
+  height: 20px;
+  max-width: 30px;
   margin-left: 5px;
 }
 
 .delIntIcon {
   display: block;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   width: 100%;
-  height: 100%;
 }
 
 .nameIntIcon {
   display: block;
+  height: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   width: 80%;
-  height: 80%;
 }
 
 .modalText {
-  font-size: 20px;
   text-align: center;
+  font-size: 20px;
 }
 
 .catContent {
@@ -74,16 +74,16 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .catNavWrapper {
-  justify-content: center;
   display: flex;
+  justify-content: center;
   vertical-align: center;
 }
 
 /* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
 
 .nav-item {
-  font-size: 14px;
   display: flex;
+  font-size: 14px;
   justify-content: center;
   vertical-align: center;
 }
@@ -112,11 +112,11 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .newIntertypeName {
-  border-top-right-radius: 0px 0px;
-  border-bottom-right-radius: 0px 0px;
-  width: 65%;
   border-color: rgb(255, 255, 255);
+  border-bottom-right-radius: 0 0;
+  border-top-right-radius: 0 0;
   border-width: 4px;
+  width: 65%;
 }
 
 .newIntertypeName:focus {
@@ -124,46 +124,46 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .createNewInt {
-  border-top-right-radius: 10px 10px;
-  border-bottom-right-radius: 10px 10px;
   background-color: white;
   border-color: rgb(255, 255, 255);
-  border-width: 0px;
+  border-bottom-right-radius: 10px 10px;
+  border-top-right-radius: 10px 10px;
+  border-width: 0;
   width: 35%;
 }
 
 .itemWrap {
   display: block;
   flex-wrap: wrap;
-  padding: 10px;
   min-height: 300px;
+  padding: 10px;
   width: 100%;
 }
 
 .items {
+  columns: 90px 4;
   display: block;
   justify-content: space-between;
-  columns: 90px 4;
 }
 
 .settingsItems {
-  margin: 20px;
-  width: 100%;
-  bottom: 0px;
+  bottom: 0;
   display: flex;
   justify-content: center;
+  margin: 20px;
+  width: 100%;
 }
 
 .customInput {
-  width: 200px;
-  margin: 5px;
   justify-content: center;
+  margin: 5px;
+  width: 200px;
 }
 
 .saveBtnDiv button:hover {
-  color: aliceblue !important;
-  border: 2px solid #5bb9fc !important;
   background-color: #1f2235 !important;
+  border: 2px solid #5bb9fc !important;
+  color: aliceblue !important;
 }
 
 @keyframes rotating {
@@ -181,15 +181,15 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 }
 
 .gear_big {
+  bottom: 0;
+  left: 0;
   position: relative;
-  left: 0px;
-  bottom: 0px;
 }
 
 .gear_mid {
   position: relative;
-  right: 0px;
-  top: 0px;
+  right: 0;
+  top: 0;
 }
 
 .gear_small {
