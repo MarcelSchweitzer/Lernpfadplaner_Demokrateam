@@ -678,6 +678,11 @@ document.addEventListener('click', (event) => {
     else if(id == 'stealSettingsConfirm'){
         let stealID = $('#stealSettingsDrop').children(":selected").attr("id").replaceAll('steal', '');
         session.setProp('lpSettings', session.getlearningPathById(stealID)['lpSettings']);
+        if(document.getElementById('includeTaxo').checked)
+            session.setProp('taxonomyLevel', session.getlearningPathById(stealID)['taxonomyLevel']);
+        if(document.getElementById('includeEval').checked)
+            session.setProp('evaluationModeID', session.getlearningPathById(stealID)['evaluationModeID']);
+        
         learningPathToServer(session.getCurrentLearningPath(), ()=>{
             getSettingsPage(mode = 'lpSettingsOnly');
         })

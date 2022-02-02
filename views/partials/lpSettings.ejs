@@ -267,6 +267,12 @@ function canBeRead(root, calls){
                     <div class="modal-body">
                         <p class="modalText">Von welchem Lernpfad möchtest Du die Einstellungen übernehmen?</p>
                         <select class="form-control" id="stealSettingsDrop"></select>
+                        <br>
+                        <input type="checkbox" class="includeTaxo" id="includeTaxo" checked>
+                        <label for="includeTaxo">Taxonomiestufe übernehmen</label>
+                        <br>
+                        <input type="checkbox" class="includeEval" id="includeEval" checked>
+                        <label for="includeEval">Bewertungsmodus übernehmen</label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="stealSettingsConfirm" data-dismiss="modal">OK</button>
