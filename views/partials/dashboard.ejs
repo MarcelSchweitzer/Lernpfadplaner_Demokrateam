@@ -1,20 +1,18 @@
-
-<% if(data.learningPaths.length > 0){ %>
-    <div class="container-fluid">
-        <img class="img-background" src="img/home.png">
-        <hr>
-        
-            <div class="col-md-12 infoData">
-                <div class="start-btn">
-                    <button class="button btn btn-primary" type="create" id="createLpBtn">
-                        Neuen Lernpfad erstellen +
-                    </button>
-                </div>
-                <div class="form" id="dropDiv">
-                    <input type="file" accept=".json" class="fileDrop" id="importDrop" multiple>
-                    <img class="dropImg" src="img/filetype-json.svg">
-                </div>
+<div class="container-fluid">
+    <img class="img-background" src="img/home.png">
+    <hr>
+    
+        <div class="col-md-12 infoData">
+            <div class="start-btn">
+                <button class="button btn btn-primary" type="create" id="createLpBtn">
+                    Neuen Lernpfad erstellen +
+                </button>
             </div>
+            <div class="form" id="dropDiv">
+                <input type="file" accept=".json" class="fileDrop" id="importDrop" multiple>
+                <img class="dropImg" src="img/filetype-json.svg">
+            </div>
+        </div>
         
         <hr>
         <div class="row">
@@ -135,22 +133,4 @@
            
         </div>
     </div>
-<%}else{%>
-    <img class="img-background" src="img/home.png">
-    <div class="welcome">
-        <div class="welcomeItem">
-            <div class="start-btn">
-                <button class="button btn btn-primary" type="create" id="createLpBtn">
-                    Neuen Lernpfad erstellen +
-                </button>
-            </div>
-        </div>
-        <div class="welcomeItem">
-            <div class="form dropDiv" id="dropDiv">
-                <input type="file" accept=".json" class="fileDrop" accept=".json" id="importDrop" multiple>
-                <p id="dropText">Ziehe Deine Lernpfad-Dateien in dieses Feld oder klicke darauf, um Dateien von Deinem Rechner auszuwählen!</p>
-            </div>
-        </div>
-    </div>
-<%}%>
 <div class="space"></div>
