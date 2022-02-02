@@ -1,13 +1,44 @@
+<% // TODO DRY
+// return true if data is available
+function canBeRead(root, calls){
+    if(calls.length == 1 && root[calls[0]])
+        return true
+    if(root[calls[0]]){
+        let origCalls = calls.slice()
+        calls.splice(0, 2, calls[1])
+        return canBeRead(root[origCalls[0]], calls)
+    }
+    return false
+}
+%>
+
 <div class="material-group">
     <div class="container lpSettings">
         <div class="setting-section">
             <p class="top-name">
                 <h3>Lernpfad-Einstellungen</h3>
             </p>
-        
-            <div class="settingsItem" id="title">
+            <div class="settingsItem">
                 <label class="settingsHeading" for="lpTitleInput">Titel</label>
-                <input type="text" onSubmit="return false;" class="form-control" id="lpTitleInput" value="<%=data.learningPath.title%>">
+                <input type="text" onSubmit="return false;" class="form-control setItemCenter" id="lpTitleInput" value="<%=data.learningPath.title%>">
+            </div>
+            <br>
+            <div class="settingsItem">
+                <label class="settingsHeading" for="lpTaxonomyLevel">Taxonomiestufe</label>
+                <select class="form-control setItemCenter" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
+                    <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
+                        <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
+                    <% }); } %>
+                </select>
+            </div>
+            <br>
+            <div class="settingsItem">
+                <label class="settingsHeading" for="lpEvaluationMode">Bewertungsmodus</label>
+                <select class="form-control setItemCenter" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
+                    <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
+                        <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                    <% }); } %>
+                </select>
             </div>
             <br>
             <div>
@@ -98,8 +129,8 @@
                                         </div>
                                     </div>
                                     <div class="settingsItems">
-                                        <button class="btn btn-light checkAllBtn customInput selectAllDefaultCat" id="catCheck <%= categoryName %>"> Alle aus dieser Kategorie auswählen </button>
-                                        <button class="btn btn-light checkAllBtn customInput selectNoneDefaultCat" id="catUnCheck <%= categoryName %>"> Keine aus dieser Kategorie auswählen </button>
+                                        <button class="btn btn-light checkAllBtn customInput selectAllDefaultCat" id="catCheck <%= categoryName %>"> Alle aus <%= categoryName.replaceAll("_"," ") %> auswählen </button>
+                                        <button class="btn btn-light checkAllBtn customInput selectNoneDefaultCat" id="catUnCheck <%= categoryName %>"> Keine aus <%= categoryName.replaceAll("_"," ") %> auswählen </button>
                                     </div>
                                 </div>
                                 <%counter++}}  %>
@@ -152,7 +183,10 @@
                 <%let WarnSettingChecked = (data.learningPath.lpSettings.ignoreWarnings ? "checked" : "" ) %>
                 <input type="checkbox" class="checkIgnoWar" id="ignoreWarnings" name="ignoreWarnings" <%= WarnSettingChecked %>>
                 <label for="ignoreWarnings">Warnungen ignorieren</label>
-                <button class="btn btn-light customInput" id="reserSettingsBtn">Einstellungen zurücksetzen</button>
+                <div class="settingsItems">
+                    <button class="btn btn-light customInput" id="stealSettingsBtn">Einstellungen übernehmen</button>
+                    <button class="btn btn-light customInput" id="resetSettingsBtn">Einstellungen zurücksetzen</button>
+                </div>
             </div>
         </div>
         <div class="modal fade" id="modalIgnoWar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -217,6 +251,23 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light intRenameModalBtn" id="interactionTypeNameBtn" name="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
                         <button type="button" class="btn btn-light intRenameDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalStealtSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modalText">Von welchem Lernpfad möchtest Du die Einstellungen übernehmen?</p>
+                        <select class="form-control" id="stealSettingsDrop"></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" id="stealSettingsConfirm" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
             </div>

@@ -128,12 +128,12 @@ app.get('/create', (req, res) => {
 
                 // default settings for new learningPaths
                 const defaultProps = {
-                    "id": id,
-                    "title": name,
-                    "evaluationModeID": 'Keine Bewertung',
-                    'taxonomyLevel': "",
-                    'notes': "",
-                    "lpSettings":{
+                    'id': id,
+                    'title': name,
+                    'evaluationModeID': 'Keine Bewertung',
+                    'taxonomyLevel': '',
+                    'notes': '',
+                    'lpSettings':{
                         "activeDefaultTypes": defaultCategories,
                         "createdTypes":{},
                         "ignoreWarnings": false
@@ -207,7 +207,9 @@ app.get('/settings', (req, res) => {
                             'learningPath': _data[0]['content'],
                             'userSet': getUserSettings,
                             'nickname': data[0]['nickname'],
-                            'interactionTypes':interactionTypes
+                            'interactionTypes':interactionTypes,
+                            'evaluationModes':evaluationModes,
+                            'taxonomyLevels':taxonomyLevels
                         }
                     });
                 } else {

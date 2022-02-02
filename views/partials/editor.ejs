@@ -50,7 +50,19 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                     <div class="sidepanel sidepanel-first scrollable">
                         <div class="rate-part">
                             <hr>
-                            <p>Notizen</p>
+                            <button class="button btn btn-light overviewBtn" id="showTreegraph">
+                                <img class="button" src="img/diagram-3.svg">
+                            </button>
+                            <div id="treegraphNav" class="overlay">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
+                                <div class="overlay-content">
+                                    <div id="treegraph">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-part">
                             <hr>
                             <div class="note" >
                                 <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
@@ -89,22 +101,6 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </div>
                             </form>
                         </div>
-                        <div class="rate-part">
-                            <hr>
-                            <p>Übersicht</p>
-                            <hr>
-                            <button class="button btn btn-light overviewBtn" id="showTreegraph">
-                                <img class="button" src="img/diagram-3.svg">
-                            </button>
-                            <div id="treegraphNav" class="overlay">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
-                                <div class="overlay-content">
-                                    <div id="treegraph">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <section>
@@ -122,9 +118,8 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
                                     <div class="interactivityListElem">
                                         <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
-                                            <% catName=ia.category.replace("_", " " ); %>
-                                            <%= catName %> -
-                                            <%= ia.interactionType %>
+                                            <%= catName.replaceAll("_", " " ) %> -
+                                            <%= ia.interactionType.replaceAll("_", " " ) %>
                                         </button>
                                     </div>
                                     <% count++; }); %>

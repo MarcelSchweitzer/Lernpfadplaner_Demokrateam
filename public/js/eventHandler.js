@@ -42,7 +42,7 @@ function refreshInteractivityList() {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append(`
                                                 <div class="interactivityListElem">
-                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category + ` - ` + inter.interactionType + `</button>
+                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category.replaceAll('_', ' ') + ` - ` + inter.interactionType.replaceAll('_', ' ') + `</button>
                                                 </div>
                                           `);
         }
@@ -657,11 +657,30 @@ document.addEventListener('click', (event) => {
         saveCurrentLp();
     }
 
-    else if(id == "reserSettingsBtn"){
+    else if(id == "resetSettingsBtn"){
         if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
             resetSettings();
         else
             $("#modalResetSettings").modal("show");
+    }
+
+    else if(id == "stealSettingsBtn"){
+        $("#modalStealtSettings").modal("show");
+
+        // append lps on the fly
+        $("#stealSettingsDrop").html('');
+        currentLps = session.getlearningPaths();
+        for(let i = 0; i < currentLps.length; i++){
+            $("#stealSettingsDrop").append(`<option id="steal` + currentLps[i].id + `">` + currentLps[i].title + `</option>`)
+        }
+    }
+
+    else if(id == 'stealSettingsConfirm'){
+        let stealID = $('#stealSettingsDrop').children(":selected").attr("id").replaceAll('steal', '');
+        console.log(stealID)
+
+        session.setProp('lpSettings', session.getlearningPathById(stealID)['lpSettings']);
+        getSettingsPage(mode = 'lpSettingsOnly')
     }
 
     else if(id == "resetSettings"){
