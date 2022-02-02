@@ -725,8 +725,7 @@ td, th {
   border: none;
 }
 
-.landingWrap{
-  max-height: 50%;
+
 @keyframes myAnim {
   0%,
   100% {
@@ -753,4 +752,8 @@ td, th {
   75% {
     transform: translateX(-6px) rotate(-1.2deg);
   }
+}
+
+.landingArea img:hover {
+  animation: myAnim 2s ease 1 normal forwards;
 }
