@@ -365,8 +365,6 @@ function generatePDF(scenarios, title, index = null) {
     for(let i = 0; i < scenarios.length; i++){
         var wrappedPage = false
         if (i > 0) {
-            doc.addPage();
-            page++;
             offsetY = 0;
         }
 
@@ -423,7 +421,11 @@ function generatePDF(scenarios, title, index = null) {
                     }
                 }
 
-                printDict(scenarios[i]);
+                for(let y=0; y<=i;y++)
+                {
+                    printDict(scenarios[y]);
+                }   
+
 
                 if(i == scenarios.length - 1 ){
                     doc.save(title+".pdf");
