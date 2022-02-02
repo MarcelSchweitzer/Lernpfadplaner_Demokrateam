@@ -22,17 +22,7 @@ npm start
 
 - navigate to localhost:8080/get_started with your browser
 
-## Functions of datas:
-
-> To change the display on the pages, the css-files in public and the views have to be edited; to change / add / delete functonality of / to buttons or other elements and to change the processing of data in the jsons, the js-files in public have to be edited.
-
-> not all classes are related to functions or external css, some are just for clarity
-
-> Bootstrap is used across the content
-
-> css for madie screen (diffrent screen sizes) is only defined in main.css but used for alls files, e.g. used in settings.ejs
-
-> the information data holds is different on eyery page / for every .ejs and is configurated in app.js via the app.get function
+## Folder structure:
 
 - node_modules: contains third-party dependencies
 - public
