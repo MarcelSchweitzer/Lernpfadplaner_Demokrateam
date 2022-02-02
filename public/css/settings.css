@@ -159,3 +159,9 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   margin: 5px;
   justify-content: center;
 }
+
+.saveBtnDiv button:hover {
+  color: aliceblue !important;
+  border: 2px solid #7dd1ff !important;
+  background-color: #1f2235 !important;
+}
