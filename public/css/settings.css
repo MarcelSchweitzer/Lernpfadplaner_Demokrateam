@@ -165,3 +165,34 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   border: 2px solid #7dd1ff !important;
   background-color: #1f2235 !important;
 }
+
+@keyframes rotating {
+  0%  { transform: rotate(0);}
+  100%{ transform: rotate(1turn);}
+}
+
+.rotate {
+  animation: rotating 45s linear infinite;
+}
+
+.img-background {
+  height: 512px;
+  width: 512px;
+}
+
+.gear_big {
+  position: relative;
+  left: 0px;
+  bottom: 0px;
+}
+
+.gear_mid {
+  position: relative;
+  right: 0px;
+  top: 0px;
+}
+
+.gear_small {
+  position: relative;
+  top: 70px;
+}
