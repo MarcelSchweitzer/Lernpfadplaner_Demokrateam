@@ -665,7 +665,7 @@ document.addEventListener('click', (event) => {
     }
 
     else if(id == "stealSettingsBtn"){
-        $("#modalStealtSettings").modal("show");
+        $("#modalStealtSettings").modal("show"); 
 
         // append lps on the fly
         $("#stealSettingsDrop").html('');
@@ -673,7 +673,7 @@ document.addEventListener('click', (event) => {
         for(let i = 0; i < currentLps.length; i++){
             $("#stealSettingsDrop").append(`<option id="steal` + currentLps[i].id + `">` + currentLps[i].title + `</option>`)
         }
-    }
+    } 
 
     else if(id == 'stealSettingsConfirm'){
         let stealID = $('#stealSettingsDrop').children(":selected").attr("id").replaceAll('steal', '');
