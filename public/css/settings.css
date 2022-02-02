@@ -162,7 +162,7 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 
 .saveBtnDiv button:hover {
   color: aliceblue !important;
-  border: 2px solid #7dd1ff !important;
+  border: 2px solid #5bb9fc !important;
   background-color: #1f2235 !important;
 }
 

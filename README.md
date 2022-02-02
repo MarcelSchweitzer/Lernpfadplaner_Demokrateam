@@ -25,7 +25,7 @@ npm start
 
 ## Manual
 
-> Change the project color: Search & Replace '7dd1ff' with your color of choice 
+> Change the project color: Search & Replace '5bb9fc' with your color of choice 
 
 
 ## Folder structure:
