@@ -37,6 +37,7 @@ body::-webkit-scrollbar {
 .image-cover {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .image-cover img {
