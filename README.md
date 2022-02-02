@@ -22,6 +22,11 @@ npm start
 
 - navigate to localhost:8080/get_started with your browser
 
+## Manual
+
+> Change the project color: Search & Replace '7dd1ff' with your color of choice 
+
+
 ## Folder structure:
 
 - node_modules: contains third-party dependencies

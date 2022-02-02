@@ -1468,7 +1468,7 @@ document.addEventListener("drop", (event) => {
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             category.trim()
             interactionType.trim()
-            session.addInteraction(60, coordinates, "", "", category, interactionType, " ", " ");
+            session.addInteraction(100, coordinates, "", "", category, interactionType, " ", " ");
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();
