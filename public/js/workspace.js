@@ -2,7 +2,6 @@ class CanvasManager {
   constructor() {
     this.p5Obj = null;
     this.canvas = null
-    this.circleSize = 60;
     this.images = [];
     this.videos = [];
     this.scale = [];
@@ -13,10 +12,6 @@ class CanvasManager {
     this.draggedInteraction = null;
     this.backgrounddragged = false;
     this.dragTimeOut = false;
-  }
-
-  getCircleSize(){
-    return this.circleSize;
   }
 
   setBackgrounddragged(backgrounddragged){
@@ -264,8 +259,8 @@ function newCanv(p){
 
         // move dragged elemt
         else if(canvasManager.getDrag() != null){
-          session.setInteractionProp('x_coord', (event.offsetX - (canvasManager.getCircleSize() / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().x) / canvasManager.getScale());
-          session.setInteractionProp('y_coord', (event.offsetY - (canvasManager.getCircleSize() / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().y) / canvasManager.getScale());
+          session.setInteractionProp('x_coord', (event.offsetX - (session.getCurrentScenario().interactions[canvasManager.getDrag()].hotSpotSize / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().x) / canvasManager.getScale());
+          session.setInteractionProp('y_coord', (event.offsetY - (session.getCurrentScenario().interactions[canvasManager.getDrag()].hotSpotSize / 2 * canvasManager.getScale()) - canvasManager.getUserOffset().y) / canvasManager.getScale());
         }
 
         // move background
@@ -303,9 +298,9 @@ function newCanv(p){
           let hover = false
           for(let i = 0; i < session.getCurrentScenario().interactions.length; i++){
             let leftBorder = session.getCurrentScenario().interactions[i].x_coord - 5;
-            let rightBorder = session.getCurrentScenario().interactions[i].x_coord + 5 + ( canvasManager.getCircleSize() ); // !!
+            let rightBorder = session.getCurrentScenario().interactions[i].x_coord + 5 + ( session.getCurrentScenario().interactions[i].hotSpotSize ); // !!
             let topBorder = session.getCurrentScenario().interactions[i].y_coord - 5; // !!
-            let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + 5 + ( canvasManager.getCircleSize() ) ; // !!
+            let bottomBorder = session.getCurrentScenario().interactions[i].y_coord + 5 + ( session.getCurrentScenario().interactions[i].hotSpotSize ) ; // !!
             let x = (event.offsetX - canvasManager.getUserOffset().x) / canvasManager.getScale();
             let y = (event.offsetY - canvasManager.getUserOffset().y) / canvasManager.getScale()
 
@@ -357,7 +352,7 @@ function newCanv(p){
     p.draw = function () {
 
       // set FrameRate
-      p.frameRate(canvasManager.getCircleSize());
+      p.frameRate(30);
 
 
       // draw background
@@ -385,10 +380,10 @@ function newCanv(p){
         for(i = 0; i < interactions.length; i++){
 
           p.stroke(12, 230, 30, 0.1); // !!
-          p.strokeWeight(20);
+          p.strokeWeight(interactions[i].hotSpotSize / 3);
 
           // inner rect
-          p.rect(interactions[i].x_coord + 5, interactions[i].y_coord + 5 , 50, 50, 20); // !!
+          p.rect(interactions[i].x_coord + 10, interactions[i].y_coord + 10, interactions[i].hotSpotSize - 20, interactions[i].hotSpotSize - 20, 20); // !!
 
           // default color
           p.stroke(12, 230, 30, 0.3); // !!
@@ -405,10 +400,10 @@ function newCanv(p){
           if(i == canvasManager.getDrag())
             p.stroke(205, 12, 30, 0.7) // !!
 
-          p.strokeWeight(10);
+          p.strokeWeight(interactions[i].hotSpotSize / 5);
 
           // outer rect
-          p.rect(interactions[i].x_coord, interactions[i].y_coord, canvasManager.getCircleSize(), canvasManager.getCircleSize(), 20); // !!
+          p.rect(interactions[i].x_coord, interactions[i].y_coord, interactions[i].hotSpotSize, interactions[i].hotSpotSize, 20); // !!
 
         }
 

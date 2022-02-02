@@ -52,9 +52,9 @@ function refreshInteractivityList() {
 }
 
 function refreshInteractivityInputs() {
-    let speed = 40
     if (session.interactionOpened()) {
         $(".interactionSettings").css("display", "inline");
+        $(".hotSpotSize[type=range]").val(Number(session.getCurrentInteraction().hotSpotSize));
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
@@ -1342,6 +1342,10 @@ document.addEventListener('input', (event) => {
         unsavedChanges = true;
         saveCurrentLp();
     } 
+
+    else if (id == 'hotSpotSize'){
+        updateInteractionProperty('hotSpotSize', Number(input.value))
+    }
     
     else if (id == 'x_coord') {
         updateInteractionProperty('x_coord', input.value)
@@ -1464,7 +1468,7 @@ document.addEventListener("drop", (event) => {
             let interactionType = draggedInteraction.getAttribute('id').split('$$')[1];
             category.trim()
             interactionType.trim()
-            session.addInteraction(coordinates, "", "", category, interactionType, " ", " ");
+            session.addInteraction(60, coordinates, "", "", category, interactionType, " ", " ");
             unsavedChanges = true;
             session.openInteraction(session.getCurrentScenario().interactions.length - 1)
             refreshInteractivityList();

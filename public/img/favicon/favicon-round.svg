@@ -35,7 +35,7 @@
      inkscape:window-x="-8"
      inkscape:window-y="515"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2" />
+     inkscape:current-layer="layer1" />
   <defs
      id="defs2">
     <linearGradient
@@ -175,7 +175,10 @@
        id="path21890"
        cx="33.778397"
        cy="33.867638"
-       r="33.689152" />
+       r="33.689152"
+       inkscape:export-filename="C:\Lernpfadplaner_Demokrateam\public\img\favicon\favicon-round.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -187,7 +190,10 @@
        x="15.625267"
        y="60.884998"
        id="text11748"
-       transform="scale(1.1408695,0.87652445)"><tspan
+       transform="scale(1.1408695,0.87652445)"
+       inkscape:export-filename="C:\Lernpfadplaner_Demokrateam\public\img\favicon\favicon-round.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan11746"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:67.9492px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:1.70141;stroke-miterlimit:4;stroke-dasharray:none"

@@ -287,6 +287,10 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <hr>
                         <div class="interactionSettings">
                             <div class="form-group interactionItem">
+                                <label for="hotSpotSize" class="form-label">Hotspot Größe</label>
+                                <input type="range" class="form-range hotSpotSize slider" id="hotSpotSize" min="10" max="150" step="1">
+                            </div>
+                            <div class="form-group interactionItem">
                                 <label class="coords" for="x_coord">X</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp coords x_coord" id="x_coord">
                                 <label class="coords" for="y_coord">Y</label>
@@ -303,7 +307,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         </button>
                                       </div>
                                 </div>
-                                </form>
+                            </form>
                             </div>
                             <div class="form-group interactionItem">
                                 <label for="evaluationHeurestic">Erreichbare Wertung</label>

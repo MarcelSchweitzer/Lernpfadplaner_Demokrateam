@@ -122,6 +122,10 @@ app.get('/create', (req, res) => {
                     defaultCategories[categoryNames] = [];
                 }
 
+                // deault selection
+                selectCatByDefault = 'Global';
+                defaultCategories[selectCatByDefault] = interactionTypes[selectCatByDefault];
+
                 // default settings for new learningPaths
                 const defaultProps = {
                     "id": id,
