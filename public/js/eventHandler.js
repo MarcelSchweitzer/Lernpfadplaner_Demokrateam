@@ -35,14 +35,14 @@ function highestExisTaxo(scenarios) {
 
 }
 
-function refreshInteractivityList() {
+function refreshInteractivityList() { //html/CSS
     $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append(`
                                                 <div class="interactivityListElem">
-                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category.replaceAll('_', ' ') + ` - ` + inter.interactionType.replaceAll('_', ' ') + `</button>
+                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + `">` + inter.category + ` - ` + inter.interactionType + `</button>
                                                 </div>
                                           `);
         }
@@ -59,12 +59,12 @@ function refreshInteractivityInputs() {
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
         let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt.replaceAll(" ", "_");
-        $(`#taxonomyLevelInt option[id='${taxoDropID}']`).prop('selected', true);
+        $("#taxonomyLevelInt option[id='${taxoDropID}']").prop("selected", true);
         let behaDropID = session.getCurrentInteraction().behaviorSettings;
-        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
-        $(`#behaviorSettings option[id='${behaDropID}']`).prop('selected', true);
+        $("#behaviorSettings option[id='${behaDropID}']").prop("selected", true);
+        $("#behaviorSettings option[id='${behaDropID}']").prop("selected", true);
         let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
-        $(`#interactionTypeDrop option[id='${dropID}']`).prop('selected', true);
+        $("#interactionTypeDrop option[id='${dropID}']").prop("selected", true);
     }else{
         $(".interactionSettings").css("display", "none");
     }
@@ -502,8 +502,8 @@ function resetSettings(){
 }
 
 // handle button click events
-document.addEventListener('click', (event) => {
-    let id = event.target.getAttribute('id');
+document.addEventListener("click", (event) => {
+    let id = event.target.getAttribute("id");
     let classes = event.target.classList;
     let button = event.target;
 
@@ -623,7 +623,7 @@ document.addEventListener('click', (event) => {
                         "description": "",
                         "learningGoal": "",
                         "note": "",
-                    }, () => { //ändern
+                    }, () => {
                 learningPathToServer(session.getCurrentLearningPath(), () => {
                     getEditPage(session.getCurrentLearningPathId(), () => {
 
@@ -715,7 +715,7 @@ document.addEventListener('click', (event) => {
         // create new category for user 
         session.setProp("lpSettings", {}, "createdTypes" , categoryID);
         unsavedChanges = true;
-
+ //html/CSS
         $('#addTabNav').before(`
                                     <li class="nav-item" id= "` + categoryID + `Nav">
                                         <a class="nav-link" draggable="false" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -914,7 +914,7 @@ document.addEventListener('click', (event) => {
         }
         // check if name is valid
         if(newInteractionType != "" && ! Object.keys(createdTypes[category]).includes(newInteractionType) && ! defaultInterTypes.includes(newInteractionType)){
-
+ //html/CSS
             // add new interactiontype
             createdTypes[category][newInteractionType] = true;
             lastElemID = '#lastCheckboxelement' + category;
@@ -1095,7 +1095,7 @@ document.addEventListener('click', (event) => {
 
             $("#" + category + "Nav").remove();
             $("#a" + category).remove();
-
+ //html/CSS
             $('#addTabNav').before(`
                                         <li class="nav-item" id= "` + newCatID + `Nav">
                                             <a class="nav-link" draggable="false" id="` + newCatID + `-tab" data-toggle="tab" href="#a` + newCatID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -1420,7 +1420,7 @@ document.addEventListener('input', (event) => {
     }
 
     // change category name
-    else if (classes.contains('changeCatName')){ //ändern
+    else if (classes.contains('changeCatName')){ //nötig?
         let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
 

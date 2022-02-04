@@ -20,14 +20,14 @@ function getCookie(name) {
 }
 
 function eraseCookie(name) {   
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = name +"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }
 
-$('#denyCookie').click(()=>{
-    eraseCookie('allowCookies')
+$("#denyCookie").click(()=>{
+    eraseCookie("allowCookies")
     getLandingPage();
 })
 
-$('#allowCookie').click(()=>{
-    setCookie('allowCookies','1',7)
+$("#allowCookie").click(()=>{
+    setCookie("allowCookies","1",7)
 })

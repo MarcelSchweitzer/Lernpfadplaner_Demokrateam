@@ -31,7 +31,7 @@ body::-webkit-scrollbar {
   justify-content: center;
 }
 
-#dropDiv {
+.dropDiv {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -476,7 +476,7 @@ footer a:hover {
 .primary-btn {
   background-color: #1f2235 !important;
   border: 2px solid linen !important;
-  color: #ffffff;
+  color: #fff;
   display: block !important;
   font-size: 12px;
   margin: 60px auto !important;
@@ -497,7 +497,7 @@ footer a:hover {
 
 .form p {
   align-items: center;
-  color: #ffffff;
+  color: #fff;
   display: flex;
   height: 100%;
   flex-direction: column;

@@ -27,7 +27,7 @@ function canBeRead(root, calls){
             <div class="settingsItem">
                 <label class="settingsHeading" for="lpTaxonomyLevel">Taxonomiestufe</label>
                 <select class="form-control setItemCenter" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
-                    <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
+                    <% if(canBeRead(data, ["taxonomyLevels"])){  data.taxonomyLevels.forEach(taxLev=>{ %>
                         <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
                     <% }); } %>
                 </select>
@@ -36,7 +36,7 @@ function canBeRead(root, calls){
             <div class="settingsItem">
                 <label class="settingsHeading" for="lpEvaluationMode">Bewertungsmodus</label>
                 <select class="form-control setItemCenter" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
-                    <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
+                    <% if(canBeRead(data, ["evaluationModes"])){  data.evaluationModes.forEach(evalMode=>{ %>
                         <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
                     <% }); } %>
                 </select>

@@ -179,7 +179,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenarios">
                             <div class="card-body">
                                 <div class="scenarioControllWrapper">
-                                    <div class="scenarioControlls" id="scenarioLeftControlls">
+                                    <div class="scenarioControlls scenarioLeftControlls">
                                         <div class="form-group">
                                             <label for="lpDescription<%= count %>">Beschreibung</label>
                                             <textarea class="form-control lpDescription" id="lpDescription<%= count %>"><%= sc.description %></textarea>
@@ -189,7 +189,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                             <textarea class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>"><%= sc.learningGoal %></textarea>
                                         </div>
                                     </div>
-                                    <div class="scenarioControlls" id="scenarioRightControlls">
+                                    <div class="scenarioControlls scenarioRightControlls">
                                         <div class="note" >
                                             <label for="lpNote<%= count %>">Szenario-Notizen</label>
                                             <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
@@ -294,11 +294,11 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                             <div class="form-group interactionItem">
                                <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
-                                <div id="matWrap">
+                                <div class="matWrap">
                                     <input type="text" onSubmit="return false;" class="form-control text interSet interInp materialUrl"  id="materialUrl">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary copyBtnMaterialUrl" onSubmit="return false;" id="copyBtnMaterialUrl" type="button">
-                                            <img src="./img/copy.png" onSubmit="return false;" alt="copy to clipbord"/>
+                                            <img id="copyBtnMaterialUrl" src="./img/copy.png" onSubmit="return false;" alt="copy to clipbord"/>
                                         </button>
                                       </div>
                                 </div>

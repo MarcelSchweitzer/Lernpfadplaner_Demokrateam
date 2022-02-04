@@ -232,7 +232,7 @@
   width: 50px;
 }
 
-#lpNotesModal {
+.lpNotesModal {
   background-image: url(/img/post-it.png);
   background-size: cover;
   height: 470px;
@@ -392,12 +392,12 @@ header {
   padding: 10px;
 }
 
-#scenarioLeftControlls {
+.scenarioLeftControlls {
   width: 70%;
   justify-content: flex-start;
 }
 
-#scenarioRightControlls {
+.scenarioRightControlls {
   justify-content: flex-end;
   height: 100%;
   width: 30%;
@@ -407,7 +407,7 @@ header {
   height: 100%;
 }
 
-#matWrap {
+.matWrap {
   display: flex;
   justify-content: center;
 }
