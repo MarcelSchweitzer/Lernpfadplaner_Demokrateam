@@ -200,6 +200,7 @@ document.addEventListener("click", (event) => {
     let classes = event.target.classList;
     let button = event.target;
 
+    // home button
     if (id == 'homeBtn') {
         if (session.learningPathOpened()) {
             saveCurrentLp();

@@ -48,6 +48,7 @@ function mvByIndex(arr, index, newIndex) {
     return arr
 }
 
+// insert an element at a certain index
 function insertAt(arr, element, index = null) {
     try{
         _len = arr.length;
