@@ -19,23 +19,14 @@ $(document).ready(() => {
     }
 });
 
+// check if an image url is valid
 function isValidImageURL(str){
     if ( typeof str !== 'string' ) return false;
     return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
 }
 
-function highestExisTaxo(scenarios) {
-    var highestTaxo = "";
-    for(var i = 0; i < scenarios.length; i++){
-        for(var j = 0; j < scenarios[i].interactions.length; j++){
-            highestTaxo = (scenarios[i].interactions[j].taxonomyLevelInt > highestTaxo ? scenarios[i].interactions[j].taxonomyLevelInt : highestTaxo);
-        }
-    }
-    return highestTaxo;
-
-}
-
-function refreshInteractivityList() { //html/CSS
+// frefresh the list of interactivities (left side)
+function refreshInteractivityList() {
     $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
         for (let i = 0; i < session.getCurrentScenario().interactions.length; i++) {
@@ -50,6 +41,7 @@ function refreshInteractivityList() { //html/CSS
     }
 }
 
+// refresh all interactivityinputs (right side)
 function refreshInteractivityInputs() {
     if (session.interactionOpened()) {
         $(".interactionSettings").css("display", "inline");
@@ -70,6 +62,7 @@ function refreshInteractivityInputs() {
     }
 }
 
+// update a certain property of the current lp
 function updateInteractionProperty(key, value) {
     unsavedChanges = true;
     session.setInteractionProp(key, value);
@@ -90,6 +83,7 @@ function saveCurrentLp() {
     }
 }
 
+// import a number of lps into the current session
 function importLP(learningPaths) {
     for(let i = 0; i < learningPaths.length; i++){
         for(let j = 0; j < learningPaths[i].length; j++){
@@ -114,6 +108,7 @@ function alertToUser(message, seconds = 5, color = 'black') {
     }, seconds * 1000)
 }
 
+// hide/show the settings btn, when a lp is opened
 function toggleSettingsButton(){
     if(session.learningPathOpened()){
         document.getElementById("lpSettingsBtn").style.visibility = "visible";
@@ -328,11 +323,13 @@ function searchBox() {
     }
   }
 
+// copy the given text from a text input
 function copy(elementID) {
     let copyText = document.getElementById(elementID).value;
     navigator.clipboard.writeText(copyText)
 }
 
+// create THE canvas object // TODO there should be one for each scenario
 function createCanvas(){
     if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
         workspaceId = 'workspace' + session.getCurrentScenarioIndex();
@@ -341,6 +338,7 @@ function createCanvas(){
     }
 }
 
+// load the image background for each scenario (workspace)
 function loadWorkspaceBackgrounds(){
     if(session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
         for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
@@ -435,6 +433,7 @@ function generatePDF(scenarios, title, index = null) {
     }
 }
 
+// delete the currently opened interaction
 function deleteOpenInteraction() {
     if(session.interactionOpened()){
         session.deleteInteraction(session.getCurrentInteractionIndex());
@@ -446,6 +445,7 @@ function deleteOpenInteraction() {
     }
 }
 
+// delete an interaction type
 function deleteIntType(category, interactionType) {
     var createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
@@ -461,6 +461,7 @@ function deleteIntType(category, interactionType) {
     saveCurrentLp();
 }
 
+// delete a category type
 function deleteCatType(category) {
     var createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
@@ -483,11 +484,7 @@ function deleteCatType(category) {
     
 }
 
-function changeSettingsComplete(newSettings){
-    session.setProp("lpSettings", newSettings),
-    getSettingsPage(mode = 'lpSettingsOnly');
-}
-
+// reset the settings
 function resetSettings(){
     var defaultCategories = {};
     for(let categoryNames of Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes)){
@@ -498,7 +495,8 @@ function resetSettings(){
     defaultSettings["createdTypes"] = {};
     defaultSettings["ignoreWarnings"] = false;
     
-    changeSettingsComplete(defaultSettings);
+    session.setProp("lpSettings", defaultSettings),
+    getSettingsPage(mode = 'lpSettingsOnly');
 }
 
 // handle button click events
@@ -715,7 +713,7 @@ document.addEventListener("click", (event) => {
         // create new category for user 
         session.setProp("lpSettings", {}, "createdTypes" , categoryID);
         unsavedChanges = true;
- //html/CSS
+
         $('#addTabNav').before(`
                                     <li class="nav-item" id= "` + categoryID + `Nav">
                                         <a class="nav-link" draggable="false" id="` + categoryID + `-tab" data-toggle="tab" href="#a` + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -914,7 +912,7 @@ document.addEventListener("click", (event) => {
         }
         // check if name is valid
         if(newInteractionType != "" && ! Object.keys(createdTypes[category]).includes(newInteractionType) && ! defaultInterTypes.includes(newInteractionType)){
- //html/CSS
+
             // add new interactiontype
             createdTypes[category][newInteractionType] = true;
             lastElemID = '#lastCheckboxelement' + category;
@@ -1095,7 +1093,7 @@ document.addEventListener("click", (event) => {
 
             $("#" + category + "Nav").remove();
             $("#a" + category).remove();
- //html/CSS
+
             $('#addTabNav').before(`
                                         <li class="nav-item" id= "` + newCatID + `Nav">
                                             <a class="nav-link" draggable="false" id="` + newCatID + `-tab" data-toggle="tab" href="#a` + newCatID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
@@ -1186,6 +1184,7 @@ document.addEventListener("click", (event) => {
         });
     }
 
+    // handle delete scenario buttons
     else if (classes.contains('delScen')) {
         scenarioIndex = id.replaceAll('delScen', '');
 
@@ -1222,6 +1221,7 @@ document.addEventListener("click", (event) => {
         
     } 
     
+    // handle a change of the currently selected interaction
     else if (classes.contains('interactivityListItem')) {
         interID = id.replaceAll('iaListItem', '');
         session.openInteraction(interID);
@@ -1253,7 +1253,7 @@ document.addEventListener('input', (event) => {
         updateLpProperty('taxonomyLevel', input.value);
         
         if(!session.getCurrentLearningPath().lpSettings.ignoreWarnings){
-            if(input.value < highestExisTaxo(session.getCurrentLearningPath().scenarios)  && input.value != "")
+            if(input.value < session.highestExisTaxo()  && input.value != "")
                 $("#taxToLow").modal("show");
         }
     }
@@ -1489,12 +1489,14 @@ $('#categoryTabs a').on('click', function(e) {
     $(this).tab('show')
 });
 
+// warn the user if trying to leave with unsaved changes
 window.onbeforeunload = function() {
     if(unsavedChanges){
         return "Deine Änderunge werden eventuell nicht gespeichert!";
     }
 };
 
+// handle fullscreen events
 document.addEventListener("fullscreenchange", function( event ) {
     if (document.fullscreenElement ||
         document.webkitFullscreenElement ||

@@ -198,6 +198,18 @@ class Session {
     interactionOpened() {
         return this.currentInteractionIndex != null;
     }
+
+    // get the highest existing taxonom
+    highestExisTaxo() {
+        let highestTaxo = "";
+        let scenarios = session.getCurrentLearningPath().scenarios
+        for(var i = 0; i < scenarios.length; i++){
+            for(var j = 0; j < scenarios[i].interactions.length; j++){
+                highestTaxo = (scenarios[i].interactions[j].taxonomyLevelInt > highestTaxo ? scenarios[i].interactions[j].taxonomyLevelInt : highestTaxo);
+            }
+        }
+        return highestTaxo;
+}
 }
 
 const session = new Session();
