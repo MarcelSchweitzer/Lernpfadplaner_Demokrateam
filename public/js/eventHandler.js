@@ -116,193 +116,6 @@ function toggleSettingsButton(){
     }
 }
 
-function showTreegraph(lpID){
-    document.getElementById("treegraphNavDashboard").style.display = "block";
-    createTreegraph(session.getlearningPathById(lpID));
-}
-
-function hideTreeGraph(){
-    document.getElementById("treegraphNavDashboard").style.display = "none";
-}
-
-// open the tree graph overlay
-function openTreegraphOverlay(lpID){
-    document.getElementById("treegraphNav").style.display = "block";
-    createTreegraph(lpID);
-}
-
-// close the tree graph overlay
-function closeTreegraphOverlay(){
-    document.getElementById("treegraphNav").style.display = "none";
-}
-
-// create a Tree Graph for one learningpath
-function createTreegraph(learningPath){
-
-    var nodeList = [];
-    var scenarioList = [];
-
-    for(var i=0; i < learningPath.scenarios.length; i++){
-        if ("interactions" in learningPath.scenarios[i]){
-            var interactList=[];
-            for(var j=0; j < learningPath.scenarios[i].interactions.length; j++){
-                const interactDict = {
-                    "name": learningPath.scenarios[i].interactions[j].interactionType
-                }
-                interactList.push(interactDict);
-            }
-            const scenarioDict = {
-                "name": learningPath.scenarios[i].title,
-                "children": interactList
-            }
-            scenarioList.push(scenarioDict);
-        } else {
-            const scenarioDict = {
-                "name": learningPath.scenarios[i].title
-            }
-            scenarioList.push(scenarioDict);
-        }
-    }
-
-    var root = {"name": learningPath.title, "parent": "null", "children": scenarioList}
-
-    nodeList.push(root);
-
-    let parent = document.getElementById("treegraph");
-    parent.innerHTML = "";
-
-    let div = document.createElement("div");
-
-    parent.appendChild(div);
-
-    var margin = {top: 20, right: 120, bottom: 20, left: 120},
-        width = 960 - margin.right - margin.left,
-        height = 500 - margin.top - margin.bottom;
-
-    var i = 0,
-        duration = 750,
-        root;
-
-    var tree = d3.layout.tree()
-        .size([height, width]);
-
-    var diagonal = d3.svg.diagonal()
-        .projection(function(d) { return [d.y, d.x]; });
-
-    var svg = d3.select(div).append("svg")
-        .attr("width", width + margin.right + margin.left)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    root = nodeList[0];
-    root.x0 = height / 2;
-    root.y0 = 0;
-
-    update(root);
-
-    d3.select(self.frameElement).style("height", "500px");
-
-    function update(source) {
-
-        // Compute the new tree layout.
-        var nodes = tree.nodes(root).reverse(),
-            links = tree.links(nodes);
-
-        // Normalize for fixed-depth.
-        nodes.forEach(function(d) { d.y = d.depth * 180; });
-
-        // Update the nodes…
-        var node = svg.selectAll("g.node")
-            .data(nodes, function(d) { return d.id || (d.id = ++i); });
-
-        // Enter any new nodes at the parent's previous position.
-        var nodeEnter = node.enter().append("g")
-            .attr("class", "node")
-            .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-            .on("click", click);
-
-        nodeEnter.append("circle")
-            .attr("r", 1e-6)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
-        nodeEnter.append("text")
-            .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
-            .attr("dy", ".35em")
-            .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-            .text(function(d) { return d.name; })
-            .style("fill-opacity", 1e-6);
-
-        // Transition nodes to their new position.
-        var nodeUpdate = node.transition()
-            .duration(duration)
-            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-
-        nodeUpdate.select("circle")
-            .attr("r", 10)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
-        nodeUpdate.select("text")
-            .style("fill-opacity", 1);
-
-        // Transition exiting nodes to the parent's new position.
-        var nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-            .remove();
-
-        nodeExit.select("circle")
-            .attr("r", 1e-6);
-
-        nodeExit.select("text")
-            .style("fill-opacity", 1e-6);
-
-        // Update the links…
-        var link = svg.selectAll("path.link")
-            .data(links, function(d) { return d.target.id; });
-
-        // Enter any new links at the parent's previous position.
-        link.enter().insert("path", "g")
-            .attr("class", "link")
-            .attr("d", function(d) {
-                var o = {x: source.x0, y: source.y0};
-                return diagonal({source: o, target: o});
-            });
-
-        // Transition links to their new position.
-        link.transition()
-            .duration(duration)
-            .attr("d", diagonal);
-
-        // Transition exiting nodes to the parent's new position.
-        link.exit().transition()
-            .duration(duration)
-            .attr("d", function(d) {
-                var o = {x: source.x, y: source.y};
-                return diagonal({source: o, target: o});
-            })
-            .remove();
-
-        // Stash the old positions for transition.
-        nodes.forEach(function(d) {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
-    }
-
-// Toggle children on click.
-    function click(d) {
-        if (d.children) {
-            d._children = d.children;
-            d.children = null;
-        } else {
-            d.children = d._children;
-            d._children = null;
-        }
-        update(d);
-    }
-}
-
 // searchbox
 function searchBox() {
     var input, filter, table, tr, td, i, txtValue;
@@ -347,7 +160,18 @@ function loadWorkspaceBackgrounds(){
     }
 }
 
+// downlad any number of lps in a certain format
+function download(filename, text) {
+    var tmp = document.createElement('a');
+    tmp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    tmp.setAttribute('download', filename);
+    tmp.style.display = 'none';
+    document.body.appendChild(tmp);
+    tmp.click()
+    document.body.removeChild(tmp);
+}
 
+// generate a PDF Document for one or more scenarios
 // TODO works for exactly one scenario - older ones get overwritten
 function generatePDF(scenarios, title, index = null) {
     const offset = 20; 
@@ -549,15 +373,18 @@ document.addEventListener("click", (event) => {
         }
     }
 
+    // export one or more learningpaths
     else if (id == 'exportButton') {       
         generatePDF(session.getCurrentLearningPath().scenarios, session.getCurrentLearningPath().title);
     }
 
+    // print a singe scenario
     else if(classes.contains('printScenario')) {
         let scenarioIndex = id.replaceAll('printScenario', '');
         generatePDF([session.getCurrentLearningPath().scenarios[scenarioIndex]], session.getCurrentLearningPath().scenarios[scenarioIndex].title, scenarioIndex);
     }
 
+    // full screen button 
     else if( id == 'fullScreenBtn' ){
         if (
             document.fullscreenElement ||
@@ -615,6 +442,7 @@ document.addEventListener("click", (event) => {
         }
     } 
     
+    // add a scenario
     else if (id == 'addScenarioButton') {
         if (session.learningPathOpened()) {
             session.createScenario({
@@ -653,12 +481,14 @@ document.addEventListener("click", (event) => {
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
+    // set "ignore warnings" in the settings
     else if(id == "setIgnoWarnings"){
         session.getCurrentLearningPath().lpSettings.ignoreWarnings = true;
         unsavedChanges = true;
         saveCurrentLp();
     }
 
+    // reset the lp settings
     else if(id == "resetSettingsBtn"){
         if(session.getCurrentLearningPath().lpSettings.ignoreWarnings)
             resetSettings();
@@ -666,6 +496,7 @@ document.addEventListener("click", (event) => {
             $("#modalResetSettings").modal("show");
     }
 
+    // copy the full settings from another lp to the current one
     else if(id == "stealSettingsBtn"){
         $("#modalStealtSettings").modal("show"); 
 
@@ -677,6 +508,7 @@ document.addEventListener("click", (event) => {
         }
     } 
 
+    // confirm the copying of the lp settings of another lp
     else if(id == 'stealSettingsConfirm'){
         let stealID = $('#stealSettingsDrop').children(":selected").attr("id").replaceAll('steal', '');
         session.setProp('lpSettings', session.getlearningPathById(stealID)['lpSettings']);
@@ -690,14 +522,17 @@ document.addEventListener("click", (event) => {
         })
     }
 
+    // reset the lp settings
     else if(id == "resetSettings"){
         resetSettings();
     }
 
-    else if(id == "uncheckIgnoWarnings"){
+    // ignore warnings (delete)
+    else if(id == "ingnoreWarnings"){
         $("#ignoreWarnings").prop("checked", false);
     }
 
+    // add a new category
     else if(id == "addNewCat"){
         $("#nameNewCat").modal("show");
     }
@@ -1176,7 +1011,6 @@ document.addEventListener("click", (event) => {
         $(".catRenameModalBtn").attr("id", "categoryNameBtn");
     }
 
-
     // handle delete scenario buttons
     else if (classes.contains('deleteScenario')) {
         scenarioIndex = id.replaceAll('deleteScenario', '');
@@ -1232,10 +1066,14 @@ document.addEventListener("click", (event) => {
 
 }, false);
 
+// handle changes of inputs
+
 document.addEventListener('input', (event) => {
     let id = event.target.getAttribute('id');
     let classes = event.target.classList;
     let input = event.target;
+
+    // handle changes on lp-textinputs
 
     if (id == 'lpNotes') {
         updateLpProperty('notes', input.value);
@@ -1270,17 +1108,6 @@ document.addEventListener('input', (event) => {
         });
     } 
     
-    else if (id == "ignoreWarnings") {
-        if (input.checked)
-            $("#modalIgnoWar").modal("show");
-        else {
-            session.getCurrentLearningPath().lpSettings.ignoreWarnings = false;
-            unsavedChanges = true;
-            saveCurrentLp();
-        }
-
-    } 
-    
     else if (classes.contains('lpTitleInput')) {
         scenarioIndex = id.replaceAll('lpTitleInput', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'title');
@@ -1310,7 +1137,11 @@ document.addEventListener('input', (event) => {
             canvasManager.setCurrentVideo(input.value);
         }
     }
+
+    // handle changes in the settings section (inputs)
     
+    // TODO remove redundant data (created / default)
+    // handle changes of checkbox elements for default categorys
     else if (classes.value.startsWith("defaultInputCB")) {
         let checked = input.checked;
         let category = input.getAttribute("class").replaceAll('defaultInputCB', '')
@@ -1333,7 +1164,9 @@ document.addEventListener('input', (event) => {
         unsavedChanges = true;
         saveCurrentLp();
     } 
-    
+
+    // TODO remove redundant data (created / default)
+    // handle changes of checkbox elements for user-created categorys
     else if (classes.value.startsWith("createdInputCB")) {
         let checked = input.checked;
         let category = input.getAttribute("class").replaceAll('createdInputCB', '')
@@ -1351,6 +1184,18 @@ document.addEventListener('input', (event) => {
         unsavedChanges = true;
         saveCurrentLp();
     } 
+
+    else if (id == "ignoreWarnings") {
+        if (input.checked)
+            $("#modalIgnoWar").modal("show");
+        else {
+            session.getCurrentLearningPath().lpSettings.ignoreWarnings = false;
+            unsavedChanges = true;
+            saveCurrentLp();
+        }
+    } 
+
+    // handle changes of the interaction settings
 
     else if (id == 'hotSpotSize'){
         updateInteractionProperty('hotSpotSize', Number(input.value))
@@ -1385,6 +1230,7 @@ document.addEventListener('input', (event) => {
         }
     } 
     
+    // change to the type (and category) of an interaction
     else if (id == 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
 
@@ -1401,6 +1247,7 @@ document.addEventListener('input', (event) => {
         }
     }
 
+    // Handle events on the import dropzone
     else if (id == 'importDrop'){
         for(let i = 0; i < document.querySelector('.fileDrop').files.length; i++){
             let fileReader = new FileReader();
@@ -1422,7 +1269,7 @@ document.addEventListener('input', (event) => {
     }
 
     // change category name
-    else if (classes.contains('changeCatName')){ //nötig?
+    else if (classes.contains('changeCatName')){
         let changeCategory = id.replaceAll('changeCatName-', '')
         let newCatName = input.value;
 
@@ -1486,6 +1333,7 @@ document.addEventListener("drop", (event) => {
     draggedInteraction = null;
 }, false);
 
+// handle changes of the current tab
 $('#categoryTabs a').on('click', function(e) {
     e.preventDefault()
     $(this).tab('show')
@@ -1500,6 +1348,9 @@ window.onbeforeunload = function() {
 
 // handle fullscreen events
 document.addEventListener("fullscreenchange", function( event ) {
+
+    // show / hide the full-screen mode buttons (center & leave fs)
+
     if (document.fullscreenElement ||
         document.webkitFullscreenElement ||
         document.mozFullScreenElement ||
@@ -1509,8 +1360,10 @@ document.addEventListener("fullscreenchange", function( event ) {
         $(".canvasBtn").css("display", "none");
 });
 
+// handle risize events of the window
 window.onresize = (event) =>{
 
+    // resize the canvas 
     canvasManager.resizeCanvas();
 };
 

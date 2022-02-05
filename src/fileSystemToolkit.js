@@ -20,6 +20,7 @@ function readFile(dataPath){
   return fs.readFileSync(dataPath, {encoding: 'utf8'});
 }
 
+// replace the separator '/' in a given string
 function replaceSep(str_in){
   return str_in.replace(/\\/g, '/');
 }

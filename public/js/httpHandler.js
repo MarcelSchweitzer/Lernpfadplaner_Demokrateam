@@ -20,6 +20,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
     });
 }
 
+// request the dashboard page
 function getHomePage() {
 
     PleaseRotate.deactivate();
@@ -33,6 +34,7 @@ function getHomePage() {
     fetchLearningPaths();
 }
 
+// request the landing page
 function getLandingPage() {
 
     // request landing page from the server
@@ -42,8 +44,7 @@ function getLandingPage() {
     window.location.replace(dashboardUrl);
 }
 
-// request the settings page from the server
-
+// request the settings page
 function getSettingsPage(mode = null) {
     PleaseRotate.deactivate();
     document.getElementById('exportButton').disabled = true;
@@ -80,7 +81,6 @@ function createLpOnServer(cb = noop) {
     });
 }
 
-
 // delete a learningPath from the server
 function deletelearningPath(lpid, cb = noop) {
     $.post('/deleteLp', { 'lpid': lpid }).done((data, status) => {
@@ -110,7 +110,6 @@ function downloadlearningPaths(lps, format) {
     
         download(filename, text);
     }
-
 }
 
 // push a change of username to the server
@@ -132,14 +131,4 @@ function updateUserName() {
 function replaceBody(data) {
     const main = document.getElementById('main');
     main.innerHTML = data;
-}
-
-function download(filename, text) {
-    var tmp = document.createElement('a');
-    tmp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    tmp.setAttribute('download', filename);
-    tmp.style.display = 'none';
-    document.body.appendChild(tmp);
-    tmp.click()
-    document.body.removeChild(tmp);
 }

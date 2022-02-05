@@ -28,10 +28,12 @@ class Session {
         return false
     }
 
+    // return if the currently opened scenario has interactions
     interactionsExist(){
         return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios', this.currentScenarioIndex, 'interactions'])
     }
 
+    // return if the currently opened lp  has scenarios
     ScenariosExist(){
         return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios'])
     }
@@ -53,7 +55,7 @@ class Session {
     }
 
     // create scanario at any position
-    createScenario(props, cb = noop) { //ändern
+    createScenario(props, cb = noop) { 
         this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, props);
         return cb()
     }
@@ -113,7 +115,6 @@ class Session {
         if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
             this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex][key] = value
     }
-
 
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentlearningPathId; }

@@ -28,6 +28,7 @@ function uniqueName(schema, listOfNames) {
     }
 }
 
+// create a username
 function createUserName() {
     let randIndex = Math.floor(Math.random() * (animalNameList.length - 1));
     let animal = animalNameList[randIndex];
@@ -35,6 +36,7 @@ function createUserName() {
     return animal
 }
 
+// create a unique username
 function createUniqueUserName(listOfNames) {
     return module.exports.uniqueName(module.exports.createUserName(), listOfNames);
 }

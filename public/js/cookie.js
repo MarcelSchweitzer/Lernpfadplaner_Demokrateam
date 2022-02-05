@@ -1,3 +1,4 @@
+// set a cookie
 function setCookie(name,value,days) {
     var expires = "";
     if (days) {
@@ -8,6 +9,7 @@ function setCookie(name,value,days) {
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
+// get a cookie
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -19,6 +21,7 @@ function getCookie(name) {
     return null;
 }
 
+// delete a cookie
 function eraseCookie(name) {   
     document.cookie = name +"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }

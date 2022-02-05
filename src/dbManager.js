@@ -12,12 +12,14 @@ const credentials = {
     port: process.env.DB_PORT,
 }
 
+// create a new db client (for non-blocking behaviour)
 function createClient() {
     var dbClient = new Client(credentials);
     dbClient.connect();
     return dbClient;
 }
 
+// select
 function select(from = '', select = '*', where = '', cb = noop) {
     let dbClient = createClient();
     let query = 'SELECT ' + select + ' FROM ' + from;
@@ -34,12 +36,14 @@ function select(from = '', select = '*', where = '', cb = noop) {
     });
 }
 
+// select an exact match
 function selectMatch(from = '', select = '*', col, equals, cb = noop) {
     let quotes = ((typeof equals != 'number') ? "'" : "");
     let where = col + "=" + quotes + equals + quotes;
     return module.exports.select(from, select, where, cb)
 }
 
+// insert into databas
 function insert(table, dict, cb = noop, errCb = noop) {
     let dbClient = createClient();
     let query = 'INSERT INTO ' + table + ' ('
@@ -65,6 +69,7 @@ function insert(table, dict, cb = noop, errCb = noop) {
 
 }
 
+// delete from Database
 function _delete(table, attrib, equals, cb = noop) {
     let dbClient = createClient();
     let query = 'DELETE FROM ' + table + ' WHERE ' + attrib + '=';
@@ -82,6 +87,7 @@ function _delete(table, attrib, equals, cb = noop) {
     });
 }
 
+// update an entry
 function _update(table, key, equals, dict, cb = noop) {
     let listOfKeys = Object.keys(dict);
     let listOfValues = Object.values(dict)
