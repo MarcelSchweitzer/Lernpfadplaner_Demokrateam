@@ -247,7 +247,6 @@ function newCanv(p){
     }
 
     // handle drag events
-
     p.mouseDragged = function (event) {
       if(canvasManager.inCanvas()){
         // select dragged element
@@ -264,7 +263,6 @@ function newCanv(p){
         }
 
         // move background
-      
         else if(draggedInteraction == null && canvasManager.getDrag() == null && canvasManager.getHover() == null){
           if(!canvasManager.getDragTimeOut()){
             canvasManager.setInitPosition({'x': p.mouseX, 'y': p.mouseY})
@@ -409,5 +407,23 @@ function newCanv(p){
 
       }
     }
+  }
+}
+
+// create THE canvas object // TODO there should be one for each scenario
+function createCanvas(){
+  if(session.learningPathOpened() && session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
+      workspaceId = 'workspace' + session.getCurrentScenarioIndex();
+      document.getElementById(workspaceId).innerHTML = "";
+      new p5(newCanv, workspaceId)
+  }
+}
+
+// load the image background for each scenario (workspace)
+function loadWorkspaceBackgrounds(){
+  if(session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
+      for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
+          canvasManager.setImage(i, session.getCurrentLearningPath().scenarios[i].resource)
+      }
   }
 }
