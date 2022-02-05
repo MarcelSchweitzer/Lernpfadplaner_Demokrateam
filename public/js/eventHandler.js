@@ -50,12 +50,9 @@ function refreshInteractivityInputs() {
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
         $(".materialUrl").val(session.getCurrentInteraction().materialUrl);
         $(".evaluationHeurestic").val(session.getCurrentInteraction().evaluationHeurestic);
-        let taxoDropID = session.getCurrentInteraction().taxonomyLevelInt.replaceAll(" ", "_");
         $("#taxonomyLevelInt option[id='${taxoDropID}']").prop("selected", true);
-        let behaDropID = session.getCurrentInteraction().behaviorSettings;
         $("#behaviorSettings option[id='${behaDropID}']").prop("selected", true);
         $("#behaviorSettings option[id='${behaDropID}']").prop("selected", true);
-        let dropID = '$$'+session.getCurrentInteraction().category+'$$'+session.getCurrentInteraction().interactionType;
         $("#interactionTypeDrop option[id='${dropID}']").prop("selected", true);
     }else{
         $(".interactionSettings").css("display", "none");
@@ -119,52 +116,55 @@ function toggleSettingsButton(){
     }
 }
 
-function forwardTreegraph(lpID){
+function showTreegraph(lpID){
     document.getElementById("treegraphNavDashboard").style.display = "block";
     createTreegraph(session.getlearningPathById(lpID));
 }
 
-function closeForwardTreegraph(){
+function hideTreeGraph(){
     document.getElementById("treegraphNavDashboard").style.display = "none";
 }
 
+// open the tree graph overlay
 function openTreegraphOverlay(lpID){
     document.getElementById("treegraphNav").style.display = "block";
     createTreegraph(lpID);
 }
 
+// close the tree graph overlay
 function closeTreegraphOverlay(){
     document.getElementById("treegraphNav").style.display = "none";
 }
 
-function createTreegraph(lpData){
+// create a Tree Graph for one learningpath
+function createTreegraph(learningPath){
 
     var nodeList = [];
     var scenarioList = [];
 
-    for(var i=0; i < lpData.scenarios.length; i++){
-        if ("interactions" in lpData.scenarios[i]){
+    for(var i=0; i < learningPath.scenarios.length; i++){
+        if ("interactions" in learningPath.scenarios[i]){
             var interactList=[];
-            for(var j=0; j < lpData.scenarios[i].interactions.length; j++){
+            for(var j=0; j < learningPath.scenarios[i].interactions.length; j++){
                 const interactDict = {
-                    "name": lpData.scenarios[i].interactions[j].interactionType
+                    "name": learningPath.scenarios[i].interactions[j].interactionType
                 }
                 interactList.push(interactDict);
             }
             const scenarioDict = {
-                "name": lpData.scenarios[i].title,
+                "name": learningPath.scenarios[i].title,
                 "children": interactList
             }
             scenarioList.push(scenarioDict);
         } else {
             const scenarioDict = {
-                "name": lpData.scenarios[i].title
+                "name": learningPath.scenarios[i].title
             }
             scenarioList.push(scenarioDict);
         }
     }
 
-    var root = {"name": lpData.title, "parent": "null", "children": scenarioList}
+    var root = {"name": learningPath.title, "parent": "null", "children": scenarioList}
 
     nodeList.push(root);
 
@@ -424,7 +424,6 @@ function generatePDF(scenarios, title, index = null) {
                     printDict(scenarios[y]);
                 }   
 
-
                 if(i == scenarios.length - 1 ){
                     doc.save(title+".pdf");
                     }
@@ -518,6 +517,7 @@ document.addEventListener("click", (event) => {
         }
     }
 
+    // settings button (header)
     else if (id == 'lpSettingsBtn' || id == 'lpSettingsBtnHover') {
         getSettingsPage(mode = 'lpSettingsOnly');
     }
@@ -527,10 +527,12 @@ document.addEventListener("click", (event) => {
         getSettingsPage(mode = 'userSettingsOnly');
     }
     
+    // changes of the username
     else if (id == 'usernameText') {
         getSettingsPage(mode = 'userSettingsOnly');
     }
 
+    // reset Zoom Button
     else if(id == 'resetZoomBtn'){
         canvasManager.scaleToZero(session.getCurrentScenarioIndex());
     }
@@ -647,7 +649,7 @@ document.addEventListener("click", (event) => {
     }
 
     // show treegraph in editor
-    else if(id == "showTreegraph"){
+    else if(id == "hideTreeGraph"){
         openTreegraphOverlay(session.getCurrentLearningPath());
     }
 
@@ -846,9 +848,9 @@ document.addEventListener("click", (event) => {
     }
 
     // open Threegraph from dashboard
-    else if(classes.contains('showTreegraphDashboard')){
-        let lpID = id.replaceAll('showTreegraphDashboard', '');
-        forwardTreegraph(lpID);
+    else if(classes.contains('hideTreeGraphDashboard')){
+        let lpID = id.replaceAll('hideTreeGraphDashboard', '');
+        showTreegraph(lpID);
     }
 
     // download lp from dashboard

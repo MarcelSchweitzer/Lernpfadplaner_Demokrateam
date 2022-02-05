@@ -76,11 +76,11 @@
                                                     <%= lp['evaluationModeID'] %>
                                                 </td>
                                                 <td class="tableBtn">
-                                                    <button class="button btn btn-light showTreegraphDashboard tbBtn" id="showTreegraphDashboard<%= lp['id']%>">
-                                                        <img class="button dashIcon showTreegraphDashboard" id="showTreegraphDashboard<%= lp['id']%>"" src="img/diagram-3.svg">
+                                                    <button class="button btn btn-light hideTreeGraphDashboard tbBtn" id="hideTreeGraphDashboard<%= lp['id']%>">
+                                                        <img class="button dashIcon hideTreeGraphDashboard" id="hideTreeGraphDashboard<%= lp['id']%>"" src="img/diagram-3.svg">
                                                     </button>
                                                     <div id="treegraphNavDashboard" class="overlay">
-                                                        <a href="javascript:void(0)" class="closebtn" onclick="closeForwardTreegraph()">&times;</a>
+                                                        <a href="javascript:void(0)" class="closebtn" onclick="hideTreeGraph()">&times;</a>
                                                         <div class="overlay-content">
                                                             <div id="treegraph">
 
