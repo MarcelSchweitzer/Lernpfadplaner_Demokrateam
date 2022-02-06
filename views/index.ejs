@@ -10,24 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<div class="modal fade" id="CookieBanner" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header"> 
-            </div>
-            <div class="modal-body">
-                <p  class="modal-content-big">Wir verwenden Cookies </p>
-                <p  class="modal-content-small">
-                    <%= data.cookieText %>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light allowCookie modal-button" id="allowCookie" data-dismiss="modal">Annehmen</button>
-                <button type="button" class="btn btn-light denyCookie modal-button" id="denyCookie" data-dismiss="modal">Ablehnen</button>
-            </div>
-        </div>
-    </div>
-</div>
 <body>
     <div class="center container-fluid">
         <div class="cover-background">
@@ -57,7 +39,6 @@
 <script src="js/treeGraph.js" referrerpolicy="no-referrer"></script>
 <script src="js/eventHandler.js" referrerpolicy="no-referrer"></script>
 <script src="js/httpHandler.js" referrerpolicy="no-referrer"></script>
-<script src="js/cookie.js"></script>
 
 <script>
     PleaseRotateOptions = {

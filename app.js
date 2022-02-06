@@ -8,6 +8,7 @@ const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactionTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
 const cookieText = fstk.readFile('./res/cookieText.txt');
+const cookieTextRetry = fstk.readFile('./res/cookieTextRetry.txt');
 
 require('dotenv').config();
 
@@ -41,34 +42,37 @@ app.use('js', express.static(__dirname + 'public/js'));
 // user loading site initialy
 app.get('/', (req, res) => {
 
-    if (req.session.isAuth == true) {
+    if(hasCookie(req, 'allowCookies=1')){
+        if (req.session.isAuth == true) {
 
-        // user is known
-        dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, renderIndex)
-    } else {
-
-        // user is unknowm
-        req.session.isAuth = true;
-        renderIndex([{ 'uid': 0, 'nickname': 'Anonymer Benutzer' }]);
-    }
-
-    function renderIndex(data) {
-        console.log("user " + data[0]['uid'] + " connected!");
-        dbMan.selectMatch('public.learningPath', 'content', 'owner', data[0]['uid'], (_data) => {
-            res.render('index', {
-                data: {
-                    learningPaths: _data,
-                    uId: data[0]['uid'],
-                    nickname: data[0]['nickname'],
-                    cookieText: cookieText
-                }
+            // user is known
+            dbMan.selectMatch('public.user', 'uid, nickname', 'latestSession', req.sessionID, renderIndex)
+        } else {
+    
+            // user is unknowm
+            req.session.isAuth = true;
+            renderIndex([{ 'uid': 0, 'nickname': 'Anonymer Benutzer' }]);
+        }
+    
+        function renderIndex(data) {
+            console.log("user " + data[0]['uid'] + " connected!");
+            dbMan.selectMatch('public.learningPath', 'content', 'owner', data[0]['uid'], (_data) => {
+                res.render('index', {
+                    data: {
+                        learningPaths: _data,
+                        uId: data[0]['uid'],
+                        nickname: data[0]['nickname']
+                    }
+                });
             });
-        });
+        }
+    }else{
+        res.render('landing', { cookieText: cookieTextRetry});
     }
 })
 
 app.get('/get_started', (req, res) => {
-    res.render('landing');
+    res.render('landing', { cookieText: cookieText});
 })
 
 // user wants to edit a learningPath
@@ -362,6 +366,11 @@ function uniqueLpId(){
             lpids.push(data[i]['lpid'])
     })
     return unique.uniqueId(lpids);
+}
+
+// return if the user has a certain cookie
+function hasCookie(req, cookieStr){
+    return req.rawHeaders[req.rawHeaders.indexOf('Cookie') + 1].includes(cookieStr)
 }
 
 // start server

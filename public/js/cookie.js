@@ -1,3 +1,12 @@
+$(document).ready(() => {
+    if (!getCookie('allowCookies')){
+        $('#CookieBanner').modal({
+            backdrop: 'static',
+            keyboard: false
+        }).modal('show');
+    }
+});
+
 // set a cookie
 function setCookie(name,value,days) {
     var expires = "";
@@ -28,7 +37,6 @@ function eraseCookie(name) {
 
 $("#denyCookie").click(()=>{
     eraseCookie("allowCookies")
-    getLandingPage();
 })
 
 $("#allowCookie").click(()=>{

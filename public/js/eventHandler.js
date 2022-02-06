@@ -11,12 +11,6 @@ let importFiles = []
 $(document).ready(() => {
     updateUserName();
     fetchLearningPaths();
-    if (!getCookie('allowCookies')){
-        $('#CookieBanner').modal({
-            backdrop: 'static',
-            keyboard: false
-        }).modal('show');
-    }
 });
 
 // check if an image url is valid
