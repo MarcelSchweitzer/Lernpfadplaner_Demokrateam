@@ -55,6 +55,9 @@ class CanvasManager {
   }
 
   setCurrentMaterial(path){
+
+    // TODO check material type here
+
     if(true)
       this.setImage(session.getCurrentScenarioIndex(), path)
     else
@@ -62,7 +65,6 @@ class CanvasManager {
   }
 
   setImage(index, path){
-
     let success;
 
     if(this.material[index])
@@ -96,9 +98,6 @@ class CanvasManager {
   }
 
   setVideo(index, path){
-
-    let success;
-
     if(this.material[index])
       this.material[index].remove();
 
@@ -112,7 +111,6 @@ class CanvasManager {
     this.initposition[session.getCurrentScenarioIndex()] = null;
     this.hoveredInteraction = null;
     this.draggedInteraction = null;
-
   }
 
   getCurrentMaterial(){
@@ -300,6 +298,7 @@ function newCanv(p){
         }
       }
     }
+
     p.mouseClicked = function (event) {
       if(canvasManager.inCanvas()){
         canvasManager.setInitPosition(null);
