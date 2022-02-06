@@ -3,7 +3,7 @@ class CanvasManager {
     this.p5Obj = null;
     this.canvas = null
     this.images = [];
-    this.videos = [];
+    // this.videos = [];
     this.scale = [];
     this.userOffsetX = [];
     this.userOffsetY = [];
@@ -58,11 +58,11 @@ class CanvasManager {
   setCurrentImage(path){
     this.setImage(session.getCurrentScenarioIndex(), path);
   }
-
+/*
   setCurrentVideo(path){
     this.setVideo(session.getCurrentScenarioIndex(), path);
   }
-
+*/
   setImage(index, path){
 
     let success;
@@ -96,7 +96,7 @@ class CanvasManager {
       
     });
   }
-
+/*
   setVideo(index, path){
 
     let success;
@@ -116,15 +116,15 @@ class CanvasManager {
     this.draggedInteraction = null;
 
   }
-
+*/
   getCurrentImage(){
     return this.images[session.getCurrentScenarioIndex()]
   }
-
+/*
   getCurrentVideo(){
     return this.videos[session.getCurrentScenarioIndex()]
   }
-
+*/
   getImage(index){
     return images[index]
   }
@@ -142,13 +142,13 @@ class CanvasManager {
     let h = this.images[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
-
+/*
   getVideoDimension(){
     let w = this.videos[session.getCurrentScenarioIndex()].width
     let h = this.videos[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
-
+*/
   getWorkspaceDimension(){
     let w = document.querySelector(this.getWorkSpaceId()).offsetWidth;
     let h = document.querySelector(this.getWorkSpaceId()).offsetHeight;

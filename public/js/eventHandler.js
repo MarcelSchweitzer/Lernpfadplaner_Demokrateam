@@ -314,7 +314,7 @@ document.addEventListener("click", (event) => {
         if (session.learningPathOpened()) {
             session.createScenario({
                         'title': 'Neues Szenario',
-                        'resource': "img/example.jpg",
+                        'resource': "https://kompetenzzentrum-augsburg-digital.de/wp-content/themes/kzad/inc/image/wimmelbild/intro/desktop/wimmelbild-intro-e-learning.jpg",
                         "description": "",
                         "learningGoal": "",
                         "note": "",
@@ -998,11 +998,13 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
+        canvasManager.setCurrentImage(input.value);
+        /*    
         if (isValidImageURL(input.value) == true){
             canvasManager.setCurrentImage(input.value);
         } else {
             canvasManager.setCurrentVideo(input.value);
-        }
+        } */
     }
 
     // handle changes in the settings section (inputs)

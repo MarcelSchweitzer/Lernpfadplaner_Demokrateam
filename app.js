@@ -141,7 +141,7 @@ app.get('/create', (req, res) => {
                     },
                     'scenarios': [{
                         'title': 'Neues Szenario',
-                        'resource': 'img/example.jpg',
+                        'resource': 'https://kompetenzzentrum-augsburg-digital.de/wp-content/themes/kzad/inc/image/wimmelbild/intro/desktop/wimmelbild-intro-e-learning.jpg',
                         "description": "",
                         "learningGoal": "",
                         "note": "",
