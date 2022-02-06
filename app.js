@@ -8,7 +8,6 @@ const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactionTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
 const cookieText = fstk.readFile('./res/cookieText.txt');
-const cookieTextRetry = fstk.readFile('./res/cookieTextRetry.txt');
 
 require('dotenv').config();
 
@@ -67,7 +66,7 @@ app.get('/', (req, res) => {
             });
         }
     }else{
-        res.render('landing', { cookieText: cookieTextRetry});
+        res.render('landing', {cookieText: cookieText});
     }
 })
 
