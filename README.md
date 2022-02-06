@@ -2,7 +2,8 @@
 
 # Lernpfadplaner - Demokrateam
 
-<a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
+<a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a> <a href="https://github.com/airbnb/javascript"><img alt="Code style: Airbnb" src="https://img.shields.io/badge/code%20style-Airbnb-blueviolet"></a>
+</p>
 
 ## Table of Contents
 1. [About](#about)
