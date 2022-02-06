@@ -8,30 +8,30 @@
 1. [About](#about)
    1. [Style-Guide](#style-guide)
 2. [Getting Started](#getting-started)
-3. [Manual](#manual)
+3. [Make changes](#make-changes)
 4. [Folder Structure](#folder-structure)
 5. [License](#license)
 
 ## About
-Der Lernpfadplaner wurde während des Softwaretechnologie-Praktikums von 8 Studenten
-der Bergischen Universität Wuppertal erstellt.
 
-Lehrende sollen dabei die Möglichkeit besitzen, für ihre Kurse/Module Lernpfäde
-zu erstellen.
-Ein Lernpfad ist dabei ein Projekt, bestehend aus mehreren Szenarien.
-Ein Szenario wiederum besitzt eine Beschreibung, ein Lehrziel, Notizen sowie
-den Arbeitsbereich.
-Grundlage des Arbeitsbereiches ist der Material-Import über eine URL.
-Unterstützt werden (360 Grad-)Fotos sowie Videos.
-Auf diesen Materialien können dann Interaktionen wie ein Quiz per 
-Drag&Drop abgelegt werden.
+The Lernpfadplaner (learning path planner) was created by 8 students of the University of Wuppertal, is based on an idea of [Dr. Heike Seehagen-Marx](https://www.seehagen-marx.de/) and has been greatly supported by [Dr. Marcel Schweitzer](https://www.hpc.uni-wuppertal.de/en/scientific-computing-and-high-performance-computing/members/dr-marcel-schweitzer.html).
 
-Die bearbeiteten Lernpfäde können entweder als JSON oder PDF exportiert werden.
-Die JSON Datei kann über das Dashboard ebenfalls wieder importiert werden.
+The tool aims to enable educators to plan interactive learning media.
 
-###Style Guide
-HTML/CSS - Google Style Guide
-JavaScript - AirBnB Style Guide
+A learning path is a project consisting of several scenarios.
+
+A scenario is represented by its material (which is specified by the material url).
+Interactivities such as a questions, quizes or other tasks can be arranged and provided with individual properties.
+
+Learning paths can be exported as JSON or PDF.
+
+JSON files can be imported via the dashboard page.
+
+### Style Guide
+
+> HTML/CSS: [Google](https://google.github.io/styleguide/htmlcssguide.html)
+
+> JS: [AirBnb](https://github.com/airbnb/javascript)
 
 ## Getting Started
 
@@ -52,13 +52,9 @@ npm start
 
 - navigate to localhost:8080/get_started with your browser
 
-## Manual
+## Make changes
 
 > Change the project color: Search & Replace '5bb9fc' with your color of choice
-
-> https://google.github.io/styleguide/htmlcssguide.html
-
-> https://github.com/airbnb/javascript
 
 ## Folder structure:
 
