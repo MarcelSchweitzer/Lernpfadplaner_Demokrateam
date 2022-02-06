@@ -51,7 +51,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <div class="rate-part">
                             <hr>
                             <button class="button btn btn-light overviewBtn" id="hideTreeGraph">
-                                <img class="button" id="hideTreeGraph" src="img/diagram-3.svg">
+                                <img class="button" id="hideTreeGraph" src="img/diagram-3.svg" alt="Baumansicht">
                             </button>
                             <div id="treegraphNav" class="overlay">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
@@ -68,7 +68,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
                                 <div class="noteMaximize">
                                     <a href="#" data-toggle="modal" data-target="#noteModal">
-                                        <img class="img-fluid button" src="img/maximize.png">
+                                        <img class="img-fluid button" src="img/maximize.png" alt="vergrößern">
                                     </a>
                                 </div>
                             </div>
@@ -150,10 +150,10 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     </button>
                                     <div class="accordionWrap scenarioHeaderInput">
                                         <button class="button btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
-                                            <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg">
+                                            <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg" alt="download">
                                         </button>
                                         <button class="button btn btn-light scenarioHeaderInput rightScenarioHBtn delScen" id="delScen<%= count %>">
-                                            <img class="button dashIcon delScen" src="img/trash.svg" id="delScen<%= count %>">
+                                            <img class="button dashIcon delScen" src="img/trash.svg" id="delScen<%= count %>" alt="deleteSzenario">
                                         </button>
                                     </div>
                                     <!-- delete -->
@@ -204,10 +204,10 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     </div>
                                     <div class="scenarioButtonWrap">
                                         <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="resetZoomBtn">
-                                            <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg">
+                                            <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg" alt="zoomZurücksetzen">
                                         </button>
                                         <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
-                                            <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg">
+                                            <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg" alt="fullscreen">
                                         </button>
                                     </div>
                                 </div>
@@ -298,7 +298,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <input type="text" onSubmit="return false;" class="form-control text interSet interInp materialUrl"  id="materialUrl">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary copyBtnMaterialUrl" onSubmit="return false;" id="copyBtnMaterialUrl" type="button">
-                                            <img id="copyBtnMaterialUrl" src="./img/copy.png" onSubmit="return false;" alt="copy to clipbord"/>
+                                            <img id="copyBtnMaterialUrl" src="./img/copy.png" onSubmit="return false;" alt="copyToClipbord"/>
                                         </button>
                                       </div>
                                 </div>
@@ -348,7 +348,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                             </div>
                             <div class="form-group interactivityItem">
                                 <button class="btn btn-light deleteIntBtn interSet" id="delOpenInt">
-                                    <img class="button" src="img/trash.svg">
+                                    <img class="button" src="img/trash.svg" alt="delete">
                                 </button>
                             </div>
                         </div>

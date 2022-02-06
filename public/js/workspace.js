@@ -104,7 +104,7 @@ class CanvasManager {
     if(this.videos[index])
       this.videos[index].remove();
 
-    document.getElementById("workspace"+index).innerHTML='<video  id="movie" src="'+path+'" height="100%" width="100%" controls autoplay > </video>'; //html/CSS
+    document.getElementById("workspace"+index).innerHTML='<video  id="movie" src="'+path+'" height="100%" width="100%" controls autoplay > </video>';
     var player = document.getElementById("movie");
     player.load();
 
@@ -239,7 +239,7 @@ function newCanv(p){
         canvasManager.resizeCanvas(document.getElementById(canvasManager.getWorkSpaceId()).clientWidth, document.getElementById(canvasManager.getWorkSpaceId()).clientHeight);
       };
 
-      const resetZoomBtn = p.createButton('').id("resetZoomBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 10).size(100, 40); //html/CSS
+      const resetZoomBtn = p.createButton('').id("resetZoomBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 10).size(100, 40);
       const resetZoomImg = p.createImg('img/aspect-ratio.svg').id("resetZoomBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(resetZoomBtn);
       const fullScreenBtn = p.createButton('').id("fullScreenBtn").class("btn btn-light scenarioBtn canvasBtn").position(10, 70).size(100, 40);
       const fullScreenImg = p.createImg('img/fullscreen-exit.svg').id("fullScreenBtn").class("button dashIcon scenarioBtnImg canvasBtn").parent(fullScreenBtn)
