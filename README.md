@@ -4,6 +4,35 @@
 
 <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
 
+## Table of Contents
+1. [About](#about)
+   1. [Style-Guide](#style-guide)
+2. [Getting Started](#getting-started)
+3. [Manual](#manual)
+4. [Folder Structure](#folder-structure)
+5. [License](#license)
+
+## About
+Der Lernpfadplaner wurde während des Softwaretechnologie-Praktikums von 8 Studenten
+der Bergischen Universität Wuppertal erstellt.
+
+Lehrende sollen dabei die Möglichkeit besitzen, für ihre Kurse/Module Lernpfäde
+zu erstellen.
+Ein Lernpfad ist dabei ein Projekt, bestehend aus mehreren Szenarien.
+Ein Szenario wiederum besitzt eine Beschreibung, ein Lehrziel, Notizen sowie
+den Arbeitsbereich.
+Grundlage des Arbeitsbereiches ist der Material-Import über eine URL.
+Unterstützt werden (360 Grad-)Fotos sowie Videos.
+Auf diesen Materialien können dann Interaktionen wie ein Quiz per 
+Drag&Drop abgelegt werden.
+
+Die bearbeiteten Lernpfäde können entweder als JSON oder PDF exportiert werden.
+Die JSON Datei kann über das Dashboard ebenfalls wieder importiert werden.
+
+###Style Guide
+HTML/CSS - Google Style Guide
+JavaScript - AirBnB Style Guide
+
 ## Getting Started
 
 - navigate to https://nodejs.org/ and install node.js version 16.13.1 on your machine
