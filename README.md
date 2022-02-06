@@ -82,7 +82,7 @@ npm start
     - eventHandler.js: contains globaly scoped code for event handling
     - httpHandler.js: contains globaly scoped code for server interaction
     - workspace.js: responsible for the workspace area
-    - treeGraph.js: creates the treeGraph
+    - treegraph.js: creates the treeGraph
     - ioHandler.js: import / export / download
 - res: hardcoded information / words used in different places or combinations across the project
 - src: server side modules
