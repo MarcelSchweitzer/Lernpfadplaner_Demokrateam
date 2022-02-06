@@ -72,7 +72,7 @@
   width: 30%;
 }
 
-.interactionSettings {
+.interactivitySettings {
   background-color: #ffffff;
   display: none;
   float: left;
@@ -83,7 +83,7 @@
   width: 100%;
 }
 
-.interactionItem {
+.interactivityItem {
   display: inline-block;
   width: 80%;
 }

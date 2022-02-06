@@ -599,7 +599,7 @@ th {
   vertical-align: middle;
 }
 
-.interactionItem {
+.interactivityItem {
   height: -moz-fit-content;
   height: fit-content;
 }

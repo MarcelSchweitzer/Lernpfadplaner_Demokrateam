@@ -38,7 +38,7 @@ function refreshInteractivityList() {
 // refresh all interactivityinputs (right side)
 function refreshInteractivityInputs() {
     if (session.interactionOpened()) {
-        $(".interactionSettings").css("display", "inline");
+        $(".interactivitySettings").css("display", "inline");
         $(".hotSpotSize[type=range]").val(Number(session.getCurrentInteraction().hotSpotSize));
         $(".x_coord").val(session.getCurrentInteraction().x_coord);
         $(".y_coord").val(session.getCurrentInteraction().y_coord);
@@ -49,7 +49,7 @@ function refreshInteractivityInputs() {
         $("#behaviorSettings option[id='${behaDropID}']").prop("selected", true);
         $("#interactionTypeDrop option[id='${dropID}']").prop("selected", true);
     }else{
-        $(".interactionSettings").css("display", "none");
+        $(".interactivitySettings").css("display", "none");
     }
 }
 

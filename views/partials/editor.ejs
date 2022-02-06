@@ -280,18 +280,18 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         <hr>
                         <p>Interaktivitätseinstellungen</p>
                         <hr>
-                        <div class="interactionSettings"> //ändern
-                            <div class="form-group interactionItem">
+                        <div class="interactivitySettings"> 
+                            <div class="form-group interactivityItem">
                                 <label for="hotSpotSize" class="form-label">Hotspot-Größe</label>
                                 <input type="range" class="form-range hotSpotSize slider" id="hotSpotSize" min="10" max="250" step="1">
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <label class="coords" for="x_coord">X</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp coords x_coord" id="x_coord">
                                 <label class="coords" for="y_coord">Y</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp coords y_coord" id="y_coord">
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
                                 <div class="matWrap">
@@ -304,11 +304,11 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </div>
                             </form>
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <label for="evaluationHeurestic">Erreichbare Wertung</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <label for="taxonomyLevelInt">Taxonomiestufe</label>
                                 <select class="form-control interSet" id="taxonomyLevelInt">
                                     <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
@@ -318,7 +318,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <% }); } %>
                                 </select>
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <label for="behaviorSettings">Verhaltenseinstellungen</label>
                                 <select class="form-control interSet" id="behaviorSettings">
                                     <%
@@ -330,7 +330,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <% }); %>
                                 </select>
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <label for="interactionTypeDrop">Interaktionstyp</label>
                                 <select class="form-control interSet" id="interactionTypeDrop">
                                     <option id="noInteractiontype" class="changeInteractivity"> </option>
@@ -346,7 +346,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     </optgroup>
                                 </select>
                             </div>
-                            <div class="form-group interactionItem">
+                            <div class="form-group interactivityItem">
                                 <button class="btn btn-light deleteIntBtn interSet" id="delOpenInt">
                                     <img class="button" src="img/trash.svg">
                                 </button>
