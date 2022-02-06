@@ -2,8 +2,7 @@ class CanvasManager {
   constructor() {
     this.p5Obj = null;
     this.canvas = null
-    this.images = [];
-    // this.videos = [];
+    this.material = [];
     this.scale = [];
     this.userOffsetX = [];
     this.userOffsetY = [];
@@ -55,20 +54,19 @@ class CanvasManager {
     this.canvas = cnv;
   }
 
-  setCurrentImage(path){
-    this.setImage(session.getCurrentScenarioIndex(), path);
+  setCurrentMaterial(path){
+    if(true)
+      this.setImage(session.getCurrentScenarioIndex(), path)
+    else
+      this.setVideo(session.getCurrentScenarioIndex(), path)
   }
-/*
-  setCurrentVideo(path){
-    this.setVideo(session.getCurrentScenarioIndex(), path);
-  }
-*/
+
   setImage(index, path){
 
     let success;
 
-    if(this.images[index])
-      this.images[index].remove();
+    if(this.material[index])
+      this.material[index].remove();
 
     // load image ist hmtl object
     this.p5Obj.createImg(path, "", (img)=>{
@@ -83,7 +81,7 @@ class CanvasManager {
 
       // if width & heigth > 0 -> load successfull, save to imagelist
       if(width > 0 && height > 0){
-        this.images[index] = img
+        this.material[index] = img
 
         success = true;
       }
@@ -96,13 +94,13 @@ class CanvasManager {
       
     });
   }
-/*
+
   setVideo(index, path){
 
     let success;
 
-    if(this.videos[index])
-      this.videos[index].remove();
+    if(this.material[index])
+      this.material[index].remove();
 
     document.getElementById("workspace"+index).innerHTML='<video  id="movie" src="'+path+'" height="100%" width="100%" controls autoplay > </video>';
     var player = document.getElementById("movie");
@@ -116,16 +114,12 @@ class CanvasManager {
     this.draggedInteraction = null;
 
   }
-*/
-  getCurrentImage(){
-    return this.images[session.getCurrentScenarioIndex()]
+
+  getCurrentMaterial(){
+    return this.material[session.getCurrentScenarioIndex()]
   }
-/*
-  getCurrentVideo(){
-    return this.videos[session.getCurrentScenarioIndex()]
-  }
-*/
-  getImage(index){
+
+  getMaterial(index){
     return images[index]
   }
 
@@ -137,18 +131,12 @@ class CanvasManager {
     return '#' + this.getWorkSpaceName();
   }
 
-  getImageDimension(){
-    let w = this.images[session.getCurrentScenarioIndex()].width
-    let h = this.images[session.getCurrentScenarioIndex()].height
+  getMaterialDimension(){
+    let w = this.material[session.getCurrentScenarioIndex()].width
+    let h = this.material[session.getCurrentScenarioIndex()].height
     return {'width': w, 'height': h}
   }
-/*
-  getVideoDimension(){
-    let w = this.videos[session.getCurrentScenarioIndex()].width
-    let h = this.videos[session.getCurrentScenarioIndex()].height
-    return {'width': w, 'height': h}
-  }
-*/
+
   getWorkspaceDimension(){
     let w = document.querySelector(this.getWorkSpaceId()).offsetWidth;
     let h = document.querySelector(this.getWorkSpaceId()).offsetHeight;
@@ -169,16 +157,16 @@ class CanvasManager {
 
   scaleToZero(index){
 
-    if(this.images[index].width > this.canvas.width)
-      this.scale[index] = this.canvas.width / this.images[index].width;
-    if(this.images[index].height > this.canvas.height && this.canvas.height / this.images[index].height < this.scale[index])
-      this.scale[index] = this.canvas.height / this.images[index].height;
-    this.userOffsetX[index] = this.images[index].width / 2 * this.scale[index];
-    if(this.images[index].width * this.scale[index] < this.canvas.width)
-      this.userOffsetX[index] = this.userOffsetX[index] + ( (this.canvas.width - this.images[index].width * this.scale[index]) / 2 )
-    this.userOffsetY[index] = this.images[index].height / 2 * this.scale[index];
-    if(this.images[index].height * this.scale[index] < this.canvas.height)
-      this.userOffsetY[index] = this.userOffsetY[index] + ( (this.canvas.height - this.images[index].height * this.scale[index]) / 2 )
+    if(this.material[index].width > this.canvas.width)
+      this.scale[index] = this.canvas.width / this.material[index].width;
+    if(this.material[index].height > this.canvas.height && this.canvas.height / this.material[index].height < this.scale[index])
+      this.scale[index] = this.canvas.height / this.material[index].height;
+    this.userOffsetX[index] = this.material[index].width / 2 * this.scale[index];
+    if(this.material[index].width * this.scale[index] < this.canvas.width)
+      this.userOffsetX[index] = this.userOffsetX[index] + ( (this.canvas.width - this.material[index].width * this.scale[index]) / 2 )
+    this.userOffsetY[index] = this.material[index].height / 2 * this.scale[index];
+    if(this.material[index].height * this.scale[index] < this.canvas.height)
+      this.userOffsetY[index] = this.userOffsetY[index] + ( (this.canvas.height - this.material[index].height * this.scale[index]) / 2 )
   }
   
   printCurrentCanvas(format){
@@ -361,12 +349,12 @@ function newCanv(p){
       p.scale(canvasManager.getScale(), canvasManager.getScale());
 
       // draw image
-      if(canvasManager.getCurrentImage()){
-        p.image(canvasManager.getCurrentImage(),
-            - canvasManager.getCurrentImage().width / 2,
-            - canvasManager.getCurrentImage().height / 2,
-            canvasManager.getImageDimension().width,
-            canvasManager.getImageDimension().height
+      if(canvasManager.getCurrentMaterial()){
+        p.image(canvasManager.getCurrentMaterial(),
+            - canvasManager.getCurrentMaterial().width / 2,
+            - canvasManager.getCurrentMaterial().height / 2,
+            canvasManager.getMaterialDimension().width,
+            canvasManager.getMaterialDimension().height
         );
       }
 
@@ -404,7 +392,6 @@ function newCanv(p){
           p.rect(interactions[i].x_coord, interactions[i].y_coord, interactions[i].hotSpotSize, interactions[i].hotSpotSize, 20); // !!
 
         }
-
       }
     }
   }
@@ -420,10 +407,16 @@ function createCanvas(){
 }
 
 // load the image background for each scenario (workspace)
-function loadWorkspaceBackgrounds(){
+function loadWorkspaceMaterials(){
   if(session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0){
-      for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
-          canvasManager.setImage(i, session.getCurrentLearningPath().scenarios[i].resource)
-      }
+    for(let i = 0; i < session.getCurrentLearningPath().scenarios.length; i++){
+
+      // TODO check material type here
+      let resource = session.getCurrentLearningPath().scenarios[i].resource
+      if(true)
+        canvasManager.setImage(i, resource)
+      else
+        canvasManager.setVideo(i, resource)
+    }
   }
 }

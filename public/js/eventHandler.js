@@ -14,9 +14,10 @@ $(document).ready(() => {
 });
 
 // check if an image url is valid
-function isValidImageURL(str){
-    if ( typeof str !== 'string' ) return false;
-    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
+function isValidVideoURL(str){
+    if ( typeof str !== 'string' ) 
+        return false;
+    return false;
 }
 
 // frefresh the list of interactivities (left side)
@@ -998,13 +999,7 @@ document.addEventListener('input', (event) => {
     else if (classes.contains('lpResource')) {
         scenarioIndex = id.replaceAll('lpResource', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'resource');
-        canvasManager.setCurrentImage(input.value);
-        /*    
-        if (isValidImageURL(input.value) == true){
-            canvasManager.setCurrentImage(input.value);
-        } else {
-            canvasManager.setCurrentVideo(input.value);
-        } */
+        canvasManager.setCurrentMaterial(input.value);
     }
 
     // handle changes in the settings section (inputs)
