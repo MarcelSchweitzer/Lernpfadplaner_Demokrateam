@@ -13,9 +13,11 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* following modal classes are used in multiple .ejs files to modify elements of modals */
 .modal-content-big {
   font-size: 20px;
   font-weight: 500;
+  text-align: center;
 }
 
 .modal-content-small {
@@ -25,6 +27,8 @@ body::-webkit-scrollbar {
 .modal-button {
   margin: 0 auto;
 }
+
+/* */
 
 .infoData {
   align-items: center;
@@ -322,146 +326,6 @@ footer a:hover {
   width: 50%;
 }
 
-@media screen and (max-width: 1024px) {
-  .info-box {
-    margin: 15% 20%;
-    width: 340px;
-  }
-
-  .image-cover {
-    margin-top: 6.5%;
-  }
-
-  .profile-options .btn {
-    color: white;
-    padding: 11px 0;
-    width: 140px;
-    z-index: 700;
-  }
-
-  .footer-img {
-    align-items: flex-end;
-    display: flex;
-  }
-
-  .headerText {
-    display: none;
-    width: 0;
-  }
-}
-
-@media screen and (max-width: 810px) {
-  .info-box {
-    display: block;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 7%;
-    width: 60%;
-  }
-
-  .profile-options {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-  }
-
-  .profile-details-role {
-    text-align: center;
-  }
-
-  .headerButtonsLeft {
-    max-width: 150px;
-  }
-}
-
-@media screen and (min-width: 740px) and (max-width: 768px) {
-  .landing {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .col-md-4 {
-    max-width: 100%;
-  }
-
-  .info-box {
-    align-items: center;
-    display: flex;
-    font-size: 12px;
-    margin: 12% 0;
-    width: 100%;
-  }
-
-  .profile-options .btn {
-    padding: 11px 0;
-    width: 160px;
-    z-index: 700;
-  }
-
-  .image-cover img {
-    margin: 0 0;
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .info-box {
-    font-size: 14px;
-    margin: 10% auto;
-    width: 350px;
-  }
-
-  .profile-options .btn {
-    width: 150px;
-  }
-
-  .form {
-    margin: 10% 0;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .center-part {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 412px) {
-  .info-box {
-    font-size: 14px;
-    width: 290px;
-    margin: 10% auto;
-  }
-
-  .profile-options .btn {
-    width: 150px;
-  }
-
-  .image-cover img {
-    margin-bottom: 10%;
-  }
-
-  .start-btn button {
-    width: 250px;
-  }
-
-  .import-btn {
-    width: 250px;
-  }
-
-  .home a {
-    font-size: 12px;
-  }
-
-  .form {
-    margin: 10% 0;
-  }
-}
-
 .btn {
   border-radius: 50px !important;
   cursor: pointer;
@@ -646,18 +510,6 @@ th {
   top: 20px;
 }
 
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px;
-  }
-
-  .overlay .closebtn {
-    font-size: 40px;
-    right: 35px;
-    top: 15px;
-  }
-}
-
 .node {
   cursor: pointer;
 }
@@ -784,10 +636,13 @@ th {
   }
 }
 
+/* following elements are only used for landing.ejs */
+
 .landingArea img:hover {
   animation: myAnim 2s ease 1 normal forwards;
 }
 
+/* with the circle class and its elements white moving squares are created in the background of the landing page */
 .circles {
   height: 100%;
   left: 0;
@@ -896,5 +751,159 @@ th {
     border-radius: 50%;
     opacity: 0;
     transform: translateY(-1000px) rotate(720deg);
+  }
+}
+
+/* modifications for smaller displays via mediascreen */
+
+@media screen and (max-width: 1024px) {
+  .info-box {
+    margin: 15% 20%;
+    width: 340px;
+  }
+
+  .image-cover {
+    margin-top: 6.5%;
+  }
+
+  .profile-options .btn {
+    color: white;
+    padding: 11px 0;
+    width: 140px;
+    z-index: 700;
+  }
+
+  .footer-img {
+    align-items: flex-end;
+    display: flex;
+  }
+
+  .headerText {
+    display: none;
+    width: 0;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .info-box {
+    display: block;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+    width: 60%;
+  }
+
+  .profile-options {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .profile-details-role {
+    text-align: center;
+  }
+
+  .headerButtonsLeft {
+    max-width: 150px;
+  }
+}
+
+@media screen and (min-width: 740px) and (max-width: 768px) {
+  .landing {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-md-4 {
+    max-width: 100%;
+  }
+
+  .info-box {
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    margin: 12% 0;
+    width: 100%;
+  }
+
+  .profile-options .btn {
+    padding: 11px 0;
+    width: 160px;
+    z-index: 700;
+  }
+
+  .image-cover img {
+    margin: 0 0;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .info-box {
+    font-size: 14px;
+    margin: 10% auto;
+    width: 350px;
+  }
+
+  .profile-options .btn {
+    width: 150px;
+  }
+
+  .form {
+    margin: 10% 0;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .center-part {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .info-box {
+    font-size: 14px;
+    width: 290px;
+    margin: 10% auto;
+  }
+
+  .profile-options .btn {
+    width: 150px;
+  }
+
+  .image-cover img {
+    margin-bottom: 10%;
+  }
+
+  .start-btn button {
+    width: 250px;
+  }
+
+  .import-btn {
+    width: 250px;
+  }
+
+  .home a {
+    font-size: 12px;
+  }
+
+  .form {
+    margin: 10% 0;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {
+    font-size: 20px;
+  }
+
+  .overlay .closebtn {
+    font-size: 40px;
+    right: 35px;
+    top: 15px;
   }
 }

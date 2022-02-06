@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernpfadplaner</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon/favicon.svg" sizes="256x256" alt="zumDashboard">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="center container-fluid">
-        <div class="cover-background">
-            <div>
-                <%- include('./partials/header') %>
-                    <main id="main">
-                        <%- include('./partials/dashboard') %>
-                    </main>
-                <%- include('./partials/footer') %>
-            </div>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernpfadplaner</title>
+<link rel="icon" type="image/x-icon" href="img/favicon/favicon.svg" sizes="256x256" alt="zumDashboard">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link rel="stylesheet" href="css/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+
+
+<div class="center container-fluid">
+    <div class="cover-background">
+        <div>
+            <%- include('./partials/header') %>
+                <main id="main">
+                    <%- include('./partials/dashboard') %>
+                </main>
+            <%- include('./partials/footer') %>
         </div>
     </div>
-</body>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -45,6 +44,7 @@
 <script src="js/httpHandler.js" referrerpolicy="no-referrer"></script>
 
 <script>
+    //Request for mobile users to turn their device before they continue
     PleaseRotateOptions = {
         startOnPageLoad: true,
         forcePortrait: false,

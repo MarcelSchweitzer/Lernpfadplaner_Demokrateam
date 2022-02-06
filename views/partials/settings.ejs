@@ -9,8 +9,8 @@
                 <img class="gear_big rotate" src="img/gear_big.png">
             </div>
             <div class="col-md-12">
-                <%//data.lpSet and data.userSet are set in the function app.get with the paramater '/settings' in app.js
-                //the function is called right before this content is loaded%>
+                <!--data.lpSet and data.userSet are set via function app.get with the paramater '/settings' in app.js
+                the function is called right before this content is loaded-->
                 <% if(data.lpSet == true){%>
                 <div>
                     <%- include('./lpSettings') %> 
@@ -22,7 +22,8 @@
                 </div>
                 <% } %>
                 <div class="profile-options saveBtnDiv">
-                    <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button> <%//saveSettingsBtn id used in eventHandler to save the lp and get to the editor, if a lp is open, or to go to the dashboard otherwise%>
+                    <button class="button btn btn-success saveSettingsBtn" id="saveSettingsBtn"> Speichern </button>
+                    <!--saveSettingsBtn id used in eventHandler to save the lp and get to the editor, if a lp is open, or to go to the dashboard otherwise-->
                 </div>
             </div>
         </div>

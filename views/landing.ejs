@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="img/favicon/favicon.svg" sizes="256x256" alt="zumDashboard">
-    <title>Lernpfadplaner</title>
-    <link rel='stylesheet' href="css/main.css">
-    </link>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
-        integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel='stylesheet'
-        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css'>
-    </link>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
-</head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="img/favicon/favicon.svg" sizes="256x256" alt="zumDashboard">
+<title>Lernpfadplaner</title>
+<link rel='stylesheet' href="css/main.css">
+</link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
+    integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css'>
+</link>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- modal for requesting the acceptance of cookies -->
 <div class="modal fade" id="CookieBanner" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -31,70 +31,72 @@
                 </p>
             </div>
             <div class="modal-footer">
+                <!-- both buttons are accessed via their id in cookie.js -->
                 <button type="button" class="btn btn-light allowCookie modal-button" id="allowCookie" data-dismiss="modal">Annehmen</button>
                 <button type="button" class="btn btn-light denyCookie modal-button" id="denyCookie" data-dismiss="modal">Ablehnen</button>
             </div>
         </div>
     </div>
 </div>
-<body>
-    <div class="container-fluid landingWrap">
-        <div class="row landing">
-            <div class="col-md-6 landingArea">
-                <div class="info-box">
-                    <div class="box-title">
-                        <h3>Lernpfadplaner</h3>
-                        <p>
-                            Plane mit dem Lernpfadplaner interaktives Lernmaterial ganz nach Deinen Vorstellungen.
-                        </p>
-                        <h3>Achtung</h3>
-                        <p>
-                            Der Lernpfadplaner befindet sich in der Beta-Phase. 
-                            Die Sicherheit Deiner eingegebenen Daten kann nicht garantiert werden. 
-                            Bitte verwende den Lernpfadplaner daher nicht, um sensible Informationen abzuspeichern.
-                        </p>
-                        <div class="profile-options">
-                            <button class="btn primary-btn" onCLick="startClick()" style="color: white">Jetzt loslegen</button>
-                            <script>
-                                function startClick() {
-                                    var pageURL = $(location).attr("href");
-                                    dashboardUrl = pageURL.toString().replace("get_started", "");
-                                    window.location.replace(dashboardUrl);
-                                }
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 landingArea">
-                <div class="info-box transparent">
-                    <div class="image-cover" onclick="startClick()">
-                        <img src="img/favicon/favicon.svg" alt="zumDashboard">
+
+<div class="container-fluid landingWrap">
+    <div class="row landing">
+        <div class="col-md-6 landingArea">
+            <div class="info-box">
+                <div class="box-title">
+                    <h3>Lernpfadplaner</h3>
+                    <p>
+                        Plane mit dem Lernpfadplaner interaktives Lernmaterial ganz nach Deinen Vorstellungen.
+                    </p>
+                    <h3>Achtung</h3>
+                    <p>
+                        Der Lernpfadplaner befindet sich in der Beta-Phase. 
+                        Die Sicherheit Deiner eingegebenen Daten kann nicht garantiert werden. 
+                        Bitte verwende den Lernpfadplaner daher nicht, um sensible Informationen abzuspeichern.
+                    </p>
+                    <div class="profile-options">
+                        <button class="btn primary-btn" onCLick="startClick()" style="color: white">Jetzt loslegen</button>
+                        <script>
+                            //creating and loading the dashboardUrl
+                            function startClick() {
+                                var pageURL = $(location).attr("href");
+                                dashboardUrl = pageURL.toString().replace("get_started", "");
+                                window.location.replace(dashboardUrl);
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer-parent">
-        <div class="footer-img">
-          <img src="img/shape-bg.png">
+        <div class="col-md-6 landingArea">
+            <div class="info-box transparent">
+                <div class="image-cover" onclick="startClick()">
+                    <img src="img/favicon/favicon.svg" alt="zumDashboard">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="area" >
-        <ul class="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-        </ul>
-</div >
-</body>
+</div>
+<div class="footer-parent">
+    <div class="footer-img">
+        <img src="img/shape-bg.png">
+    </div>
+</div>
+<div class="area" >
+    <!-- via main.css and the class this table creates moving white squares in the background -->
+    <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+    </ul>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"
     integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="

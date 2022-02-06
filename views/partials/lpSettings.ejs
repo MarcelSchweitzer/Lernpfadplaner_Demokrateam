@@ -1,4 +1,4 @@
-<% // TODO DRY
+<%
 // return true if data is available
 function canBeRead(root, calls){
     if(calls.length == 1 && root[calls[0]])
@@ -12,6 +12,7 @@ function canBeRead(root, calls){
 }
 %>
 
+<!--data.learningPath refers to the open learningPath-->
 <div class="material-group">
     <div class="container lpSettings">
         <div class="setting-section">
@@ -20,20 +21,23 @@ function canBeRead(root, calls){
             </p>
             <br><hr><br>
             <div class="settingsItem">
+                <!--the title of the learning path can be changed-->
                 <label class="settingsHeading" for="lpTitleInput">Titel</label>
                 <input type="text" onSubmit="return false;" class="form-control setItemCenter" id="lpTitleInput" value="<%=data.learningPath.title%>">
             </div>
             <br><hr><br>
             <div class="settingsItem">
+                <!--the taxonomy level of the learning path can be changed-->
                 <label class="settingsHeading" for="lpTaxonomyLevel">Taxonomiestufe</label>
                 <select class="form-control setItemCenter" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
                     <% if(canBeRead(data, ["taxonomyLevels"])){  data.taxonomyLevels.forEach(taxLev=>{ %>
-                        <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
+                        <option <% if(taxLev === data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
                     <% }); } %>
                 </select>
             </div>
             <br><hr><br>
             <div class="settingsItem">
+                <!--the evaluation mode of the learningPath can be changed-->
                 <label class="settingsHeading" for="lpEvaluationMode">Bewertungsmodus</label>
                 <select class="form-control setItemCenter" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
                     <% if(canBeRead(data, ["evaluationModes"])){  data.evaluationModes.forEach(evalMode=>{ %>
@@ -45,7 +49,9 @@ function canBeRead(root, calls){
             <div>
                 <div class="settingsItem" id="interactionTypes">
                     <label class="settingsHeading" for="categoryTabs">Interaktionstypen für diesen Lernpfad</label>
+                    <!--a nav tab for every category is created-->
                     <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
+                        <!--first a nav tab for every default category with the first one as active-->
                         <% if(data.interactionTypes){ 
                             let counter = 0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
@@ -59,6 +65,7 @@ function canBeRead(root, calls){
                                 </li>
                             <%counter++ }
                         }%>
+                        <!--then a nav tab for every created category-->
                         <% if(data.learningPath.lpSettings.createdTypes){
                             let counter=0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
@@ -69,6 +76,7 @@ function canBeRead(root, calls){
                                             <% catName=categoryName.replace("_"," "); %>
                                             <%= catName %>
                                         </a>
+                                        <!--created categories get buttons to change or delete them-->
                                         <div class="catNavWrapper">
                                             <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel<%= categoryName %>">
                                                 <img class="button delIntIcon catDelBtn" id="catDel<%= categoryName %>" src="img/trash.svg" alt="delete">
@@ -79,13 +87,16 @@ function canBeRead(root, calls){
                                         </div>
                                     </li>
                             <%}counter++ }}%>
+                            <!--the last nav tab is a button to create a new category-->
                             <li class="nav-item" id="addTabNav">
                                 <h4 class="nav-link" id="addNewCat" role="button">
                                     +
                                 </h4>
                             </li>
                     </ul>
+                    <!--then a tab with content is created for every category-->
                     <div class="tab-content">
+                        <!--again first for every default category with the first category as active-->
                         <% if(data.interactionTypes){
                             counter = 0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.interactionTypes)){ 
@@ -96,22 +107,27 @@ function canBeRead(root, calls){
                                     <div class="tabWrap">
                                         <div class="itemWrap">
                                             <div class="items <%= categoryName %> <%= active %>" id="<%= categoryName %>act">
+                                                <!--checkboxen and labels are created for every default interaction type of the category-->
                                                 <% for (let interactionTypeName of interactionTypes){
                                                     var checked = "";
                                                     if (data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
                                                         if (data.learningPath.lpSettings.activeDefaultTypes[categoryName].includes(interactionTypeName)){
                                                             checked = "checked";}
                                                     }%>
+                                                    <!--a default interaction type is active (and therefore checked) if the interaction type is included in the activeDefault section of the lpSettings of this learningpath-->
                                                     <input class="defaultInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                     <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
                                                     <br>
                                                 <% } 
+                                                <!--if created interaction type exists for the category, they will be loaded, too-->
                                                 if(data.learningPath.lpSettings.createdTypes[categoryName]){
                                                     for (let [interactionTypeName, active] of Object.entries(data.learningPath.lpSettings.createdTypes[categoryName])){
                                                         let checked = (active ? "checked" : true);%>
                                                         <div id="div<%= categoryName %><%= interactionTypeName %>">
+                                                            <!--a created interaction type is active (and therefore checked) if the value of the interaction type in the createdType section of the lpSettings is true-->
                                                             <input class="createdInputCB<%= categoryName %>" type="checkbox" <%= checked %> id="<%= interactionTypeName %>CB" name="<%= interactionTypeName %>">
                                                             <label for="<%= interactionTypeName %>CB"><%= interactionTypeName %></label>
+                                                            <!--created interaction types get buttons for deleting and renaming them-->
                                                             <button class="button btn-light intChangeBtn intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>">
                                                                 <img class="button delIntIcon intDelBtn <%= categoryName %>" id="delCreInt<%= interactionTypeName %>" src="img/trash.svg" alt="delete">
                                                             </button>
@@ -121,7 +137,9 @@ function canBeRead(root, calls){
                                                             <br>
                                                         </div>
                                                 <%} } %>
+                                                <!--the last checkbox element marks where new interaction types are added with jquery right after creating them-->
                                                 <div id="lastCheckboxelement<%= categoryName %>"></div>
+                                                <!--a textfield and button to add a new interaction type to the category-->
                                                 <div class="newTypeWrap">
                                                     <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-<%= categoryName %>" placeholder="Interaktionstyp">
                                                     <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-<%= categoryName %>">+</button>
@@ -129,14 +147,14 @@ function canBeRead(root, calls){
                                             </div>                                        
                                         </div>
                                     </div>
+                                    <!--buttons to select or deselect every interaction type of the category-->
                                     <div class="settingsItems">
                                         <button class="btn btn-light checkAllBtn customInput selectAllDefaultCat" id="catCheck <%= categoryName %>"> Alle aus <%= categoryName.replaceAll("_"," ") %> auswählen </button>
                                         <button class="btn btn-light checkAllBtn customInput selectNoneDefaultCat" id="catUnCheck <%= categoryName %>"> Keine aus <%= categoryName.replaceAll("_"," ") %> auswählen </button>
                                     </div>
                                 </div>
                                 <%counter++}}  %>
-                        <div id="lastTabContent"></div>
-
+                        <!--a tab of content for every created category-->
                         <% if(data.learningPath.lpSettings.createdTypes){
                             counter=0;
                             for (let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
@@ -146,6 +164,7 @@ function canBeRead(root, calls){
                                         <div class="tabWrap">
                                             <div class="itemWrap">
                                                 <div class="items <%= categoryName %>" id="<%= categoryName %>act">
+                                                    <!--label, checkbox and buttons are created for every created interaction type of the category-->
                                                     <% for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
                                                         var checked = (active ? "checked" : "");%>
                                                         <div id="div<%= categoryName %><%= interactionTypeName %>">
@@ -161,20 +180,24 @@ function canBeRead(root, calls){
                                                             <br>
                                                         </div>
                                                     <% } %>
+                                                    <!--the mark via last checkbox element-->
                                                     <div id="lastCheckboxelement<%= categoryName %>"></div>
                                                 </div>
+                                                <!--textfield and button to create a new interaction type-->
                                                 <div class="newTypeWrap">
                                                     <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-<%= categoryName %>" placeholder="Interaktionstyp">
                                                     <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-<%= categoryName %>">+</button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--buttons to select or deselect all interaction type of the category-->
                                         <div class="settingsItems">
                                             <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck <%= categoryName %>"> Alle aus <%= categoryName %> auswählen </button>
                                             <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck <%= categoryName %>"> Keine <%= categoryName %> Kategorie auswählen </button>
                                         </div>
                                     </div>
                             <%}counter++}} %>
+                            <!--last tab content as a mark for the adding of tab content of a freshly created category-->
                             <div id="lastTabContent"></div>
                     </div>
                 </div>
@@ -182,16 +205,19 @@ function canBeRead(root, calls){
             <br><hr><br>
             <div class="settingsItem" id="remainingSettings">
                 <p class="settingsHeading">Weitere Einstellungen</p>
+                <!--option to activate or deactivate warnings - activation of the ignore has always a confirmation modal-->
                 <%let WarnSettingChecked = (data.learningPath.lpSettings.ignoreWarnings ? "checked" : "" ) %>
                 <input type="checkbox" class="checkIgnoWar" id="ignoreWarnings" name="ignoreWarnings" <%= WarnSettingChecked %>>
                 <label for="ignoreWarnings">Warnungen ignorieren</label>
             </div>
             <br><hr><br>
             <div class="settingsItem settingsItems">
+                    <!--button to chose a learning path of which the settings should be taken-->
                     <button class="btn btn-light customInput" id="stealSettingsBtn">Einstellungen übernehmen</button>
                     <button class="btn btn-light customInput" id="resetSettingsBtn">Einstellungen zurücksetzen</button>
             </div>
         </div>
+        <!--confirmation modal for activation of ignore warnings-->
         <div class="modal fade" id="modalIgnoWar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -199,7 +225,7 @@ function canBeRead(root, calls){
                         <h5 class="modal-title"></h5>
                     </div>
                     <div class="modal-body">
-                        <p class="modalText">Möchtest Du wirklich alle Warnungen und Sicherheitsabfragen abstellen?</p>
+                        <p class="modal-content-big">Möchtest Du wirklich alle Warnungen und Sicherheitsabfragen abstellen?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="setIgnoWarnings" data-dismiss="modal">Ja</button>
@@ -208,56 +234,7 @@ function canBeRead(root, calls){
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="nameNewCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Neue Kategorie</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p class="modalText">Wie soll die neue Kategorie heißen?</p>
-                        <input type="text" onSubmit="return false;" name="catNameGiven" class="form-control" id="catNameGiven">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie erstellen</button>
-                        <button type="button" class="btn btn-light" id="catNameDismiss" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="delIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p class="modalText">Bist Du sicher?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light intDelModalBtn" id="interactionTypeNameBtn" name="categoryNameBtn" data-dismiss="modal">Löschen</button>
-                        <button type="button" class="btn btn-light intDelDismiss" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="renameIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p class="modalText">Wie soll der Interaktionstyp ab sofort heißen?</p>
-                        <input type="text" onSubmit="return false;" name="newIntNameGiven" class="form-control" id="newIntNameGiven">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light intRenameModalBtn" id="interactionTypeNameBtn" name="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
-                        <button type="button" class="btn btn-light intRenameDismiss" data-dismiss="modal">Abbrechen</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--modal to chose the learning path from which the settings should be taken and to chose which informations should also be taken-->
         <div class="modal fade" id="modalStealtSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -265,7 +242,7 @@ function canBeRead(root, calls){
                         <h5 class="modal-title"></h5>
                     </div>
                     <div class="modal-body">
-                        <p class="modalText">Von welchem Lernpfad möchtest Du die Einstellungen übernehmen?</p>
+                        <p class="modal-content-big">Von welchem Lernpfad möchtest Du die Einstellungen übernehmen?</p>
                         <select class="form-control" id="stealSettingsDrop"></select>
                         <br>
                         <input type="checkbox" class="includeTaxo" id="includeTaxo" checked>
@@ -281,6 +258,7 @@ function canBeRead(root, calls){
                 </div>
             </div>
         </div>
+        <!--confirmation modal for resetting the settings to default - deactivated via ignore warnings-->
         <div class="modal fade" id="modalResetSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -288,7 +266,7 @@ function canBeRead(root, calls){
                         <h5 class="modal-title"></h5>
                     </div>
                     <div class="modal-body">
-                        <p class="modalText">Bist Du sicher?</p>
+                        <p class="modal-content-big">Bist Du sicher?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="resetSettings" data-dismiss="modal">Ja</button>
@@ -297,12 +275,33 @@ function canBeRead(root, calls){
                 </div>
             </div>
         </div>
+        <!--modal to name a new category-->
+        <div class="modal fade" id="nameNewCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Neue Kategorie</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-content-big">Wie soll die neue Kategorie heißen?</p>
+                        <input type="text" onSubmit="return false;" name="catNameGiven" class="form-control" id="catNameGiven">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" id="addTab" data-dismiss="modal">Kategorie
+                            erstellen</button>
+                        <button type="button" class="btn btn-light" id="catNameDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--confirmation modal for deleting the chosen category - deactivated via ignore warnings-->
         <div class="modal fade" id="delCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header"></div>
                     <div class="modal-body">
-                        <p class="modalText">Bist Du sicher?</p>
+                        <p class="modal-content-big">Bist Du sicher?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light catDelModalBtn" id="categoryNameBtn" data-dismiss="modal">Löschen</button>
@@ -311,17 +310,56 @@ function canBeRead(root, calls){
                 </div>
             </div>
         </div>
+        <!--modal to rename the chosen category-->
         <div class="modal fade" id="renameCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header"></div>
                     <div class="modal-body">
-                        <p class="modalText">Wie soll die Kategorie ab sofort heißen?</p>
+                        <p class="modal-content-big">Wie soll die Kategorie ab sofort heißen?</p>
                         <input type="text" onSubmit="return false;" name="newCatNameGiven" class="form-control" id="newCatNameGiven">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light catRenameModalBtn" id="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
                         <button type="button" class="btn btn-light catRenameDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--confirmation modal for deleting the chosen interaction type - deactivated via ignore warnings-->
+        <div class="modal fade" id="delIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-content-big">Bist Du sicher?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light intDelModalBtn" id="interactionTypeNameBtn"
+                            name="categoryNameBtn" data-dismiss="modal">Löschen</button>
+                        <button type="button" class="btn btn-light intDelDismiss" data-dismiss="modal">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--modal to rename the chosen interaction type-->
+        <div class="modal fade" id="renameIntModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-content-big">Wie soll der Interaktionstyp ab sofort heißen?</p>
+                        <input type="text" onSubmit="return false;" name="newIntNameGiven" class="form-control"
+                            id="newIntNameGiven">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light intRenameModalBtn" id="interactionTypeNameBtn"
+                            name="categoryNameBtn" data-dismiss="modal">Bestätigen</button>
+                        <button type="button" class="btn btn-light intRenameDismiss" data-dismiss="modal">Abbrechen</button>
                     </div>
                 </div>
             </div>

@@ -1,13 +1,14 @@
 <%//display within the framework settings-page if the user settings are accessed%>
 
 <div class="material-group">
-    <div class="container userSettings"> <%//userSettings class used in settings to load this content%>
+    <div class="container userSettings"> <!--userSettings class used in settings to load this content-->
         <div class="setting-section">
             <div class="settingsItem" id="userNameInput">
             </br>
                 <h3>Benutzereinstellungen</h3>
                 <label for="userNameInput">Benutzername</label>
-                <input type="text" onSubmit="return false;" class="form-control" id="userNameInput" value="<%=data.nickname%>"> <%//userNameInput id used in eventHandler to update the userName of the session / in the database%>
+                <input type="text" onSubmit="return false;" class="form-control" id="userNameInput" value="<%=data.nickname%>">
+                <!--userNameInput id used in eventHandler to update the userName of the session / in the database-->
             </div>
         </div>
     </div>

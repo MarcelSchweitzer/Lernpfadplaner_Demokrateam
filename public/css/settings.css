@@ -1,114 +1,20 @@
 /*settings.ejs includes this stylesheet
 this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 
-/*used in lpSettings.ejs and userSettings.ejs*/
-.setting-section {
-  margin-top: 100px;
-}
+/* used in lpSettings.ejs (and partially in eventHandler.js when elements are added via jquery to the lpSetting-side while running) */
 
-/*used in settings.ejs*/
-.saveBtnDiv {
-  margin-top: 50px;
-}
-
-.profile-options button {
-  background-color: #1f2235 !important;
-  border: 2px solid linen !important;
-  display: flex;
-  display: block;
-  flex-direction: row;
-  margin: 10px auto;
-}
-
-.row {
+.customInput {
+  justify-content: center;
   margin: 5px;
+  width: 200px;
 }
 
-.space {
-  height: 100px;
+.settingsItems {
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
   width: 100%;
-}
-
-.tab-pane label {
-  font-size: 14px;
-}
-
-.settingsHeading {
-  font-size: 20px;
-}
-
-.intChangeBtn {
-  border-radius: 40px;
-  height: 20px;
-  max-width: 30px;
-  margin-left: 5px;
-}
-
-.delIntIcon {
-  display: block;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 100%;
-}
-
-.nameIntIcon {
-  display: block;
-  height: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 80%;
-}
-
-.modalText {
-  text-align: center;
-  font-size: 20px;
-}
-
-.catContent {
-  display: flex;
-}
-
-.catNavWrapper {
-  display: flex;
-  justify-content: center;
-  vertical-align: center;
-}
-
-/* additional used in eventHandler.js to add function to id "addTab" found in lpSettings.ejs*/
-
-.nav-item {
-  display: flex;
-  font-size: 14px;
-  justify-content: center;
-  vertical-align: center;
-}
-
-.newCat {
-  text-align: center;
-  width: auto;
-}
-
-.nav-link {
-  color: #1f2235;
-}
-
-.tab-pane {
-  width: 100%;
-}
-
-.newTypeWrap {
-  display: flex;
-  justify-content: center;
-  width: 150px;
-}
-
-.flexInput {
-  justify-content: center;
 }
 
 .newIntertypeName {
@@ -146,18 +52,80 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   justify-content: space-between;
 }
 
-.settingsItems {
-  bottom: 0;
+.nav-item {
   display: flex;
+  font-size: 14px;
   justify-content: center;
-  margin: 20px;
+  vertical-align: center;
+}
+
+.newCat {
+  text-align: center;
+  width: auto;
+}
+
+.nav-link {
+  color: #1f2235;
+}
+
+.tab-pane {
   width: 100%;
 }
 
-.customInput {
+.tab-pane label {
+  font-size: 14px;
+}
+
+.newTypeWrap {
+  display: flex;
   justify-content: center;
-  margin: 5px;
-  width: 200px;
+  width: 150px;
+}
+
+.flexInput {
+  justify-content: center;
+}
+
+.catContent {
+  display: flex;
+}
+
+.catNavWrapper {
+  display: flex;
+  justify-content: center;
+  vertical-align: center;
+}
+
+.intChangeBtn {
+  border-radius: 40px;
+  height: 20px;
+  max-width: 30px;
+  margin-left: 5px;
+}
+
+.delIntIcon {
+  display: block;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+}
+
+.nameIntIcon {
+  display: block;
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 80%;
+}
+
+/*used in settings.ejs*/
+.saveBtnDiv {
+  margin-top: 50px;
 }
 
 .saveBtnDiv button:hover {
@@ -166,14 +134,16 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   color: aliceblue !important;
 }
 
-@keyframes rotating {
-  0%  { transform: rotate(0);}
-  100%{ transform: rotate(1turn);}
+.profile-options button {
+  background-color: #1f2235 !important;
+  border: 2px solid linen !important;
+  display: flex;
+  display: block;
+  flex-direction: row;
+  margin: 10px auto;
 }
 
-.rotate {
-  animation: rotating 45s linear infinite;
-}
+/* following classes are used to create moving gears in the background */
 
 .img-background {
   height: 512px;
@@ -195,4 +165,18 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
 .gear_small {
   position: relative;
   top: 70px;
+}
+
+@keyframes rotating {
+  0%  { transform: rotate(0);}
+  100%{ transform: rotate(1turn);}
+}
+
+.rotate {
+  animation: rotating 45s linear infinite;
+}
+
+/*used in lpSettings.ejs and userSettings.ejs*/
+.setting-section {
+  margin-top: 100px;
 }
