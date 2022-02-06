@@ -1,15 +1,13 @@
-
 const express = require('express');
 const session = require('express-session');
 const PsqlStore = require('./src/psqlStore.js')(session);
 const unique = require('./src/uniqueIdentifiers.js');
 const dbMan = require('./src/dbManager.js');
 const fstk = require('./src/fileSystemToolkit.js');
-const { stringify } = require('nodemon/lib/utils');
 const evaluationModes = fstk.textToArray('./res/evaluationModes.txt');
 const interactionTypes = fstk.readJson('./res/interactionTypes.json');
 const taxonomyLevels = fstk.textToArray('./res/taxonomyLevels.txt');
-const cookieText = fstk.readFile('./res/cookieText.txt')
+const cookieText = fstk.readFile('./res/cookieText.txt');
 
 require('dotenv').config();
 
