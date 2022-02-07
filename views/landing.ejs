@@ -59,7 +59,7 @@
                         <script>
                             //creating and loading the dashboardUrl
                             function startClick() {
-                                var pageURL = $(location).attr("href");
+                                let pageURL = $(location).attr("href");
                                 dashboardUrl = pageURL.toString().replace("get_started", "");
                                 window.location.replace(dashboardUrl);
                             }

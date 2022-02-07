@@ -261,11 +261,26 @@ th {
   color: #f1f1f1;
 }
 
-.overlay .closebtn {
+.overlay .closeBtn {
   font-size: 120px;
   position: absolute;
   right: 125px;
   top: 20px;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node text {
+  font: 12px verdana;
+  stroke: white;
 }
 
 /* following elements are used for designing footer.ejs */
@@ -750,7 +765,7 @@ header {
     font-size: 20px;
   }
 
-  .overlay .closebtn {
+  .overlay .closeBtn {
     font-size: 40px;
     right: 35px;
     top: 15px;

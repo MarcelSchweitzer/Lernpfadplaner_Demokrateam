@@ -3,42 +3,42 @@
 </link>
 <%
 // return true if data is available
-function canBeRead(root, calls){
-    if(calls.length == 1 && root[calls[0]])
-        return true
-    if(root[calls[0]]){
-        let origCalls = calls.slice()
-        calls.splice(0, 2, calls[1])
-        return canBeRead(root[origCalls[0]], calls)
+    function canBeRead(root, calls){
+        if(calls.length == 1 && root[calls[0]])
+            return true
+        if(root[calls[0]]){
+            let origCalls = calls.slice()
+            calls.splice(0, 2, calls[1])
+            return canBeRead(root[origCalls[0]], calls)
+        }
+        return false
     }
-    return false
-}
 
 // create one object with all active Interaction createdTypes
 
-// add all active default Types
-var activeTypes = data.learningPath.lpSettings.activeDefaultTypes;
+    // add all active default Types
+    let activeTypes = data.learningPath.lpSettings.activeDefaultTypes;
 
-// add all active created interaction Types to the connected categories
-for(let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
-    // if category is not a default category add the category to activeTypes
-    if(!data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
-        activeTypes[categoryName] = [];    
-    }
+    // add all active created interaction Types to the connected categories
+    for(let [categoryName, interactionTypes] of Object.entries(data.learningPath.lpSettings.createdTypes)){
+        // if category is not a default category add the category to activeTypes
+        if(!data.learningPath.lpSettings.activeDefaultTypes[categoryName]){
+            activeTypes[categoryName] = [];    
+        }
 
-    //add every active interaction Type to the connected category
-    for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
-        if(active){
-            activeTypes[categoryName].push(interactionTypeName);
+        //add every active interaction Type to the connected category
+        for (let [interactionTypeName, active] of Object.entries(interactionTypes)){
+            if(active){
+                activeTypes[categoryName].push(interactionTypeName);
+            }
         }
     }
-}
 
-// filter out all empty categories
-for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
-    if(interactionTypes.length === 0)
-        delete activeTypes[categoryName];
-}
+    // filter out all empty categories
+    for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
+        if(interactionTypes.length === 0)
+            delete activeTypes[categoryName];
+    }
 
 %>
 
@@ -46,92 +46,95 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
     <div class="cover-background">
         <div class="row">
             <div class="col-2 sidecol">
-                <section class="left">
-                    <div class="sidepanel sidepanel-first scrollable">
-                        <div class="rate-part">
-                            <hr>
-                            <button class="button btn btn-light overviewBtn" id="hideTreeGraph">
-                                <img class="button" id="hideTreeGraph" src="img/diagram-3.svg" alt="Baumansicht">
-                            </button>
-                            <div id="treegraphNav" class="overlay">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeTreegraphOverlay()">&times;</a>
-                                <div class="overlay-content">
-                                    <div id="treegraph">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rate-part">
-                            <hr>
-                            <div class="note" >
-                                <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
-                                <div class="noteMaximize">
-                                    <a href="#" data-toggle="modal" data-target="#noteModal">
-                                        <img class="img-fluid button" src="img/maximize.png" alt="vergrößern">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="taxonomy-part">
-                            <hr>
-                            <p>Taxonomiestufe</p>
-                            <hr>
-                            <form>
-                                <div class="form-group col-12">
-                                    <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
-                                        <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
-                                            <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
-                                        <% }); } %>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="rate-part">
-                            <hr>
-                            <p>Bewertungsmodus </p>
-                            <hr>
-                            <form>
-                                <div class="form-group col-12">
-                                    <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
-                                        <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
-                                            <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
-                                        <% }); } %>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <div class="sidepanel sidepanel-second scrollable">
-                        <div class="rate-part">
-                            <div class="interactivity">
-                                <hr>
-                                <p>Interaktivitäten</p>
-                                <hr>
-                                <div class="interactivityList">
-                                    <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
-                                            data.learningPath.scenarios.length > 0 &&
-                                            canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
-                                        let count = 0;
-                                    data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
-                                    <div class="interactivityListElem">
-                                        <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
-                                            <%= ia.category.replace("_", " " ) %> -
-                                            <%= ia.interactionType.replaceAll("_", " " ) %>
-                                        </button>
-                                    </div>
-                                    <% count++; }); %>
-                                    <% } %>
+                <!--section for the information directly over the learning path on the left-->
+                <div class="sidepanel sidepanel-first scrollable">
+                    <div class="rate-part">
+                        <hr>
+                        <button class="button btn btn-light overviewBtn" id="hideTreeGraph">
+                            <img class="button" id="hideTreeGraph" src="img/diagram-3.svg" alt="Baumansicht">
+                        </button>
+                        <!--a button to show the tree map of the learning path-->
+                        <div id="treegraphNav" class="overlay">
+                            <a href="javascript:void(0)" class="closeBtn" onclick="closeTreegraphOverlay()">&times;</a>
+                            <div class="overlay-content">
+                                <div id="treegraph">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-
+                    <!--notes for the learning path - can be opened to be displayed in a modal-->
+                    <div class="note-part">
+                        <hr>
+                        <div class="note" >
+                            <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                            <div class="noteMaximize">
+                                <a href="#" data-toggle="modal" data-target="#noteModal">
+                                    <img class="img-fluid button" src="img/maximize.png" alt="vergrößern">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--taxonomy level of the learning path can be changed-->
+                    <!--if the taxonomy level is below the taxonomy level of an interactivity of the learning path (option nothing excluded), the user is warned-->
+                    <div class="taxonomy-part">
+                        <hr>
+                        <p>Taxonomiestufe</p>
+                        <hr>
+                        <form>
+                            <div class="form-group col-12">
+                                <select class="form-control" id="lpTaxonomyLevel" selected="<%=data.learningPath.taxonomyLevel%>">
+                                    <% if(canBeRead(data, ['taxonomyLevels'])){  data.taxonomyLevels.forEach(taxLev=>{ %>
+                                        <option <% if(taxLev == data.learningPath.taxonomyLevel){ %> selected <%}%> > <%= taxLev %> </option>
+                                    <% }); } %>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <!--evaluation mode of the learning path can be changed-->
+                    <div class="rate-part">
+                        <hr>
+                        <p>Bewertungsmodus </p>
+                        <hr>
+                        <form>
+                            <div class="form-group col-12">
+                                <select class="form-control" id="lpEvaluationMode" selected="<%=data.learningPath.evaluationModeID%>">
+                                    <% if(canBeRead(data, ['evaluationModes'])){  data.evaluationModes.forEach(evalMode=>{ %>
+                                        <option <% if(evalMode == data.learningPath.evaluationModeID){ %> selected <%}%> > <%= evalMode %> </option>
+                                    <% }); } %>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--section for the interactivities of the selected scenario on the left-->
+                <div class="sidepanel sidepanel-second scrollable">
+                    <div class="rate-part">
+                        <div class="interactivity">
+                            <hr>
+                            <p>Interaktivitäten</p>
+                            <hr>
+                            <div class="interactivityList">
+                                <!--for every intaravtivity a button is created-->
+                                <!--pressing the button opens the settings of the interactivity and changes the color of the hotspot of the interactivity in the workspaces to red-->
+                                <% if(canBeRead(data, ['learningPath', 'scenarios']) &&
+                                        data.learningPath.scenarios.length > 0 &&
+                                        canBeRead(data.learningPath.scenarios[data.learningPath.scenarios.length -1 ], ['interactions'])){
+                                    let count = 0;
+                                data.learningPath.scenarios[data.learningPath.scenarios.length-1].interactions.forEach(ia=>{ %>
+                                <div class="interactivityListElem">
+                                    <button class="btn btn-light interactivityListItem" id="iaListItem<%= count %>">
+                                        <%= ia.category.replace("_", " " ) %> -
+                                        <%= ia.interactionType %>
+                                    </button>
+                                </div>
+                                <% count++; }); %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <!--section for the information about the scenarios of the learning path in the middle-->
             <div class="col-8 midCol">
                 <div class="material-group scenarios scrollable" id="scenarios">
                     <% if(canBeRead(data, ['learningPath','scenarios'])){
@@ -141,28 +144,32 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                         let showLastscenario = lastScenario ? ' show' : '';
                     %>
                     <div class="card scenario">
+                        <!--a card is created for every scenario-->
                         <div class="card-header" id="heading<%= count %>">
                             <h5 class="mb-0">
                                 <div class="scenarioContr">
+                                    <!--the name of the scenario can be changed-->
                                     <input type="text" onSubmit="return false;" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                    <!--a button to select / deselect and open / close the scenario-->
                                     <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
                                     <div class="accordionWrap scenarioHeaderInput">
+                                        <!--a button to download the scenario as pdf-->
                                         <button class="button btn btn-light scenarioBtn printScenario" onSubmit="return false;" id="printScenario<%= count %>">
                                             <img class="button dashIcon scenarioBtnImg printScenario" id="printScenario<%= count %>" src="img/download.svg" alt="download">
                                         </button>
+                                        <!--a button to delete the scenario-->
                                         <button class="button btn btn-light scenarioHeaderInput rightScenarioHBtn delScen" id="delScen<%= count %>">
                                             <img class="button dashIcon delScen" src="img/trash.svg" id="delScen<%= count %>" alt="deleteSzenario">
                                         </button>
                                     </div>
-                                    <!-- delete -->
+                                    <!--confirmation modal for deleting the chosen scenario - deactivated via ignore warnings-->
                                     <div class="modal fade" id="delete<%= count %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header"></div>
                                                 <div class="modal-body">
-                                                    <!-- "<%= sc.title %>" is only valid at startup, needs to be updated at runtime -->
                                                     <p  class="textInModal">Bist Du sicher? </p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -172,23 +179,26 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- delete -->
                                 </div>
                             </h5>
                         </div>
+                        <!--information about the selected scenario-->
                         <div id="collapse<%= count %>" class="collapse<%= showLastscenario %>" aria-labelledby="heading<%= count %>" data-parent="#scenarios">
                             <div class="card-body">
                                 <div class="scenarioControllWrapper">
                                     <div class="scenarioControlls scenarioLeftControlls">
+                                        <!--description can be changed-->
                                         <div class="form-group">
                                             <label for="lpDescription<%= count %>">Beschreibung</label>
                                             <textarea class="form-control lpDescription" id="lpDescription<%= count %>"><%= sc.description %></textarea>
                                         </div>
+                                        <!--learning goal can be changed-->
                                         <div class="form-group">
                                             <label for="lpLearningGoal<%= count %>">Lernziel</label>
                                             <textarea class="form-control lpLearningGoal" id="lpLearningGoal<%= count %>"><%= sc.learningGoal %></textarea>
                                         </div>
                                     </div>
+                                    <!--notes can be changed-->
                                     <div class="scenarioControlls scenarioRightControlls">
                                         <div class="note" >
                                             <label for="lpNote<%= count %>">Szenario-Notizen</label>
@@ -198,14 +208,19 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </div>
                                 <hr class="rounded">
                                 <div>
+                                    <!--workspace with the resource open, if available, and hotspots of the interactivity, if available-->
+                                    <!--the hotspots can be rearranged-->
+                                    <!--the view and zoom of the resource can be changed-->
                                     <label>Arbeitsbereich</label>
                                     <div class="inner-material">
                                         <div class="workspace" id="workspace<%= count %>"></div>
                                     </div>
                                     <div class="scenarioButtonWrap">
+                                        <!--a button to reset the zoom-->
                                         <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="resetZoomBtn">
                                             <img class="button dashIcon scenarioBtnImg" id="resetZoomBtn" src="img/aspect-ratio.svg" alt="zoomZurücksetzen">
                                         </button>
+                                        <!--a button to display the workspace in fullscreen-->
                                         <button class="btn btn-light scenarioBtn" onSubmit="return false;" id="fullScreenBtn">
                                             <img class="button dashIcon scenarioBtnImg" id="fullScreenBtn" src="img/arrows-fullscreen (1).svg" alt="fullscreen">
                                         </button>
@@ -213,6 +228,8 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </div>
                                 <hr class="dotted">
                                 <form>
+                                    <!--scenario URL can be changed-->
+                                    <!--the resource behind the scenario URL is loaded automatically into the workspace-->
                                     <div class="form-group">
                                         <label for="lpResource<%= count %>">Szenario-URL</label>
                                         <div class="input-group copyBox">
@@ -224,7 +241,6 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                               </div> -->
                                         </div>
                                     </div>
-                                   
                                 </form>
                             </div>
                         </div>
@@ -233,6 +249,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                     <div class="card scenario">
                         <div class="card-header" id="headingAddScenario">
                             <h5 class="mb-0">
+                                <!--a button to create a new scenario in the last place-->
                                 <button class="btn btn-link collapsed" id="addScenarioButton" data-toggle="collapse" data-target="#collapseAddScenario" aria-expanded="false" aria-controls="collapseAddScenario">
                                     <h3 id="addScenarioButton">
                                         +
@@ -244,16 +261,17 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 </div>
             </div>
             <div class="col-2 sidecol">
-                <section class="right">
-                    <div class="sidepanel sidepanel-first scrollable">
-                        <div class="rate-part">
-                            <hr>
-                            <p class="typ">Interaktionstypen</p>
-                            <hr>
-                            <div class="interactivityPicker">
-                                <% if(Object.keys(activeTypes).length !== 0){
-                                    let count = 0;
-                                    for (let [category, interactionTypes] of Object.entries(activeTypes)){ %>
+                <!--section for all active interaction types on the right-->
+                <div class="sidepanel sidepanel-first scrollable">
+                    <div class="rate-part">
+                        <hr>
+                        <p class="typ">Interaktionstypen</p>
+                        <hr>
+                        <div class="interactivityPicker">
+                            <!--for every category with active interaction types a box is created-->
+                            <% if(Object.keys(activeTypes).length !== 0){
+                                let count = 0;
+                                for (let [category, interactionTypes] of Object.entries(activeTypes)){ %>
                                 <div class="categoryBox">
                                     <hr>
                                     <h6 class="interactivityCategory">
@@ -261,6 +279,8 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         <%= catName %>
                                     </h6>
                                     <hr>
+                                    <!--for every active interaction type a draggable box is created-->
+                                    <!--if a box is dragged to a spot on the workspace a hotspot and interactivity with of the interaction type are created-->
                                     <% for (let interactionTypeName of interactionTypes){ %>
                                         <div class="interactivityBox" id="<%= category %>$$<%= interactionTypeName %>" draggable="true">
                                             <p class="selectedInteractivity">
@@ -270,21 +290,23 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                         </div>
                                     <% } %>
                                 </div>
-                                <% }} %>
-                            </div>
+                            <% }} %>
                         </div>
                     </div>
-                </section>
+                </div>
+                <!--section for the interactivity settings of the selected interactivity-->
                 <div class="sidepanel sidepanel-second scrollable">
                     <div class="rate-part">
                         <hr>
                         <p>Interaktivitätseinstellungen</p>
                         <hr>
                         <div class="interactivitySettings"> 
+                            <!--the size of the corresponding hotspot can be changed-->
                             <div class="form-group interactivityItem">
                                 <label for="hotSpotSize" class="form-label">Hotspot-Größe</label>
                                 <input type="range" class="form-range hotSpotSize slider" id="hotSpotSize" min="10" max="250" step="1">
                             </div>
+                            <!--the coordinates of the corresponding hotspot and therefore the location of the interactivity in the scenario can be changed-->
                             <div class="form-group interactivityItem">
                                 <label class="coords" for="x_coord">X</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp coords x_coord" id="x_coord">
@@ -294,9 +316,11 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                             <div class="form-group interactivityItem">
                                <form class="clipboard">
                                 <label for="materialUrl">Material URL</label>
+                                <!--the material URL can be changed-->
                                 <div class="matWrap">
                                     <input type="text" onSubmit="return false;" class="form-control text interSet interInp materialUrl"  id="materialUrl">
                                     <div class="input-group-append">
+                                        <!--a button to copy the content of material url-->
                                         <button class="btn btn-outline-secondary copyBtnMaterialUrl" onSubmit="return false;" id="copyBtnMaterialUrl" type="button">
                                             <img id="copyBtnMaterialUrl" src="./img/copy.png" onSubmit="return false;" alt="copyToClipbord"/>
                                         </button>
@@ -304,10 +328,13 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                 </div>
                             </form>
                             </div>
+                            <!--the evaluation heurestic can be changed-->
                             <div class="form-group interactivityItem">
                                 <label for="evaluationHeurestic">Erreichbare Wertung</label>
                                 <input type="text" onSubmit="return false;" class="form-control interSet interInp evaluationHeurestic" id="evaluationHeurestic">
                             </div>
+                            <!--the taxonomy level can be changed-->
+                            <!--if the taxonomy level is above the taxonomy level of the learning path, the user is warned-->
                             <div class="form-group interactivityItem">
                                 <label for="taxonomyLevelInt">Taxonomiestufe</label>
                                 <select class="form-control interSet" id="taxonomyLevelInt">
@@ -318,6 +345,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <% }); } %>
                                 </select>
                             </div>
+                            <!--the behaviour settings can be changed-->
                             <div class="form-group interactivityItem">
                                 <label for="behaviorSettings">Verhaltenseinstellungen</label>
                                 <select class="form-control interSet" id="behaviorSettings">
@@ -330,6 +358,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     <% }); %>
                                 </select>
                             </div>
+                            <!--the interaction type can be changed to any other active interaction type-->
                             <div class="form-group interactivityItem">
                                 <label for="interactionTypeDrop">Interaktionstyp</label>
                                 <select class="form-control interSet" id="interactionTypeDrop">
@@ -346,6 +375,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                                     </optgroup>
                                 </select>
                             </div>
+                            <!--a button to delete the interactivity-->
                             <div class="form-group interactivityItem">
                                 <button class="btn btn-light deleteIntBtn interSet" id="delOpenInt">
                                     <img class="button" src="img/trash.svg" alt="delete">
@@ -356,6 +386,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 </div>
             </div>
         </div>
+        <!--modal with displaying the notes - changes are allowed-->
         <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -371,6 +402,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 </div>
             </div>
         </div>
+        <!--warning modal if the taxonomy level of an interactivity is to high - deactivated via ignore warnings-->
         <div class="modal fade" id="taxToHigh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -388,6 +420,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 </div>
             </div>
         </div>
+        <!--warning modal if the taxonomy level the learning path is to low - deactivated via ignore warnings-->
         <div class="modal fade" id="taxToLow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -405,6 +438,7 @@ for(let [categoryName, interactionTypes] of Object.entries(activeTypes)){
                 </div>
             </div>
         </div>
+        <!--confirmation modal for deleting the chosen interactivity - deactivated via ignore warnings-->
         <div class="modal fade" id="deleteInteract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

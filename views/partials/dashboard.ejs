@@ -1,20 +1,21 @@
-<div class="container-fluid"><!---->
+<div class="container-fluid">
     <img class="img-background" src="img/home.png">
     <hr>
-    
         <div class="col-md-12 infoData">
+            <!--a new learning path can be created-->
             <div class="start-btn">
                 <button class="button btn btn-primary" type="create" id="createLpBtn">
                     Neuen Lernpfad erstellen +
                 </button>
             </div>
+            <!--a JSON can be dropped or chosen from the explorer-->
             <div class="form dropDiv">
                 <input type="file" accept=".json" class="fileDrop" id="importDrop" multiple>
                 <img class="dropImg" src="img/filetype-json.svg" alt="JSONsHierDroppen">
             </div>
         </div>
-        
         <hr>
+        <!--a table with all learning paths and information about them - if their is no learning path, the table has no content-->
         <div class="row">
             <div class="col-md-12">
                 <div class="history">
@@ -23,6 +24,7 @@
                             Meine Lernpfade
                         </div>
                         <div class="card-body">
+                            <!--a textfield to filter the learning paths by name-->
                             <input class="form-control" onSubmit="return false;" id="searchIn" onkeyup="searchBox()" type="text" placeholder="Search..">
                             <hr>
                             <div class="container">
@@ -43,67 +45,77 @@
                                         </tr>
                                        </thead>
                                        <tbody id="table">
-                                        <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR['content'] %>
-                                            <tr id="lpRow<%= lp['id'] %>" scope="row">
+                                        <!--a row in the table is created for every learning path-->
+                                        <% let count = 0; data.learningPaths.forEach(lpR=>{let lp = lpR.content %>
+                                            <tr id="lpRow<%= lp.id %>" scope="row">
+                                                <!--the number of the learning path-->
                                                 <td class="align-middle lpInfoCell">
-                                                    <%= count %>
+                                                    <%= count + 1 %>
                                                 </td>
+                                                <!--the title of the learning path and also a button to open the learning path in the editor-->
                                                 <td class="align-middle">
-                                                    <button class="button btn  btn-light openLp" id="openLp<%= lp['id'] %>">
-                                                        <%= lp['title'] %>
+                                                    <button class="button btn  btn-light openLp" id="openLp<%= lp.id %>">
+                                                        <%= lp.title %>
                                                     </button>
                                                 </td>
-                                                <% //ab hier ändern
-                                                    let amountScenarios = (lp['scenarios'] ? lp['scenarios'].length : 0); 
+                                                <%
+                                                    let amountScenarios = (lp.scenarios ? lp.scenarios.length : 0); 
                                                 %>
+                                                <!--the amount of scenarios in the learning path-->
                                                 <td class="align-middle lpInfoCell">
                                                         <%= amountScenarios %>
                                                 </td>
                                                 <% 
                                                     let amountInter = 0;
                                                         for(let i = 0; i < amountScenarios; i++){
-                                                            let amountThisScenario = lp['scenarios'][i]['interactions'] ? lp['scenarios'][i]['interactions'].length : 0
+                                                            let amountThisScenario = lp.scenarios[i].interactions ? lp.scenarios[i].interactions.length : 0
                                                             amountInter += amountThisScenario;
                                                         }
                                                 %>
+                                                <!--the amount of interactivities in the learning path-->
                                                 <td class="align-middle lpInfoCell">
                                                         <%= amountInter %>
                                                 </td>
+                                                <!--the chosen taxonomy level of the learning path-->
                                                 <td class="align-middle lpInfoCell">
-                                                    <%= lp['taxonomyLevel'] %>
+                                                    <%= lp.taxonomyLevel %>
                                                 </td>
+                                                <!--the chosen evaluation mode of the learning path-->
                                                 <td class="align-middle lpInfoCell">
-                                                    <%= lp['evaluationModeID'] %>
+                                                    <%= lp.evaluationModeID %>
                                                 </td>
+                                                <!--a button to show the tree map of the learning path-->
                                                 <td class="tableBtn">
-                                                    <button class="button btn btn-light hideTreeGraphDashboard tbBtn" id="hideTreeGraphDashboard<%= lp['id']%>">
-                                                        <img class="button dashIcon hideTreeGraphDashboard" id="hideTreeGraphDashboard<%= lp['id']%>"" src="img/diagram-3.svg" alt="Baumansicht">
+                                                    <button class="button btn btn-light hideTreeGraphDashboard tbBtn" id="hideTreeGraphDashboard<%= lp.id%>">
+                                                        <img class="button dashIcon hideTreeGraphDashboard" id="hideTreeGraphDashboard<%= lp.id%>"" src="img/diagram-3.svg" alt="Baumansicht">
                                                     </button>
                                                     <div id="treegraphNavDashboard" class="overlay">
-                                                        <a href="javascript:void(0)" class="closebtn" onclick="hideTreeGraph()">&times;</a>
+                                                        <a href="javascript:void(0)" class="closeBtn" onclick="hideTreeGraph()">&times;</a>
                                                         <div class="overlay-content">
                                                             <div id="treegraph">
-
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </td>
+                                                <!--a button to download the learning path-->
                                                 <td class="tableBtn">
-                                                    <button class="button btn btn-light downLoadFromDashboard tbBtn" id="downLoadFromDashboard<%= lp['id']%>" data-toggle="modal" data-target="#downloadPop">
-                                                        <img class="button dashIcon downLoadFromDashboard" id="downLoadFromDashboard<%= lp['id']%>" src="img/download.svg" alt="download">
+                                                    <button class="button btn btn-light downLoadFromDashboard tbBtn" id="downLoadFromDashboard<%= lp.id%>" data-toggle="modal" data-target="#downloadPop">
+                                                        <img class="button dashIcon downLoadFromDashboard" id="downLoadFromDashboard<%= lp.id%>" src="img/download.svg" alt="download">
                                                     </button>
                                                 </td>
+                                                <!--a button to open the lp settings of the learning path-->
                                                 <td class="tableBtn">
-                                                    <button class="button btn btn-light settingsPageBtn tbBtn" id="settingsPageBtn<%= lp['id']%>">
-                                                        <img class="button dashIcon settingsPageBtn" id="settingsPageBtn<%= lp['id']%>" src="img/settings.svg" alt="lernpfadSettings">
+                                                    <button class="button btn btn-light settingsPageBtn tbBtn" id="settingsPageBtn<%= lp.id%>">
+                                                        <img class="button dashIcon settingsPageBtn" id="settingsPageBtn<%= lp.id%>" src="img/settings.svg" alt="lernpfadSettings">
                                                     </button>
                                                 </td>
+                                                <!--a button to delete the learning path-->
                                                 <td class="tableBtn">
-                                                    <button class="button btn btn-light tbBtn" data-toggle="modal" data-target="#deleteLp<%= lp['id']%>">
+                                                    <button class="button btn btn-light tbBtn" data-toggle="modal" data-target="#deleteLp<%= lp.id%>">
                                                         <img class="button dashIcon" src="img/trash.svg" alt="delete">
                                                     </button>
-                                                    <div class="modal fade" id="deleteLp<%= lp['id']%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <!--confirmation modal for deleting the learning path-->
+                                                    <div class="modal fade" id="deleteLp<%= lp.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             
                                                             <div class="modal-content">
@@ -113,7 +125,7 @@
                                                                     <p  class="modal-content-big">Bist Du sicher? </p>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light modal-button deleteLp" id="delete<%= lp['id']%>" data-dismiss="modal">Löschen</button>
+                                                                    <button type="button" class="btn btn-light modal-button deleteLp" id="delete<%= lp.id%>" data-dismiss="modal">Löschen</button>
                                                                     <button type="button" class="btn btn-light modal-button" data-dismiss="modal">Abbrechen</button>
                                                                 </div>
                                                             </div>
@@ -130,7 +142,6 @@
                     </div>
                 </div>
             </div>
-           
         </div>
-    </div>
+</div>
 <div class="space"></div>
