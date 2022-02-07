@@ -30,7 +30,7 @@ function refreshInteractivityList() {
             inter = session.getCurrentScenario().interactions[i];
             $('.interactivityList').append(`
                                                 <div class="interactivityListElem">
-                                                    <button class="btn btn-light interactivityListItem" id="iaListItem` + i + '">' + inter.category + ' - ' + inter.interactionType + `</button>
+                                                    <button class="btn btn-light interactivityListItem" id="iaListItem${i}">${inter.category} - ${inter.interactionType}</button>
                                                 </div>
                                           `);
         }
@@ -48,7 +48,6 @@ function refreshInteractivityInputs() {
         $('.materialUrl').val(session.getCurrentInteraction().materialUrl);
         $('.evaluationHeurestic').val(session.getCurrentInteraction().evaluationHeurestic);
         $("#taxonomyLevelInt option[id='${taxoDropID}']").prop('selected', true);
-        $("#behaviorSettings option[id='${behaDropID}']").prop('selected', true);
         $("#behaviorSettings option[id='${behaDropID}']").prop('selected', true);
         $("#interactionTypeDrop option[id='${dropID}']").prop('selected', true);
     } else {
@@ -144,7 +143,7 @@ function deleteIntType(category, interactionType) {
 
     if (Object.keys(createdTypes[category]).length === 0 && Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(category)) { delete createdTypes[category]; }
 
-    $('#div' + category + interactionType).remove();
+    $(`#div${category}${interactionType}`).remove();
 
     session.setProp('lpSettings', createdTypes, 'createdTypes');
     unsavedChanges = false;
@@ -157,10 +156,10 @@ function deleteCatType(category) {
 
     delete createdTypes[category];
 
-    const active = ($('#' + category + '-tab').hasClass('active'));
+    const active = ($(`#${category}-tab`).hasClass('active'));
 
-    $('#' + category + 'Nav').remove();
-    $('#a' + category).remove();
+    $(`#${category}Nav`).remove();
+    $(`#a${category}`).remove();
 
     if (active) {
         $('#Global-tab').addClass('active');
@@ -255,10 +254,10 @@ document.addEventListener('click', (event) => {
     // full screen button
     else if (id === 'fullScreenBtn') {
         if (
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement
+            document.fullscreenElement
+            || document.webkitFullscreenElement
+            || document.mozFullScreenElement
+            || document.msFullscreenElement
         ) {
             if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -366,7 +365,7 @@ document.addEventListener('click', (event) => {
         $('#stealSettingsDrop').html('');
         currentLps = session.getlearningPaths();
         for (let i = 0; i < currentLps.length; i++) {
-            $('#stealSettingsDrop').append('<option id="steal' + currentLps[i].id + '">' + currentLps[i].title + '</option>');
+            $('#stealSettingsDrop').append(`<option id="steal${currentLps[i].id}">${currentLps[i].title}</option>`);
         }
     }
 
@@ -412,53 +411,51 @@ document.addEventListener('click', (event) => {
         unsavedChanges = true;
 
         $('#addTabNav').before(`
-                                    <li class="nav-item" id= "` + categoryID + `Nav">
-                                        <a class="nav-link" draggable="false" id="` + categoryID + '-tab" data-toggle="tab" href="#a' + categoryID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                            ` + newCatName + `
+                                    <li class="nav-item" id= "${categoryID}Nav">
+                                        <a class="nav-link" draggable="false" id="${categoryID}-tab" data-toggle="tab" href="#a${categoryID}" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                            ${newCatName}
                                         </a>
                                         <div class="catNavWrapper">
-                                            <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel` + categoryID + `">
-                                                <img class="button delIntIcon catDelBtn" id="catDel` + categoryID + `" src="img/trash.svg">
+                                            <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel${categoryID}">
+                                                <img class="button delIntIcon catDelBtn" id="catDel${categoryID}" src="img/trash.svg">
                                             </button>
-                                            <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename` + categoryID + `">
-                                                <img class="button nameIntIcon catRenameBtn" id="catRename` + categoryID + `" src="img/edit.png">
+                                            <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename${categoryID}">
+                                                <img class="button nameIntIcon catRenameBtn" id="catRename${categoryID}" src="img/edit.png">
                                             </button>
                                         </div>
                                     </li>
                              `);
         $('#lastTabContent').before(`
-                                        <div class="tab-pane fade" id="a` + categoryID + '" role="tabpanel" aria-labelledby="' + categoryID + `-tab">
+                                        <div class="tab-pane fade" id="a${categoryID}" role="tabpanel" aria-labelledby="${categoryID}-tab">
                                             <div class="tabWrap">
                                                 <div class="itemWrap">
-                                                    <div class="items ` + categoryID + '" id="' + categoryID + `act">
-                                                        <div id="lastCheckboxelement` + categoryID + `"></div>
+                                                    <div class="items ${categoryID}" id="${categoryID}act">
+                                                        <div id="lastCheckboxelement${categoryID}"></div>
                                                     </div>
                                                     <div class="newTypeWrap">
-                                                        <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-` + categoryID + `" placeholder="Interaktionstyp">
-                                                        <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-` + categoryID + `">
+                                                        <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-${categoryID}" placeholder="Interaktionstyp">
+                                                        <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-${categoryID}">
                                                             +
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="settingsItems">
-                                                <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + categoryID + '"> Alle aus ' + categoryID + ` auswählen </button>
-                                                <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + categoryID + '"> Keine aus ' + categoryID + ` auswählen </button>
+                                                <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ${categoryID}"> Alle aus ${categoryID} auswählen </button>
+                                                <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ${categoryID}"> Keine aus ${categoryID} auswählen </button>
                                             </div>
                                         </div>
                                 `);
 
         const actCatTab = ($('.nav-link.active').attr('id')).slice(0, -4);
 
-        console.log(actCatTab);
+        $(`#${actCatTab}-tab`).removeClass('active');
+        $(`#a${actCatTab}`).addClass('fade').removeClass('fadeshow').removeClass('active');
+        $(`#${actCatTab}act`).removeClass('active');
 
-        $('#' + actCatTab + '-tab').removeClass('active');
-        $('#a' + actCatTab).addClass('fade').removeClass('fadeshow').removeClass('active');
-        $('#' + actCatTab + 'act').removeClass('active');
-
-        $('#' + categoryID + '-tab').addClass('active');
-        $('#a' + categoryID).removeClass('fade').addClass('fadeshow').addClass('active');
-        $('#' + categoryID + 'act').addClass('active');
+        $(`#${categoryID}-tab`).addClass('active');
+        $(`#a${categoryID}`).removeClass('fade').addClass('fadeshow').addClass('active');
+        $(`#${categoryID}act`).addClass('active');
 
         saveCurrentLp();
     } else if (id === 'catNameDismiss') {
@@ -467,7 +464,7 @@ document.addEventListener('click', (event) => {
         const category = id.replaceAll('catCheck ', '');
 
         let defaultInterTypes = [];
-        const allElemOfCategory = document.getElementsByClassName('defaultInputCB' + category);
+        const allElemOfCategory = document.getElementsByClassName(`defaultInputCB${category}`);
         for (const interactionID of allElemOfCategory) {
             defaultInterTypes.push(interactionID.name);
         }
@@ -478,10 +475,10 @@ document.addEventListener('click', (event) => {
                 interactionTypes[interactionTypeName] = true;
             }
             session.setProp('lpSettings', interactionTypes, 'createdTypes', category);
-            $('.createdInputCB' + category).prop('checked', true);
+            $(`.createdInputCB${category}`).prop('checked', true);
         }
 
-        $('.defaultInputCB' + category).prop('checked', true);
+        $(`.defaultInputCB${category}`).prop('checked', true);
         session.setProp('lpSettings', defaultInterTypes, 'activeDefaultTypes', category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -494,7 +491,7 @@ document.addEventListener('click', (event) => {
             interactionTypes[interactionTypeName] = true;
         }
 
-        $('.createdInputCB' + category).prop('checked', true);
+        $(`.createdInputCB${category}`).prop('checked', true);
         session.setProp('lpSettings', interactionTypes, 'createdTypes', category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -509,10 +506,10 @@ document.addEventListener('click', (event) => {
                 interactionTypes[interactionTypeName] = false;
             }
             session.setProp('lpSettings', interactionTypes, 'createdTypes', category);
-            $('.createdInputCB' + category).prop('checked', false);
+            $(`.createdInputCB${category}`).prop('checked', false);
         }
 
-        $('.defaultInputCB' + category).prop('checked', false);
+        $(`.defaultInputCB${category}`).prop('checked', false);
         session.setProp('lpSettings', defaultInterTypes, 'activeDefaultTypes', category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -525,7 +522,7 @@ document.addEventListener('click', (event) => {
             interactionTypes[interactionTypeName] = false;
         }
 
-        $('.createdInputCB' + category).prop('checked', false);
+        $(`.createdInputCB${category}`).prop('checked', false);
         session.setProp('lpSettings', interactionTypes, 'createdTypes', category);
         unsavedChanges = true;
         saveCurrentLp();
@@ -554,12 +551,12 @@ document.addEventListener('click', (event) => {
     else if ((classes.contains('openScenario') || classes.contains('openScenarioImg'))) {
         let scenarioIndex = id.replaceAll('openScenario', '');
         scenarioIndex = scenarioIndex.replaceAll('Img', '');
-        const collapseID = '#collapse' + scenarioIndex;
-        const imgID = '#openScenario' + scenarioIndex + 'Img';
+        const collapseID = `#collapse${scenarioIndex}`;
+        const imgID = `#openScenario${scenarioIndex}Img`;
         const classListCollapse = document.getElementById(collapseID.replaceAll('#', '')).className.split(/\s+/);
         if (!classListCollapse.includes('collapsing')) {
             if ((!session.scenarioOpened() || scenarioIndex !== session.getCurrentScenarioIndex())) {
-                const worspaceID = '#workspace' + scenarioIndex;
+                const worspaceID = `#workspace${scenarioIndex}`;
                 $(worspaceID).append($('#defaultCanvas0'));
                 $('.openScenarioImg').attr('src', './img/arrows-fullscreen.svg');
                 $(imgID).attr('src', './img/arrows-collapse.svg');
@@ -583,7 +580,7 @@ document.addEventListener('click', (event) => {
         const category = id.replaceAll('createNewInt-', '');
 
         // read value from input
-        const newInteractionType = document.getElementById('newIntertypeName-' + category).value;
+        const newInteractionType = document.getElementById(`newIntertypeName-${category}`).value;
 
         // get current interactionTypes for this category
         createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
@@ -591,25 +588,25 @@ document.addEventListener('click', (event) => {
         if (!createdTypes[category] && newInteractionType !== '') { createdTypes[category] = {}; }
 
         let defaultInterTypes = [];
-        const allElemOfCategory = document.getElementsByClassName('defaultInputCB' + category);
+        const allElemOfCategory = document.getElementsByClassName(`defaultInputCB${category}`);
         for (const interactionID of allElemOfCategory) {
             defaultInterTypes.push(interactionID.name);
         }
         // check if name is valid
-        if (newInteractionType !== '' && ! Object.keys(createdTypes[category]).includes(newInteractionType) && ! defaultInterTypes.includes(newInteractionType)) {
+        if (newInteractionType !== '' && !Object.keys(createdTypes[category]).includes(newInteractionType) && !defaultInterTypes.includes(newInteractionType)) {
 
             // add new interactiontype
             createdTypes[category][newInteractionType] = true;
-            lastElemID = '#lastCheckboxelement' + category;
+            lastElemID = `#lastCheckboxelement${category}`;
             $(lastElemID).before(`
-                <div id="div` + category + '' + newInteractionType + `">
-                    <input class="createdInputCB` + category + '" type="checkbox" checked id="' + newInteractionType + 'CB" name="' + newInteractionType + `">
-                    <label for="` + newInteractionType + 'CB">' + newInteractionType + `</label>
-                    <button class="button btn-light intChangeBtn intDelBtn ` + category + '" id="delCreInt' + newInteractionType + `">
-                        <img class="button delIntIcon intDelBtn ` + category + '" id="delCreInt' + newInteractionType + `" src="img/trash.svg">
+                <div id="div${category}${newInteractionType}">
+                    <input class="createdInputCB${category}" type="checkbox" checked id="${newInteractionType}CB" name="${newInteractionType}">
+                    <label for="${newInteractionType}CB">${newInteractionType}</label>
+                    <button class="button btn-light intChangeBtn intDelBtn ${category}" id="delCreInt${newInteractionType}">
+                        <img class="button delIntIcon intDelBtn ${category}" id="delCreInt${newInteractionType}" src="img/trash.svg">
                     </button>
-                    <button class="button btn-light intChangeBtn intRenameBtn ` + category + '" id="renameCreInt' + newInteractionType + `">
-                        <img class="button nameIntIcon intRenameBtn ` + category + '" id="renameCreInt' + newInteractionType + `" src="img/edit.png">
+                    <button class="button btn-light intChangeBtn intRenameBtn ${category}" id="renameCreInt${newInteractionType}">
+                        <img class="button nameIntIcon intRenameBtn ${category}" id="renameCreInt${newInteractionType}" src="img/edit.png">
                     </button>
                     <br>
                 </div>
@@ -643,7 +640,7 @@ document.addEventListener('click', (event) => {
         $('.intDelModalBtn').attr('id', 'interactionTypeNameBtn');
         $('.intDelModalBtn').attr('name', 'categoryNameBtn');
     } else if (classes.contains('intRenameBtn')) {
-        if (classes[2] === 'intRenameBtn') { var category = classes[3]; } else { var category = classes[4]; }
+        if (classes[2] === 'intRenameBtn') { const category = classes[3]; } else { const category = classes[4]; }
 
         const interactionType = id.replaceAll('renameCreInt', '');
 
@@ -658,13 +655,13 @@ document.addEventListener('click', (event) => {
 
         const newIntName = document.getElementById('newIntNameGiven').value;
 
-        var defaultInterTypes = [];
-        var allElemOfCategory = document.getElementsByClassName('defaultInputCB' + category);
+        let defaultInterTypes = [];
+        const allElemOfCategory = document.getElementsByClassName(`defaultInputCB${category}`);
         for (const interactionID of allElemOfCategory) {
             defaultInterTypes.push(interactionID.name);
         }
 
-        if (newIntName != '' && ! Object.keys(catInCreate).includes(newIntName) && ! defaultInterTypes.includes(newIntName)) {
+        if (newIntName !== '' && !Object.keys(catInCreate).includes(newIntName) && !defaultInterTypes.includes(newIntName)) {
             catInCreate[newIntName];
             if (catInCreate[interactionType]) { catInCreate[newIntName] = true; } else { catInCreate[newIntName] = false; }
 
@@ -674,17 +671,17 @@ document.addEventListener('click', (event) => {
 
             const checked = (catInCreate[newIntName] ? 'checked' : '');
 
-            $('#div' + category + interactionType).remove();
-            lastElemID = '#lastCheckboxelement' + category;
+            $(`#div${category}${interactionType}`).remove();
+            lastElemID = `#lastCheckboxelement${category}`;
             $(lastElemID).before(`
-                <div id="div` + category + '' + newIntName + `">
-                    <input class="createdInputCB` + category + '" type="checkbox" ' + checked + ' id="' + newIntName + 'CB" name="' + newIntName + `">
-                    <label for="` + newIntName + 'CB">' + newIntName + `</label>
-                    <button class="button btn-light intChangeBtn intDelBtn ` + category + '" id="delCreInt' + newIntName + `">
-                        <img class="button delIntIcon intDelBtn ` + category + '" id="delCreInt' + newIntName + `" src="img/trash.svg">
+                <div id="div${category}${newIntName}">
+                    <input class="createdInputCB${category}" type="checkbox" ${checked} id="${newIntName}CB" name="${newIntName}">
+                    <label for="${newIntName}CB">${newIntName}</label>
+                    <button class="button btn-light intChangeBtn intDelBtn ${category}" id="delCreInt${newIntName}">
+                        <img class="button delIntIcon intDelBtn ${category}" id="delCreInt${newIntName}" src="img/trash.svg">
                     </button>
-                    <button class="button btn-light intChangeBtn intRenameBtn ` + category + '" id="renameCreInt' + newIntName + `">
-                        <img class="button nameIntIcon intRenameBtn ` + category + '" id="renameCreInt' + newIntName + `" src="img/edit.png">
+                    <button class="button btn-light intChangeBtn intRenameBtn ${category}" id="renameCreInt${newIntName}">
+                        <img class="button nameIntIcon intRenameBtn ${category}" id="renameCreInt${newIntName}" src="img/edit.png">
                     </button>
                     <br>
                 </div>
@@ -731,52 +728,51 @@ document.addEventListener('click', (event) => {
 
         createdTypes = session.getCurrentLearningPath().lpSettings.createdTypes;
 
-        if (newCatID != '' && ! Object.keys(createdTypes).includes(newCatID) && ! Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(newCatID)) {
+        if (newCatID !== '' && !Object.keys(createdTypes).includes(newCatID) && !Object.keys(session.getCurrentLearningPath().lpSettings.activeDefaultTypes).includes(newCatID)) {
             createdTypes[newCatID] = createdTypes[category];
 
             delete createdTypes[category];
 
             session.setProp('lpSettings', createdTypes, 'createdTypes');
 
-            //wenn id: category-tab die klasse hat
-            const active = ($('#' + category + '-tab').hasClass('active'));
+            const active = ($(`#${category}-tab`).hasClass('active'));
 
-            $('#' + category + 'Nav').remove();
-            $('#a' + category).remove();
+            $(`#${category}Nav`).remove();
+            $(`#a${category}`).remove();
 
             $('#addTabNav').before(`
-                                        <li class="nav-item" id= "` + newCatID + `Nav">
-                                            <a class="nav-link" draggable="false" id="` + newCatID + '-tab" data-toggle="tab" href="#a' + newCatID + `" role="tab" aria-controls="tmpCat" aria-selected="false">
-                                                ` + newCategory + `
+                                        <li class="nav-item" id= "${newCatID}Nav">
+                                            <a class="nav-link" draggable="false" id="${newCatID}-tab" data-toggle="tab" href="#a${newCatID}" role="tab" aria-controls="tmpCat" aria-selected="false">
+                                                ${newCategory}
                                             </a>
                                             <div class="catNavWrapper">
-                                                <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel` + newCatID + `">
-                                                    <img class="button delIntIcon catDelBtn" id="catDel` + newCatID + `" src="img/trash.svg">
+                                                <button class="button btn-light catContent intChangeBtn catDelBtn" id="catDel${newCatID}">
+                                                    <img class="button delIntIcon catDelBtn" id="catDel${newCatID}" src="img/trash.svg">
                                                 </button>
-                                                <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename` + newCatID + `">
-                                                    <img class="button nameIntIcon catRenameBtn" id="catRename` + newCatID + `" src="img/edit.png">
+                                                <button class="button btn-light catContent intChangeBtn catRenameBtn" id="catRename${newCatID}">
+                                                    <img class="button nameIntIcon catRenameBtn" id="catRename${newCatID}" src="img/edit.png">
                                                 </button>
                                             </div>
                                         </li>
                                 `);
             $('#lastTabContent').before(`
-                                            <div class="tab-pane fade" id="a` + newCatID + '" role="tabpanel" aria-labelledby="' + newCatID + `-tab">
+                                            <div class="tab-pane fade" id="a${newCatID}" role="tabpanel" aria-labelledby="${newCatID}-tab">
                                                 <div class="tabWrap">
                                                     <div class="itemWrap">
-                                                        <div class="items ` + newCatID + '" id="' + newCatID + `act">
-                                                            <div id="lastCheckboxelement` + newCatID + `"></div>
+                                                        <div class="items ${newCatID}" id="${newCatID}act">
+                                                            <div id="lastCheckboxelement${newCatID}"></div>
                                                         </div>
                                                         <div class="newTypeWrap">
-                                                            <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-` + newCatID + `" placeholder="Interaktionstyp">
-                                                            <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-` + newCatID + `">
+                                                            <input type="text" onSubmit="return false;" class="form-control newIntertypeName flexInput" id="newIntertypeName-${newCatID}" placeholder="Interaktionstyp">
+                                                            <button class="btn-light createBtn createNewInt flexInput" id="createNewInt-${newCatID}">
                                                                 +
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="settingsItems">
-                                                    <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ` + newCatID + '"> Alle aus ' + newCatID + ` auswählen </button>
-                                                    <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ` + newCatID + '"> Keine aus ' + newCatID + ` auswählen </button>
+                                                    <button class="btn btn-light checkAllBtn customInput selectAllCreatedCat" id="catCheck ${newCatID}"> Alle aus ${newCatID} auswählen </button>
+                                                    <button class="btn btn-light checkAllBtn customInput selectNoneCreatedCat" id="catUnCheck ${newCatID}"> Keine aus ${newCatID} auswählen </button>
                                                 </div>
                                             </div>
                                     `);
@@ -784,16 +780,16 @@ document.addEventListener('click', (event) => {
             if (Object.keys(createdTypes[newCatID]).length > 0) {
                 for (const [interactionType, active] of Object.entries(createdTypes[newCatID])) {
                     const checked = (active ? 'checked' : '');
-                    $('#lastCheckboxelement' + newCatID).before(`
-                                                    <div id="div` + newCatID + '' + interactionType + `">
-                                                            <input class="createdInputCB` + newCatID + '" type="checkbox" ' + checked + ' id="' + interactionType + 'CB" name="' + interactionType + `">
-                                                            <label for="` + interactionType + 'CB">' + interactionType + `</label>
-                                                            <button class="button btn-light intChangeBtn intDelBtn ` + newCatID + '" id="delCreInt' + interactionType + `">
-                                                                <img class="button delIntIcon intDelBtn ` + newCatID + '" id="delCreInt' + interactionType + `" src="img/trash.svg">
+                    $(`#lastCheckboxelement${newCatID}`).before(`
+                                                    <div id="div${newCatID}${interactionType}">
+                                                            <input class="createdInputCB${newCatID}" type="checkbox" ${checked} id="${interactionType}CB" name="${interactionType}">
+                                                            <label for="${interactionType}CB">${interactionType}</label>
+                                                            <button class="button btn-light intChangeBtn intDelBtn ${newCatID}" id="delCreInt${interactionType}">
+                                                                <img class="button delIntIcon intDelBtn ${newCatID}" id="delCreInt${interactionType}" src="img/trash.svg">
                                                             </button>
-                                                            <button class="button btn-light intChangeBtn intRenameBtn ` + newCatID + `"
-                                                                id="renameCreInt` + interactionType + `">
-                                                                <img class="button nameIntIcon intRenameBtn ` + newCatID + ' id="renameCreInt' + interactionType + `" src="img/edit.png">
+                                                            <button class="button btn-light intChangeBtn intRenameBtn ${newCatID}"
+                                                                id="renameCreInt${interactionType}">
+                                                                <img class="button nameIntIcon intRenameBtn ${newCatID} id="renameCreInt${interactionType}" src="img/edit.png">
                                                             </button>
                                                             <br>
                                                         </div>
@@ -802,9 +798,9 @@ document.addEventListener('click', (event) => {
             }
 
             if (active) {
-                $('#' + newCatID + '-tab').addClass('active');
-                $('#a' + newCatID).removeClass('fade').addClass('fadeshow').addClass('active');
-                $('#' + newCatID + 'act').addClass('active');
+                $(`#${newCatID}-tab`).addClass('active');
+                $(`#a${newCatID}`).removeClass('fade').addClass('fadeshow').addClass('active');
+                $(`#${newCatID}act`).addClass('active');
             }
 
             unsavedChanges = true;
@@ -841,7 +837,7 @@ document.addEventListener('click', (event) => {
                 getEditPage();
             });
         } else {
-            $('#delete' + scenarioIndex).modal('show');
+            $(`#delete${scenarioIndex}`).modal('show');
         }
     }
 
@@ -854,13 +850,13 @@ document.addEventListener('click', (event) => {
     // handle delete learningPath buttons
     else if (classes.contains('deleteLp')) {
         const lpID = id.replaceAll('delete', '');
-        const rowId = 'lpRow' + lpID;
+        const rowId = `lpRow${lpID}`;
 
         const row = document.getElementById(rowId);
         row.remove();
 
         deletelearningPath(lpID, () => {
-            if (session.getCurrentLearningPathId() == lpID) { session.closeLearningPath(); }
+            if (session.getCurrentLearningPathId() === lpID) { session.closeLearningPath(); }
             session.removelearningPath(lpID);
         });
 
@@ -884,27 +880,25 @@ document.addEventListener('input', (event) => {
 
     // handle changes on lp-textinputs
 
-    if (id == 'lpTitleInput') {
+    if (id === 'lpTitleInput') {
         updateLpProperty('title', input.value);
-    }
-
-    if (id == 'lpNotes') {
+    } else if (id === 'lpNotes') {
         updateLpProperty('notes', input.value);
         $('#lpNotesModal').val(input.value);
-    } else if (id == 'lpNotesModal') {
+    } else if (id === 'lpNotesModal') {
         updateLpProperty('notes', input.value);
         $('#lpNotes').val(input.value);
-    } else if (id == 'lpEvaluationMode') {
+    } else if (id === 'lpEvaluationMode') {
         updateLpProperty('evaluationModeID', input.value);
-    } else if (id == 'lpTaxonomyLevel') {
+    } else if (id === 'lpTaxonomyLevel') {
         updateLpProperty('taxonomyLevel', input.value);
 
         if (!session.getCurrentLearningPath().lpSettings.ignoreWarnings) {
-            if (input.value < session.highestExisTaxo()  && input.value != '') { $('#taxToLow').modal('show'); }
+            if (input.value < session.highestExisTaxo() && input.value !== '') { $('#taxToLow').modal('show'); }
         }
-    } else if (id == 'scenarioTitleInput') {
+    } else if (id === 'scenarioTitleInput') {
         updateLpProperty('title', input.value);
-    } else if (id == 'userNameInput') {
+    } else if (id === 'userNameInput') {
         changeUserName(input.value, () => {
             updateUserName();
         });
@@ -966,7 +960,7 @@ document.addEventListener('input', (event) => {
 
         unsavedChanges = true;
         saveCurrentLp();
-    } else if (id == 'ignoreWarnings') {
+    } else if (id === 'ignoreWarnings') {
         if (input.checked) { $('#modalIgnoWar').modal('show'); } else {
             session.getCurrentLearningPath().lpSettings.ignoreWarnings = false;
             unsavedChanges = true;
@@ -976,32 +970,32 @@ document.addEventListener('input', (event) => {
 
     // handle changes of the interaction settings
 
-    else if (id == 'hotSpotSize') {
+    else if (id === 'hotSpotSize') {
         updateInteractionProperty('hotSpotSize', Number(input.value));
-    } else if (id == 'x_coord') {
+    } else if (id === 'x_coord') {
         updateInteractionProperty('x_coord', input.value);
-    } else if (id == 'y_coord') {
+    } else if (id === 'y_coord') {
         updateInteractionProperty('y_coord', input.value);
-    } else if (id == 'materialUrl') {
+    } else if (id === 'materialUrl') {
         updateInteractionProperty('materialUrl', input.value);
-    } else if (id == 'evaluationHeurestic') {
+    } else if (id === 'evaluationHeurestic') {
         updateInteractionProperty('evaluationHeurestic', input.value);
-    } else if (id == 'behaviorSettings') {
+    } else if (id === 'behaviorSettings') {
         updateInteractionProperty('behaviorSettings', input.value);
-    } else if (id == 'taxonomyLevelInt') {
+    } else if (id === 'taxonomyLevelInt') {
         updateInteractionProperty('taxonomyLevelInt', input.value);
 
         if (!session.getCurrentLearningPath().lpSettings.ignoreWarnings) {
-            if (input.value > session.getCurrentLearningPath().taxonomyLevel && session.getCurrentLearningPath().taxonomyLevel != '') { $('#taxToHigh').modal('show'); }
+            if (input.value > session.getCurrentLearningPath().taxonomyLevel && session.getCurrentLearningPath().taxonomyLevel !== '') { $('#taxToHigh').modal('show'); }
         }
     }
 
     // change to the type (and category) of an interaction
-    else if (id == 'interactionTypeDrop') {
+    else if (id === 'interactionTypeDrop') {
         if (session.learningPathOpened() && session.scenarioOpened() && session.interactionOpened()) {
 
             const elemId = $(input).find('option:selected').attr('id');
-            if (elemId != 'noInteractiontype') {
+            if (elemId !== 'noInteractiontype') {
                 let category = elemId.split('$$')[1];
                 let interactionType = elemId.split('$$')[2];
                 category = category.trim();
@@ -1014,7 +1008,7 @@ document.addEventListener('input', (event) => {
     }
 
     // Handle events on the import dropzone
-    else if (id == 'importDrop') {
+    else if (id === 'importDrop') {
         for (let i = 0; i < document.querySelector('.fileDrop').files.length; i++) {
             const fileReader = new FileReader();
 
@@ -1024,7 +1018,7 @@ document.addEventListener('input', (event) => {
                 } catch (e) {
                     alertToUser('Lernpfad konnte nicht geladen werden!', 5, 'red');
                 }
-                if (importFiles.length == document.querySelector('.fileDrop').files.length) {
+                if (importFiles.length === document.querySelector('.fileDrop').files.length) {
                     importLP(importFiles);
                     importFiles = [];
                 }
@@ -1051,13 +1045,13 @@ document.addEventListener('input', (event) => {
 
         unsavedChanges = true;
 
-        $('#' + id).prop('id', 'changeCatName-' + newCatName);
-        $('#createNewInt-' + changeCategory).prop('id', 'createNewInt-' + newCatName);
-        $('#newIntertypeName-' + changeCategory).prop('id', 'newIntertypeName-' + newCatName);
-        $('#catCheck ' + changeCategory).prop('id', 'catCheck ' + newCatName);
-        $('#catUnCheck ' + changeCategory).prop('id', 'catUnCheck ' + newCatName);
-        $('#lastCheckboxelement' + changeCategory).prop('id', 'lastCheckboxelement' + newCatName);
-        $('.defaultInputCB' + changeCategory).attr('class', 'defaultInputCB' + newCatName);
+        $(`#${id}`).prop('id', `changeCatName-${newCatName}`);
+        $(`#createNewInt-${changeCategory}`).prop('id', `createNewInt-${newCatName}`);
+        $(`#newIntertypeName-${changeCategory}`).prop('id', `newIntertypeName-${newCatName}`);
+        $(`#catCheck ${changeCategory}`).prop('id', `catCheck ${newCatName}`);
+        $(`#catUnCheck ${changeCategory}`).prop('id', `catUnCheck ${newCatName}`);
+        $(`#lastCheckboxelement${changeCategory}`).prop('id', `lastCheckboxelement${newCatName}`);
+        $(`.defaultInputCB${changeCategory}`).attr('class', `defaultInputCB${newCatName}`);
     }
 });
 
@@ -1065,7 +1059,7 @@ document.addEventListener('input', (event) => {
 document.addEventListener('dragstart', (event) => {
     if (event.target.classList.contains('interactionTypeBox')) {
         draggedInteraction = event.target;
-        draggedInteraction.style.opacity = .5;
+        draggedInteraction.style.opacity = 0.5;
     }
 }, false);
 
@@ -1099,27 +1093,27 @@ document.addEventListener('drop', (event) => {
 }, false);
 
 // handle changes of the current tab
-$('#categoryTabs a').on('click', function(e) {
+$('#categoryTabs a').on('click', function (e) {
     e.preventDefault();
     $(this).tab('show');
 });
 
 // warn the user if trying to leave with unsaved changes
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
     if (unsavedChanges) {
         return 'Deine Änderunge werden eventuell nicht gespeichert!';
     }
 };
 
 // handle fullscreen events
-document.addEventListener('fullscreenchange', function(event) {
+document.addEventListener('fullscreenchange', function (event) {
 
     // show / hide the full-screen mode buttons (center & leave fs)
 
-    if (document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement) { $('.canvasBtn').css('display', 'block'); } else { $('.canvasBtn').css('display', 'none'); }
+    if (document.fullscreenElement
+        || document.webkitFullscreenElement
+        || document.mozFullScreenElement
+        || document.msFullscreenElement) { $('.canvasBtn').css('display', 'block'); } else { $('.canvasBtn').css('display', 'none'); }
 });
 
 // handle risize events of the window
@@ -1130,6 +1124,6 @@ window.onresize = (event) => {
 };
 
 // autosave every ten seconds
-setInterval(function() {
+setInterval(function () {
     if (unsavedChanges) { saveCurrentLp(); }
 }, 1000);
