@@ -8,39 +8,33 @@ class Session {
 
     // set a property of a learningPath
     setProp(key, value, index = null, indexKey = null) {
-        if (index === null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key] = value;
-        else if (index !== null && indexKey === null)
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index] = value;
-        else
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey] = value;
+        if (index === null) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key] = value; } else if (index !== null && indexKey === null) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index] = value; } else { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)][key][index][indexKey] = value; }
     }
 
     // find out if a property of a learningpath exists e.g propExists(['scenario', 3, 'interactions'])
-    propExists(calls, root=this.learningPaths){
-        if(calls.length == 1 && root[calls[0]])
-            return true
-        if(root[calls[0]]){
-            let origCalls = calls.slice()
-            calls.splice(0, 2, calls[1])
-            return this.propExists(calls, root[origCalls[0]])
+    propExists(calls, root = this.learningPaths) {
+        if (calls.length === 1 && root[calls[0]]) { return true; }
+        if (root[calls[0]]) {
+            const origCalls = calls.slice();
+            calls.splice(0, 2, calls[1]);
+            return this.propExists(calls, root[origCalls[0]]);
         }
-        return false
+        return false;
     }
 
     // return if the currently opened scenario has interactions
-    interactionsExist(){
-        return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios', this.currentScenarioIndex, 'interactions'])
+    interactionsExist() {
+        return this.propExists([this.getLpIndexById(this.currentlearningPathId), 'scenarios', this.currentScenarioIndex, 'interactions']);
     }
 
     // return if the currently opened lp  has scenarios
-    ScenariosExist(){
-        return this.propExists([this.getLpIndexById(this.currentlearningPathId),'scenarios'])
+    ScenariosExist() {
+        return this.propExists([this.getLpIndexById(this.currentlearningPathId), 'scenarios']);
     }
 
     // add learning path to list and return id
     addlearningPath(params) {
-        let lp = params;
+        const lp = params;
         this.learningPaths = insertAt(this.learningPaths, lp);
     }
 
@@ -48,93 +42,87 @@ class Session {
     removelearningPath(id) {
 
         // if deleted path is opened -> close
-        if (this.currentlearningPathId == id)
-            this.closeLearningPath();
+        if (this.currentlearningPathId === id) { this.closeLearningPath(); }
 
         this.learningPaths = rmById(this.learningPaths, id);
     }
 
     // create scanario at any position
-    createScenario(props, cb = noop) { 
+    createScenario(props, cb = noop) {
         this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, props);
-        return cb()
+        return cb();
     }
 
     // move a scenario within the list of scenarios
     moveScenario(indexOld, indexNew) {
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, indexOld, indexNew)
+        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, indexOld, indexNew);
     }
 
     // delete a scenario
     deleteScenario(index) {
-        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, index)
+        this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios, index);
     }
 
     // get the currently shown scenarios
     getCurrentScenarioIndex() {
-        return this.currentScenarioIndex
+        return this.currentScenarioIndex;
     }
 
     // get the currently shown scenarios
     getCurrentScenario() {
-        if (this.learningPathOpened() && this.scenarioOpened())
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex]
+        if (this.learningPathOpened() && this.scenarioOpened()) { return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex]; }
     }
 
     // add a new interaction
-    addInteraction(hotSpotSize, coordinates, materialUrl, evaluationHeurestic, category, interactionType, taxonomyLevelInt, behaviorSettings='Click') {
-        if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { 'hotSpotSize': hotSpotSize, 'x_coord': coordinates.x, 'y_coord': coordinates.y, 'materialUrl': materialUrl, 'evaluationHeurestic': evaluationHeurestic, 'category': category, 'behaviorSettings':behaviorSettings, 'taxonomyLevelInt': taxonomyLevelInt, 'interactionType': interactionType});
+    addInteraction(hotSpotSize, coordinates, materialUrl, evaluationHeurestic, category, interactionType, taxonomyLevelInt, behaviorSettings = 'Click') {
+        if (this.learningPathOpened() && this.scenarioOpened()) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = insertAt(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, { hotSpotSize, x_coord: coordinates.x, y_coord: coordinates.y, materialUrl, evaluationHeurestic, category, behaviorSettings, taxonomyLevelInt, interactionType}); }
     }
 
     // move interaction from indexOld to IndexNew
     moveInteraction(indexOld, indexNew) {
-        if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, indexOld, indexNew);
+        if (this.learningPathOpened() && this.scenarioOpened()) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = mvByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, indexOld, indexNew); }
     }
 
 
     // delete interaction in current lp and scenario by index
     deleteInteraction(index) {
-        if (this.learningPathOpened() && this.scenarioOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, index);
+        if (this.learningPathOpened() && this.scenarioOpened()) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions = rmByIndex(this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions, index); }
     }
 
     // get Interaction a given index
     getCurrentInteraction() {
-        if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
-            return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]
+        if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened()) { return this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex]; }
     }
 
     getCurrentInteractionIndex() {
-        return this.currentInteractionIndex
+        return this.currentInteractionIndex;
     }
 
     // change a property of a interaction
     setInteractionProp(key, value) {
-        if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened())
-            this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex][key] = value
+        if (this.learningPathOpened() && this.scenarioOpened() && this.interactionOpened()) { this.learningPaths[this.getLpIndexById(this.currentlearningPathId)].scenarios[this.currentScenarioIndex].interactions[this.currentInteractionIndex][key] = value; }
     }
 
     // get Id of current (opened) learningPath
     getCurrentLearningPathId() { return this.currentlearningPathId; }
 
-    // get a read only object representation by id 
+    // get a read only object representation by id
     getlearningPathById(id) {
-        return this.learningPaths[this.getLpIndexById(id)]
+        return this.learningPaths[this.getLpIndexById(id)];
     }
 
-    // get a read only object representation of current lp 
+    // get a read only object representation of current lp
     getCurrentLearningPath() {
         return this.getlearningPathById(this.currentlearningPathId);
     }
 
     // get the index in the list of a learningPath that the element with the given id has
     getLpIndexById(id) {
-        for (let i = 0; i < this.learningPaths.length; i++)
-            if (this.learningPaths[i].id == id)
-                return i
-        return null
+        for (let i = 0; i < this.learningPaths.length; i++) {
+if (this.learningPaths[i].id == id)
+                return i;
+}
+        return null;
     }
 
     // get all learningPaths
@@ -142,12 +130,13 @@ class Session {
 
     // set the current set of lps to be another set of lps
     updatelearningPaths(learningPaths) {
-        this.learningPaths = []
+        this.learningPaths = [];
 
-        // TODO 
-        if (learningPaths)
-            for (let i = 0; i < learningPaths.length; i++)
+        // TODO
+        if (learningPaths) {
+for (let i = 0; i < learningPaths.length; i++)
                 this.addlearningPath(learningPaths[i].content);
+}
     }
 
     // open a learning path by id
@@ -202,10 +191,10 @@ class Session {
 
     // get the highest existing taxonom
     highestExisTaxo() {
-        let highestTaxo = "";
-        let scenarios = session.getCurrentLearningPath().scenarios
-        for(var i = 0; i < scenarios.length; i++){
-            for(var j = 0; j < scenarios[i].interactions.length; j++){
+        let highestTaxo = '';
+        const scenarios = session.getCurrentLearningPath().scenarios;
+        for (let i = 0; i < scenarios.length; i++) {
+            for (let j = 0; j < scenarios[i].interactions.length; j++) {
                 highestTaxo = (scenarios[i].interactions[j].taxonomyLevelInt > highestTaxo ? scenarios[i].interactions[j].taxonomyLevelInt : highestTaxo);
             }
         }

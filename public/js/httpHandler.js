@@ -1,21 +1,21 @@
 // request edit patch from server
 function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
-    $.get('/editor', { 'lpid': lpid }).done((data, status) => {
+    $.get('/editor', { lpid }).done((data, status) => {
         PleaseRotate.activate();
-        document.getElementById("exportButton").disabled = false;
+        document.getElementById('exportButton').disabled = false;
         replaceBody(data);
         fetchLearningPaths(() => {
             session.openLearningPath(lpid);
             toggleSettingsButton();
 
             // the last scenario is opened by default
-            if(session.ScenariosExist() && session.getCurrentLearningPath()['scenarios'].length > 0){
-                session.openScenario(session.getCurrentLearningPath()['scenarios'].length - 1);
+            if (session.ScenariosExist() && session.getCurrentLearningPath().scenarios.length > 0) {
+                session.openScenario(session.getCurrentLearningPath().scenarios.length - 1);
             }
             createCanvas();
             loadWorkspaceMaterials();
-            document.getElementById("scenarios").scrollTo(0, document.getElementById("scenarios").scrollHeight);
-            return cb()
+            document.getElementById('scenarios').scrollTo(0, document.getElementById('scenarios').scrollHeight);
+            return cb();
         });
     });
 }
@@ -24,7 +24,7 @@ function getEditPage(lpid = session.getCurrentLearningPathId(), cb = noop) {
 function getHomePage() {
 
     PleaseRotate.deactivate();
-    document.getElementById("exportButton").disabled = true;
+    document.getElementById('exportButton').disabled = true;
 
     // request index patch from server
     $.get('/home').done((data, status) => {
@@ -39,8 +39,8 @@ function getLandingPage() {
 
     // request landing page from the server
 
-    var pageURL = $(location).attr("href");
-    dashboardUrl = pageURL.toString().concat("get_started");
+    const pageURL = $(location).attr('href');
+    dashboardUrl = pageURL.toString().concat('get_started');
     window.location.replace(dashboardUrl);
 }
 
@@ -53,21 +53,21 @@ function getSettingsPage(mode = null) {
         mode = 'userSettingsOnly';
     else if (mode == null)
         mode = 'allSettings';
-    $.get('/settings', { 'lpid': session.getCurrentLearningPathId(), 'mode': mode }).done((data, status) => {
+    $.get('/settings', { lpid: session.getCurrentLearningPathId(), mode }).done((data, status) => {
         replaceBody(data);
     });
 }
 
 // push any learningPath to the server
 function learningPathToServer(learningPath, cb = noop, newLp = false) {
-    if (JSON.stringify(learningPath) != 'undefined') {
-        $.post('/updateLp', { 'newLp': newLp, 'lpid': learningPath.id, 'title': learningPath.title, 'learningPath': JSON.stringify(learningPath) }).done((data, status) => {
-            if (status === 'success'){
+    if (JSON.stringify(learningPath) !== 'undefined') {
+        $.post('/updateLp', { newLp, lpid: learningPath.id, title: learningPath.title, learningPath: JSON.stringify(learningPath) }).done((data, status) => {
+            if (status === 'success') {
                 alertToUser('Änderungen gespeichert!', 3);
-                return cb()
-            }else{
-                alertToUser("Lernpfad konnte nicht gespeichert werden!", 10, red);
-            }   
+                return cb();
+            } else {
+                alertToUser('Lernpfad konnte nicht gespeichert werden!', 10, red);
+            }
         });
     }
 }
@@ -76,16 +76,16 @@ function learningPathToServer(learningPath, cb = noop, newLp = false) {
 function createLpOnServer(cb = noop) {
     $.get('/create').done((data, status) => {
         session.addlearningPath(data.content);
-        session.openLearningPath(data['learningPathID'])
-        return cb()
+        session.openLearningPath(data.learningPathID);
+        return cb();
     });
 }
 
 // delete a learningPath from the server
 function deletelearningPath(lpid, cb = noop) {
-    $.post('/deleteLp', { 'lpid': lpid }).done((data, status) => {
+    $.post('/deleteLp', { lpid }).done((data, status) => {
         if (status === 'success')
-            return cb()
+            return cb();
         else
             alertToUser('Lernpfad konnte nicht gelöscht werden!');
     });
@@ -95,15 +95,15 @@ function deletelearningPath(lpid, cb = noop) {
 function fetchLearningPaths(cb = noop) {
     // fetch users learning paths from server
     $.get('/learningPaths').done((data) => {
-        lps = JSON.parse(data)
+        lps = JSON.parse(data);
         session.updatelearningPaths(lps);
-        return cb()
+        return cb();
     });
 }
 
 // push a change of username to the server
 function changeUserName(newUserName, cb = noop) {
-    $.post('/updateUserName', { 'nickname': newUserName }).done((data, status) => {
+    $.post('/updateUserName', { nickname: newUserName }).done((data, status) => {
         if (status === 'success')
             return cb();
     });
@@ -112,7 +112,7 @@ function changeUserName(newUserName, cb = noop) {
 // update the username shown in the header
 function updateUserName() {
     $.get('/whoami').done((data) => {
-        document.getElementById("usernameText").innerText = data.nickname;
+        document.getElementById('usernameText').innerText = data.nickname;
     });
 }
 

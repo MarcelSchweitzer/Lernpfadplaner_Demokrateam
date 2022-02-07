@@ -1,26 +1,27 @@
+/* eslint-disable linebreak-style */
 function noop() {}
 
 // remove by index
 function rmByIndex(arr, ind) {
     if (ind >= arr.length || ind < 0)
-        throw 'Index Out of Bound!'
+        throw 'Index Out of Bound!';
     else
         return arr.filter(function(value, index) {
-            return index != ind
+            return index !== ind;
         });
 }
 
 // remove by value
 function rmByValue(arr, val) {
     return arr.filter(function(value, index) {
-        return value != val
-    })
+        return value !== val;
+    });
 }
 
 // remove by id
 function rmById(arr, id) {
     return arr.filter(function(value) {
-        return value.id != id
+        return value.id !== id;
     });
 }
 
@@ -28,43 +29,43 @@ function rmById(arr, id) {
 function mvByIndex(arr, index, newIndex) {
     if (index >= arr.length || newIndex >= arr.length ||
         index < 0 || newIndex < 0 || arr.length < 1) {
-        throw 'Index Out of Bound!'
+        throw 'Index Out of Bound!';
     } else {
-        if (newIndex != index) {
+        if (newIndex !== index) {
 
             // shift left
             if (newIndex < index) {
-                arr.splice(newIndex, 0, arr[index])
-                arr = rmByIndex(arr, index + 1)
+                arr.splice(newIndex, 0, arr[index]);
+                arr = rmByIndex(arr, index + 1);
             }
 
             // shift right
             else {
-                arr.splice(newIndex + 1, 0, arr[index])
-                arr = rmByIndex(arr, index)
+                arr.splice(newIndex + 1, 0, arr[index]);
+                arr = rmByIndex(arr, index);
             }
         }
     }
-    return arr
+    return arr;
 }
 
 // insert an element at a certain index
 function insertAt(arr, element, index = null) {
-    try{
+    try {
         _len = arr.length;
-    }catch(e){
+    } catch (e){
 
         // recieved invalid array -> create empty
-        arr = []
+        arr = [];
     }
     // insert at end of list if index was not passed
     if (index === null)
-        index = arr.length
+        index = arr.length;
 
     if (index > arr.length || index < 0)
-        throw 'Index Out of Bound!'
+        throw 'Index Out of Bound!';
 
-    arr.splice(index, 0, element)
+    arr.splice(index, 0, element);
 
-    return arr
+    return arr;
 }

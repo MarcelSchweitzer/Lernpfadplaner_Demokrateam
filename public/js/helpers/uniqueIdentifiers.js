@@ -1,6 +1,6 @@
 // return a standard name with incrementing numbers
 function uniqueName(schema, listOfNames) {
-    if (listOfNames == null || listOfNames.length == 0 || !listOfNames.includes(schema))
+    if (listOfNames == null || listOfNames.length === 0 || !listOfNames.includes(schema))
         return schema;
     let name = schema;
     let num = 1;
