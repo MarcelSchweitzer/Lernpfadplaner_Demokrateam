@@ -48,7 +48,7 @@
             <div class="col-2 sidecol">
                 <!--section for the information directly over the learning path on the left-->
                 <div class="sidepanel sidepanel-first scrollable">
-                    <div class="rate-part">
+                    <div class="treemap-part">
                         <hr>
                         <button class="button btn btn-light overviewBtn" id="hideTreeGraph">
                             <img class="button" id="hideTreeGraph" src="img/diagram-3.svg" alt="Baumansicht">
@@ -108,7 +108,7 @@
                 </div>
                 <!--section for the interactivities of the selected scenario on the left-->
                 <div class="sidepanel sidepanel-second scrollable">
-                    <div class="rate-part">
+                    <div class="interactivity-part">
                         <div class="interactivity">
                             <hr>
                             <p>Interaktivitäten</p>
@@ -151,7 +151,7 @@
                                     <!--the name of the scenario can be changed-->
                                     <input type="text" onSubmit="return false;" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
                                     <!--a button to select / deselect and open / close the scenario-->
-                                    <button class="btn btn-link btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
+                                    <button class="btn btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
                                     </button>
                                     <div class="accordionWrap scenarioHeaderInput">
@@ -170,7 +170,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header"></div>
                                                 <div class="modal-body">
-                                                    <p  class="textInModal">Bist Du sicher? </p>
+                                                    <p  class="modal-content-big">Bist Du sicher? </p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light deleteScenario" id="deleteScenario<%= count %>" data-dismiss="modal">Löschen</button>
@@ -267,23 +267,23 @@
                         <hr>
                         <p class="typ">Interaktionstypen</p>
                         <hr>
-                        <div class="interactivityPicker">
+                        <div class="interactionTypePicker">
                             <!--for every category with active interaction types a box is created-->
                             <% if(Object.keys(activeTypes).length !== 0){
                                 let count = 0;
                                 for (let [category, interactionTypes] of Object.entries(activeTypes)){ %>
                                 <div class="categoryBox">
                                     <hr>
-                                    <h6 class="interactivityCategory">
+                                    <h6 class="interactionTypeCategory">
                                         <% catName = category.replace("_", " " ); %>
                                         <%= catName %>
                                     </h6>
                                     <hr>
                                     <!--for every active interaction type a draggable box is created-->
-                                    <!--if a box is dragged to a spot on the workspace a hotspot and interactivity with of the interaction type are created-->
+                                    <!--if a box is dragged to a spot on the workspace a hotspot and interactivity of the interaction type are created-->
                                     <% for (let interactionTypeName of interactionTypes){ %>
-                                        <div class="interactivityBox" id="<%= category %>$$<%= interactionTypeName %>" draggable="true">
-                                            <p class="selectedInteractivity">
+                                        <div class="interactionTypeBox" id="<%= category %>$$<%= interactionTypeName %>" draggable="true">
+                                            <p class="selectedInteractionType">
                                                 <%= interactionTypeName %>
                                             </p>
                                             <span class="tooltiptext"> <%= interactionTypeName %> </span>
@@ -411,7 +411,7 @@
                         <p class="HeaderInModal">Warnung</p>
                     </div>
                     <div class="modal-body">
-                        <p class="textInModal">Die Taxonomiestufe dieser Interaktivität liegt über der
+                        <p class="modal-content-big">Die Taxonomiestufe dieser Interaktivität liegt über der
                             Taxonomiestufe des Lernpfades.</p>
                     </div>
                     <div class="modal-footer">
@@ -429,7 +429,7 @@
                         <p class="HeaderInModal">Warnung</p>
                     </div>
                     <div class="modal-body">
-                        <p class="textInModal">Die Taxonomiestufe des Lernpfades liegt unter der
+                        <p class="modal-content-big">Die Taxonomiestufe des Lernpfades liegt unter der
                             Taxonomiestufe einer oder mehrerer Interaktivitäten.</p>
                     </div>
                     <div class="modal-footer">
@@ -444,7 +444,7 @@
                 <div class="modal-content">
                     <div class="modal-header"></div>
                     <div class="modal-body">
-                        <p class="textInModal">Bist Du sicher? </p>
+                        <p class="modal-content-big">Bist Du sicher? </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" id="deleteInteractivity" data-dismiss="modal">Löschen</button>
@@ -455,6 +455,3 @@
         </div>
     </div>
 </div>
-   
- 
-  

@@ -1,3 +1,8 @@
+/*editor.ejs includes this stylesheet
+this css is only used in editor.ejs*/
+
+/* following elements are used for more than one section of the editor */
+
 .sidepanel {
   background-color: #f7f7f7;
   border-radius: 5px;
@@ -11,6 +16,10 @@
   width: 100%;
 }
 
+.sidepanel-first {
+  overflow: scroll;
+}
+
 .sidepanel-second {
   background-color: #f7f7f7;
   border-radius: 5px;
@@ -22,21 +31,68 @@
   padding-bottom: 20px;
 }
 
-.textInModal {
-  font-size: 20px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.interactivityListItem {
-  max-width: 100%;
-}
-
 .HeaderInModal {
   font-size: 24px;
   font-weight: 600;
   text-align: center;
 }
+
+.note {
+  overflow: hidden;
+  padding: 10px 36px 0 5px;
+  position: relative;
+}
+
+.note p {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.note img {
+  display: block;
+  margin: 10px auto;
+  opacity: 0.7;
+  width: 40%;
+}
+
+.note img:hover {
+  opacity: 1;
+}
+
+.lpNotes {
+  background-image: url(/img/post-it.png);
+  background-size: cover;
+  box-sizing: content-box;
+  height: 100%;
+  min-height: 150px;
+  overflow-y: auto;
+  padding-right: 17px;
+  width: 100%;
+}
+
+.scrollable {
+  overflow-x: hidden;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 11px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  border-radius: 2px;
+  box-shadow: inset 0 0 5px black;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 2px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+
+/* following elements are used for the scenario section in the middle of the editor */
 
 .midCol {
   margin-top: 20px;
@@ -61,10 +117,30 @@
   width: 100%;
 }
 
-.p5Canvas {
-  height: 100%;
-  width: 100%;
+.btn-link {
+  color: #000 !important;
+  text-decoration: none !important;
 }
+
+.script {
+  padding-right: 10px;
+  width: 30px;
+}
+
+.scenarios {
+  height: 90vh;
+  margin-top: 40px;
+}
+
+.scenarios::-webkit-scrollbar {
+  width: 14px;
+}
+
+.card.scenario {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* following elements are used for the interactivity settings section on the right of the editor */
 
 .coords {
   display: inline;
@@ -88,189 +164,25 @@
   width: 80%;
 }
 
-.sidepanel-first {
-  overflow: scroll;
+.deleteIntBtn {
+  width: 100%;
 }
 
-.interactivityPicker {
+/* following elements are used for the interaction type section on the right of the editor*/
+
+.interactionTypePicker {
   margin: 5px;
 }
 
-.interactivityPicker::-webkit-scrollbar {
+.interactionTypePicker::-webkit-scrollbar {
   display: none;
 }
 
-.interactivityList {
-  margin: 5px;
-  overflow: auto;
-}
-
-.interactivityList::-webkit-scrollbar {
-  display: none;
-}
-
-.note {
-  padding: 10px 36px 0 5px;
-}
-
-.note p {
-  padding-top: 20px;
-  text-align: center;
-}
-
-.note img {
-  display: block;
-  margin: 10px auto;
-  opacity: 0.7;
-  width: 40%;
-}
-
-.note img:hover {
-  opacity: 1;
-}
-
-.btn-link {
-  color: #000 !important;
-  text-decoration: none !important;
-}
-
-.script {
-  padding-right: 10px;
-  width: 30px;
-}
-
-.taxonomy-part {
-  text-align: center;
-}
-
-.rate-part {
-  text-align: center;
-}
-
-.rate {
-  display: flex;
-  justify-content: center;
-  height: 46px;
-  padding: 0 10px;
-}
-
-.rate:not(:checked) > input {
-  position: absolute;
-  top: -9999px;
-}
-
-.rate:not(:checked) > label {
-  color: #ccc;
-  cursor: pointer;
-  float: right;
-  font-size: 30px;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 1em;
-}
-
-.rate:not(:checked) > label:before {
-  content: '★ ';
-}
-
-.rate > input:checked ~ label {
-  color: #ffc700;
-}
-
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #deb217;
-}
-
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #c59b08;
-}
-
-.activity p {
-  text-align: center;
-}
-
-/* text on notes */
-
-.noteContainer {
-  color: rgb(66, 66, 66);
-  position: relative;
-  text-align: center;
-}
-
-.interactivityCategory {
+.interactionTypeCategory {
   color: #000;
   font-weight: bold;
   padding: 5px;
   text-decoration: none;
-}
-
-.note {
-  overflow: hidden;
-  position: relative;
-}
-
-.lpNotes {
-  background-image: url(/img/post-it.png);
-  background-size: cover;
-  box-sizing: content-box;
-  height: 100%;
-  min-height: 150px;
-  overflow-y: auto;
-  padding-right: 17px;
-  width: 100%;
-}
-
-.noteMaximize {
-  bottom: 10px;
-  position: absolute;
-  right: 10px;
-  width: 50px;
-}
-
-.lpNotesModal {
-  background-image: url(/img/post-it.png);
-  background-size: cover;
-  height: 470px;
-}
-
-.scenarios {
-  height: 90vh;
-  margin-top: 40px;
-}
-
-.scrollable {
-  overflow-x: hidden;
-}
-
-.card.scenario {
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.scrollable::-webkit-scrollbar {
-  width: 11px;
-}
-
-.scenarios::-webkit-scrollbar {
-  width: 14px;
-}
-
-.scrollable::-webkit-scrollbar-track {
-  border-radius: 2px;
-  box-shadow: inset 0 0 5px black;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-  background: darkgray;
-  border-radius: 2px;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-  background: gray;
 }
 
 .categoryBox {
@@ -279,15 +191,7 @@
   width: 100%;
 }
 
-.deleteIntBtn {
-  width: 100%;
-}
-
-.overviewBtn {
-  width: 85%;
-}
-
-.interactivityBox {
+.interactionTypeBox {
   background-color: transparent;
   border: 1px solid black;
   border-radius: 10px;
@@ -303,10 +207,54 @@
   width: 90%;
 }
 
-.selectedInteractivity {
+.selectedInteractionType {
   font-size: 14px;
   text-overflow: ellipsis;
   padding: 2px;
+}
+
+/* following elements are used for the interactivity section on the left of the editor */
+
+.interactivity-part {
+  text-align: center;
+}
+
+.interactivityList {
+  margin: 5px;
+  overflow: auto;
+}
+
+.interactivityList::-webkit-scrollbar {
+  display: none;
+}
+
+/* following elements are used for the learning path section on the left of the editor */
+
+.taxonomy-part {
+  text-align: center;
+}
+
+.rate-part {
+  text-align: center;
+}
+
+.noteMaximize {
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+  width: 50px;
+}
+
+.overviewBtn {
+  width: 85%;
+}
+
+/* following elements are used for the modals of the editor */
+
+.lpNotesModal {
+  background-image: url(/img/post-it.png);
+  background-size: cover;
+  height: 470px;
 }
 
 .inputImg button {

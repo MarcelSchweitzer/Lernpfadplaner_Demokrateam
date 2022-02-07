@@ -20,7 +20,7 @@ function isValidVideoURL(str){
     return false;
 }
 
-// frefresh the list of interactivities (left side)
+// refresh the list of interactivities (left side)
 function refreshInteractivityList() {
     $('.interactivityList').html('');
     if (session.scenarioOpened() && session.propExists(['interactions'], session.getCurrentScenario())) {
@@ -1161,7 +1161,7 @@ document.addEventListener('input', (event) => {
 
 // fire on drag start 
 document.addEventListener("dragstart", (event) => {
-    if(event.target.classList.contains("interactivityBox")){
+    if(event.target.classList.contains("interactionTypeBox")){
         draggedInteraction = event.target;
         draggedInteraction.style.opacity = .5;
     }
@@ -1169,7 +1169,7 @@ document.addEventListener("dragstart", (event) => {
 
 // allow dropping of interactivities
 document.addEventListener("dragover", (event) => {
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened())
+    if (draggedInteraction != null && draggedInteraction.classList.contains("interactionTypeBox") && session.scenarioOpened())
         event.preventDefault();
 }, false);
 
@@ -1180,7 +1180,7 @@ document.addEventListener("drop", (event) => {
 
     droppedTo = event.target;
 
-    if (draggedInteraction != null && draggedInteraction.classList.contains("interactivityBox") && session.scenarioOpened()) {
+    if (draggedInteraction != null && draggedInteraction.classList.contains("interactionTypeBox") && session.scenarioOpened()) {
         draggedInteraction.style.opacity = 1;
         event.preventDefault();
         if (droppedTo.classList.contains('p5Canvas')) {
