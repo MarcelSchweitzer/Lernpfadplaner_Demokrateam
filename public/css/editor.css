@@ -353,6 +353,34 @@
   width: 90%;
 }
 
+.interactivityItem {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.btn-outline-secondary {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.btn-outline-secondary img {
+  display: block;
+  height: 23px;
+  padding: 0 4px 0 0;
+  width: 23px;
+}
+
+.input-group-append button {
+  width: 40px;
+}
+
 header {
   top: 0;
 }

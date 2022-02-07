@@ -13,7 +13,11 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* following modal classes are used in multiple .ejs files to modify elements of modals */
+* {
+  box-sizing: border-box;
+}
+
+/* following modal classes are used in multiple .ejs files */
 .modal-content-big {
   font-size: 20px;
   font-weight: 500;
@@ -28,65 +32,19 @@ body::-webkit-scrollbar {
   margin: 0 auto;
 }
 
-/* */
-
-.infoData {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.btn-light {
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
 }
 
-.dropDiv {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 120px;
+.row {
+  margin: 5px;
+}
+
+.space {
+  height: 100px;
   width: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-#main {
-  min-height: 100vh;
-  position: relative;
-}
-
-.image-cover {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-}
-
-.image-cover img {
-  width: 200%;
-}
-
-.sub-menu {
-  font-size: 14px;
-  padding: 40px 0 0 40px;
-}
-
-.info-box {
-  background-color: #f7f7f7;
-  border: 1px solid #f7f7f7;
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin: 15% 0 0 25%;
-  width: 400px;
-}
-
-.box-title h3 {
-  padding: 30px 20px 0 20px;
-  text-align: center;
-}
-
-.box-title p {
-  justify-content: center;
-  padding: 15px 20px 0 20px;
-  text-align: center;
 }
 
 .cover-background {
@@ -102,6 +60,125 @@ body::-webkit-scrollbar {
   right: 0;
   top: 0;
   z-index: -1;
+}
+
+.col-md-6 {
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dashIcon {
+  display: block;
+  height: 100%;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  width: 100%;
+}
+
+.btn {
+  border-radius: 50px !important;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: 0.2s;
+  width: 200px;
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+/* following elements are used for designing index.ejs */
+
+#main {
+  min-height: 100vh;
+  position: relative;
+}
+
+
+/* following elements are used for designing parts of the in index.ejs included pleaseRotate script */
+
+#pleaserotate-graphic {
+  fill: #000;
+}
+
+#pleaserotate-backdrop {
+  background-color: #fff;
+  color: #000;
+}
+
+/* following elements are used for designing dashboard.ejs */
+
+.tbBtn {
+  border-radius: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+td,
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.lpTable {
+  width: 100%;
+}
+
+.fileDrop {
+  height: 50%;
+  margin: 0;
+  opacity: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  width: 80%;
+}
+
+.form {
+  /* position: absolute; */
+  border: 4px dashed #fff;
+  height: 50px;
+  width: 100%;
+}
+
+.form p {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding-top: 3.5%;
+  text-align: center;
+  width: 100%;
+}
+
+.dropImg {
+  height: 45px;
+  width: 45px;
+}
+
+.infoData {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dropDiv {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 120px;
+  width: 100%;
 }
 
 .start-btn {
@@ -134,341 +211,22 @@ body::-webkit-scrollbar {
   text-decoration: none;
 }
 
-.profile-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  min-height: fit-content;
-  text-align: center;
-}
-
-.profile-parent {
-  align-items: center;
-  color: aliceblue;
-  display: flex;
-}
-
-.profile-details-name {
-  font-family: Arial;
-  font-size: 24px;
-}
-
-.profile-details-role {
-  display: flex;
-  flex-direction: column;
-  margin: 14px 0 24px 0;
-}
-
-.profile-details-role h1 {
-  font-family: Arial;
-  font-size: 40px;
-}
-
-.primary-btn a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.primary-btn a:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-.primary-test {
-  color: #fff;
-}
-
-.highlighted-test {
-  color: orange;
-}
-
-.profile-role-tagline {
-  font-size: 19px;
-  margin: 5px 0 0 0;
-}
-
-header {
-  background-color: #f7f7f7;
-  box-shadow: 0 8px 6px -6px rgba(83, 83, 83, 0.473);
-  height: 40px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-.headerText {
-  color: #000;
-  font-size: 12px;
-}
-
-#usernameText:hover {
-  color: #5bb9fc;
-}
-
-.settings-icon {
-  float: left;
-  height: 20px;
-  width: 3%;
-}
-
-.user {
-  background-color: red;
-  border-radius: 10px;
-  padding: 5px 10px;
-}
-
-.colz-icon {
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.colz-icon a img {
-  cursor: pointer;
-}
-
-.col-md-6 {
-  margin: 0;
-  padding: 0;
-}
-
 .history {
   height: 100%;
   margin-top: 50px;
-}
-
-.card {
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.welcome {
-  align-items: center;
-  justify-content: center;
-}
-
-.welcomeItem {
-  justify-content: center;
 }
 
 .lpTableDiv {
   min-height: 200px;
 }
 
-.top-name {
-  padding: 8px;
-}
 .tableBtn button {
   border-radius: 50%;
   margin-left: 5px;
 }
 
-.space {
-  height: 100px;
-  width: 100%;
-}
 
-footer {
-  background-color: transparent;
-  bottom: 0;
-  clear: both;
-  color: #000;
-  font-size: 14px;
-  left: 0;
-  padding: 8px 0 8px 8px;
-  position: relative;
-  width: 100%;
-  z-index: 9999;
-}
-
-footer a {
-  color: #000;
-  padding-left: 15px;
-}
-
-footer a:hover {
-  color: #000;
-  text-decoration: none;
-}
-
-.footer-parent {
-  display: flex;
-  height: 17.8%;
-  justify-content: center;
-  overflow: hidden;
-  width: 100%;
-}
-
-.footer-img {
-  height: 100%;
-  max-width: 1920px;
-  width: 100%;
-}
-
-.dropImg {
-  height: 45px;
-  width: 45px;
-}
-
-.footer-img img {
-  bottom: 0;
-  height: 130px;
-  max-width: 100%;
-  position: absolute;
-}
-
-.sidebar {
-  width: 25%;
-}
-
-.center-part {
-  width: 50%;
-}
-
-.btn {
-  border-radius: 50px !important;
-  cursor: pointer;
-  display: block;
-  margin: 0 auto;
-  transition: 0.2s;
-  width: 200px;
-}
-
-.btn:active {
-  transform: translateY(2px);
-}
-
-.primary-btn {
-  background-color: #1f2235 !important;
-  border: 2px solid linen !important;
-  color: #fff;
-  display: block !important;
-  font-size: 12px;
-  margin: 60px auto !important;
-}
-
-.primary-btn:hover {
-  background-color: #1f2235 !important;
-  border: 2px solid #ff5823 !important;
-  color: aliceblue !important;
-}
-
-.form {
-  /* position: absolute; */
-  border: 4px dashed #fff;
-  height: 50px;
-  width: 100%;
-}
-
-.form p {
-  align-items: center;
-  color: #fff;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  padding-top: 3.5%;
-  text-align: center;
-  width: 100%;
-}
-
-.fileDrop {
-  height: 50%;
-  margin: 0;
-  opacity: 0;
-  outline: none;
-  padding: 0;
-  position: absolute;
-  width: 80%;
-}
-
-.btn-outline-secondary {
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 4px !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 4px !important;
-}
-
-.btn-outline-secondary:hover {
-  background-color: #fff !important;
-  color: #000;
-}
-
-.btn-outline-secondary img {
-  display: block;
-  height: 23px;
-  padding: 0 4px 0 0;
-  width: 23px;
-}
-
-.input-group-append button {
-  width: 40px;
-}
-
-.sub {
-  color: #fff !important;
-  cursor: pointer;
-  padding: 14px 0;
-  transition: 0.2s;
-  width: 200px;
-}
-
-.sub:active {
-  transform: translateY(2px);
-}
-
-.row {
-  margin: 5px;
-}
-
-.lpTable {
-  width: 100%;
-}
-
-.btn-light {
-  background-color: transparent;
-  border: 1px solid black;
-  color: black;
-}
-
-.modalButtons {
-  justify-content: center;
-  text-align: center;
-}
-
-.modalBtn {
-  justify-content: center;
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
-#pleaserotate-graphic {
-  fill: #000;
-}
-
-#pleaserotate-backdrop {
-  background-color: #fff;
-  color: #000;
-}
-
-td,
-th {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.tbBtn {
-  border-radius: 40px;
-  max-width: 40px;
-  max-height: 40px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.interactivityItem {
-  height: -moz-fit-content;
-  height: fit-content;
-}
+/* everything around overlay is used in editor.ejs and dashboard.ejs to depict the treegraph */
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.9);
@@ -510,56 +268,55 @@ th {
   top: 20px;
 }
 
-.node {
-  cursor: pointer;
+/* following elements are used for designing footer.ejs */
+
+footer {
+  background-color: transparent;
+  bottom: 0;
+  clear: both;
+  color: #000;
+  font-size: 14px;
+  left: 0;
+  padding: 8px 0 8px 8px;
+  position: relative;
+  width: 100%;
+  z-index: 9999;
 }
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
+footer a {
+  color: #000;
+  padding-left: 15px;
 }
 
-.node text {
-  font: 12px verdana;
-  stroke: white;
+footer a:hover {
+  color: #000;
+  text-decoration: none;
 }
 
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
-
-.dashIcon {
-  display: block;
-  height: 100%;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
+.footer-parent {
+  display: flex;
+  height: 17.8%;
+  justify-content: center;
+  overflow: hidden;
   width: 100%;
 }
 
-.hoverBtnWrap {
-  display: inline-block;
-  position: relative;
+/* following elements are used for designing the header.ejs */
+
+header {
+  background-color: #f7f7f7;
+  box-shadow: 0 8px 6px -6px rgba(83, 83, 83, 0.473);
+  height: 40px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
-.img-hover {
-  display: none;
-}
-
-.img-no-hover {
-  display: inline;
-}
-
-.hoverBtnWrap:hover .img-hover {
-  display: inline;
-}
-
-.hoverBtnWrap:hover .img-no-hover {
-  display: none;
+.headerText {
+  color: #000;
+  font-size: 12px;
 }
 
 .headerButtonImg {
@@ -584,11 +341,6 @@ th {
   width: 300px;
 }
 
-.userMessageDiv {
-  justify-content: center;
-  width: auto;
-}
-
 .headerButtonsRight {
   display: flex;
   justify-content: end;
@@ -596,6 +348,64 @@ th {
   padding-right: 0;
   width: 150px;
 }
+
+.userMessageDiv {
+  justify-content: center;
+  width: auto;
+}
+
+.hoverBtnWrap {
+  display: inline-block;
+  position: relative;
+}
+
+.img-hover {
+  display: none;
+}
+
+.img-no-hover {
+  display: inline;
+}
+
+.hoverBtnWrap:hover .img-hover {
+  display: inline;
+}
+
+.hoverBtnWrap:hover .img-no-hover {
+  display: none;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.downloadButtons {
+  justify-content: center;
+  text-align: center;
+}
+
+.downloadBtn {
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#usernameText:hover {
+  color: #5bb9fc;
+}
+
+.colz-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.colz-icon a img {
+  cursor: pointer;
+}
+
+/* following elements are used for designing landing.ejs */
 
 .landing {
   align-items: center;
@@ -606,6 +416,10 @@ th {
 .transparent {
   background-color: transparent;
   border: none;
+}
+
+.landingArea img:hover {
+  animation: myAnim 2s ease 1 normal forwards;
 }
 
 @keyframes myAnim {
@@ -636,13 +450,6 @@ th {
   }
 }
 
-/* following elements are only used for landing.ejs */
-
-.landingArea img:hover {
-  animation: myAnim 2s ease 1 normal forwards;
-}
-
-/* with the circle class and its elements white moving squares are created in the background of the landing page */
 .circles {
   height: 100%;
   left: 0;
@@ -754,6 +561,61 @@ th {
   }
 }
 
+.primary-btn {
+  background-color: #1f2235 !important;
+  border: 2px solid linen !important;
+  color: #fff;
+  display: block !important;
+  font-size: 12px;
+  margin: 60px auto !important;
+}
+
+.primary-btn:hover {
+  background-color: #1f2235 !important;
+  border: 2px solid #ff5823 !important;
+  color: aliceblue !important;
+}
+
+.primary-btn a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.primary-btn a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.image-cover {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.image-cover img {
+  width: 200%;
+}
+
+.info-box {
+  background-color: #f7f7f7;
+  border: 1px solid #f7f7f7;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 15% 0 0 25%;
+  width: 400px;
+}
+
+.box-title h3 {
+  padding: 30px 20px 0 20px;
+  text-align: center;
+}
+
+.box-title p {
+  justify-content: center;
+  padding: 15px 20px 0 20px;
+  text-align: center;
+}
+
 /* modifications for smaller displays via mediascreen */
 
 @media screen and (max-width: 1024px) {
@@ -771,11 +633,6 @@ th {
     padding: 11px 0;
     width: 140px;
     z-index: 700;
-  }
-
-  .footer-img {
-    align-items: flex-end;
-    display: flex;
   }
 
   .headerText {
@@ -853,14 +710,6 @@ th {
 
   .form {
     margin: 10% 0;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .center-part {
-    width: 100%;
   }
 }
 

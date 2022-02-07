@@ -1,45 +1,48 @@
 <header>
-    <div class="headerWrap">
-        <div class="headerButtonsLeft" id="headerButtonsLeft">
-            <div class="hoverBtnWrap">
-              <img type="image" class="button headerButtonImg img-no-hover" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg" alt="zumDashboard">
-              <img type="image" class="button headerButtonImg img-hover" id="homeBtn" src="img/favicon/favicon-round-hover.svg" alt="home.svg" alt="zumDashboard">
-            </div>
-            <div class="hoverBtnWrap">
-              <img type="image" class="button headerButtonImg img-no-hover" id="userSettingsBtn" src="img/user.svg" alt="user.svg" alt="userSettings">
-              <img type="image" class="button headerButtonImg img-hover" id="userSettingsBtn" src="img/user-hover.svg" alt="user.svg" alt="userSettings">
-            </div>
-            <a href="#" id="usernameText" class="button headerText">
-              <%= data.nickname %>
-            </a>
-        </div>
-        <div class="userMessageDiv" id="userMessageDiv">
-          <a href="#" id="userMessage" class="headerText"></a> 
-        </div>
-        <div class="headerButtonsRight" id="headerButtonsRight">
-            <div class="colz-icon">
+  <div class="headerWrap">
+      <div class="headerButtonsLeft" id="headerButtonsLeft">
+          <!--button to go to the dashboard-->
+          <div class="hoverBtnWrap">
+            <img type="image" class="button headerButtonImg img-no-hover" id="homeBtn" src="img/favicon/favicon-round.svg" alt="home.svg" alt="zumDashboard">
+            <img type="image" class="button headerButtonImg img-hover" id="homeBtn" src="img/favicon/favicon-round-hover.svg" alt="home.svg" alt="zumDashboard">
+          </div>
+          <!--button to go to the user settings-->
+          <div class="hoverBtnWrap">
+            <img type="image" class="button headerButtonImg img-no-hover" id="userSettingsBtn" src="img/user.svg" alt="user.svg" alt="userSettings">
+            <img type="image" class="button headerButtonImg img-hover" id="userSettingsBtn" src="img/user-hover.svg" alt="user.svg" alt="userSettings">
+          </div>
+          <!--the nickname of the user (if available their username otherwise a random name)-->
+          <a href="#" id="usernameText" class="button headerText">
+            <%= data.nickname %>
+          </a>
+      </div>
+      <div class="userMessageDiv" id="userMessageDiv">
+        <a href="#" id="userMessage" class="headerText"></a> 
+      </div>
+      <div class="headerButtonsRight" id="headerButtonsRight">
+          <div class="colz-icon">
+              <!--button to go to the lp settings - only availabe with an open learning path-->
+              <div class="hoverBtnWrap">
+                <img type="image" class="button headerButtonImg img-no-hover" id="lpSettingsBtn" src="img/settings.svg" alt="settings" style="visibility:hidden"> 
+                <img type="image" class="button headerButtonImg img-hover" id="lpSettingsBtnHover" src="img/settings-hover.svg" alt="settings" style="visibility:hidden"> 
+              </div> 
+              <!--button to download either the open learning path or - with none open - all learning paths-->
+              <div class="hoverBtnWrap" data-toggle="modal" data-target="#downloadPop">
+                  <img class="button headerButtonImg img-no-hover" src="img/download-header.svg" alt="download">
+                  <img class="button headerButtonImg img-hover" src="img/download-header-hover.svg" alt="download">
+              </div>
+              <!--button to got to the repository of the webapplication on git hub-->
+              <div class="hoverBtnWrap">
+                <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-no-hover" src="img/github.svg" alt="github"></a> 
+                <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-hover" src="img/github-hover.svg" alt="github"></a>
+              </div>
 
-                <div class="hoverBtnWrap">
-                  <!--<a href="#">-->
-                  <img type="image" class="button headerButtonImg img-no-hover" id="lpSettingsBtn" src="img/settings.svg" alt="settings" style="visibility:hidden"> 
-                  <img type="image" class="button headerButtonImg img-hover" id="lpSettingsBtnHover" src="img/settings-hover.svg" alt="settings" style="visibility:hidden"> 
-                </div> 
-
-                <div class="hoverBtnWrap" data-toggle="modal" data-target="#downloadPop">
-                  <!--<a href="#" data-toggle="modal" data-target="#downloadPop">-->     
-                    <img class="button headerButtonImg img-no-hover" src="img/download-header.svg" alt="download">
-                    <img class="button headerButtonImg img-hover" src="img/download-header-hover.svg" alt="download">
-                </div>
-
-                <div class="hoverBtnWrap">
-                  <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-no-hover" src="img/github.svg" alt="github"></a> 
-                  <a href="https://github.com/MarcelSchweitzer/Lernpfadplaner_Demokrateam"><img type="link" class="button headerButtonImg img-hover" src="img/github-hover.svg" alt="github"></a>
-                </div>
-
-            </div>
-        </div>
-    </div>
+          </div>
+      </div>
+  </div>
 </header>
+
+<!--modal to chose in which format the data should be downloaded-->
 <div class="modal fade" id="downloadPop" tabindex="-1" role="dialog" aria-labelledby="downloadPopLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -49,9 +52,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body modalButtons">
-          <button type="button" id="downloadButton" class="btn btn-light modalBtn">JSON</button>
-          <button type="button" id="exportButton" disabled ="true" class="btn btn-light modalBtn" data-dismiss="modal">PDF</button>
+      <div class="modal-body downloadButtons">
+          <button type="button" id="downloadButton" class="btn btn-light downloadBtn">JSON</button>
+          <!--the PDF download button is only available during an open editor-->
+          <button type="button" id="exportButton" disabled ="true" class="btn btn-light downloadBtn" data-dismiss="modal">PDF</button>
       </div>
     </div>
   </div>

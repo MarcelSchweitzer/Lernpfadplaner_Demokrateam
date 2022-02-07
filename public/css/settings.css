@@ -123,6 +123,10 @@ this css is only used in settings.ejs, lpSettings.ejs and userSettings.ejs*/
   width: 80%;
 }
 
+.top-name {
+  padding: 8px;
+}
+
 /*used in settings.ejs*/
 .saveBtnDiv {
   margin-top: 50px;
