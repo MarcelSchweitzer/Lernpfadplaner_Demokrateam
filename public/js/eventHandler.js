@@ -966,7 +966,7 @@ document.addEventListener('input', (event) => {
         }
     }
     
-    else if (id == 'lpTitleInput') {
+    else if (id == 'scenarioTitleInput') {
         updateLpProperty('title', input.value);
     } 
     
@@ -976,8 +976,8 @@ document.addEventListener('input', (event) => {
         });
     } 
     
-    else if (classes.contains('lpTitleInput')) {
-        scenarioIndex = id.replaceAll('lpTitleInput', '');
+    else if (classes.contains('scenarioTitleInput')) {
+        scenarioIndex = id.replaceAll('scenarioTitleInput', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'title');
     } 
     
@@ -991,8 +991,8 @@ document.addEventListener('input', (event) => {
         updateLpProperty('scenarios', input.value, scenarioIndex, 'learningGoal');
     }
 
-    else if (classes.contains('lpNote')) {
-        scenarioIndex = id.replaceAll('lpNote', '');
+    else if (classes.contains('scenarioNote')) {
+        scenarioIndex = id.replaceAll('scenarioNote', '');
         updateLpProperty('scenarios', input.value, scenarioIndex, 'note');
     }
 

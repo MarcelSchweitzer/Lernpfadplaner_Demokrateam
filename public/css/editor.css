@@ -6,8 +6,7 @@ this css is only used in editor.ejs*/
 .sidepanel {
   background-color: #f7f7f7;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0,
-    rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
   height: 35vh;
   margin-top: 60px;
   overflow: hidden;
@@ -21,14 +20,9 @@ this css is only used in editor.ejs*/
 }
 
 .sidepanel-second {
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0,
-    rgba(0, 0, 0, 0.06) 0 1px 2px 0;
   height: 50vh;
   margin-top: 20px;
   overflow: scroll;
-  padding-bottom: 20px;
 }
 
 .HeaderInModal {
@@ -59,7 +53,7 @@ this css is only used in editor.ejs*/
   opacity: 1;
 }
 
-.lpNotes {
+.notes {
   background-image: url(/img/post-it.png);
   background-size: cover;
   box-sizing: content-box;
@@ -140,6 +134,98 @@ this css is only used in editor.ejs*/
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
+.p5Canvas {
+  height: 100%;
+  width: 100%;
+}
+
+.scenarioContr {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.scenarioTitleInput {
+  margin-right: 22px;
+}
+
+.scenarioHeaderInput {
+  width: 33%;
+}
+
+.scenarioControllWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.scenarioControlls {
+  padding: 10px;
+}
+
+.scenarioLeftControlls {
+  width: 70%;
+  justify-content: flex-start;
+}
+
+.scenarioRightControlls {
+  justify-content: flex-end;
+  height: 100%;
+  width: 30%;
+}
+
+.scenarioNote {
+  height: 100%;
+}
+
+.scenarioButtonWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.scenarioBtn {
+  height: 30px;
+  margin-bottom: 10px;
+  width: 30%;
+}
+
+#resetZoomBtn {
+  justify-content: flex-start;
+}
+
+#fullScreenBtn {
+  justify-content: flex-end;
+}
+
+#fullScreenWrap {
+  position: absolute;
+  z-index: 9999;
+}
+
+.canvasBtn {
+  display: none;
+}
+
+hr.rounded {
+  border-radius: 5px;
+  border-top: 2px solid #bbb;
+}
+
+hr.dotted {
+  border-top: 3px dotted #bbb;
+}
+
+.accordionWrap {
+  display: flex;
+  padding-top: 10px;
+  width: 34%;
+}
+
+.rightScenarioHBtn {
+  height: 30px;
+}
+
 /* following elements are used for the interactivity settings section on the right of the editor */
 
 .coords {
@@ -162,10 +248,56 @@ this css is only used in editor.ejs*/
 .interactivityItem {
   display: inline-block;
   width: 80%;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .deleteIntBtn {
   width: 100%;
+}
+
+.btn-outline-secondary {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.btn-outline-secondary img {
+  display: block;
+  height: 23px;
+  padding: 0 4px 0 0;
+  width: 23px;
+}
+
+.input-group-append {
+  justify-content: flex-end;
+  width: 20%;
+}
+
+.input-group-append button {
+  width: 40px;
+}
+
+.matWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.materialUrl {
+  border-bottom-right-radius: 0 0;
+  border-top-right-radius: 0 0;
+  justify-content: flex-start;
+  width: 80%;
+}
+
+.copyBtnMaterialUrl {
+  border-color: rgb(82, 82, 82);
 }
 
 /* following elements are used for the interaction type section on the right of the editor*/
@@ -228,6 +360,15 @@ this css is only used in editor.ejs*/
   display: none;
 }
 
+.interactivityListElem {
+  border-radius: 10px;
+  height: auto;
+  margin: 5px 10px;
+  padding: 2px;
+  text-align: center;
+  width: 90%;
+}
+
 /* following elements are used for the learning path section on the left of the editor */
 
 .taxonomy-part {
@@ -254,18 +395,10 @@ this css is only used in editor.ejs*/
 .lpNotesModal {
   background-image: url(/img/post-it.png);
   background-size: cover;
-  height: 470px;
+  min-height: 470px;
 }
 
-.inputImg button {
-  background-color: #6da5f8;
-  color: white;
-  height: 38px;
-}
-
-.sidepanel {
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);
-}
+/* media screen */
 
 @media screen and (max-width: 575px) {
   .col-2 {
@@ -275,183 +408,4 @@ this css is only used in editor.ejs*/
   .col-8 {
     width: 100%;
   }
-}
-
-.scenarioContr {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.lpTitleInput {
-  margin-right: 22px;
-}
-
-.scenarioHeaderInput {
-  width: 33%;
-}
-
-.interactivityListElem {
-  border-radius: 10px;
-  height: auto;
-  margin: 5px 10px;
-  padding: 2px;
-  text-align: center;
-  width: 90%;
-}
-
-.interactivityItem {
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
-.btn-outline-secondary {
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 4px !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 4px !important;
-}
-
-.btn-outline-secondary:hover {
-  background-color: #fff !important;
-  color: #000;
-}
-
-.btn-outline-secondary img {
-  display: block;
-  height: 23px;
-  padding: 0 4px 0 0;
-  width: 23px;
-}
-
-.input-group-append button {
-  width: 40px;
-}
-
-header {
-  top: 0;
-}
-
-.node {
-  cursor: pointer;
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-
-.node text {
-  font: 12px sans-serif;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
-
-.tab {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  overflow: hidden;
-}
-
-.scenarioControllWrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-.scenarioControlls {
-  padding: 10px;
-}
-
-.scenarioLeftControlls {
-  width: 70%;
-  justify-content: flex-start;
-}
-
-.scenarioRightControlls {
-  justify-content: flex-end;
-  height: 100%;
-  width: 30%;
-}
-
-.lpNote {
-  height: 100%;
-}
-
-.matWrap {
-  display: flex;
-  justify-content: center;
-}
-
-.materialUrl {
-  border-bottom-right-radius: 0 0;
-  border-top-right-radius: 0 0;
-  justify-content: flex-start;
-  width: 80%;
-}
-
-.input-group-append {
-  justify-content: flex-end;
-  width: 20%;
-}
-
-.copyBtnMaterialUrl {
-  border-color: rgb(82, 82, 82);
-}
-
-.scenarioButtonWrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.scenarioBtn {
-  height: 30px;
-  margin-bottom: 10px;
-  width: 30%;
-}
-
-#resetZoomBtn {
-  justify-content: flex-start;
-}
-
-#fullScreenBtn {
-  justify-content: flex-end;
-}
-
-#fullScreenWrap {
-  position: absolute;
-  z-index: 9999;
-}
-
-.canvasBtn {
-  display: none;
-}
-
-hr.rounded {
-  border-radius: 5px;
-  border-top: 2px solid #bbb;
-}
-
-hr.dotted {
-  border-top: 3px dotted #bbb;
-}
-
-.accordionWrap {
-  display: flex;
-  padding-top: 10px;
-  width: 34%;
-}
-
-.rightScenarioHBtn {
-  height: 30px;
-}
-
-.setItemCenter {
-  width: 400px;
 }

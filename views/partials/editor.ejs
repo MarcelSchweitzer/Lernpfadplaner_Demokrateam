@@ -66,7 +66,7 @@
                     <div class="note-part">
                         <hr>
                         <div class="note" >
-                            <textarea class="form-control lpNotes" id="lpNotes"><%=data.learningPath.notes%></textarea>
+                            <textarea class="form-control notes" id="lpNotes"><%=data.learningPath.notes%></textarea>
                             <div class="noteMaximize">
                                 <a href="#" data-toggle="modal" data-target="#noteModal">
                                     <img class="img-fluid button" src="img/maximize.png" alt="vergrößern">
@@ -149,7 +149,7 @@
                             <h5 class="mb-0">
                                 <div class="scenarioContr">
                                     <!--the name of the scenario can be changed-->
-                                    <input type="text" onSubmit="return false;" class="form-control lpTitleInput scenarioHeaderInput" id="lpTitleInput<%= count %>" value="<%= sc.title %>">
+                                    <input type="text" onSubmit="return false;" class="form-control scenarioTitleInput scenarioHeaderInput" id="scenarioTitleInput<%= count %>" value="<%= sc.title %>">
                                     <!--a button to select / deselect and open / close the scenario-->
                                     <button class="btn btn-link openScenario scenarioHeaderInput" data-toggle="collapse" id="openScenario<%= count %>" aria-expanded="<%= lastScenario %>" aria-controls="collapse<%= count %>">
                                         <img <%if(lastScenario){%> src="./img/arrows-collapse.svg" <%} else {%> src="./img/arrows-fullscreen.svg"<%}%>" id="openScenario<%= count %>Img" alt="script" class="script openScenarioImg">
@@ -201,8 +201,8 @@
                                     <!--notes can be changed-->
                                     <div class="scenarioControlls scenarioRightControlls">
                                         <div class="note" >
-                                            <label for="lpNote<%= count %>">Szenario-Notizen</label>
-                                            <textarea class="form-control lpNotes lpNote" id="lpNote<%= count %>"><%=sc.note%></textarea>
+                                            <label for="scenarioNote<%= count %>">Szenario-Notizen</label>
+                                            <textarea class="form-control notes scenarioNote" id="scenarioNote<%= count %>"><%=sc.note%></textarea>
                                         </div>
                                     </div>
                                 </div>
