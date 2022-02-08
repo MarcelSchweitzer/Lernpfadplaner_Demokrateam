@@ -15,18 +15,25 @@
 
 ## About
 
-The Lernpfadplaner (learning path planner) was created by 8 students of the University of Wuppertal, is based on an idea of [Dr. Heike Seehagen-Marx](https://www.seehagen-marx.de/) and has been greatly supported by [Dr. Marcel Schweitzer](https://www.hpc.uni-wuppertal.de/en/scientific-computing-and-high-performance-computing/members/dr-marcel-schweitzer.html).
+The "Prototyp Lernpfadplaner" (Prototype Learning Path Planner) is a programming exercise in the practical course on
+software technology at the [University of Wuppertal](https://www.uni-wuppertal.de/de/), in which the
+students independently develop software free of third party rights.
+The development takes place in an exemplary customer scenario.
+Questions about the code should be sent to lernpfadplaner-dev@gmail.com.
+
+The didactic design used in the "Prototyp Lernpfadplaner" © 
+[Ms. Dr. Heike Seehagen-Marx](https://www.seehagen-marx.de/) was provided experimentally in the context of the internship
+and offers a purely prototypical, not complete, designed by her, for planning learning paths with
+interactivities. Please direct questions about the holistic design, the use of the
+didactic design and development to the planned application to h.seehagen-marx@uni-wuppertal.de.
 
 The tool aims to enable educators to plan interactive learning media.
 
-A learning path is a project consisting of several scenarios.
+> A learning path is a project consisting of several scenarios.
 
-A scenario is represented by its material (which is specified by the material url).
-Interactivities such as a questions, quizes or other tasks can be arranged and provided with individual properties.
+> A scenario is represented by its material (which is specified by the material url). Interactivities such as a questions, quizes or other tasks can be arranged and provided with individual properties.
 
-Learning paths can be exported as JSON or PDF.
-
-JSON files can be imported via the dashboard page.
+> Learning paths can be exported as JSON or PDF. JSON files can be imported via the dashboard page.
 
 ### Style Guide
 
